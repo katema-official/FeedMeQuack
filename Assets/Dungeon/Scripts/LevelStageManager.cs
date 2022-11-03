@@ -11,6 +11,9 @@ namespace LevelStageNamespace
         //this script controls how many levels there are, how many stages there must be for each level, and
         //so on
 
+        public LevelSO Level1;
+
+
 
 
         // Start is called before the first frame update

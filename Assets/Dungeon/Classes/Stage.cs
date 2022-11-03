@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LevelStageNamespaces
+namespace LevelStageNamespace
 {
 
     public class Stage
