@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class a : MonoBehaviour
 {
+    public int Numero;
+
+    public int Numero1
+    {
+        get => Numero;
+        set => Numero = value;
+    }
+    
+    
     // Start is called before the first frame update
     void Start()
     {
