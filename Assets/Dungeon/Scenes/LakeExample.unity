@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 330828197}
   - component: {fileID: 330828198}
-  - component: {fileID: 330828199}
   m_Layer: 0
   m_Name: GoToTrueLake
   m_TagString: Untagged
@@ -166,18 +165,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22c65c816312e9a45ac919fbf38e89ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &330828199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330828196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89dcda98b0ed4564ea4b181a097d06a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &904436651
@@ -274,6 +261,7 @@ GameObject:
   m_Component:
   - component: {fileID: 968085755}
   - component: {fileID: 968085756}
+  - component: {fileID: 968085757}
   m_Layer: 0
   m_Name: LevelStageManagerObject
   m_TagString: Untagged
@@ -309,3 +297,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Level1: {fileID: 11400000, guid: 33a1fc404a3dd994480f0611009e65b6, type: 2}
+--- !u!114 &968085757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968085754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89dcda98b0ed4564ea4b181a097d06a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
