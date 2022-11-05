@@ -13,7 +13,7 @@ namespace LevelStageNamespace
 
         [SerializeField] public List<LevelSO> Levels;
 
-        private Dictionary<int, int> _numberOfStagesPerLevel; //<i,j> means: "level i has j stages in total"
+        private Dictionary<int, int> _numberOfStagesPerLevel = new Dictionary<int, int>(); //<i,j> means: "level i has j stages in total"
 
 
         private int _currentLevel;
@@ -27,7 +27,7 @@ namespace LevelStageNamespace
 
             for(int i = 1; i < Levels.Count + 1; i++)
             {
-                LevelSO level = Levels[i];
+                LevelSO level = Levels[i-1];
                 _numberOfStagesPerLevel.Add(i, level.Stages.Count);
             }
 
@@ -76,6 +76,10 @@ namespace LevelStageNamespace
                 _currentStage = 0;
                 GoToNextStage();
             }
+            else
+            {
+                Debug.Log("No more levels!!!");
+            }
             
 
         }
@@ -85,7 +89,7 @@ namespace LevelStageNamespace
             if (_currentStage < _numberOfStagesPerLevel[_currentLevel]) //if in this level there is a next stage...
             {
                 _currentStage += 1;
-                GenerateStage();
+                _currentStageBitMap = GenerateDungeonClass.GenerateStage(GetStage(GetLevel(_currentLevel), _currentStage));
             }
             else
             {
@@ -98,14 +102,13 @@ namespace LevelStageNamespace
         //#######################################################################################################################################################
         //#######################################################################################################################################################
         //#######################################################################################################################################################
+
+
         
-        private void GenerateStage()
-        {
-            //this method needs to generate the current stage.
-            StageSO stageDescription = GetStage(GetLevel(_currentLevel), _currentStage);
+        private bool[,] _currentStageBitMap;
+        //private LakeDescriptionSO[,] _currentStageMap = new LakeDescriptionSO[,];    //I think these numbers are big enough for whatever map we might come up with
 
-
-        }
+        
 
 
     }

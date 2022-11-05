@@ -16,3 +16,9 @@ MonoBehaviour:
   MaxNumberOfLakes: 5
   ProbabilityOfMediumLake: 0.1
   ProbabilityOfBigLake: 0
+  MinNumberOfBreadPerLake: 0
+  MaxNumberOfBreadPerLake: 0
+  ProbabilitiesOfBread:
+  - 0.8
+  - 0.2
+  - 0

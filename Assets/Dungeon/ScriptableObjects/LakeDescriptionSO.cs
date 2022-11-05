@@ -18,7 +18,11 @@ namespace LevelStageNamespace
         public int HasSouthRiver;
         public int HasWestRiver;
         public int HasEastRiver;
-        
+
+        public EnumsDungeon.LakeDimension Dimension;
+
+        public Dictionary<EnumsDungeon.BreadType, int> BreadToSpawnMap = new Dictionary<EnumsDungeon.BreadType, int>();
+
 
 
 

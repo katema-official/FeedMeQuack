@@ -44,9 +44,14 @@ namespace LevelStageNamespace {
         // Start is called before the first frame update
         void Start()
         {
-            var so = ScriptableObject.CreateInstance<StageSO>();
+            /*var so = ScriptableObject.CreateInstance<StageSO>();
             so.MinNumberOfLakes = 3;
             Debug.Log("hjnifsv = " + so.MinNumberOfLakes);
+            so.ProbabilitiesOfBread = new List<float>();
+            so.ProbabilitiesOfBread.Add(0.8f);
+            so.ProbabilitiesOfBread.Add(0.1f);
+            so.validate();
+            */
         }
 
         // Update is called once per frame
