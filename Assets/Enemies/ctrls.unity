@@ -237,8 +237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e00b19182aa36945aa4463759c9e154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeDirectionMaxValue: 90
-  changeDirectionCd: 1
+  steeringSpeedMaxValue: 90
+  steeringCd: 2
 --- !u!212 &2003164854
 SpriteRenderer:
   m_ObjectHideFlags: 0

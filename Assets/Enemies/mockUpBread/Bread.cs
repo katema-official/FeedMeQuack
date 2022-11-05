@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,5 +18,12 @@ public class Bread : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnCollisionEnter(Collision collision){
+        GameObject collGameObject = collision.gameObject;
+        if(collGameObject.GetComponent<enemyFSM>()==null) return;
+        enemyFSM enemyDuck = collGameObject.GetComponent<enemyFSM>();
+        enemyDuck.StartEatingBread(this.gameObject);
     }
 }
