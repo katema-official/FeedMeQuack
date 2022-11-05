@@ -5,7 +5,7 @@ using UnityEngine;
 namespace LevelStageNamespace
 {
     
-    [CreateAssetMenu(fileName = "New Stage", menuName = "Stage")]
+    [CreateAssetMenu(fileName = "New Stage", menuName = "StageSO")]
     public class StageSO : ScriptableObject
     {
         public int MinNumberOfLakes;
@@ -13,7 +13,7 @@ namespace LevelStageNamespace
         [Range(0f,1f)] public float ProbabilityOfMediumLake;
         [Range(0f,1f)] public float ProbabilityOfBigLake;
 
-        private int LastLake;   //must be a lakedescription, actually
+        //private int LastLake;   //must be a lakedescription, actually
 
 
     }

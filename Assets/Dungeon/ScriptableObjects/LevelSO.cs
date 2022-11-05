@@ -5,7 +5,7 @@ using UnityEngine;
 namespace LevelStageNamespace
 {
 
-    [CreateAssetMenu(fileName = "New Level", menuName = "Level")]
+    [CreateAssetMenu(fileName = "New Level", menuName = "LevelSO")]
     public class LevelSO : ScriptableObject
     {
         public List<StageSO> Stages;

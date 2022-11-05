@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Dungeon/Scenes/LakeSmall.unity
     guid: 37ef3562e6d7f3e44a80c898151ff78f
+  - enabled: 1
+    path: Assets/Dungeon/Scenes/StartRunLoading.unity
+    guid: d9b8f4d538a655f4bb241783601c97cb
   m_configObjects: {}

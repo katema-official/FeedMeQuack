@@ -17,7 +17,7 @@ public class GoToTrueLakeScript : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            SceneManager.LoadScene("LakeSmall");
+            SceneManager.LoadScene("StartRunLoading");
         }
     }
 }
