@@ -7,16 +7,18 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class enemyFSM : MonoBehaviour
+public class EnemyFSM : MonoBehaviour
 {
     /**
      * Quando si sta muovendo, ogni tot tempo, può cambiare la direzioni di un angolo minore di 90°. Quando atterra un pezzo di pane, rng per vedere se gli va
      * incontro
      */
     
-    private float _speed=6.0f, _mouthSize, _eatingSpeed, _steeringSpeed, _changeDirectionCd;
+    private float _speed=6.0f, _mouthSize, _eatingSpeed=1, _steeringSpeed, _changeDirectionCd;
 
     private int numColl = 0;
+
+    private Coroutine _steeringCoroutineVar, _movingCoroutineVar, _eatBreadCoroutine;
     
     [SerializeField] private float steeringSpeedMaxValue=90;
     [SerializeField] private float steeringCd=5f;
@@ -42,8 +44,8 @@ public class enemyFSM : MonoBehaviour
     }
 
     private void StartMovement(){
-        StartCoroutine(MovingCoroutine());
-        StartCoroutine(ChangingDirectionCoroutine());
+        _movingCoroutineVar= StartCoroutine(MovingCoroutine());
+        _steeringCoroutineVar= StartCoroutine(ChangingDirectionCoroutine());
     }
 
     private IEnumerator MovingCoroutine(){
@@ -55,15 +57,11 @@ public class enemyFSM : MonoBehaviour
     }
 
     private IEnumerator ChangingDirectionCoroutine(){
-        while (IsMoving()){
+        while (_state==ActionState.Roaming){
             yield return new WaitForSeconds(steeringCd);
             float rotationAngle = Random.Range(-steeringSpeedMaxValue / 2f, steeringSpeedMaxValue / 2f);
             _movingVector = Quaternion.AngleAxis(rotationAngle, Vector3.forward)* _movingVector;
         }
-    }
-
-    private void MoveToPoint(Vector2 pointToMoveTo){
-        
     }
 
     private bool IsMoving(){
@@ -89,9 +87,10 @@ public class enemyFSM : MonoBehaviour
     }
 
     private void ChangeState(ActionState newState){
+        Debug.Log("State: "+_state+" -> " +newState);
         if (_state == ActionState.Roaming) StopRoaming();
         if(_state == ActionState.Eating) StopCoroutine(EatBread(breadBeingEaten));
-        if(_state == ActionState.MovingToBread) StopCoroutine(MovingCoroutine());
+        if(_state == ActionState.MovingToBread) StopCoroutine(_movingCoroutineVar);
         switch (newState)
         {
             case ActionState.Chasing:
@@ -105,8 +104,10 @@ public class enemyFSM : MonoBehaviour
                 _state = ActionState.Dashing;
                 break;
             case ActionState.MovingToBread:
+                _state = ActionState.MovingToBread;
                 break;
             case ActionState.Eating:
+                StopRoaming();
                 _state = ActionState.Eating;
                 break;
             case ActionState.Stealing:
@@ -121,8 +122,8 @@ public class enemyFSM : MonoBehaviour
     }
 
     private void StopRoaming(){
-        StartCoroutine(MovingCoroutine());
-        StopCoroutine(ChangingDirectionCoroutine());
+        StopCoroutine(_movingCoroutineVar);
+        StopCoroutine(_steeringCoroutineVar);
     }
 
     public void StartStealingPassive(){
@@ -136,7 +137,6 @@ public class enemyFSM : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collider2D){ //forse devo fare collide piuttosto che trigger
-        numColl++;
         GameObject collidedWith = collider2D.gameObject;
         float distance = math.distance(collidedWith.transform.position, transform.position);
         float rand = Random.value;
@@ -153,9 +153,9 @@ public class enemyFSM : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D col){//todo: assummo che questo funzioni solo al contatto
+  /*  private void OnCollisionEnter2D(Collision2D col){//todo: assummo che questo funzioni solo al contatto
         StartEatingBread(col.gameObject);
-    }
+    }*/
 
     private void TargetBread(GameObject breadGameObject){
         numColl++;
@@ -175,16 +175,18 @@ public class enemyFSM : MonoBehaviour
         _movingVector=v1*_speed;*/
         Vector2 normalizedVector = NormalizeToMaxSpeed(direction);
         _movingVector = normalizedVector;
-        StartCoroutine(MovingCoroutine()); //todo fare in modo che ruoti gradualemente piuttosto che di colpo
+        _movingCoroutineVar=StartCoroutine(MovingCoroutine()); //todo fare in modo che ruoti gradualemente piuttosto che di colpo
         
-        ChangeState(ActionState.MovingToBread);//magari mettere nel switch case un metodo per fare roteare gradualmente verso la direzione del bread
+        StopCoroutine(_steeringCoroutineVar);
+        if(_state!=ActionState.MovingToBread)  ChangeState(ActionState.MovingToBread);
+        //magari mettere nel switch case un metodo per fare roteare gradualmente verso la direzione del bread
     }
 
     public void StartEatingBread(GameObject breadGameObject){
-        Debug.Log("SI MANGIA!");
+        //Debug.Log("SI MANGIA!");
         breadBeingEaten = breadGameObject;
         ChangeState(ActionState.Eating);
-        StartCoroutine(EatBread(breadGameObject));
+        _eatBreadCoroutine =StartCoroutine(EatBread(breadGameObject));
     }
 
     IEnumerator EatBread(GameObject breadGameObject){

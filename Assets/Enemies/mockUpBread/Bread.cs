@@ -20,10 +20,13 @@ public class Bread : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision){
-        GameObject collGameObject = collision.gameObject;
-        if(collGameObject.GetComponent<enemyFSM>()==null) return;
-        enemyFSM enemyDuck = collGameObject.GetComponent<enemyFSM>();
-        enemyDuck.StartEatingBread(this.gameObject);
+    private void OnTriggerEnter2D(Collider2D colliderDuck){
+        GameObject collGameObject = colliderDuck.gameObject;
+        if (collGameObject.GetComponent<EatBreadScript>() == null){
+        }
+        else{
+            EnemyFSM enemyDuck = collGameObject.GetComponentInParent<EnemyFSM>();
+            enemyDuck.StartEatingBread(this.gameObject);
+        }
     }
 }
