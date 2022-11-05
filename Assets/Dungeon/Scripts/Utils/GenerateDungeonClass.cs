@@ -46,8 +46,10 @@ namespace LevelStageNamespace
 
             //2) how many lakes do we need to generate, actually?
             int nLakes = Random.Range(currentStage.MinNumberOfLakes, currentStage.MaxNumberOfLakes + 1);
+            int totalNumberOfLakes = nLakes;
+
             nLakes -= 1;        //since we already fixed the initial room.
-            Debug.Log("[64,64] = " + currentStageBitMap[64, 64] + ", nLakes = " + nLakes);
+            //Debug.Log("[64,64] = " + currentStageBitMap[64, 64] + ", nLakes = " + nLakes);
 
             //3) now, to explain how we will generate the dungeon, let's use a metaphore:
             //there is a miner, that is inside a cave. He wants to find diamonds. Do to so, he wants to explore as much as possible
@@ -58,8 +60,8 @@ namespace LevelStageNamespace
             //So, let's define some parameters to do so. 
             int minStepsToWalkIfPossible = 2;         //arbitrary value
             int maxStepsToWalkIfPossible = 3;         //arbitrary value
-            int minRoomsToDig = 1;
-            int maxRoomsToDig = 3;
+            int minRoomsToDig = totalNumberOfLakes/8 + 1;
+            int maxRoomsToDig = totalNumberOfLakes/4 + 1;
 
             int currentX = startMapX;
             int currentY = startMapY;
