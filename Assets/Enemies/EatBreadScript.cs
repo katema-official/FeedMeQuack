@@ -19,7 +19,6 @@ public class EatBreadScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other){
         if(other.GetComponent<EnemyFSM>()!=null) return;
-        Debug.Log("Esisto");
         _fsmScript.StartEatingBread(other.gameObject);
     }
 }

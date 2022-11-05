@@ -5,6 +5,8 @@ using UnityEngine;
 public class SpawnBread : MonoBehaviour
 {
     [SerializeField] private GameObject breadPrefab;
+
+    public int CD, qty;
     // Start is called before the first frame update
     void Start(){
         StartCoroutine(SpawnBreadCoroutine());
@@ -17,9 +19,9 @@ public class SpawnBread : MonoBehaviour
     }
 
     IEnumerator SpawnBreadCoroutine(){
-        for (int i = 0; i < 5; i++){
+        for (int i = 0; i < qty; i++){
             GenerateBread();
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(CD);
         }
     }
 

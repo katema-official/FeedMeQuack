@@ -19,14 +19,4 @@ public class Bread : MonoBehaviour
     {
         
     }
-
-    private void OnTriggerEnter2D(Collider2D colliderDuck){
-        GameObject collGameObject = colliderDuck.gameObject;
-        if (collGameObject.GetComponent<EatBreadScript>() == null){
-        }
-        else{
-            EnemyFSM enemyDuck = collGameObject.GetComponentInParent<EnemyFSM>();
-            enemyDuck.StartEatingBread(this.gameObject);
-        }
-    }
 }
