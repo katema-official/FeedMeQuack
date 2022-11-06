@@ -16,33 +16,33 @@ namespace LevelStageNamespace
             Right
         };
 
+        private static int _mapDimensionX = 128;
+        private static int _mapDimensionY = 128;
+        private static int _startMapX = 64;
+        private static int _startMapY = 64;
 
-        public static bool[,] GenerateStage(StageSO currentStage)
+
+        public static bool[,] GenerateStageLayout(StageSO currentStage)
         {
 
             int randomSeed = (int)System.DateTime.Now.Ticks;
             Random.InitState(randomSeed);
 
             //this method needs to generate the current stage.
-            int mapDimensionX = 128;
-            int mapDimensionY = 128;
-            int startMapX = 64;
-            int startMapY = 64;
-
             //a stage is a spatially ordered collection of lakes. The lakes can be represented inside a matrix.
 
             //first of all, let's decide the way the map of the current stage is organized by using the bitmap.
             //0) we initialize the bitmap to false (there is no lake)
-            bool[,] currentStageBitMap = new bool[mapDimensionX, mapDimensionY];
-            for (int i = 0; i < mapDimensionX; i++)
+            bool[,] currentStageBitMap = new bool[_mapDimensionX, _mapDimensionY];
+            for (int i = 0; i < _mapDimensionX; i++)
             {
-                for (int j = 0; j < mapDimensionY; j++)
+                for (int j = 0; j < _mapDimensionY; j++)
                 {
                     currentStageBitMap[i, j] = false;   //false = WALL, true = EMPTY SPACE
                 }
             }
             //1) we always have an initial lake
-            currentStageBitMap[startMapX, startMapY] = true;
+            currentStageBitMap[_startMapX, _startMapY] = true;
 
             //2) how many lakes do we need to generate, actually?
             int nLakes = Random.Range(currentStage.MinNumberOfLakes, currentStage.MaxNumberOfLakes + 1);
@@ -63,8 +63,8 @@ namespace LevelStageNamespace
             int minRoomsToDig = totalNumberOfLakes/8 + 1;
             int maxRoomsToDig = totalNumberOfLakes/4 + 1;
 
-            int currentX = startMapX;
-            int currentY = startMapY;
+            int currentX = _startMapX;
+            int currentY = _startMapY;
 
             while (nLakes > 0)
             {
@@ -86,8 +86,8 @@ namespace LevelStageNamespace
                         //printDebugXY(currentX, currentY);
                     }
                     nLakes -= howMuchToDig;
-                    currentX = startMapX;
-                    currentY = startMapY;
+                    currentX = _startMapX;
+                    currentY = _startMapY;
                 }
                 else
                 {
@@ -182,6 +182,231 @@ namespace LevelStageNamespace
         }
 
 
+
+        //#######################################################################################################################################################
+        //#######################################################################################################################################################
+        //#######################################################################################################################################################
+        //#######################################################################################################################################################
+        //#######################################################################################################################################################
+
+
+        public static LakeDescriptionSO[,] GenerateStageWithActualLakeDescriptionSO(bool[,] bitMapDungeon, StageSO stageDescription)
+        {
+            LakeDescriptionSO[,] finalMap = new LakeDescriptionSO[_mapDimensionX, _mapDimensionY];
+
+            float farthestLength = 0f;
+            LakeDescriptionSO farthestLake = null;
+
+            //we just need to copy the bitmap. The main difference is that, instead of having "true"s and "false"s, we have
+            //LakeDescriptionSO, the datas of which are generated based on stageDescription
+            for(int i = 0; i < _mapDimensionX; i++)
+            {
+                for(int j = 0; j < _mapDimensionY; j++)
+                {
+                    if(bitMapDungeon[i,j] == false)
+                    {
+                        //there is no lake here
+                        finalMap[i,j] = null;
+                    }
+                    else
+                    {
+                        //we have to generate the lake.
+                        //if the lake is the starting one, let's remember it.
+                        //otherwise, let's see if the current room is the farthest from the initial room
+                        if(i == _startMapX && j == _startMapY)
+                        {
+                            finalMap[i,j] = createInitialLakeDescriptionSO();
+                        }
+                        else
+                        {
+                            finalMap[i,j] = createIntermediateLakeDescriptionSO(stageDescription);
+                            float x = Mathf.Abs(_startMapX - i);
+                            float y = Mathf.Abs(_startMapY - j);
+                            float dist = Mathf.Sqrt(Mathf.Pow(x, 2f) + Mathf.Pow(y, 2f));
+                            if(dist > farthestLength)
+                            {
+                                //we save the furthest room so we can then flag it as the final room
+                                farthestLake = finalMap[i,j];
+                            }
+                        }
+                    }
+                    //to set the adjacent rooms of the current room, we can use the bitmap
+                    if(bitMapDungeon[i, j - 1] == true)
+                    {
+                        finalMap[i, j].HasNorthRiver = true;
+                    }
+                    if (bitMapDungeon[i, j + 1] == true)
+                    {
+                        finalMap[i, j].HasSouthRiver = true;
+                    }
+                    if (bitMapDungeon[i - 1, j] == true)
+                    {
+                        finalMap[i, j].HasWestRiver = true;
+                    }
+                    if (bitMapDungeon[i + 1, j] == true)
+                    {
+                        finalMap[i, j].HasEastRiver = true;
+                    }
+                }
+            }
+            farthestLake._isFinalRoom = true;
+            return finalMap;
+
+        }
+
+
+        //function used to create the LakeDescriptionSO of the initial lake of the stage 
+        private static LakeDescriptionSO createInitialLakeDescriptionSO()
+        {
+            LakeDescriptionSO ret = ScriptableObject.CreateInstance<LakeDescriptionSO>();
+
+            ret.EnemiesToSpawnMap = null;
+            ret.Dimension = EnumsDungeon.LakeDimension.Small;   //let's assume that the initial lake is always small (it's not an absurd assumption)
+            ret.BreadToSpawnMap = null;
+            ret._isLakeCleared = true;      //by definition, the initial room is cleared
+            ret._isStartingRoom = true;        //and always by definition, is the starting room lol
+            ret._isFinalRoom = false;       
+
+            return ret;
+        }
+
+        //function used to create the LakeDescriptionSO of an intermediate stage (not the initial one basically)
+        private static LakeDescriptionSO createIntermediateLakeDescriptionSO(StageSO stageDescription)
+        {
+            LakeDescriptionSO ret = ScriptableObject.CreateInstance<LakeDescriptionSO>();
+
+            generateEnemiesForLake(ret, stageDescription);
+            decideLakeDimensionForLake(ret, stageDescription);
+            decideBreadToSpawnMapForLake(ret, stageDescription);
+
+            ret._isLakeCleared = false;
+            ret._isStartingRoom = false;
+
+
+            return ret;
+        }
+
+        /*private static LakeDescriptionSO createFinalLakeDescriptionSO(StageSO stageDescription)
+        {
+            LakeDescriptionSO ret = createIntermediateLakeDescriptionSO(stageDescription);
+            ret._isFinalRoom = true;
+            return ret;
+        }*/
+
+
+
+
+
+
+
+        private static void generateEnemiesForLake(LakeDescriptionSO lake, StageSO stageDescription)
+        {
+            //first, let's decide how many enemies there must be
+            int totNumberOfEnemies = Random.Range(stageDescription.MinNumberOfEnemiesPerLake, stageDescription.MaxNumberOfEnemiesPerLake + 1);
+            lake.EnemiesToSpawnMap.Add(EnumsDungeon.EnemyType.Mallard, 0);
+            lake.EnemiesToSpawnMap.Add(EnumsDungeon.EnemyType.Coot, 0);
+            lake.EnemiesToSpawnMap.Add(EnumsDungeon.EnemyType.Goose, 0);
+            lake.EnemiesToSpawnMap.Add(EnumsDungeon.EnemyType.Fish, 0);
+            lake.EnemiesToSpawnMap.Add(EnumsDungeon.EnemyType.Seagull, 0);
+
+            //then, let's set the minimum amount of enemies requested
+            lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Mallard] += stageDescription.MinNumberOfEachEnemy[(int)EnumsDungeon.EnemyType.Mallard];
+            totNumberOfEnemies -= lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Mallard];
+
+            lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Coot] += stageDescription.MinNumberOfEachEnemy[(int)EnumsDungeon.EnemyType.Coot];
+            totNumberOfEnemies -= lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Coot];
+
+            lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Goose] += stageDescription.MinNumberOfEachEnemy[(int)EnumsDungeon.EnemyType.Goose];
+            totNumberOfEnemies -= lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Goose];
+
+            lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Fish] += stageDescription.MinNumberOfEachEnemy[(int)EnumsDungeon.EnemyType.Fish];
+            totNumberOfEnemies -= lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Fish];
+
+            lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Seagull] += stageDescription.MinNumberOfEachEnemy[(int)EnumsDungeon.EnemyType.Seagull];
+            totNumberOfEnemies -= lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Seagull];
+
+            //we might still have some enemies to generate. Let's generate them randomly.
+            for(int j = 0; j < totNumberOfEnemies; j++)
+            {
+                float r = Random.Range(0f, 1f);
+                float accum = 0f;
+                int enemyChosenIndex = -1;
+                for (int i = 0; i < stageDescription.ProbabilitiesOfEnemies.Length; i++)
+                {
+                    accum += stageDescription.ProbabilitiesOfEnemies[i];
+                    if (r < accum)
+                    {
+                        enemyChosenIndex = i;
+                        break;
+                    }
+                }
+
+                EnumsDungeon.EnemyType enemyTypeChosen = (EnumsDungeon.EnemyType)enemyChosenIndex;
+                lake.EnemiesToSpawnMap[enemyTypeChosen]++;
+            }
+        }
+
+        private static void decideLakeDimensionForLake(LakeDescriptionSO lake, StageSO stageDescription)
+        {
+            float r = Random.Range(0f, 1f);
+            float accum = 0f;
+            int lakeDimensionChosenIndex = -1;
+            for (int i = 0; i < stageDescription.ProbabilitiesOfLake.Length; i++)
+            {
+                accum += stageDescription.ProbabilitiesOfLake[i];
+                if (r < accum)
+                {
+                    lakeDimensionChosenIndex = i;
+                    break;
+                }
+            }
+
+            switch (lakeDimensionChosenIndex)
+            {
+                case (int)EnumsDungeon.LakeDimension.Small:
+                    lake.Dimension = EnumsDungeon.LakeDimension.Small;
+                    break;
+                case (int)EnumsDungeon.LakeDimension.Medium:
+                    lake.Dimension = EnumsDungeon.LakeDimension.Medium;
+                    break;
+                case (int)EnumsDungeon.LakeDimension.Large:
+                    lake.Dimension = EnumsDungeon.LakeDimension.Large;
+                    break;
+                default:
+                    Debug.Log("wtf again you shouldn't be here");
+                    break;
+            }
+        }
+
+        private static void decideBreadToSpawnMapForLake(LakeDescriptionSO lake, StageSO stageDescription)
+        {
+            //first, let's decide hoe much bread do we want to spawn
+            int breadToSpawn = Random.Range(stageDescription.MinNumberOfBreadPerLake, stageDescription.MaxNumberOfBreadPerLake + 1);
+            lake.BreadToSpawnMap.Add(EnumsDungeon.BreadType.Small, 0);
+            lake.BreadToSpawnMap.Add(EnumsDungeon.BreadType.Medium, 0);
+            lake.BreadToSpawnMap.Add(EnumsDungeon.BreadType.Large, 0);
+
+            //generate, according to the given probability, the number of bread pieces of different kind to spawn
+            for (int j = 0; j < breadToSpawn; j++)
+            {
+                float r = Random.Range(0f, 1f);
+                float accum = 0f;
+                int breadTypeChosenIndex = -1;
+                for (int i = 0; i < stageDescription.ProbabilitiesOfBread.Length; i++)
+                {
+                    accum += stageDescription.ProbabilitiesOfBread[i];
+                    if (r < accum)
+                    {
+                        breadTypeChosenIndex = i;
+                        break;
+                    }
+                }
+
+                EnumsDungeon.BreadType breadTypeChosen = (EnumsDungeon.BreadType) breadTypeChosenIndex;
+                lake.BreadToSpawnMap[breadTypeChosen]++;
+            }
+
+        }
 
     }
 }

@@ -23,7 +23,7 @@ public class GoToTrueLakeScript : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
-            bool[,] bitMap = LevelStageNamespace.GenerateDungeonClass.GenerateStage(StageToTry);
+            bool[,] bitMap = LevelStageNamespace.GenerateDungeonClass.GenerateStageLayout(StageToTry);
             string row = "";
             for (int i = 55; i < 75; i++)
             {

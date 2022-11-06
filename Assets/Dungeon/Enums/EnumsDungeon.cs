@@ -20,14 +20,23 @@ namespace LevelStageNamespace
             Small,
             Medium,
             Large
-        }
+        };
 
         public enum BreadType
         {
             Small,
             Medium,
             Large
-        }
+        };
+
+        public enum EnemyType
+        {
+            Mallard,
+            Coot,
+            Goose,
+            Fish,
+            Seagull
+        };
 
     }
 

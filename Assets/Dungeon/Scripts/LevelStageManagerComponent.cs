@@ -84,12 +84,18 @@ namespace LevelStageNamespace
 
         }
 
+        private bool[,] _currentStageBitMap;
+        private LakeDescriptionSO[,] _currentStageMap;    //I think these numbers are big enough for whatever map we might come up with
+
         public void GoToNextStage()
         {
             if (_currentStage < _numberOfStagesPerLevel[_currentLevel]) //if in this level there is a next stage...
             {
                 _currentStage += 1;
-                _currentStageBitMap = GenerateDungeonClass.GenerateStage(GetStage(GetLevel(_currentLevel), _currentStage));
+                _currentStageBitMap = GenerateDungeonClass.GenerateStageLayout(GetStage(GetLevel(_currentLevel), _currentStage));
+                //we have the bitmap of this stage. Let's now get the actual stage description (a matrix of LakeDescriptionSO)
+                _currentStageMap = GenerateDungeonClass.GenerateStageWithActualLakeDescriptionSO(_currentStageBitMap, GetStage(GetLevel(_currentLevel), _currentStage));
+                
             }
             else
             {
@@ -105,8 +111,7 @@ namespace LevelStageNamespace
 
 
         
-        private bool[,] _currentStageBitMap;
-        //private LakeDescriptionSO[,] _currentStageMap = new LakeDescriptionSO[,];    //I think these numbers are big enough for whatever map we might come up with
+       
 
         
 

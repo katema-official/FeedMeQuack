@@ -14,11 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinNumberOfLakes: 4
   MaxNumberOfLakes: 5
-  ProbabilityOfMediumLake: 0.1
-  ProbabilityOfBigLake: 0
-  MinNumberOfBreadPerLake: 0
-  MaxNumberOfBreadPerLake: 0
+  ProbabilitiesOfLake:
+  - 0.9
+  - 0.1
+  - 0
+  MinNumberOfBreadPerLake: 4
+  MaxNumberOfBreadPerLake: 6
   ProbabilitiesOfBread:
   - 0.8
   - 0.2
   - 0
+  MinNumberOfEnemiesPerLake: 2
+  MaxNumberOfEnemiesPerLake: 4
+  ProbabilitiesOfEnemies:
+  - 0.9
+  - 0.1
+  - 0
+  - 0
+  - 0
+  MinNumberOfEachEnemy: 0100000000000000000000000000000000000000
