@@ -49,7 +49,6 @@ namespace LevelStageNamespace
             int totalNumberOfLakes = nLakes;
 
             nLakes -= 1;        //since we already fixed the initial room.
-            //Debug.Log("[64,64] = " + currentStageBitMap[64, 64] + ", nLakes = " + nLakes);
 
             //3) now, to explain how we will generate the dungeon, let's use a metaphore:
             //there is a miner, that is inside a cave. He wants to find diamonds. Do to so, he wants to explore as much as possible
@@ -109,12 +108,12 @@ namespace LevelStageNamespace
                     }
 
 
-
-
                 }
 
 
             }
+
+            debugGeneratedStageBitmap(currentStageBitMap);
 
             return currentStageBitMap;
 
@@ -197,6 +196,7 @@ namespace LevelStageNamespace
             float farthestLength = 0f;
             LakeDescriptionSO farthestLake = null;
 
+
             //we just need to copy the bitmap. The main difference is that, instead of having "true"s and "false"s, we have
             //LakeDescriptionSO, the datas of which are generated based on stageDescription
             for(int i = 0; i < _mapDimensionX; i++)
@@ -227,29 +227,35 @@ namespace LevelStageNamespace
                             {
                                 //we save the furthest room so we can then flag it as the final room
                                 farthestLake = finalMap[i,j];
+                                farthestLength = dist;
                             }
                         }
-                    }
-                    //to set the adjacent rooms of the current room, we can use the bitmap
-                    if(bitMapDungeon[i, j - 1] == true)
-                    {
-                        finalMap[i, j].HasNorthRiver = true;
-                    }
-                    if (bitMapDungeon[i, j + 1] == true)
-                    {
-                        finalMap[i, j].HasSouthRiver = true;
-                    }
-                    if (bitMapDungeon[i - 1, j] == true)
-                    {
-                        finalMap[i, j].HasWestRiver = true;
-                    }
-                    if (bitMapDungeon[i + 1, j] == true)
-                    {
-                        finalMap[i, j].HasEastRiver = true;
+
+                        //to set the adjacent rooms of the current room, we can use the bitmap
+                        if (bitMapDungeon[i - 1, j] == true)
+                        {
+                            finalMap[i, j].HasNorthRiver = true;
+                        }
+                        if (bitMapDungeon[i + 1, j] == true)
+                        {
+                            finalMap[i, j].HasSouthRiver = true;
+                        }
+                        if (bitMapDungeon[i, j - 1] == true)
+                        {
+                            finalMap[i, j].HasWestRiver = true;
+                        }
+                        if (bitMapDungeon[i, j + 1] == true)
+                        {
+                            finalMap[i, j].HasEastRiver = true;
+                        }
+
+                        debugGeneratedLake(finalMap[i, j], i, j);
+                        
                     }
                 }
             }
             farthestLake._isFinalRoom = true;
+            Debug.Log("farthest lake: " + farthestLake._isFinalRoom);
             return finalMap;
 
         }
@@ -281,6 +287,7 @@ namespace LevelStageNamespace
 
             ret._isLakeCleared = false;
             ret._isStartingRoom = false;
+            ret._isFinalRoom = false;
 
 
             return ret;
@@ -407,6 +414,50 @@ namespace LevelStageNamespace
             }
 
         }
+
+
+
+
+
+
+        private static void debugGeneratedLake(LakeDescriptionSO lake, int i, int j)
+        {
+            if(lake._isStartingRoom == true) { return; }
+            Debug.LogFormat("room [{0},{1}] has:\n" +
+                            "{2} mallards, {3} coots, {4} goose\n" +
+                            "northRiver: {5}, southRiver: {6}, westRiver: {7}, eastRiver: {8}\n" +
+                            "dimension: {9}\n" +
+                            "breadSmall: {10}, breadMedium: {11}, breadMedium: {12}\n", i, j,
+                            lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Mallard],
+                            lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Coot],
+                            lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Goose],
+                            lake.HasNorthRiver, lake.HasSouthRiver, lake.HasWestRiver, lake.HasEastRiver,
+                            lake.Dimension,
+                            lake.BreadToSpawnMap[EnumsDungeon.BreadType.Small], lake.BreadToSpawnMap[EnumsDungeon.BreadType.Medium], lake.BreadToSpawnMap[EnumsDungeon.BreadType.Large]);
+                            
+        }
+
+        private static void debugGeneratedStageBitmap(bool[,] bitmap)
+        {
+            string s = "";
+            for(int i = 55; i < 75; i++)
+            {
+                for(int j = 55; j < 75; j++)
+                {
+                    if(bitmap[i,j] == false)
+                    {
+                        s += "-";
+                    }
+                    else
+                    {
+                        s += "+";
+                    }
+                }
+                s += "\n";
+            }
+            Debug.Log(s);
+        }
+
 
     }
 }

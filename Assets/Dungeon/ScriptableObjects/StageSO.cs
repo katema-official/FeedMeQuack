@@ -42,13 +42,15 @@ namespace LevelStageNamespace
         public int[] MinNumberOfEachEnemy = new int[Enum.GetValues(typeof(EnumsDungeon.EnemyType)).Length];  //we assume that: MinNumberOfEachEnemy[0] = Mallard, MinNumberOfEachEnemy[1] = Coot, ...
         //this is possible since there is a corrispondence between the numbers between 0 and 4 and the values of the EnemyType enum.
 
+        public int BreadPointsRequiredToCompleteStage;
+
         public void validate()
         {
             float sum = 0f;
             for (int i = 0; i < ProbabilitiesOfLake.Length; i++)
             {
                 sum += ProbabilitiesOfLake[i];
-                Debug.Log("i = " + ProbabilitiesOfLake[i]);
+                //Debug.Log("i = " + ProbabilitiesOfLake[i]);
             }
             if (sum != 1f)
             {
@@ -59,7 +61,7 @@ namespace LevelStageNamespace
             for(int i = 0; i < ProbabilitiesOfBread.Length; i++)
             {
                 sum += ProbabilitiesOfBread[i];
-                Debug.Log("i = " + ProbabilitiesOfBread[i]);
+                //Debug.Log("i = " + ProbabilitiesOfBread[i]);
             }
             if(sum != 1f)
             {
@@ -70,7 +72,7 @@ namespace LevelStageNamespace
             for (int i = 0; i < ProbabilitiesOfEnemies.Length; i++)
             {
                 sum += ProbabilitiesOfEnemies[i];
-                Debug.Log("i = " + ProbabilitiesOfEnemies[i]);
+                //Debug.Log("i = " + ProbabilitiesOfEnemies[i]);
             }
             if (sum != 1f)
             {
@@ -92,6 +94,11 @@ namespace LevelStageNamespace
             {
                 Debug.Log("Error: the minimum number of enemies required exceeds the minimum number of enemies to spawn (could give problems)");
             }
+        }
+
+        private void OnEnable()
+        {
+            validate();
         }
 
     }

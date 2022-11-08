@@ -9,6 +9,7 @@ namespace LevelStageNamespace
     public class LevelSO : ScriptableObject
     {
         public List<StageSO> Stages;
+
     }
 
 

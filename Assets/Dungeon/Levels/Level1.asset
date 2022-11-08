@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Level1
   m_EditorClassIdentifier: 
   Stages:
-  - {fileID: 11400000, guid: 0b8a62cac2b88b244a435d389462b526, type: 2}
-  - {fileID: 11400000, guid: 9a3c8c949bed9ba42b20399ff118909c, type: 2}
-  - {fileID: 11400000, guid: 85b866e1792c3784bb15d90d3b5d598a, type: 2}
+  - {fileID: 11400000, guid: 75bb2ef00e5203a4a9f79cd97ff41aca, type: 2}
+  - {fileID: 11400000, guid: 3b459937b1a92e54ca9645aee4fd9c0f, type: 2}
+  - {fileID: 11400000, guid: 76b61d73d41c4a041b7cdcce6594871e, type: 2}

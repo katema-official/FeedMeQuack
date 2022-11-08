@@ -33,3 +33,4 @@ MonoBehaviour:
   - 0
   - 0
   MinNumberOfEachEnemy: 0100000000000000000000000000000000000000
+  BreadPointsRequiredToCompleteStage: 40

@@ -15,8 +15,8 @@ MonoBehaviour:
   MinNumberOfLakes: 4
   MaxNumberOfLakes: 5
   ProbabilitiesOfLake:
-  - 0.9
-  - 0.1
+  - 0.95
+  - 0.05
   - 0
   MinNumberOfBreadPerLake: 4
   MaxNumberOfBreadPerLake: 6
@@ -33,3 +33,4 @@ MonoBehaviour:
   - 0
   - 0
   MinNumberOfEachEnemy: 0100000000000000000000000000000000000000
+  BreadPointsRequiredToCompleteStage: 30
