@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
     private Transform _mouth = null;
 
     private bool _moveForward = false;
+    private float _rotationMovement = 0.0f;
+    private float _rotationSpeed = 90.0f;
+
     private float _speed = 0.0f;
     private PlayerState _state = PlayerState.Normal;
 
@@ -21,12 +24,33 @@ public class PlayerController : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
     }
 
     // Update is called once per frame
-    void Update()
-    {    
+    private void Update()
+    {
+        _moveForward = false;
+        _rotationMovement = 0;
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            _moveForward = true;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            _rotationMovement = _rotationSpeed;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            _rotationMovement = -_rotationSpeed;
+        }
+    }
+
+
+    private void FixedUpdate()
+    {
+        
     }
 }
