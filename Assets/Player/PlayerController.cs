@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
 
     private bool _moveForward = false;
     private float _speed = 0.0f;
+    private PlayerState _state = PlayerState.Normal;
+
 
     private void Awake()
     {
@@ -25,7 +27,6 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        
+    {    
     }
 }
