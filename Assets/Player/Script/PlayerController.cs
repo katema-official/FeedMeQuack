@@ -24,7 +24,9 @@ public class PlayerController : MonoBehaviour
         _rigidBody.MoveRotation(_rigidBody.rotation  + rotationMovement * Time.fixedDeltaTime);
     }
 
-
+    private void MoveCamera()
+    {
+    }
 
     private void Awake()
     {
