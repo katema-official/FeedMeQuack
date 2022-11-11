@@ -12,13 +12,25 @@ public class PlayerController : MonoBehaviour
     private float _rotationMovement = 0.0f;
     private float _rotationSpeed = 90.0f;
 
-    private float _speed = 0.0f;
+    private float _speed = 0.05f;
     private PlayerState _state = PlayerState.Normal;
+
+
+
+    public void Move(float speed, float rotationMovement, bool moveForward)
+    {
+        if (moveForward)  _rigidBody.AddForce(transform.up * speed, ForceMode2D.Impulse);
+        
+        _rigidBody.MoveRotation(_rigidBody.rotation  + rotationMovement * Time.fixedDeltaTime);
+    }
+
 
 
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
+        if (_rigidBody)  _rigidBody.gravityScale = 0f;
+
         _camera = transform.parent.GetComponentInChildren<Camera>();
         _mouth = transform.Find("Mouth");
     }
@@ -51,6 +63,9 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
+        if (_state == PlayerState.Normal)
+        {
+            Move(_speed, _rotationMovement, _moveForward);
+        }
     }
 }
