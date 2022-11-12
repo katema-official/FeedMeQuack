@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     private Camera _camera = null;
     private Transform _mouth = null;
 
+    private LakeController _currentLake = null;
+
     private bool _moveForward = false;
     private float _rotationMovement = 0.0f;
     private float _rotationSpeed = 90.0f;
@@ -26,6 +28,23 @@ public class PlayerController : MonoBehaviour
 
     private void MoveCamera()
     {
+        _camera.transform.position = transform.position;
+        var cameraBounds = CameraUtility.OrthographicBounds(_camera);
+        Bounds lakeBounds;
+
+        if (_currentLake)
+            lakeBounds = _currentLake.getBounds();
+        else
+            lakeBounds = new Bounds();
+
+        Vector3 newCamPos = transform.position;
+
+        if (cameraBounds.min.x < lakeBounds.min.x) newCamPos.x += lakeBounds.min.x - cameraBounds.min.x;
+        if (cameraBounds.max.x > lakeBounds.max.x) newCamPos.x -= cameraBounds.max.x - lakeBounds.max.x;
+        if (cameraBounds.min.y < lakeBounds.min.y) newCamPos.y += lakeBounds.min.y - cameraBounds.min.y;
+        if (cameraBounds.max.y > lakeBounds.max.y) newCamPos.y -= cameraBounds.max.y - lakeBounds.max.y;
+
+        _camera.transform.position = newCamPos;
     }
 
     private void Awake()
@@ -69,5 +88,19 @@ public class PlayerController : MonoBehaviour
         {
             Move(_speed, _rotationMovement, _moveForward);
         }
+
+        MoveCamera();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        var lakeController = collision.gameObject.GetComponentInChildren<LakeController>();
+        if (lakeController)  _currentLake = lakeController;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        var lakeController = collision.gameObject.GetComponentInChildren<LakeController>();
+        if (lakeController)  _currentLake = null;
     }
 }
