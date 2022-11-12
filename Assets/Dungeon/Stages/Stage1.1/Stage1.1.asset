@@ -34,3 +34,7 @@ MonoBehaviour:
   - 0
   MinNumberOfEachEnemy: 0100000000000000000000000000000000000000
   BreadPointsRequiredToCompleteStage: 30
+  ListBreadSpawnSO:
+  - {fileID: 11400000, guid: eee02bb0233acff438dba3a6b296a3aa, type: 2}
+  - {fileID: 11400000, guid: d3e5be643e2149c4697572698d938292, type: 2}
+  - {fileID: 11400000, guid: 2536da1357460ab44960b7cf2051fb57, type: 2}

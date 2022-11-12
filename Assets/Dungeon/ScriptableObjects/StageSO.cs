@@ -44,6 +44,11 @@ namespace LevelStageNamespace
 
         public int BreadPointsRequiredToCompleteStage;
 
+
+        [Header("List of BreadSpawnSO that describe how a bread piece\nwill be generated in a lake of a certain type.\nThe index corresponds to a lakeDimension value")]
+        public BreadSpawnSO[] ListBreadSpawnSO = new BreadSpawnSO[Enum.GetValues(typeof(EnumsDungeon.LakeDimension)).Length];
+
+
         public void validate()
         {
             float sum = 0f;
