@@ -18,8 +18,8 @@ namespace LevelStageNamespace
 
         private static int _mapDimensionX = 128;
         private static int _mapDimensionY = 128;
-        private static int _startMapX = 64;
-        private static int _startMapY = 64;
+        public static int StartMapX = 64;
+        public static int StartMapY = 64;
 
 
         public static bool[,] GenerateStageLayout(StageSO currentStage)
@@ -42,7 +42,7 @@ namespace LevelStageNamespace
                 }
             }
             //1) we always have an initial lake
-            currentStageBitMap[_startMapX, _startMapY] = true;
+            currentStageBitMap[StartMapX, StartMapY] = true;
 
             //2) how many lakes do we need to generate, actually?
             int nLakes = Random.Range(currentStage.MinNumberOfLakes, currentStage.MaxNumberOfLakes + 1);
@@ -62,8 +62,8 @@ namespace LevelStageNamespace
             int minRoomsToDig = totalNumberOfLakes/8 + 1;
             int maxRoomsToDig = totalNumberOfLakes/4 + 1;
 
-            int currentX = _startMapX;
-            int currentY = _startMapY;
+            int currentX = StartMapX;
+            int currentY = StartMapY;
 
             while (nLakes > 0)
             {
@@ -85,8 +85,8 @@ namespace LevelStageNamespace
                         //printDebugXY(currentX, currentY);
                     }
                     nLakes -= howMuchToDig;
-                    currentX = _startMapX;
-                    currentY = _startMapY;
+                    currentX = StartMapX;
+                    currentY = StartMapY;
                 }
                 else
                 {
@@ -213,15 +213,15 @@ namespace LevelStageNamespace
                         //we have to generate the lake.
                         //if the lake is the starting one, let's remember it.
                         //otherwise, let's see if the current room is the farthest from the initial room
-                        if(i == _startMapX && j == _startMapY)
+                        if(i == StartMapX && j == StartMapY)
                         {
                             finalMap[i,j] = createInitialLakeDescriptionSO();
                         }
                         else
                         {
                             finalMap[i,j] = createIntermediateLakeDescriptionSO(stageDescription);
-                            float x = Mathf.Abs(_startMapX - i);
-                            float y = Mathf.Abs(_startMapY - j);
+                            float x = Mathf.Abs(StartMapX - i);
+                            float y = Mathf.Abs(StartMapY - j);
                             float dist = Mathf.Sqrt(Mathf.Pow(x, 2f) + Mathf.Pow(y, 2f));
                             if(dist > farthestLength)
                             {

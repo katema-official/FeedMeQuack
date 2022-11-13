@@ -6,10 +6,12 @@ namespace LevelStageNamespace {
     public class LakeDescriptionComponent : MonoBehaviour
     {
 
+        private GameObject _levelStageManagerObject;
+
         //component that specifies the nature of a lake
 
-        
 
+        private LakeDescriptionSO _datasForThisLake;
 
         [SerializeField] public int NumberOfMallard;
         [SerializeField] public int NumberOfCoot;
@@ -24,7 +26,6 @@ namespace LevelStageNamespace {
 
         [Header("From where does the player come? North, south, east or west?")]
         [SerializeField] public EnumsDungeon.CompassDirection SpawnPlayer;
-        [SerializeField] public float EntranceTimer;
 
         [SerializeField] public EnumsDungeon.LakeDimension Dimension;
 
@@ -44,14 +45,11 @@ namespace LevelStageNamespace {
         // Start is called before the first frame update
         void Start()
         {
-            /*var so = ScriptableObject.CreateInstance<StageSO>();
-            so.MinNumberOfLakes = 3;
-            Debug.Log("hjnifsv = " + so.MinNumberOfLakes);
-            so.ProbabilitiesOfBread = new List<float>();
-            so.ProbabilitiesOfBread.Add(0.8f);
-            so.ProbabilitiesOfBread.Add(0.1f);
-            so.validate();
-            */
+
+            _levelStageManagerObject = GameObject.Find("LevelStageManagerObject");
+
+
+
         }
 
         // Update is called once per frame

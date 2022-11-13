@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace LevelStageNamespace
 {
@@ -19,6 +20,8 @@ namespace LevelStageNamespace
         private int _currentLevel;
         private int _currentStage;
 
+        private int _xOfCurrentLake;
+        private int _yOfCurrentLake;
 
 
         // Start is called before the first frame update
@@ -91,11 +94,14 @@ namespace LevelStageNamespace
         {
             if (_currentStage < _numberOfStagesPerLevel[_currentLevel]) //if in this level there is a next stage...
             {
+                _xOfCurrentLake = GenerateDungeonClass.StartMapX;
+                _yOfCurrentLake = GenerateDungeonClass.StartMapY;
                 _currentStage += 1;
                 _currentStageBitMap = GenerateDungeonClass.GenerateStageLayout(GetStage(GetLevel(_currentLevel), _currentStage));
                 //we have the bitmap of this stage. Let's now get the actual stage description (a matrix of LakeDescriptionSO)
                 _currentStageMap = GenerateDungeonClass.GenerateStageWithActualLakeDescriptionSO(_currentStageBitMap, GetStage(GetLevel(_currentLevel), _currentStage));
-                
+                Debug.Log("HI");
+                SceneManager.LoadScene("LakeSmall");
             }
             else
             {
@@ -110,7 +116,18 @@ namespace LevelStageNamespace
         //#######################################################################################################################################################
 
 
-        
+        public void GoToLake(EnumsDungeon.CompassDirection exitDirectionFromCurrentLake)
+        {
+            //when this function gets called, the parameters tell in which lake the player currently is in (_xOfCurrentLake and
+            //_yOfCurrentLake) and the direction in which it moved (north, south, west or east), and, based on this information,
+            //moves the player in another lake.
+
+            //TODO: dopo che hai teletrasportato il giocatore nella scena dopo, per dirgli da dove sei venuto potresti usare l'opposto
+            //di exitDirectionFrom...
+            //-prendi il WhileLake
+            //nel suo component gli imposti la direzione di provenienza (il tutto dentro questa funzione)
+
+        }
        
 
         

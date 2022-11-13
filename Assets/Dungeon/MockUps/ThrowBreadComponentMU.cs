@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ThrowBreadComponentMU : MonoBehaviour
 {
+    //code based on:
+    //https://forum.unity.com/threads/simulate-gravity-in-a-top-down-2d-rpg.293712/
+
 
     // The fake gravity pulling this object down along the y-axis.
     [SerializeField] public float gravity = 100f;
