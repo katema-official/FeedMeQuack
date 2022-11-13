@@ -9,26 +9,26 @@ using Random = UnityEngine.Random;
 
 public class EnemyFSM : MonoBehaviour
 {
-    /**
-     * Quando si sta muovendo, ogni tot tempo, può cambiare la direzioni di un angolo minore di 90°. Quando atterra un pezzo di pane, rng per vedere se gli va
-     * incontro
-     */
-    
-    private float _speed=16.0f, _mouthSize, _eatingSpeed=1, _steeringSpeed, _changeDirectionCd;
+    public Species Species;
+    [SerializeField] private float _speedPerc, _accelerationTimeSeconds;
+    private float _maxSpeed, _mouthSize, _eatingSpeed=1, _steeringSpeed, _idleTime, _idleCD;
 
-    private Coroutine _steeringCoroutineVar, _movingCoroutineVar, _eatBreadCoroutine;
+    private Coroutine _steeringCoroutineVar, _movingCoroutineVar, _temporaryIdleCoroutine, _accelerateCoroutine,_eatBreadCoroutine, _chasingPlayerCoroutine, _decelerateCoroutine;
     
-    [SerializeField] private float steeringSpeedMaxValue=90;
-    [SerializeField] private float steeringCd=5f;
+    [SerializeField] private float steeringAngleMax=45;
+    [SerializeField] private float steeringCd;
     [SerializeField] private float innerRadiusCollider, mediumRadiusCollider, outerRadiusCollider;
+    [SerializeField] private float stealingCd, stealingPerc;
     [SerializeField] private int percInnerRadius, percMediumRadius, percOuterRadius;
+
+    [SerializeField] private GameObject playerGameObjectToChase;
     private bool _justFinishedEating;
  
-    public GameObject breadBeingEaten;
+    public Bread breadBeingEaten;
     [SerializeField] private GameObject breadTargeted;
     
     private ActionState _state;
-    private Vector3 _movingVector;
+    [SerializeField] private Vector3 _movingVector;
     
     // Start is called before the first frame update
     void Start(){
@@ -36,27 +36,55 @@ public class EnemyFSM : MonoBehaviour
         ChangeState(ActionState.Roaming);
     }
 
+    private void Awake(){
+        _maxSpeed = Species.maxSpeed;
+        _accelerationTimeSeconds = Species.accelerationTimeSeconds;
+        _mouthSize = Species.mouthSize;
+        _eatingSpeed = Species.eatingSpeed;
+        _steeringSpeed = Species.steeringSpeed;
+        steeringAngleMax = Species.steeringAngleMax;
+        steeringCd = Species.steeringCd;
+        stealingCd = Species.stealingCd;
+        percInnerRadius = Species.percInnerRadius;
+        percMediumRadius = Species.percMediumRadius;
+        percOuterRadius = Species.percOuterRadius;
+        _idleTime = Species.idleTime;
+        _idleCD = Species.idleCD;
+    }
+
     // Update is called once per frame
     void Update(){
     }
 
     private void StartMovement(){
+        //cambiare: si muove tot tempo, poi si ferma, poi riprende il movimento
         _movingCoroutineVar= StartCoroutine(MovingCoroutine());
         _steeringCoroutineVar= StartCoroutine(ChangingDirectionCoroutine());
     }
 
     private IEnumerator MovingCoroutine(){
-        while (true)
-        {
-            transform.position += _movingVector * Time.deltaTime;
+        _accelerateCoroutine = StartCoroutine(AccelerateCoroutine());
+        while (true){
+            transform.position += _movingVector * Time.deltaTime * _speedPerc;
             yield return null;
         }
+    }
+
+    private IEnumerator AccelerateCoroutine(){
+        if(_decelerateCoroutine!=null) StopCoroutine(_decelerateCoroutine);
+        _speedPerc = 0;
+        while (_speedPerc<1){
+            _speedPerc += 0.01f;
+            yield return new WaitForSeconds(_accelerationTimeSeconds/100);
+        }
+
+        yield return null;
     }
 
     private IEnumerator ChangingDirectionCoroutine(){
         while (_state==ActionState.Roaming){
             yield return new WaitForSeconds(steeringCd);
-            float rotationAngle = Random.Range(-steeringSpeedMaxValue / 2f, steeringSpeedMaxValue / 2f);
+            float rotationAngle = Random.Range(-steeringAngleMax, steeringAngleMax);
             _movingVector = Quaternion.AngleAxis(rotationAngle, Vector3.forward)* _movingVector;
         }
     }
@@ -85,9 +113,14 @@ public class EnemyFSM : MonoBehaviour
 
     private void ChangeState(ActionState newState){
         Debug.Log("State: "+_state+" -> " +newState);
-        if (_state == ActionState.Roaming) StopRoaming();
+        if (_state == ActionState.Roaming){
+            StopRoaming();
+            StopCoroutine(_temporaryIdleCoroutine);
+        }
         if(_state == ActionState.Eating) StopCoroutine(EatBread(breadBeingEaten));
-        if(_state == ActionState.MovingToBread) StopCoroutine(_movingCoroutineVar);
+        if(_state == ActionState.MovingToBread) //StopCoroutine(_movingCoroutineVar); provo a cambiare questo con stopRoaming
+            StopMoving();
+        if(_state == ActionState.Chasing) //StopCoroutine(_chasingPlayerCoroutine);
         if (_state == ActionState.Eating){ //doing this resets the trigger "on enter" method, so it can see again pieces of bread alredy seen in the past
             GameObject collider2D = GetComponent<Collider2D>().gameObject;
             collider2D.SetActive(false);
@@ -96,10 +129,13 @@ public class EnemyFSM : MonoBehaviour
         switch (newState)
         {
             case ActionState.Chasing:
+                ChasePlayer(playerGameObjectToChase);
+                _movingCoroutineVar = StartCoroutine(MovingCoroutine());
                 _state = ActionState.Chasing;
                 break;
             case ActionState.Roaming:
                 _state = ActionState.Roaming;
+                _temporaryIdleCoroutine = StartCoroutine(TemporaryIdleCoroutine());
                 StartMovement();
                 break;
             case ActionState.Dashing:
@@ -110,7 +146,7 @@ public class EnemyFSM : MonoBehaviour
                 _state = ActionState.MovingToBread;
                 break;
             case ActionState.Eating:
-                StopRoaming();
+                StopMoving(); //todo: questo potreebbe creare casini nel caso in cui si imbatta casualmente nel pane
                 _state = ActionState.Eating;
                 break;
             case ActionState.Stealing:
@@ -124,9 +160,46 @@ public class EnemyFSM : MonoBehaviour
         }
     }
 
+    private IEnumerator TemporaryIdleCoroutine(){
+        while (_state==ActionState.Roaming){
+            yield return new WaitForSeconds(_idleCD);
+            //StopCoroutine(_movingCoroutineVar);
+            StopRoaming();
+            yield return new WaitForSeconds(_idleTime);
+            StartMovement();
+        }
+        yield return null;
+    }
+
+    private void ChasePlayer(GameObject playerGameObject){
+        _chasingPlayerCoroutine = StartCoroutine(ChasePlayerCoroutine(playerGameObject));
+    }
+
+    private IEnumerator ChasePlayerCoroutine(GameObject playerGameObject){
+        PlayerDuck playerDuck = playerGameObject.GetComponent<PlayerDuck>();
+        while (_state==ActionState.Chasing && Distance(playerGameObject)<outerRadiusCollider && playerDuck.FoodInMouth>0){
+            _movingVector = Direction(playerGameObject);
+            yield return null;
+        }
+    }
+
     private void StopRoaming(){
-        StopCoroutine(_movingCoroutineVar);
+        StopMoving();
         StopCoroutine(_steeringCoroutineVar);
+    }
+
+    private void StopMoving(){
+        _decelerateCoroutine = StartCoroutine(DecelerateCoroutine());
+        //StopCoroutine(_movingCoroutineVar);
+    }
+
+    private IEnumerator DecelerateCoroutine(){
+        while (_speedPerc>0){
+            _speedPerc -= 0.01f;
+            yield return new WaitForSeconds(_accelerationTimeSeconds/100);
+        }
+        StopCoroutine(_movingCoroutineVar);
+        yield return null;
     }
 
     public void StartStealingPassive(){
@@ -134,26 +207,37 @@ public class EnemyFSM : MonoBehaviour
         ChangeState(ActionState.GettingRobbed);
     }
 
-    public void StartStealingActive(){
-        //todo: capire che fare
-        ChangeState(ActionState.Stealing);
+    public void StartStealingActive(GameObject playerDuckGameObject){
+        playerGameObjectToChase = playerDuckGameObject;
+        ChangeState(ActionState.Chasing);
     }
 
     private void OnTriggerEnter2D(Collider2D collider2D){
-        TriggerAction(collider2D);
+        if (collider2D.gameObject.GetComponent<PlayerDuck>() != null) CheckStealingOptions(collider2D.gameObject);
+        TriggerActionBread(collider2D);
     }
 
-    private void OnTriggerStay2D(Collider2D other){
-        if(!_justFinishedEating) return;
+    private void CheckStealingOptions(GameObject playerDuckGameObject){
+        PlayerDuck playerDuck = playerDuckGameObject.GetComponent<PlayerDuck>();
+        if (playerDuck.FoodInMouth > 0 && stealingCd == 0){
+            float distance = Distance(playerDuckGameObject);
+            float rand = Random.value;
+            if (distance < innerRadiusCollider && rand< percInnerRadius/100.0f){
+                StartStealingActive(playerDuckGameObject);
+            }
+            else if (distance < mediumRadiusCollider && rand < percMediumRadius/100.0f){
+                StartStealingActive(playerDuckGameObject);
+            }
+        }
     }
 
-    private void TriggerAction(Collider2D collider2D){
+    private void TriggerActionBread(Collider2D collider2D){
         if (_state == ActionState.Eating) return;
         GameObject collidedWith = collider2D.gameObject;
-        float distance = math.distance(collidedWith.transform.position, transform.position);
+        float distance = Distance(collidedWith);
         float rand = Random.value;
         if (collidedWith.GetComponent<Bread>()){
-            if (breadTargeted != null && distance > math.distance(breadTargeted.transform.position, transform.position))
+            if (breadTargeted != null && distance > Distance(collidedWith))
                 return; //alredy pursuing a closer piece of bread
             //check se è bread
             if (distance < innerRadiusCollider && (rand < (float) percInnerRadius / 100.0))
@@ -171,14 +255,9 @@ public class EnemyFSM : MonoBehaviour
     }
 
     private void MoveToBread(GameObject breadGameObject){
-        var position = breadGameObject.transform.position;
-        var currentPosition = transform.position;
-        Vector2 direction = new Vector2(position.x - currentPosition.x,position.y - currentPosition.y);
+
+        Vector2 direction = Direction(breadGameObject);
         
-        /*
-        float angle = Angle(direction);
-        Vector3 v1 = Quaternion.Euler(0,angle,0)*Vector3.forward;
-        _movingVector=v1*_speed;*/
         Vector2 normalizedVector = NormalizeToMaxSpeed(direction);
         _movingVector = normalizedVector;
         //todo fare in modo che ruoti gradualemente piuttosto che di colpo
@@ -187,28 +266,47 @@ public class EnemyFSM : MonoBehaviour
         //magari mettere nel switch case un metodo per fare roteare gradualmente verso la direzione del bread
     }
 
-    public void StartEatingBread(GameObject breadGameObject){
-        breadBeingEaten = breadGameObject;
-        ChangeState(ActionState.Eating);
-        _eatBreadCoroutine =StartCoroutine(EatBread(breadGameObject));
+    private Vector2 Direction(GameObject destinationGameObject){
+        var destination = destinationGameObject.transform.position;
+        var currentPosition = transform.position;
+        return new Vector2(destination.x - currentPosition.x,destination.y - currentPosition.y);
     }
 
-    IEnumerator EatBread(GameObject breadGameObject){
-        Bread bread = breadGameObject.GetComponent<Bread>();
+    public void StartEatingBread(GameObject breadGameObject){
+        breadBeingEaten = breadGameObject.GetComponent<Bread>();
+        ChangeState(ActionState.Eating);
+        _eatBreadCoroutine =StartCoroutine(EatBread(breadBeingEaten));
+        Destroy(breadGameObject);
+    }
+
+    IEnumerator EatBread(Bread bread){
         int i = 0;
         while (bread.BreadPoints>0){
             bread.BreadPoints--;
             i++;
             yield return new WaitForSeconds(_eatingSpeed);
         }
-        Destroy(breadGameObject);
         ChangeState(ActionState.Roaming);
     }
     
     private Vector2 NormalizeToMaxSpeed(Vector2 vectorToNormalize){
+        //rigidbody.velocity = rigidbody.velocity.normalized * currentSpeed; potrebbe andare bene
         float x1 = vectorToNormalize.x, y1 = vectorToNormalize.y;
-        float normalizationFactor = _speed/math.sqrt(x1 * x1 + y1 * y1);
+        float normalizationFactor = _maxSpeed/math.sqrt(x1 * x1 + y1 * y1);
         Vector2 normalizedVector = new Vector2(x1 *normalizationFactor, y1 *normalizationFactor);
         return normalizedVector;
+    }
+    
+    private Vector2 NormalizeToSpeed(Vector2 vectorToNormalize){
+        //rigidbody.velocity = rigidbody.velocity.normalized * currentSpeed; potrebbe andare bene
+        float x1 = vectorToNormalize.x, y1 = vectorToNormalize.y;
+        float normalizationFactor = _maxSpeed/math.sqrt(x1 * x1 + y1 * y1);
+        Vector2 normalizedVector = new Vector2(x1 *normalizationFactor, y1 *normalizationFactor);
+        return normalizedVector;
+    }
+
+    private float Distance(GameObject destinationGameObject){
+        Vector3 dest = destinationGameObject.transform.position;
+        return math.distance(dest, transform.position);
     }
 }

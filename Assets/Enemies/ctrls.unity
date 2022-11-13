@@ -323,7 +323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   breadPrefab: {fileID: 8239734597683774029, guid: fceda9f900e0a0c4ea5748fbbd6f39af, type: 3}
   CD: 1
-  qty: 8
+  qty: 3
 --- !u!4 &1453071008
 Transform:
   m_ObjectHideFlags: 0
@@ -460,9 +460,12 @@ MonoBehaviour:
   innerRadiusCollider: 25
   mediumRadiusCollider: 60
   outerRadiusCollider: 100
+  stealingCd: 0
+  stealingPerc: 0
   percInnerRadius: 100
   percMediumRadius: 70
   percOuterRadius: 40
+  playerGameObjectToChase: {fileID: 0}
   breadBeingEaten: {fileID: 0}
   breadTargeted: {fileID: 0}
 --- !u!212 &2003164854
