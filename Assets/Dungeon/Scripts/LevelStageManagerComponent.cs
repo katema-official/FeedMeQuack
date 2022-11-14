@@ -100,7 +100,9 @@ namespace LevelStageNamespace
                 _currentStageBitMap = GenerateDungeonClass.GenerateStageLayout(GetStage(GetLevel(_currentLevel), _currentStage));
                 //we have the bitmap of this stage. Let's now get the actual stage description (a matrix of LakeDescriptionSO)
                 _currentStageMap = GenerateDungeonClass.GenerateStageWithActualLakeDescriptionSO(_currentStageBitMap, GetStage(GetLevel(_currentLevel), _currentStage));
-                Debug.Log("HI");
+                
+                //could also have called GoToLake, but this should make things simpler: the initial lake is always small and without enemies, after all.
+                //The only thing to touch is the rivers.
                 SceneManager.LoadScene("LakeSmall");
             }
             else
@@ -128,8 +130,39 @@ namespace LevelStageNamespace
             //nel suo component gli imposti la direzione di provenienza (il tutto dentro questa funzione)
 
         }
-       
 
+
+
+        public LakeDescriptionSO GetLakeDescriptionSO()
+        {
+            return _currentStageMap[_xOfCurrentLake, _yOfCurrentLake];
+        }
+
+        public int GetXOfCurrentLake()
+        {
+            return _xOfCurrentLake;
+        }
+        public int GetYOfCurrentLake()
+        {
+            return _yOfCurrentLake;
+        }
+       
+        public void ManageRiversOfThisLake()
+        {
+            Debug.Log("AAA");
+            GameObject wholeLake = GameObject.Find("WholeLake");
+            LakeDescriptionComponent lakeDesc = wholeLake.GetComponent<LakeDescriptionComponent>();
+            GameObject northRiver = wholeLake.transform.Find("North").gameObject;
+            northRiver.SetActive(false);
+            Debug.LogFormat("lakeDesc = {0}", lakeDesc.NumberOfCoot);
+            //if there isn't a river: disable it and activate the corresponding collider
+
+
+
+
+
+
+        }
         
 
 

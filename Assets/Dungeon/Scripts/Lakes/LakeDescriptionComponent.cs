@@ -6,7 +6,7 @@ namespace LevelStageNamespace {
     public class LakeDescriptionComponent : MonoBehaviour
     {
 
-        private GameObject _levelStageManagerObject;
+        private LevelStageManagerComponent _levelStageManager;
 
         //component that specifies the nature of a lake
 
@@ -41,12 +41,39 @@ namespace LevelStageNamespace {
 
         [SerializeField] public bool LakeCleared;
 
+        private void Awake()
+        {
+            _levelStageManager = GameObject.Find("LevelStageManagerObject").GetComponent<LevelStageManagerComponent>();
+            _datasForThisLake = _levelStageManager.GetLakeDescriptionSO();
+            ManageRiversOfthisLake();
+
+        }
+
+
+
+
+
+
+
+
+        private void ManageRiversOfthisLake()
+        {
+            GameObject wholeLake = GameObject.Find("WholeLake");
+            LakeDescriptionComponent lakeDesc = wholeLake.GetComponent<LakeDescriptionComponent>();
+            GameObject northRiver = wholeLake.transform.Find("Rivers/North").gameObject;
+            northRiver.SetActive(false);    //vuoi solo togliere lo sprite zio
+            Debug.LogFormat("lakeDesc = {0}", lakeDesc.NumberOfCoot);
+        }
+
+
+
+
 
         // Start is called before the first frame update
         void Start()
         {
 
-            _levelStageManagerObject = GameObject.Find("LevelStageManagerObject");
+           
 
 
 
