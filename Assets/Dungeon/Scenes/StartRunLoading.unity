@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c60c50ccaca2ff46a0ddd4daf15bd39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _blackSquarePrefab: {fileID: 7569123848428525457, guid: 56a45038c389dea4180ed6ba96cf29cf, type: 3}
   Levels:
   - {fileID: 11400000, guid: 33a1fc404a3dd994480f0611009e65b6, type: 2}
 --- !u!114 &27265054

@@ -12,6 +12,8 @@ namespace LevelStageNamespace
         //this script controls how many levels there are, how many stages there must be for each level, and
         //so on.
 
+        [SerializeField] private GameObject _blackSquarePrefab;
+        private GameObject _blackSquare;
         [SerializeField] public List<LevelSO> Levels;
 
         private Dictionary<int, int> _numberOfStagesPerLevel = new Dictionary<int, int>(); //<i,j> means: "level i has j stages in total"
@@ -129,6 +131,9 @@ namespace LevelStageNamespace
             //-prendi il WhileLake
             //nel suo component gli imposti la direzione di provenienza (il tutto dentro questa funzione)
 
+            _blackSquare = Instantiate(_blackSquarePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            _blackSquare.GetComponent<FadeBlackComponent>().fadeToBlack();
+
         }
 
 
@@ -139,23 +144,6 @@ namespace LevelStageNamespace
         }
 
         
-       
-        public void ManageRiversOfThisLake()
-        {
-            Debug.Log("AAA");
-            GameObject wholeLake = GameObject.Find("WholeLake");
-            LakeDescriptionComponent lakeDesc = wholeLake.GetComponent<LakeDescriptionComponent>();
-            GameObject northRiver = wholeLake.transform.Find("North").gameObject;
-            northRiver.SetActive(false);
-            Debug.LogFormat("lakeDesc = {0}", lakeDesc.NumberOfCoot);
-            //if there isn't a river: disable it and activate the corresponding collider
-
-
-
-
-
-
-        }
         
 
 

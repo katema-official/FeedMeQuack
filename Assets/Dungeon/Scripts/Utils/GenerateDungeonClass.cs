@@ -269,7 +269,8 @@ namespace LevelStageNamespace
             ret.EnemiesToSpawnMap = null;
             ret.Dimension = EnumsDungeon.LakeDimension.Small;   //let's assume that the initial lake is always small (it's not an absurd assumption)
             ret.BreadToSpawnMap = null;
-            ret._isLakeCleared = true;      //by definition, the initial room is cleared
+            ret._isLakeCleared = false;      //a small trick: will be set to true as soon as the player spawns at its center. If it's false, the player spawns at the center.
+                                               //if it's true, he will spawn from where he came from.
             ret._isStartingRoom = true;        //and always by definition, is the starting room lol
             ret._isFinalRoom = false;       
 

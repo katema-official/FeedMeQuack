@@ -534,10 +534,10 @@ MonoBehaviour:
   NumberOfGoose: 0
   NumberOfFish: 0
   NumberOfSeagull: 0
-  NorthRiver: {fileID: 1035433240}
-  SouthRiver: {fileID: 465910041}
-  WestRiver: {fileID: 1247122736}
-  EastRiver: {fileID: 1715606159}
+  NorthRiver: {fileID: 2073853183}
+  SouthRiver: {fileID: 1616623185}
+  WestRiver: {fileID: 1321766971}
+  EastRiver: {fileID: 1906931282}
   SpawnPlayer: 0
   Dimension: 0
   LakeCleared: 0
@@ -830,6 +830,7 @@ GameObject:
   m_Component:
   - component: {fileID: 657359139}
   - component: {fileID: 657359140}
+  - component: {fileID: 657359141}
   m_Layer: 0
   m_Name: TriggerExitedCollider
   m_TagString: Untagged
@@ -874,6 +875,18 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &657359141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657359138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65219d75730cb944db1ebb2a42f716e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1035433239
 GameObject:
   m_ObjectHideFlags: 0
@@ -1289,6 +1302,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1516896177}
   - component: {fileID: 1516896178}
+  - component: {fileID: 1516896179}
   m_Layer: 0
   m_Name: TriggerExitedCollider
   m_TagString: Untagged
@@ -1333,6 +1347,18 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &1516896179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516896176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65219d75730cb944db1ebb2a42f716e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1547585951
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,6 +1516,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1715053655}
   - component: {fileID: 1715053656}
+  - component: {fileID: 1715053657}
   m_Layer: 0
   m_Name: TriggerExitedCollider
   m_TagString: Untagged
@@ -1534,6 +1561,18 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &1715053657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715053654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65219d75730cb944db1ebb2a42f716e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1715606158
 GameObject:
   m_ObjectHideFlags: 0
@@ -1817,6 +1856,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2054532234}
   - component: {fileID: 2054532235}
+  - component: {fileID: 2054532236}
   m_Layer: 0
   m_Name: TriggerExitedCollider
   m_TagString: Untagged
@@ -1861,6 +1901,18 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &2054532236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054532233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65219d75730cb944db1ebb2a42f716e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2071095764
 GameObject:
   m_ObjectHideFlags: 0

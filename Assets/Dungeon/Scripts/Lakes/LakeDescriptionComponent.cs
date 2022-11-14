@@ -47,6 +47,9 @@ namespace LevelStageNamespace {
             _datasForThisLake = _levelStageManager.GetLakeDescriptionSO();
             ManageRiversOfthisLake();
 
+            //now we have to place the player in the correct spot
+
+
         }
 
 
