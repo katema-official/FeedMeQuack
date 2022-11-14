@@ -16,19 +16,19 @@ namespace LevelStageNamespace {
 
                 if (transform.parent.name == "North")
                 {
-                    _levelStageManager.GoToLake(EnumsDungeon.CompassDirection.North);
+                    _levelStageManager.ExitLake(EnumsDungeon.CompassDirection.North);
                 }
                 if (transform.parent.name == "South")
                 {
-                    _levelStageManager.GoToLake(EnumsDungeon.CompassDirection.South);
+                    _levelStageManager.ExitLake(EnumsDungeon.CompassDirection.South);
                 }
                 if (transform.parent.name == "West")
                 {
-                    _levelStageManager.GoToLake(EnumsDungeon.CompassDirection.West);
+                    _levelStageManager.ExitLake(EnumsDungeon.CompassDirection.West);
                 }
                 if (transform.parent.name == "East")
                 {
-                    _levelStageManager.GoToLake(EnumsDungeon.CompassDirection.East);
+                    _levelStageManager.ExitLake(EnumsDungeon.CompassDirection.East);
                 }
 
             }

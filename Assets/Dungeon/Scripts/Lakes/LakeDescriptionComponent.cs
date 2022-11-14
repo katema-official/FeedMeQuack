@@ -7,6 +7,8 @@ namespace LevelStageNamespace {
     {
 
         private LevelStageManagerComponent _levelStageManager;
+        private GameObject _playerObject;
+        private GameObject _wholeLake;
 
         //component that specifies the nature of a lake
 
@@ -43,12 +45,43 @@ namespace LevelStageNamespace {
 
         private void Awake()
         {
+
             _levelStageManager = GameObject.Find("LevelStageManagerObject").GetComponent<LevelStageManagerComponent>();
             _datasForThisLake = _levelStageManager.GetLakeDescriptionSO();
             ManageRiversOfthisLake();
+            _wholeLake = GameObject.Find("WholeLake");
+
+            //first of all, a fade in effect
+            _levelStageManager.FadeIn();
 
             //now we have to place the player in the correct spot
+            _playerObject = GameObject.Find("DummyPlayer");     //TODO: change in actual player when you have it
 
+            //if the room is the initial one and the player just arrived in the stage, we want it to be on the center of the room
+            if (!_datasForThisLake.IsLakeCleared && _datasForThisLake.IsStartingRoom)
+            {
+                _playerObject.transform.position = new Vector3(0, 0, 0);
+                _levelStageManager.SetLakeAsCleared();
+            }
+            else
+            {
+                //otherwise, we first of all set the correct position of the player
+                switch (_datasForThisLake.PlayerSpawnDirection)
+                {
+                    case EnumsDungeon.CompassDirection.North:
+                        _playerObject.transform.position = _wholeLake.transform.Find("Rivers/North").transform.position;
+                        break;
+                    case EnumsDungeon.CompassDirection.South:
+                        _playerObject.transform.position = _wholeLake.transform.Find("Rivers/South").transform.position;
+                        break;
+                    case EnumsDungeon.CompassDirection.West:
+                        _playerObject.transform.position = _wholeLake.transform.Find("Rivers/West").transform.position;
+                        break;
+                    case EnumsDungeon.CompassDirection.East:
+                        _playerObject.transform.position = _wholeLake.transform.Find("Rivers/East").transform.position;
+                        break;
+                }
+            }
 
         }
 

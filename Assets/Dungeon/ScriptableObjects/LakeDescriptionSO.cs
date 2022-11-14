@@ -19,13 +19,14 @@ namespace LevelStageNamespace
 
         public Dictionary<EnumsDungeon.BreadType, int> BreadToSpawnMap = new Dictionary<EnumsDungeon.BreadType, int>();
 
-        public bool _isLakeCleared;
+        public bool IsLakeCleared;
 
-        public bool _isStartingRoom;
+        public bool IsStartingRoom;
 
-        public bool _isFinalRoom;
-        public EnumsDungeon.CompassDirection _exitStageDirection;  //to consider only if _isFinalRoom = true
+        public bool IsFinalRoom;
+        public EnumsDungeon.CompassDirection ExitStageDirection;  //to consider only if _isFinalRoom = true
 
+        public EnumsDungeon.CompassDirection PlayerSpawnDirection;
 
 
 

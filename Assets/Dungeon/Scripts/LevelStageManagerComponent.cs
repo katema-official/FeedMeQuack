@@ -120,21 +120,82 @@ namespace LevelStageNamespace
         //#######################################################################################################################################################
 
 
-        public void GoToLake(EnumsDungeon.CompassDirection exitDirectionFromCurrentLake)
+        public void ExitLake(EnumsDungeon.CompassDirection exitDirectionFromCurrentLake)
         {
             //when this function gets called, the parameters tell in which lake the player currently is in (_xOfCurrentLake and
-            //_yOfCurrentLake) and the direction in which it moved (north, south, west or east), and, based on this information,
-            //moves the player in another lake.
+            //_yOfCurrentLake of this class) and the direction in which it moved (north, south, west or east), and, based
+            //on this information, moves the player in another lake.
 
-            //TODO: dopo che hai teletrasportato il giocatore nella scena dopo, per dirgli da dove sei venuto potresti usare l'opposto
-            //di exitDirectionFrom...
-            //-prendi il WhileLake
-            //nel suo component gli imposti la direzione di provenienza (il tutto dentro questa funzione)
+            //first: a fade out effect
+            FadeOut();
 
-            _blackSquare = Instantiate(_blackSquarePrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            _blackSquare.GetComponent<FadeBlackComponent>().fadeToBlack();
+            //second: update the x and y of the current stage depending on where the player exited, and save, in the LakeDescriptionSO of the
+            //new room, from where the player arrives
+            switch (exitDirectionFromCurrentLake)
+            {
+                case EnumsDungeon.CompassDirection.North:
+                    _xOfCurrentLake -= 1;
+                    _currentStageMap[_xOfCurrentLake, _yOfCurrentLake].PlayerSpawnDirection = EnumsDungeon.CompassDirection.South;
+                    break;
+                case EnumsDungeon.CompassDirection.South:
+                    _xOfCurrentLake += 1;
+                    _currentStageMap[_xOfCurrentLake, _yOfCurrentLake].PlayerSpawnDirection = EnumsDungeon.CompassDirection.North;
+                    break;
+                case EnumsDungeon.CompassDirection.West:
+                    _yOfCurrentLake -= 1;
+                    _currentStageMap[_xOfCurrentLake, _yOfCurrentLake].PlayerSpawnDirection = EnumsDungeon.CompassDirection.East;
+                    break;
+                case EnumsDungeon.CompassDirection.East:
+                    _yOfCurrentLake += 1;
+                    _currentStageMap[_xOfCurrentLake, _yOfCurrentLake].PlayerSpawnDirection = EnumsDungeon.CompassDirection.West;
+                    break;
+            }
+
+            Debug.Log("The player comes from " + GetLakeDescriptionSO().PlayerSpawnDirection);
+            Debug.LogFormat("New room is: [{0},{1}]", _xOfCurrentLake, _yOfCurrentLake);
+
+            //this function continues in EnterLake, called by the black square
 
         }
+
+        public void EnterLake()
+        {
+            //third: go to the right lake
+            switch (GetLakeDescriptionSO().Dimension)
+            {
+                case EnumsDungeon.LakeDimension.Small:
+                    SceneManager.LoadScene("LakeSmall");
+                    break;
+                case EnumsDungeon.LakeDimension.Medium:
+                    SceneManager.LoadScene("LakeSmall");    //TODO: LakeMedium
+                    break;
+                case EnumsDungeon.LakeDimension.Large:
+                    SceneManager.LoadScene("LakeSmall");    //TODO: LakeLarge
+                    break;
+            }
+
+            
+        }
+
+
+        public void FadeOut()
+        {
+            _blackSquare = Instantiate(_blackSquarePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            _blackSquare.GetComponent<FadeBlackComponent>().fadeToBlack();  //-> will call EnterLake when it's done
+        }
+
+        public void FadeIn()
+        {
+            _blackSquare = Instantiate(_blackSquarePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            _blackSquare.GetComponent<FadeBlackComponent>().fadeFromBlack();  //-> will call EnterLake when it's done
+        }
+
+
+        //#######################################################################################################################################################
+        //#######################################################################################################################################################
+        //#######################################################################################################################################################
+        //#######################################################################################################################################################
+        //#######################################################################################################################################################
 
 
 
@@ -143,7 +204,14 @@ namespace LevelStageNamespace
             return _currentStageMap[_xOfCurrentLake, _yOfCurrentLake];
         }
 
-        
+        public void SetLakeAsCleared()
+        {
+            _currentStageMap[_xOfCurrentLake, _yOfCurrentLake].IsLakeCleared = true;
+        }
+
+
+
+
         
 
 

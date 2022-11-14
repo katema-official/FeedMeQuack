@@ -9,25 +9,26 @@ public class FadeBlackComponent : MonoBehaviour
     [SerializeField] private float _timeBetweenAlphas;
     [SerializeField] private float _alphaAmountPerUnitOfTime;
 
+    private LevelStageNamespace.LevelStageManagerComponent _levelStageManager;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _sprite = GetComponent<SpriteRenderer>();
         var color = _sprite.color;
         color.a = 0f;
         _sprite.color = color;
-        Debug.Log("AA " + _sprite.color.a);
+
+        _levelStageManager = GameObject.Find("LevelStageManagerObject").GetComponent<LevelStageNamespace.LevelStageManagerComponent>();
     }
 
 
 
     public void fadeToBlack()
     {
-        _sprite = GetComponent<SpriteRenderer>();
         var color = _sprite.color;
         color.a = 0f;
         _sprite.color = color;
-        Debug.Log("fadeToBlack called");
         StartCoroutine(fadeToBlackCoroutine());
     }
 
@@ -36,6 +37,7 @@ public class FadeBlackComponent : MonoBehaviour
         var color = _sprite.color;
         color.a = 1f;
         _sprite.color = color;
+        StartCoroutine(fadeFromBlackCoroutine());
     }
 
 
@@ -48,13 +50,29 @@ public class FadeBlackComponent : MonoBehaviour
             c = _sprite.color;
             c.a += _alphaAmountPerUnitOfTime;
             _sprite.color = c;
-            Debug.Log("alpha = " + c.a);
             yield return new WaitForSeconds(_timeBetweenAlphas);
         }
-        Debug.Log("Done");
+
+        _levelStageManager.EnterLake();
 
         yield return null;
     }
+
+    private IEnumerator fadeFromBlackCoroutine()
+    {
+        Color c;
+        while (_sprite.color.a > 0)
+        {
+            c = _sprite.color;
+            c.a -= _alphaAmountPerUnitOfTime;
+            _sprite.color = c;
+            yield return new WaitForSeconds(_timeBetweenAlphas);
+        }
+
+        yield return null;
+    }
+
+
 
 
     // Update is called once per frame

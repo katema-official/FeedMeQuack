@@ -254,8 +254,8 @@ namespace LevelStageNamespace
                     }
                 }
             }
-            farthestLake._isFinalRoom = true;
-            Debug.Log("farthest lake: " + farthestLake._isFinalRoom);
+            farthestLake.IsFinalRoom = true;
+            Debug.Log("farthest lake: " + farthestLake.IsFinalRoom);
             return finalMap;
 
         }
@@ -269,10 +269,12 @@ namespace LevelStageNamespace
             ret.EnemiesToSpawnMap = null;
             ret.Dimension = EnumsDungeon.LakeDimension.Small;   //let's assume that the initial lake is always small (it's not an absurd assumption)
             ret.BreadToSpawnMap = null;
-            ret._isLakeCleared = false;      //a small trick: will be set to true as soon as the player spawns at its center. If it's false, the player spawns at the center.
+            ret.IsLakeCleared = false;      //a small trick: will be set to true as soon as the player spawns at its center. If it's false, the player spawns at the center.
                                                //if it's true, he will spawn from where he came from.
-            ret._isStartingRoom = true;        //and always by definition, is the starting room lol
-            ret._isFinalRoom = false;       
+            ret.IsStartingRoom = true;        //and always by definition, is the starting room lol
+            ret.IsFinalRoom = false;
+
+            ret.PlayerSpawnDirection = EnumsDungeon.CompassDirection.North; //will be changed at runtime
 
             return ret;
         }
@@ -286,10 +288,11 @@ namespace LevelStageNamespace
             decideLakeDimensionForLake(ret, stageDescription);
             decideBreadToSpawnMapForLake(ret, stageDescription);
 
-            ret._isLakeCleared = false;
-            ret._isStartingRoom = false;
-            ret._isFinalRoom = false;
+            ret.IsLakeCleared = false;
+            ret.IsStartingRoom = false;
+            ret.IsFinalRoom = false;
 
+            ret.PlayerSpawnDirection = EnumsDungeon.CompassDirection.North; //will be changed at runtime
 
             return ret;
         }
@@ -423,7 +426,7 @@ namespace LevelStageNamespace
 
         private static void debugGeneratedLake(LakeDescriptionSO lake, int i, int j)
         {
-            if(lake._isStartingRoom == true) { return; }
+            if(lake.IsStartingRoom == true) { return; }
             Debug.LogFormat("room [{0},{1}] has:\n" +
                             "{2} mallards, {3} coots, {4} goose\n" +
                             "northRiver: {5}, southRiver: {6}, westRiver: {7}, eastRiver: {8}\n" +
