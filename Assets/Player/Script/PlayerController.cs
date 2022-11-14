@@ -10,25 +10,43 @@ public class PlayerController : MonoBehaviour
 
     private LakeController _currentLake = null;
 
+    private Vector3 _forwardAxis;
+    private Vector3 _rightwardAxis;
+
     private bool _moveForward = false;
     private float _rotationMovement = 0.0f;
     private float _rotationSpeed = 90.0f;
 
-    private float _speed = 0.05f;
+    
+    private float _speed = 3.0f;
+
+    private float _force = 0.0f;
     private PlayerState _state = PlayerState.Normal;
 
 
 
     public void Move(float speed, float rotationMovement, bool moveForward)
     {
-        if (moveForward)  _rigidBody.AddForce(transform.up * speed, ForceMode2D.Impulse);
-        
-        _rigidBody.MoveRotation(_rigidBody.rotation  + rotationMovement * Time.fixedDeltaTime);
+        if (moveForward)
+        {   
+            var finalDir = _forwardAxis + _rightwardAxis;
+            finalDir.Normalize();
+           
+            float angle = Mathf.Atan2(-finalDir.x, finalDir.y) * Mathf.Rad2Deg;
+            _rotationMovement = angle;
+
+            _rigidBody.AddForce(finalDir * _force, ForceMode2D.Force);
+            _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity, _speed);
+        }
+
+        _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
+
+         Debug.Log("Current player velocity: " + _rigidBody.velocity);
     }
 
     private void MoveCamera()
     {
-        _camera.transform.position = transform.position;
+        _camera.transform.position = _rigidBody.position;
         var cameraBounds = CameraUtility.OrthographicBounds(_camera);
         Bounds lakeBounds;
 
@@ -50,8 +68,13 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
-        if (_rigidBody)  _rigidBody.gravityScale = 0f;
+        if (_rigidBody)
+        {
+            _rigidBody.gravityScale = 0f;
+            _rigidBody.freezeRotation = true;
+        }
 
+        _force = _speed * 1.5f;
         _camera = transform.parent.GetComponentInChildren<Camera>();
         _mouth = transform.Find("Mouth");
     }
@@ -65,30 +88,35 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         _moveForward = false;
-        _rotationMovement = 0;
+        _forwardAxis = new Vector3(0, 0);
+        _rightwardAxis = new Vector3(0, 0);
 
         if (Input.GetKey(KeyCode.W))
         {
+            _forwardAxis = new Vector3(0, 1);
             _moveForward = true;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            _rotationMovement = _rotationSpeed;
+            _rightwardAxis = new Vector3(-1, 0);
+            _moveForward = true;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            _forwardAxis = new Vector3(0, -1);
+            _moveForward = true;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            _rotationMovement = -_rotationSpeed;
+            _rightwardAxis = new Vector3(1, 0);
+            _moveForward = true;
         }
     }
 
 
     private void FixedUpdate()
     {
-        if (_state == PlayerState.Normal)
-        {
-            Move(_speed, _rotationMovement, _moveForward);
-        }
-
+        if (_state == PlayerState.Normal)  Move(_speed, _rotationMovement, _moveForward);
         MoveCamera();
     }
 
