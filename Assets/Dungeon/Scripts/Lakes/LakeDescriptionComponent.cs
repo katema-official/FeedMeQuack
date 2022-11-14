@@ -61,8 +61,52 @@ namespace LevelStageNamespace {
             GameObject wholeLake = GameObject.Find("WholeLake");
             LakeDescriptionComponent lakeDesc = wholeLake.GetComponent<LakeDescriptionComponent>();
             GameObject northRiver = wholeLake.transform.Find("Rivers/North").gameObject;
-            northRiver.SetActive(false);    //vuoi solo togliere lo sprite zio
-            Debug.LogFormat("lakeDesc = {0}", lakeDesc.NumberOfCoot);
+            GameObject southRiver = wholeLake.transform.Find("Rivers/South").gameObject;
+            GameObject westRiver = wholeLake.transform.Find("Rivers/West").gameObject;
+            GameObject eastRiver = wholeLake.transform.Find("Rivers/East").gameObject;
+            if(_datasForThisLake.HasNorthRiver == false)
+            {
+                //if the north lake is not present, we obscure its sprite, and leave the colliders as they are
+                var t = northRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
+                northRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(0, t.y, t.z);
+            }
+            else
+            {
+                //otherwise, we leave the sprite as it is, but we remove the collider (We do the same for the other rivers)
+                northRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                northRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
+
+            }
+            if (_datasForThisLake.HasSouthRiver == false)
+            {
+                var t = southRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
+                southRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(0, t.y, t.z);
+            }
+            else
+            {
+                southRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                southRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
+            }
+            if (_datasForThisLake.HasWestRiver == false)
+            {
+                var t = westRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
+                westRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(t.x, 0, t.z);
+            }
+            else
+            {
+                westRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                westRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
+            }
+            if (_datasForThisLake.HasEastRiver == false)
+            {
+                var t = eastRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
+                eastRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(t.x, 0, t.z);
+            }
+            else
+            {
+                eastRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                eastRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
+            }
         }
 
 

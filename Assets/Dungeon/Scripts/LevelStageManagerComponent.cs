@@ -138,14 +138,7 @@ namespace LevelStageNamespace
             return _currentStageMap[_xOfCurrentLake, _yOfCurrentLake];
         }
 
-        public int GetXOfCurrentLake()
-        {
-            return _xOfCurrentLake;
-        }
-        public int GetYOfCurrentLake()
-        {
-            return _yOfCurrentLake;
-        }
+        
        
         public void ManageRiversOfThisLake()
         {
