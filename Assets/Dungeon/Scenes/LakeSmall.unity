@@ -533,11 +533,20 @@ MonoBehaviour:
   OffsetYTerrain: 8
   OffsetXLake: 10
   OffsetYLake: 8
+  OffsetXPlayer: 4
+  OffsetYPlayer: 3
+  RadiusAroundPlayer: 3
+  RadiusAroundEnemy: 2
   NumberOfMallard: 0
   NumberOfCoot: 0
   NumberOfGoose: 0
   NumberOfFish: 0
   NumberOfSeagull: 0
+  MallardPrefab: {fileID: 4603421480620428047, guid: e43395094df0de8469ef4f9d7ec48f1d, type: 3}
+  CootPrefab: {fileID: 1074246190212038766, guid: fde59fc7d0c8f8d4bb0492a5ef8b73ab, type: 3}
+  GoosePrefab: {fileID: 0}
+  FishPrefab: {fileID: 0}
+  SeagullPrefab: {fileID: 0}
   NorthRiver: {fileID: 2073853183}
   SouthRiver: {fileID: 1616623185}
   WestRiver: {fileID: 1321766971}

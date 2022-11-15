@@ -110,7 +110,7 @@ public class ThrowBreadComponentMU : MonoBehaviour
         initialVelocity = Random.Range(MinInitialVelocity, MaxInitialVelocity);
         velocity = initialVelocity;
         //sleep = false;
-        float tf = 2f * (initialVelocity) / (gravity); // * Time.deltaTime);
+        float tf = 2f * (initialVelocity) / (gravity);
         Debug.Log("tempo stimato = " + tf);
         IEnumerator coroutine = WaitAndPrint(tf);
 

@@ -15,20 +15,50 @@ namespace LevelStageNamespace {
         private BreadSpawnSO _breadSpawnForThisLake;
 
 
+        //offsets for points relative in some way to the water or the terrain
         public float OffsetXTerrain;
         public float OffsetYTerrain;
         public float OffsetXLake;
         public float OffsetYLake;
 
-        private GameObject _lake;
-        private GameObject _grass;
+        //offset for the spawn of the player
+        public float OffsetXPlayer;
+        public float OffsetYPlayer;
 
+        //radius of area around the player in which we don't want enemies to spawn
+        public float RadiusAroundPlayer;
+
+        //radius of area arount the enemies in which we don't want other enemies to spawn
+        public float RadiusAroundEnemy;
+
+
+
+        private GameObject _lake;
+        private GameObject _terrain;
+
+
+        //########################################################################################################################################################
+        //############################################################# INFORMATIONS ABOUT ENEMIES ###############################################################
+        //########################################################################################################################################################
 
         [SerializeField] public int NumberOfMallard;
         [SerializeField] public int NumberOfCoot;
         [SerializeField] public int NumberOfGoose;
         [SerializeField] public int NumberOfFish;       //we'll think about them in the future
         [SerializeField] public int NumberOfSeagull;    //we'll think about them in the future
+
+        [SerializeField] private GameObject MallardPrefab;
+        [SerializeField] private GameObject CootPrefab;
+        [SerializeField] private GameObject GoosePrefab;
+        [SerializeField] private GameObject FishPrefab;
+        [SerializeField] private GameObject SeagullPrefab;
+
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+
+
+
 
         [SerializeField] private Transform NorthRiver;
         [SerializeField] private Transform SouthRiver;
@@ -53,6 +83,12 @@ namespace LevelStageNamespace {
 
         [SerializeField] public bool LakeCleared;
 
+
+
+
+
+
+
         private void Awake()
         {
 
@@ -61,7 +97,7 @@ namespace LevelStageNamespace {
             ManageRiversOfthisLake();
             _breadSpawnForThisLake = _levelStageManager.GetBreadSpawnSO();
             _lake = transform.Find("Water").gameObject;
-            _grass = transform.Find("Terrain").gameObject;
+            _terrain = transform.Find("Terrain").gameObject;
 
             //first of all, a fade in effect
             _levelStageManager.FadeIn();
@@ -82,19 +118,30 @@ namespace LevelStageNamespace {
                 switch (SpawnPlayer)
                 {
                     case EnumsDungeon.CompassDirection.North:
-                        _playerObject.transform.position = transform.Find("Rivers/North").transform.position;
+                        _playerObject.transform.position = transform.Find("Rivers/North").transform.position + new Vector3(0, -OffsetYPlayer, 0);
                         break;
                     case EnumsDungeon.CompassDirection.South:
-                        _playerObject.transform.position = transform.Find("Rivers/South").transform.position;
+                        _playerObject.transform.position = transform.Find("Rivers/South").transform.position + new Vector3(0, OffsetYPlayer, 0);
                         break;
                     case EnumsDungeon.CompassDirection.West:
-                        _playerObject.transform.position = transform.Find("Rivers/West").transform.position;
+                        _playerObject.transform.position = transform.Find("Rivers/West").transform.position + new Vector3(OffsetXPlayer, 0, 0);
                         break;
                     case EnumsDungeon.CompassDirection.East:
-                        _playerObject.transform.position = transform.Find("Rivers/East").transform.position;
+                        _playerObject.transform.position = transform.Find("Rivers/East").transform.position + new Vector3(-OffsetXPlayer, 0, 0);
                         break;
                 }
+
+                if (_lakeDescriptionForThisLake.EnemiesToSpawnMap != null)
+                {
+                    NumberOfMallard = _lakeDescriptionForThisLake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Mallard];
+                    NumberOfCoot = _lakeDescriptionForThisLake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Coot];
+                    NumberOfGoose = _lakeDescriptionForThisLake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Goose];
+                    NumberOfFish = _lakeDescriptionForThisLake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Fish];
+                    NumberOfSeagull = _lakeDescriptionForThisLake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Seagull];
+                }
             }
+
+            
 
             //at this point, there are two cases:
             //-Either this lake is visited for the first time and needs to generate bread, ducks, and so no
@@ -108,6 +155,10 @@ namespace LevelStageNamespace {
                 //then, we can place in the map the enemies. Their position needs to be inside the lake, and
                 //not too close to the player
                 GenerateEnemies();
+
+                //the setup of the lake is done. Now we wait until the player enters in the actual lake from the river. To do so, he will need
+                //to pass through the TriggerEnteredCollider of the river in which he is.
+
             }
 
         }
@@ -118,7 +169,7 @@ namespace LevelStageNamespace {
 
 
 
-        
+
 
 
         private void ManageRiversOfthisLake()
@@ -128,48 +179,48 @@ namespace LevelStageNamespace {
             GameObject southRiver = transform.Find("Rivers/South").gameObject;
             GameObject westRiver = transform.Find("Rivers/West").gameObject;
             GameObject eastRiver = transform.Find("Rivers/East").gameObject;
-            if(_lakeDescriptionForThisLake.HasNorthRiver == false)
+            if (_lakeDescriptionForThisLake.HasNorthRiver == false)
             {
                 //if the north lake is not present, we obscure its sprite, and leave the colliders as they are
                 var t = northRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
                 northRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(0, t.y, t.z);
+                northRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
             }
             else
             {
                 //otherwise, we leave the sprite as it is, but we remove the collider (We do the same for the other rivers)
                 northRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
-                northRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
 
             }
             if (_lakeDescriptionForThisLake.HasSouthRiver == false)
             {
                 var t = southRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
                 southRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(0, t.y, t.z);
+                southRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
             }
             else
             {
                 southRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
-                southRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
             }
             if (_lakeDescriptionForThisLake.HasWestRiver == false)
             {
                 var t = westRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
                 westRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(t.x, 0, t.z);
+                westRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
             }
             else
             {
                 westRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
-                westRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
             }
             if (_lakeDescriptionForThisLake.HasEastRiver == false)
             {
                 var t = eastRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
                 eastRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(t.x, 0, t.z);
+                eastRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
             }
             else
             {
                 eastRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
-                eastRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
             }
         }
 
@@ -208,9 +259,112 @@ namespace LevelStageNamespace {
 
         }
 
+
+
+
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+        //################################################################# ENEMIES GENERATION ###################################################################
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+
         private void GenerateEnemies()
         {
             //We iterate on the map of enemies to spawn, and decide a valid point in which to spawn them
+            //A valid point is a point that:
+            //-is inside the water
+            //-is not too close to the player
+            //-is not too close to other enemies
+
+            List<Vector2> pointsOfEnemies = new List<Vector2>();
+
+            for (int i = 0; i < NumberOfMallard; i++)
+            {
+                Vector2 newPoint = GenerateMallard(pointsOfEnemies);
+                pointsOfEnemies.Add(newPoint);
+            }
+            for (int i = 0; i < NumberOfCoot; i++)
+            {
+                Vector2 newPoint = GenerateCoot(pointsOfEnemies);
+                pointsOfEnemies.Add(newPoint);
+            }
+            for (int i = 0; i < NumberOfGoose; i++)
+            {
+                Vector2 newPoint = GenerateGoose(pointsOfEnemies);
+                pointsOfEnemies.Add(newPoint);
+            }
+            for (int i = 0; i < NumberOfFish; i++)
+            {
+                Vector2 newPoint = GenerateFish(pointsOfEnemies);
+                pointsOfEnemies.Add(newPoint);
+            }
+            for (int i = 0; i < NumberOfSeagull; i++)
+            {
+                Vector2 newPoint = GenerateSeagull(pointsOfEnemies);
+                pointsOfEnemies.Add(newPoint);
+            }
+
+        }
+
+
+        //function used to get a point in which to spawn an enemy.
+        private Vector2 GenerateEnemyPoint(List<Vector2> otherEnemiesPoints)
+        {
+            Vector2 currentPoint = Vector2.zero;
+            bool ok = false;
+            float x, y;
+            while (!ok)
+            {
+                (x, y) = GeneratePointInsideLakeFarFromPlayer();
+                currentPoint = new Vector2(x, y);
+                ok = true;
+                for (int j = 0; j < otherEnemiesPoints.Count; j++)
+                {
+                    var enemyPoint = otherEnemiesPoints[j];
+                    if (Vector2.Distance(currentPoint, enemyPoint) < RadiusAroundEnemy)
+                    {
+                        ok = false;
+                    }
+                }
+            }
+            return currentPoint;
+        }
+
+        //function that creates a mallard in the lake and returns the point in which the mallard spawned. The argument represent a list of point in which lie
+        //other ducks
+        private Vector2 GenerateMallard(List<Vector2> otherEnemiesPoints)
+        {
+            Vector2 point = GenerateEnemyPoint(otherEnemiesPoints);
+            Instantiate(MallardPrefab, point, Quaternion.identity);
+            return point;
+        }
+
+        private Vector2 GenerateCoot(List<Vector2> otherEnemiesPoints)
+        {
+            Vector2 point = GenerateEnemyPoint(otherEnemiesPoints);
+            Instantiate(CootPrefab, point, Quaternion.identity);
+            return point;
+        }
+
+        private Vector2 GenerateGoose(List<Vector2> otherEnemiesPoints)
+        {
+            Vector2 point = GenerateEnemyPoint(otherEnemiesPoints);
+            Instantiate(GoosePrefab, point, Quaternion.identity);
+            return point;
+        }
+
+        private Vector2 GenerateFish(List<Vector2> otherEnemiesPoints)
+        {
+            Vector2 point = GenerateEnemyPoint(otherEnemiesPoints);
+            Instantiate(FishPrefab, point, Quaternion.identity);
+            return point;
+        }
+
+        private Vector2 GenerateSeagull(List<Vector2> otherEnemiesPoints)
+        {
+            Vector2 point = GenerateEnemyPoint(otherEnemiesPoints);
+            Instantiate(SeagullPrefab, point, Quaternion.identity);
+            return point;
         }
 
 
@@ -219,46 +373,49 @@ namespace LevelStageNamespace {
 
 
 
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+        //################################################################# POINTS GENERATION ###################################################################
+        //########################################################################################################################################################
+        //########################################################################################################################################################
 
 
         //function that generates a point on the immediate outside of the lake. Is used to simulate the starting point from which
         //a piece of bread is thrown
         public (float, float) GeneratePointOutsideLake()
         {
-            float widthGrass = _grass.transform.localScale.x;
-            float heightGrass = _grass.transform.localScale.y;
-            float xCenterGrass = _grass.transform.position.x;
-            float yCenterGrass = _grass.transform.position.y;
-            float offsetXTerrain = _grass.transform.parent.gameObject.GetComponent<LevelStageNamespace.LakeDescriptionComponent>().OffsetXTerrain;
-            float offsetYTerrain = _grass.transform.parent.gameObject.GetComponent<LevelStageNamespace.LakeDescriptionComponent>().OffsetYTerrain;
+            float widthTerrain = _terrain.transform.localScale.x;
+            float heightTerrain = _terrain.transform.localScale.y;
+            float xCenterTerrain = _terrain.transform.position.x;
+            float yCenterTerrain = _terrain.transform.position.y;
             int left_right___or___above_below = Random.Range(0, 2);
-            float x = Random.Range(0 - offsetXTerrain, widthGrass + offsetXTerrain + 1);
-            float y = Random.Range(0 - offsetYTerrain, heightGrass + offsetYTerrain + 1);
+            float x = Random.Range(0 - OffsetXTerrain, widthTerrain + OffsetXTerrain + 1);
+            float y = Random.Range(0 - OffsetYTerrain, heightTerrain + OffsetYTerrain + 1);
 
             if (left_right___or___above_below == 0)
             {
-                y = Random.Range(yCenterGrass - (heightGrass / 2) - offsetYTerrain, yCenterGrass + heightGrass / 2 + offsetYTerrain + 1);
+                y = Random.Range(yCenterTerrain - (heightTerrain / 2) - OffsetYTerrain, yCenterTerrain + heightTerrain / 2 + OffsetYTerrain + 1);
                 int coin = Random.Range(0, 2);
                 if (coin == 0)
                 {
-                    x = Random.Range(xCenterGrass - (widthGrass / 2) - offsetXTerrain, xCenterGrass - (widthGrass / 2));
+                    x = Random.Range(xCenterTerrain - (widthTerrain / 2) - OffsetXTerrain, xCenterTerrain - (widthTerrain / 2));
                 }
                 else
                 {
-                    x = Random.Range(xCenterGrass + 1 + (widthGrass / 2), xCenterGrass + (widthGrass / 2) + offsetXTerrain);
+                    x = Random.Range(xCenterTerrain + 1 + (widthTerrain / 2), xCenterTerrain + (widthTerrain / 2) + OffsetXTerrain);
                 }
             }
             else
             {
-                x = Random.Range(xCenterGrass - (widthGrass / 2) - offsetXTerrain, xCenterGrass + (widthGrass / 2) + offsetXTerrain + 1);
+                x = Random.Range(xCenterTerrain - (widthTerrain / 2) - OffsetXTerrain, xCenterTerrain + (widthTerrain / 2) + OffsetXTerrain + 1);
                 int coin = Random.Range(0, 2);
                 if (coin == 0)
                 {
-                    y = Random.Range(yCenterGrass - (heightGrass / 2) - offsetYTerrain, yCenterGrass - (heightGrass / 2));
+                    y = Random.Range(yCenterTerrain - (heightTerrain / 2) - OffsetYTerrain, yCenterTerrain - (heightTerrain / 2));
                 }
                 else
                 {
-                    y = Random.Range(yCenterGrass + 1 + (heightGrass / 2), yCenterGrass + (heightGrass / 2) + offsetYTerrain);
+                    y = Random.Range(yCenterTerrain + 1 + (heightTerrain / 2), yCenterTerrain + (heightTerrain / 2) + OffsetYTerrain);
                 }
             }
 
@@ -271,7 +428,7 @@ namespace LevelStageNamespace {
         //function that returns a point inside the lake
         public (float, float) GeneratePointInsideLake()
         {
-            
+
             float widthLake = _lake.transform.localScale.x;
             float heightLake = _lake.transform.localScale.y;
             float xCenterLake = _lake.transform.position.x;
@@ -298,11 +455,27 @@ namespace LevelStageNamespace {
 
             return (x, y);
 
-        } 
+        }
 
 
 
-
+        //function used to spawn an enemy somewhere in the lake, but not too close to the player
+        private (float, float) GeneratePointInsideLakeFarFromPlayer()
+        {
+            bool ok = false;
+            float x = 0f, y = 0f;
+            var playerPoint = _playerObject.transform.position;
+            while (!ok)
+            {
+                (x, y) = GeneratePointInsideLake();
+                var currentPoint = new Vector2(x, y);
+                if (Vector2.Distance(currentPoint, playerPoint) >= RadiusAroundPlayer)
+                {
+                    ok = true;
+                }
+            }
+            return (x, y);
+        }
 
 
 
@@ -310,7 +483,7 @@ namespace LevelStageNamespace {
         void Start()
         {
 
-           
+
 
 
 
