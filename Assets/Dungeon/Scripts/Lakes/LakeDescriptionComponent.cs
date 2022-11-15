@@ -13,7 +13,6 @@ namespace LevelStageNamespace {
         private LakeDescriptionSO _lakeDescriptionForThisLake;
         private BreadSpawnSO _breadSpawnForThisLake;
 
-        private LakeDescriptionComponent _lakeDescriptionComponent;
         private GameObject _northRiver;
         private GameObject _southRiver;
         private GameObject _westRiver;
@@ -61,11 +60,8 @@ namespace LevelStageNamespace {
         [SerializeField] private GameObject SeagullPrefab;
 
         //########################################################################################################################################################
+        //############################################################## INFORMATIONS ABOUT RIVERS ###############################################################
         //########################################################################################################################################################
-        //########################################################################################################################################################
-
-
-
 
         [SerializeField] private Transform NorthRiver;
         [SerializeField] private Transform SouthRiver;
@@ -74,6 +70,18 @@ namespace LevelStageNamespace {
 
         [Header("From where does the player come? North, south, east or west?")]
         [SerializeField] public EnumsDungeon.CompassDirection SpawnPlayer;
+
+        //########################################################################################################################################################
+        //############################################################## INFORMATIONS ABOUT BREAD ################################################################
+        //########################################################################################################################################################
+
+        [SerializeField] private GameObject SmallBreadPrefab;
+        [SerializeField] private GameObject MediumBreadPrefab;
+        [SerializeField] private GameObject LargeBreadPrefab;
+
+        [SerializeField] private GameObject BreadToThrow;
+
+
 
         [SerializeField] public EnumsDungeon.LakeDimension Dimension;
 
@@ -180,7 +188,6 @@ namespace LevelStageNamespace {
 
         private void ManageRiversOfthisLake()
         {
-            _lakeDescriptionComponent = GetComponent<LakeDescriptionComponent>();
             _northRiver = transform.Find("Rivers/North").gameObject;
             _southRiver = transform.Find("Rivers/South").gameObject;
             _westRiver = transform.Find("Rivers/West").gameObject;
@@ -259,7 +266,7 @@ namespace LevelStageNamespace {
         {
             //TODO: for this moment, I'll just stick the values here, because otherwise I would have to manage too many variables in this monobehaviour,
             //and I also don't know if I want exactly this kind of animation.
-            float timeBetweenShrinking = 0.01f;
+            float timeBetweenShrinking = 0.005f;
             float percentageToReducePerUnitOfTime = 0.01f;
 
             float length;
@@ -364,6 +371,39 @@ namespace LevelStageNamespace {
 
         }
 
+
+        public void StartThrowingAllTheBread()
+        {
+            StartCoroutine(ThrowBreads());
+        }
+
+        private IEnumerator ThrowBreads()
+        {
+            for(int i = 0; i < _totalNumberOfBreadPiecesToSpawn; i++)
+            {
+                GameObject newBread = Instantiate(BreadToThrow);
+
+                Sprite sprite = null;
+                switch (_arrayBreadSpawnType[i])
+                {
+                    case EnumsDungeon.BreadType.Small:
+                        sprite = SmallBreadPrefab.GetComponent<SpriteRenderer>().sprite;
+                        break;
+                    case EnumsDungeon.BreadType.Medium:
+                        sprite = MediumBreadPrefab.GetComponent<SpriteRenderer>().sprite;
+                        break;
+                    case EnumsDungeon.BreadType.Large:
+                        sprite = LargeBreadPrefab.GetComponent<SpriteRenderer>().sprite;
+                        break;
+                }
+
+                newBread.transform.Find("Sprite").gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
+                yield return new WaitForSeconds(_arrayBreadSpawnTime[i]);
+            }
+
+
+            yield return null;
+        }
 
 
 

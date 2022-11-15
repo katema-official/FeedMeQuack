@@ -552,6 +552,10 @@ MonoBehaviour:
   WestRiver: {fileID: 1321766971}
   EastRiver: {fileID: 1906931282}
   SpawnPlayer: 0
+  SmallBreadPrefab: {fileID: 65588710454410848, guid: 92b61302c44f3c2469a542a43a178366, type: 3}
+  MediumBreadPrefab: {fileID: 65588710454410848, guid: 92b61302c44f3c2469a542a43a178366, type: 3}
+  LargeBreadPrefab: {fileID: 65588710454410848, guid: 92b61302c44f3c2469a542a43a178366, type: 3}
+  BreadToThrow: {fileID: 4819878678904792877, guid: 8e91498575e631741b09d84105fa7653, type: 3}
   Dimension: 0
   LakeCleared: 0
 --- !u!1 &333245148

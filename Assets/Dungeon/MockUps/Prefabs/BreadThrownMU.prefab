@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 6631435252546253504}
   - component: {fileID: 2912996674125860678}
   m_Layer: 0
-  m_Name: BreadGameObjectMU
+  m_Name: BreadThrownMU
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
