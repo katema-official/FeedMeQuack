@@ -529,6 +529,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 650b0b90d2a8d374787ca3f4bd27b3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OffsetXTerrain: 10
+  OffsetYTerrain: 8
+  OffsetXLake: 10
+  OffsetYLake: 8
   NumberOfMallard: 0
   NumberOfCoot: 0
   NumberOfGoose: 0

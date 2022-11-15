@@ -50,76 +50,15 @@ public class ThrowBreadComponentMU : MonoBehaviour
 
     void Start()
     {
+        LevelStageNamespace.LakeDescriptionComponent wholeLakeComponent = GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeDescriptionComponent>();
 
         //choose the initial position
-        GameObject grass = GameObject.Find("Terrain");
-        //float width_grass = grass.GetComponent<SpriteRenderer>().sprite.rect.width;
-        //float height_grass = grass.GetComponent<SpriteRenderer>().sprite.rect.height;
-        float widthGrass = grass.transform.localScale.x;
-        float heightGrass = grass.transform.localScale.y;
-        float xCenterGrass = grass.transform.position.x;
-        float yCenterGrass = grass.transform.position.y;
-        float offsetXTerrain = 10;
-        float offsetYTerrain = 8;
-        int left_right___or___above_below = Random.Range(0, 2);
-        _xInit = Random.Range(0 - offsetXTerrain, widthGrass + offsetXTerrain + 1);
-        _yInit = Random.Range(0 - offsetYTerrain, heightGrass + offsetYTerrain + 1);
+        (_xInit, _yInit) = wholeLakeComponent.GeneratePointOutsideLake();
 
-        if(left_right___or___above_below == 0)
-        {
-            _yInit = Random.Range(yCenterGrass - (heightGrass / 2) - offsetYTerrain, yCenterGrass + heightGrass / 2 + offsetYTerrain + 1);
-            int coin = Random.Range(0, 2);
-            if(coin == 0)
-            {
-                _xInit = Random.Range(xCenterGrass - (widthGrass / 2) - offsetXTerrain, xCenterGrass - (widthGrass / 2));
-            }
-            else
-            {
-                _xInit = Random.Range(xCenterGrass + 1 + (widthGrass / 2), xCenterGrass + (widthGrass / 2) + offsetXTerrain);
-            }
-        }
-        else
-        {
-            _xInit = Random.Range(xCenterGrass - (widthGrass / 2) - offsetXTerrain, xCenterGrass + (widthGrass / 2) + offsetXTerrain + 1);
-            int coin = Random.Range(0, 2);
-            if (coin == 0)
-            {
-                _yInit = Random.Range(yCenterGrass - (heightGrass / 2) - offsetYTerrain, yCenterGrass - (heightGrass / 2));
-            }
-            else
-            {
-                _yInit = Random.Range(yCenterGrass + 1 + (heightGrass / 2), yCenterGrass + (heightGrass / 2) + offsetYTerrain);
-            }
-        }
+        //choose the landing point
+        (_xEnd, _yEnd) = wholeLakeComponent.GeneratePointInsideLake();
 
-        //_xInit = 0 + ((float) sign) * (width_grass / 2) + sign * (Random.Range(1, offset_x));
-        //_yInit = 0 + sign * (height_grass / 2) + sign * (Random.Range(1, offset_y));
-        Debug.LogFormat("{0} e {1}", widthGrass, heightGrass);
-
-        GameObject lake = GameObject.Find("Water");
-        float widthLake = lake.transform.localScale.x;
-        float heightLake = lake.transform.localScale.y;
-        float xCenterLake = lake.transform.position.x;
-        float yCenterLake = lake.transform.position.y;
-        float offsetXLake = 10f;
-        float offsetYLake = 8f;
-
-        bool generatedEnd = false;
-        while (!generatedEnd)
-        {
-            _xEnd = Random.Range((xCenterGrass - widthLake / 2) + offsetXLake, (xCenterGrass + widthLake / 2) - offsetXLake);
-            _yEnd = Random.Range((yCenterGrass - heightLake / 2) + offsetYLake, (yCenterGrass + heightLake / 2) - offsetYLake);
-
-            float one = Mathf.Pow((2 * _xEnd) / widthLake, 2);
-            float two = Mathf.Pow((2 * _yEnd) / heightLake, 2);
-
-            float distanceFromCenter = Mathf.Sqrt(one + two);
-
-            if(distanceFromCenter <= 1)
-            {
-                generatedEnd = true;
-            }
-        }
+        
 
 
         _xDistance = _xEnd - _xInit;
