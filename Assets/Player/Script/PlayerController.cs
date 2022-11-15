@@ -77,6 +77,9 @@ public class PlayerController : MonoBehaviour
         _force = _speed * 1.5f;
         _camera = transform.parent.GetComponentInChildren<Camera>();
         _mouth = transform.Find("Mouth");
+
+
+        var duckTypeManager = transform.root.GetComponentInChildren<DuckTypeManager>();
     }
 
     // Start is called before the first frame update
