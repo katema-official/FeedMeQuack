@@ -17,13 +17,19 @@ public class PlayerController : MonoBehaviour
     private float _rotationMovement = 0.0f;
     private float _rotationSpeed = 90.0f;
 
-    
-    private float _speed = 3.0f;
-
     private float _force = 0.0f;
     private PlayerState _state = PlayerState.Normal;
 
 
+
+    private DuckDescription _description = null;
+    //Derived from DuckDescription
+    //---------------------------------
+    private float _speed = 0.0f;
+    private float _eatingSpeed = 0.0f;
+    private float _chewingRate = 0.0f;
+    private int _mouthSize = 0;
+    //---------------------------------
 
     public void Move(float speed, float rotationMovement, bool moveForward)
     {
@@ -74,12 +80,21 @@ public class PlayerController : MonoBehaviour
             _rigidBody.freezeRotation = true;
         }
 
+        var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
+        _description = duckTypeManager.getTypeFromName("Mallard");
+
+        _speed = _description.Speed;
+        _eatingSpeed = _description.EatingSpeed;
+        _chewingRate = _description.ChewingRate;
+        _mouthSize = _description.MouthSize;        
+        
+
+
+
+
         _force = _speed * 1.5f;
         _camera = transform.parent.GetComponentInChildren<Camera>();
         _mouth = transform.Find("Mouth");
-
-
-        var duckTypeManager = transform.root.GetComponentInChildren<DuckTypeManager>();
     }
 
     // Start is called before the first frame update
