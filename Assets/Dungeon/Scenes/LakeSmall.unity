@@ -531,8 +531,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OffsetXTerrain: 10
   OffsetYTerrain: 8
-  OffsetXLake: 10
-  OffsetYLake: 8
+  OffsetXLake: 15
+  OffsetYLake: 10
   OffsetXPlayer: 4
   OffsetYPlayer: 3
   RadiusAroundPlayer: 3
@@ -787,6 +787,7 @@ GameObject:
   m_Component:
   - component: {fileID: 515246895}
   - component: {fileID: 515246896}
+  - component: {fileID: 515246897}
   m_Layer: 0
   m_Name: TriggerEnteredCollider
   m_TagString: Untagged
@@ -833,6 +834,18 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &515246897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515246894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 547176aef5bddf04998fd81470b447eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &657359138
 GameObject:
   m_ObjectHideFlags: 0
@@ -1382,6 +1395,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1547585952}
   - component: {fileID: 1547585953}
+  - component: {fileID: 1547585954}
   m_Layer: 0
   m_Name: TriggerEnteredCollider
   m_TagString: Untagged
@@ -1428,6 +1442,18 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &1547585954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547585951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 547176aef5bddf04998fd81470b447eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1585031985
 GameObject:
   m_ObjectHideFlags: 0
@@ -1438,6 +1464,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1585031986}
   - component: {fileID: 1585031987}
+  - component: {fileID: 1585031988}
   m_Layer: 0
   m_Name: TriggerEnteredCollider
   m_TagString: Untagged
@@ -1484,6 +1511,18 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &1585031988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585031985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 547176aef5bddf04998fd81470b447eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1616623184
 GameObject:
   m_ObjectHideFlags: 0
@@ -2016,6 +2055,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2133837460}
   - component: {fileID: 2133837461}
+  - component: {fileID: 2133837462}
   m_Layer: 0
   m_Name: TriggerEnteredCollider
   m_TagString: Untagged
@@ -2062,6 +2102,18 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &2133837462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2133837459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 547176aef5bddf04998fd81470b447eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8338423396178874488
 PrefabInstance:
   m_ObjectHideFlags: 0

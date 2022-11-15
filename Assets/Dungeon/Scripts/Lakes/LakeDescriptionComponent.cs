@@ -5,14 +5,21 @@ using UnityEngine;
 namespace LevelStageNamespace {
     public class LakeDescriptionComponent : MonoBehaviour
     {
+        //component that specifies the nature of a lake
 
         private LevelStageManagerComponent _levelStageManager;
         private GameObject _playerObject;
 
-        //component that specifies the nature of a lake
-
         private LakeDescriptionSO _lakeDescriptionForThisLake;
         private BreadSpawnSO _breadSpawnForThisLake;
+
+        private LakeDescriptionComponent _lakeDescriptionComponent;
+        private GameObject _northRiver;
+        private GameObject _southRiver;
+        private GameObject _westRiver;
+        private GameObject _eastRiver;
+
+
 
 
         //offsets for points relative in some way to the water or the terrain
@@ -164,65 +171,163 @@ namespace LevelStageNamespace {
         }
 
 
-
-
-
-
-
-
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+        //################################################################# RIVERS MANAGEMENT ####################################################################
+        //########################################################################################################################################################
+        //########################################################################################################################################################
 
 
         private void ManageRiversOfthisLake()
         {
-            LakeDescriptionComponent lakeDesc = GetComponent<LakeDescriptionComponent>();
-            GameObject northRiver = transform.Find("Rivers/North").gameObject;
-            GameObject southRiver = transform.Find("Rivers/South").gameObject;
-            GameObject westRiver = transform.Find("Rivers/West").gameObject;
-            GameObject eastRiver = transform.Find("Rivers/East").gameObject;
+            _lakeDescriptionComponent = GetComponent<LakeDescriptionComponent>();
+            _northRiver = transform.Find("Rivers/North").gameObject;
+            _southRiver = transform.Find("Rivers/South").gameObject;
+            _westRiver = transform.Find("Rivers/West").gameObject;
+            _eastRiver = transform.Find("Rivers/East").gameObject;
             if (_lakeDescriptionForThisLake.HasNorthRiver == false)
             {
                 //if the north lake is not present, we obscure its sprite, and leave the colliders as they are
-                var t = northRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
-                northRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(0, t.y, t.z);
-                northRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
+                var t = _northRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
+                _northRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(0, t.y, t.z);
+                _northRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
             }
             else
             {
                 //otherwise, we leave the sprite as it is, but we remove the collider (We do the same for the other rivers)
-                northRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                _northRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
 
             }
             if (_lakeDescriptionForThisLake.HasSouthRiver == false)
             {
-                var t = southRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
-                southRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(0, t.y, t.z);
-                southRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
+                var t = _southRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
+                _southRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(0, t.y, t.z);
+                _southRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
             }
             else
             {
-                southRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                _southRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
             }
             if (_lakeDescriptionForThisLake.HasWestRiver == false)
             {
-                var t = westRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
-                westRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(t.x, 0, t.z);
-                westRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
+                var t = _westRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
+                _westRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(t.x, 0, t.z);
+                _westRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
             }
             else
             {
-                westRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                _westRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
             }
             if (_lakeDescriptionForThisLake.HasEastRiver == false)
             {
-                var t = eastRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
-                eastRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(t.x, 0, t.z);
-                eastRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
+                var t = _eastRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
+                _eastRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(t.x, 0, t.z);
+                _eastRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
             }
             else
             {
-                eastRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                _eastRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
             }
         }
+
+        //called by EnterPlayerInLakeComponent to signal that the player entered the lake, and the rivers must be closed
+        public void CloseLakesWithAnimation()
+        {
+            if(_lakeDescriptionForThisLake.HasNorthRiver == true)
+            {
+                _northRiver.transform.Find("BlockingCollider").gameObject.SetActive(true);
+                StartCoroutine(CloseLakeCoroutine(_northRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.North));
+            }
+            if (_lakeDescriptionForThisLake.HasSouthRiver == true)
+            {
+                _southRiver.transform.Find("BlockingCollider").gameObject.SetActive(true);
+                StartCoroutine(CloseLakeCoroutine(_southRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.South));
+            }
+            if (_lakeDescriptionForThisLake.HasWestRiver == true)
+            {
+                _westRiver.transform.Find("BlockingCollider").gameObject.SetActive(true);
+                StartCoroutine(CloseLakeCoroutine(_westRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.West));
+            }
+            if (_lakeDescriptionForThisLake.HasEastRiver == true)
+            {
+                _eastRiver.transform.Find("BlockingCollider").gameObject.SetActive(true);
+                StartCoroutine(CloseLakeCoroutine(_eastRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.East));
+            }
+        }
+
+        private IEnumerator CloseLakeCoroutine(Transform river, EnumsDungeon.CompassDirection direction)
+        {
+            //TODO: for this moment, I'll just stick the values here, because otherwise I would have to manage too many variables in this monobehaviour,
+            //and I also don't know if I want exactly this kind of animation.
+            float timeBetweenShrinking = 0.01f;
+            float percentageToReducePerUnitOfTime = 0.01f;
+
+            float length;
+            float amountToReduce;
+            Vector3 reduceVector = Vector3.zero;
+            switch (direction)
+            {
+                case EnumsDungeon.CompassDirection.North:
+                case EnumsDungeon.CompassDirection.South:
+                    length = river.localScale.x;
+                    amountToReduce = length * percentageToReducePerUnitOfTime;
+                    reduceVector = new Vector3(amountToReduce, 0, 0);
+                    break;
+
+                case EnumsDungeon.CompassDirection.West:
+                case EnumsDungeon.CompassDirection.East:
+                    length = river.localScale.y;
+                    amountToReduce = length * percentageToReducePerUnitOfTime;
+                    reduceVector = new Vector3(0, amountToReduce, 0);
+                    break;
+            }
+
+            switch (direction)
+            {
+                case EnumsDungeon.CompassDirection.North:
+                    while(river.localScale.x > 0)
+                    {
+                        river.localScale -= reduceVector;
+                        yield return new WaitForSeconds(timeBetweenShrinking);
+                    }
+                    break;
+                case EnumsDungeon.CompassDirection.South:
+                    while (river.localScale.x > 0)
+                    {
+                        river.localScale -= reduceVector;
+                        yield return new WaitForSeconds(timeBetweenShrinking);
+                    }
+                    break;
+                case EnumsDungeon.CompassDirection.West:
+                    while (river.localScale.y > 0)
+                    {
+                        river.localScale -= reduceVector;
+                        yield return new WaitForSeconds(timeBetweenShrinking);
+                    }
+                    break;
+                case EnumsDungeon.CompassDirection.East:
+                    while (river.localScale.y > 0)
+                    {
+                        river.localScale -= reduceVector;
+                        yield return new WaitForSeconds(timeBetweenShrinking);
+                    }
+                    break;
+            }
+
+
+            yield return null;
+        }
+
+        public void OpenLakesWithAnimation()
+        {
+
+        }
+
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+        //########################################################### BREAD TYPE AND TIME GENERATION #############################################################
+        //########################################################################################################################################################
+        //########################################################################################################################################################
 
         private void GenerateArrayBreadSpawn()
         {

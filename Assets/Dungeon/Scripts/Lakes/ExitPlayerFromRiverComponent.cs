@@ -44,10 +44,6 @@ namespace LevelStageNamespace {
             _levelStageManager = GameObject.Find("LevelStageManagerObject").GetComponent<LevelStageManagerComponent>();
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+        
     }
 }
