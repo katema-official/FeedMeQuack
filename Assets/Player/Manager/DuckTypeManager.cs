@@ -2,22 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DuckTypeManager : MonoBehaviour
+
+namespace Player
 {
-    [SerializeField] private PlayerDuckDescriptionSO[] DuckTypes;
-
-    public PlayerDuckDescriptionSO getTypeFromName(string typeName)
+    public class DuckTypeManager : MonoBehaviour
     {
-        foreach(var type in DuckTypes)
+        [SerializeField] private PlayerDuckDescriptionSO[] DuckTypes;
+
+        public PlayerDuckDescriptionSO getTypeFromName(string typeName)
         {
-            if (type.Name == typeName)
-                return type;
-        }
+            foreach(var type in DuckTypes)
+            {
+                if (type.Name == typeName)
+                    return type;
+            }
 
-        return new PlayerDuckDescriptionSO();
-    }
-    public PlayerDuckDescriptionSO getTypeFromIndex(int index)
-    {
-        return DuckTypes[index];
+            return new PlayerDuckDescriptionSO();
+        }
+        public PlayerDuckDescriptionSO getTypeFromIndex(int index)
+        {
+            return DuckTypes[index];
+        }
     }
 }

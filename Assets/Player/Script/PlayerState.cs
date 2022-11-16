@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerState
+namespace Player
 {
-    Normal = 0,
-    Eating,
-    Dashing,
-    Stealing,
-    Spitting
+    public enum PlayerState
+    {
+        Normal = 0,
+        Eating,
+        Dashing,
+        Stealing,
+        Spitting
+    }
+
 }
