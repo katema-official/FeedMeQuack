@@ -381,7 +381,7 @@ GameObject:
   - component: {fileID: 4251605364591302930}
   - component: {fileID: 6460379535294483481}
   m_Layer: 0
-  m_Name: Lake
+  m_Name: TestLake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
