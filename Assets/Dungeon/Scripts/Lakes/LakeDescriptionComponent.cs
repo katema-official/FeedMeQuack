@@ -394,19 +394,20 @@ namespace LevelStageNamespace {
                     case EnumsDungeon.BreadType.Small:
                         sprite = SmallBreadPrefab.GetComponent<SpriteRenderer>().sprite;
                         spriteSize = sprite.rect.size;
-                        newBread.GetComponent<ThrowBreadComponentMU>().BreadToSpawnPrefab = SmallBreadPrefab;
+                        newBread.GetComponent<BreadNamespace.ThrowBreadComponent>().BreadToSpawnPrefab = SmallBreadPrefab;
                         break;
                     case EnumsDungeon.BreadType.Medium:
                         sprite = MediumBreadPrefab.GetComponent<SpriteRenderer>().sprite;
                         spriteSize = sprite.rect.size;
-                        newBread.GetComponent<ThrowBreadComponentMU>().BreadToSpawnPrefab = SmallBreadPrefab;
+                        newBread.GetComponent<BreadNamespace.ThrowBreadComponent>().BreadToSpawnPrefab = MediumBreadPrefab;
                         break;
                     case EnumsDungeon.BreadType.Large:
                         sprite = LargeBreadPrefab.GetComponent<SpriteRenderer>().sprite;
                         spriteSize = sprite.rect.size;
-                        newBread.GetComponent<ThrowBreadComponentMU>().BreadToSpawnPrefab = SmallBreadPrefab;
+                        newBread.GetComponent<BreadNamespace.ThrowBreadComponent>().BreadToSpawnPrefab = LargeBreadPrefab;
                         break;
                 }
+                newBread.GetComponent<BreadNamespace.ThrowBreadComponent>().dimension = _arrayBreadSpawnType[i];
 
 
                 float amountToDivideX = spriteSize.x / xPixelSprite;
