@@ -22,13 +22,13 @@ public class PlayerController : MonoBehaviour
 
 
 
-    private DuckDescription _description = null;
+    private PlayerDuckDescriptionSO _description = null;
     //Derived from DuckDescription
     //---------------------------------
-    private float _speed = 0.0f;
-    private float _eatingSpeed = 0.0f;
-    private float _chewingRate = 0.0f;
-    private int _mouthSize = 0;
+    [SerializeField] private float _speed = 0.0f;
+    [SerializeField] private float _eatingSpeed = 0.0f;
+    [SerializeField] private float _chewingRate = 0.0f;
+    [SerializeField] private int _mouthSize = 0;
     //---------------------------------
 
     public void Move(float speed, float rotationMovement, bool moveForward)
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
            
             float angle = Mathf.Atan2(-finalDir.x, finalDir.y) * Mathf.Rad2Deg;
             _rotationMovement = angle;
-
+            _force = _speed * 1.5f;
             _rigidBody.AddForce(finalDir * _force, ForceMode2D.Force);
             _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity, _speed);
         }
@@ -135,7 +135,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         if (_state == PlayerState.Normal)  Move(_speed, _rotationMovement, _moveForward);
-        MoveCamera();
+       // MoveCamera();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

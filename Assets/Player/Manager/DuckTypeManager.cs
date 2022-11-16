@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DuckTypeManager : MonoBehaviour
 {
-    [SerializeField] private DuckDescription[] DuckTypes;
+    [SerializeField] private PlayerDuckDescriptionSO[] DuckTypes;
 
-    public DuckDescription getTypeFromName(string typeName)
+    public PlayerDuckDescriptionSO getTypeFromName(string typeName)
     {
         foreach(var type in DuckTypes)
         {
@@ -14,9 +14,9 @@ public class DuckTypeManager : MonoBehaviour
                 return type;
         }
 
-        return new DuckDescription();
+        return new PlayerDuckDescriptionSO();
     }
-    public DuckDescription getTypeFromIndex(int index)
+    public PlayerDuckDescriptionSO getTypeFromIndex(int index)
     {
         return DuckTypes[index];
     }
