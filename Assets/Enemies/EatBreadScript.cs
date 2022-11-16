@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Enemies;
 using UnityEngine;
 
 public class EatBreadScript : MonoBehaviour
@@ -18,7 +19,7 @@ public class EatBreadScript : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other){
-        if(other.GetComponent<EnemyFSM>()!=null) return;
+        if(other.GetComponent<EnemyFSM>()!=null || other.GetComponentInParent<EnemyFSM>()!=null) return;
         _fsmScript.StartEatingBread(other.gameObject);
     }
 }

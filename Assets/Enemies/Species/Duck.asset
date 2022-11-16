@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fda69db312a69d47a598a32d6dc93f6, type: 3}
   m_Name: Duck
   m_EditorClassIdentifier: 
-  speed: 16
+  maxSpeed: 15
   mouthSize: 0
   eatingSpeed: 1
   steeringSpeed: 0
-  changeDirectionCd: 0
-  idleTTime: 0
-  idleCD: 0
+  idleTime: 3
+  idleCD: 7
+  accelerationTimeSeconds: 1.5
   steeringAngleMax: 45
-  steeringCd: 5
-  innerRadiusCollider: 0
-  mediumRadiusCollider: 0
-  outerRadiusCollider: 0
+  steeringCd: 1
+  innerRadiusCollider: 20
+  mediumRadiusCollider: 50
+  outerRadiusCollider: 100
   stealingCd: 0
   stealingPerc: 0
-  percInnerRadius: 0
-  percMediumRadius: 0
-  percOuterRadius: 0
+  percInnerRadius: 100
+  percMediumRadius: 70
+  percOuterRadius: 40
