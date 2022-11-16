@@ -40,6 +40,8 @@ public class ThrowBreadComponentMU : MonoBehaviour
     private bool thrown = false;
 
 
+    [SerializeField] public GameObject BreadToSpawnPrefab;
+
 
     private float _xInit;
     private float _yInit;
@@ -146,6 +148,10 @@ public class ThrowBreadComponentMU : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             sprite.localPosition = new Vector3(0, 0, 0);
             sleep = true;
+
+            //the breadThrown object can be destroyed, and the actual bread can be instantiated
+            Instantiate(BreadToSpawnPrefab, transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
     }
 

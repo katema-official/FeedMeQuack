@@ -379,25 +379,43 @@ namespace LevelStageNamespace {
 
         private IEnumerator ThrowBreads()
         {
+
+            float xPixelSprite = 100f;
+            float yPixelSprite = 100f;
+
             for(int i = 0; i < _totalNumberOfBreadPiecesToSpawn; i++)
             {
                 GameObject newBread = Instantiate(BreadToThrow);
+                Vector2 spriteSize = Vector2.zero;
 
                 Sprite sprite = null;
                 switch (_arrayBreadSpawnType[i])
                 {
                     case EnumsDungeon.BreadType.Small:
                         sprite = SmallBreadPrefab.GetComponent<SpriteRenderer>().sprite;
+                        spriteSize = sprite.rect.size;
+                        newBread.GetComponent<ThrowBreadComponentMU>().BreadToSpawnPrefab = SmallBreadPrefab;
                         break;
                     case EnumsDungeon.BreadType.Medium:
                         sprite = MediumBreadPrefab.GetComponent<SpriteRenderer>().sprite;
+                        spriteSize = sprite.rect.size;
+                        newBread.GetComponent<ThrowBreadComponentMU>().BreadToSpawnPrefab = SmallBreadPrefab;
                         break;
                     case EnumsDungeon.BreadType.Large:
                         sprite = LargeBreadPrefab.GetComponent<SpriteRenderer>().sprite;
+                        spriteSize = sprite.rect.size;
+                        newBread.GetComponent<ThrowBreadComponentMU>().BreadToSpawnPrefab = SmallBreadPrefab;
                         break;
                 }
 
-                newBread.transform.Find("Sprite").gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
+
+                float amountToDivideX = spriteSize.x / xPixelSprite;
+                float amountToDivideY = spriteSize.y / yPixelSprite;
+
+                Transform breadThrownTransform = newBread.transform.Find("Sprite");
+
+                breadThrownTransform.gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
+                breadThrownTransform.localScale = new Vector3(breadThrownTransform.localScale.x / amountToDivideX, breadThrownTransform.localScale.y / amountToDivideY, 0);
                 yield return new WaitForSeconds(_arrayBreadSpawnTime[i]);
             }
 
