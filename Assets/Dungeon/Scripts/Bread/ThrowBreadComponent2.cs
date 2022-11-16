@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BreadNamespace
 {
-    public class ThrowBreadComponent : MonoBehaviour
+    public class ThrowBreadComponent2 : MonoBehaviour
     {
         //code based on:
         //https://forum.unity.com/threads/simulate-gravity-in-a-top-down-2d-rpg.293712/
@@ -23,7 +23,8 @@ namespace BreadNamespace
 
         // Our sprite which is a child of this gameobject. This is the the thing
         // the player sees so this is the object we manipulate with our fake gravity.
-        Transform sprite;
+        private GameObject _airSprite;
+        private GameObject _shadow;
 
         // A flag we set to true when our sprite has landed on our fake ground plane.
         [SerializeField] private bool sleep = true;
@@ -54,7 +55,7 @@ namespace BreadNamespace
         //the LakeDescriptionComponent assigns to this variable the prefab of the bread that needs to be rendered when thrown, and to be spawned successively
         public GameObject BreadToSpawnPrefab;
 
-        void Start()
+        void Awake()
         {
             LevelStageNamespace.LakeDescriptionComponent wholeLakeComponent = GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeDescriptionComponent>();
 
@@ -64,27 +65,21 @@ namespace BreadNamespace
             //choose the landing point
             (_xEnd, _yEnd) = wholeLakeComponent.GeneratePointInsideLake();
 
-
-
-
+            
             _xDistance = _xEnd - _xInit;
             _yDistance = _yEnd - _yInit;
 
             transform.position = new Vector3(_xInit, _yInit, 0);
 
-
-
             // Find the sprite so we can position it in Update().
-            sprite = gameObject.transform.Find("Sprite");
+            _airSprite = transform.Find("AirSprite").gameObject;
+            _shadow = transform.Find("Shadow").gameObject;
 
             // Set the initial velocity.
             initialVelocity = Random.Range(MinInitialVelocity, MaxInitialVelocity);
             velocity = initialVelocity;
 
-            // Get the angluar velocity and zero it for the rigidbody2D.
-            angularVelocity = GetComponent<Rigidbody2D>().angularVelocity;
-            GetComponent<Rigidbody2D>().angularVelocity = 0f;
-            Debug.Log("Height = " + _height);
+            
             sleep = false;
             thrown = true;
         }
@@ -107,80 +102,49 @@ namespace BreadNamespace
 
 
 
-
-
         }
 
         private void initializeBreadThrow()
         {
             initialVelocity = Random.Range(MinInitialVelocity, MaxInitialVelocity);
             velocity = initialVelocity;
-            //sleep = false;
-            float tf = 2f * (initialVelocity) / (gravity);
-            //Debug.Log("tempo stimato = " + tf);
-            //IEnumerator coroutine = WaitAndPrint(tf);
+            float tf = (initialVelocity) / (gravity);
+            var yMax = _yInit + initialVelocity * tf - (0.5f) * gravity * Mathf.Pow(tf, 2);
 
-            GetComponent<Rigidbody2D>().velocity = new Vector2((_xDistance / tf), (_yDistance / tf));
+            while (yMax < _yEnd)
+            {
+                //Debug.LogFormat("NOOO yMax = {0}, _yEnd = {1}. First should be greater than second.", yMax, _yEnd);
+                initialVelocity += 5f;
+                tf = (initialVelocity) / (gravity);
+                yMax = _yInit + initialVelocity * tf - (0.5f) * gravity * Mathf.Pow(tf, 2);
+            }
 
+            velocity = initialVelocity;
+            tf += Mathf.Sqrt((2 * Mathf.Abs(yMax - _yEnd)) / gravity);
 
-            //StartCoroutine(coroutine);
-
+            _shadow.GetComponent<Rigidbody2D>().velocity = new Vector2((_xDistance / tf), (_yDistance / tf));
+            _airSprite.GetComponent<Rigidbody2D>().velocity = new Vector2((_xDistance / tf), velocity);
 
 
         }
 
         private void throwBread()
         {
-            // Calculate the new height.
             velocity -= gravity * Time.deltaTime;
-            _height += velocity * Time.deltaTime;
 
-            // Set the local position of the sprite to be the height.
-            // Because of the initial upwards velocity it will start going up
-            // and the gravity will pull it down again so it follows an arc.
-            // The gameobject the sprite is attached to will move in a straight line however
-            // and so will the attached shadow sprite so we'll get the illusion of 3D physics.
+            _airSprite.GetComponent<Rigidbody2D>().velocity = new Vector2(_airSprite.GetComponent<Rigidbody2D>().velocity.x, velocity);
 
 
-            sprite.localPosition = new Vector3(0, _height, 0);
-
-            // Rotate the sprite.
-
-            //sprite.Rotate(0, 0, angularVelocity * Time.deltaTime);
-
-            // If the height is 0 we've landed and we stop moving.
-            // The rigidbody2D's velocity is what moves us in a straight line across the ground,
-            // we're only faking the vertical part.
-            //if (_height <= 0)
-            if (sprite.transform.position.y <= 0)
+            if (_airSprite.transform.position.y <= _shadow.transform.position.y)
             {
-                //GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                //sprite.localPosition = new Vector3(0, 0, 0);
                 sleep = true;
 
                 //the breadThrown object can be destroyed, and the actual bread can be instantiated
-                GameObject b = Instantiate(BreadToSpawnPrefab, transform.position, Quaternion.identity);
+                GameObject b = Instantiate(BreadToSpawnPrefab, _shadow.transform.position, Quaternion.identity);
                 b.GetComponent<BreadComponent>().InitializedBread(dimension);
                 Destroy(gameObject);
             }
         }
 
-
-
-
-
-
-
-        /*private IEnumerator WaitAndPrint(float waitTime)
-        {
-            yield return new WaitForSeconds(waitTime);
-            Debug.Log("WaitAndPrint " + waitTime);
-            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        }*/
-
-
-
-
     }
-
 }

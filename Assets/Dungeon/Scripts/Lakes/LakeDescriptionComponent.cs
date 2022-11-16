@@ -394,26 +394,26 @@ namespace LevelStageNamespace {
                     case EnumsDungeon.BreadType.Small:
                         sprite = SmallBreadPrefab.GetComponent<SpriteRenderer>().sprite;
                         spriteSize = sprite.rect.size;
-                        newBread.GetComponent<BreadNamespace.ThrowBreadComponent>().BreadToSpawnPrefab = SmallBreadPrefab;
+                        newBread.GetComponent<BreadNamespace.ThrowBreadComponent2>().BreadToSpawnPrefab = SmallBreadPrefab;
                         break;
                     case EnumsDungeon.BreadType.Medium:
                         sprite = MediumBreadPrefab.GetComponent<SpriteRenderer>().sprite;
                         spriteSize = sprite.rect.size;
-                        newBread.GetComponent<BreadNamespace.ThrowBreadComponent>().BreadToSpawnPrefab = MediumBreadPrefab;
+                        newBread.GetComponent<BreadNamespace.ThrowBreadComponent2>().BreadToSpawnPrefab = MediumBreadPrefab;
                         break;
                     case EnumsDungeon.BreadType.Large:
                         sprite = LargeBreadPrefab.GetComponent<SpriteRenderer>().sprite;
                         spriteSize = sprite.rect.size;
-                        newBread.GetComponent<BreadNamespace.ThrowBreadComponent>().BreadToSpawnPrefab = LargeBreadPrefab;
+                        newBread.GetComponent<BreadNamespace.ThrowBreadComponent2>().BreadToSpawnPrefab = LargeBreadPrefab;
                         break;
                 }
-                newBread.GetComponent<BreadNamespace.ThrowBreadComponent>().dimension = _arrayBreadSpawnType[i];
+                newBread.GetComponent<BreadNamespace.ThrowBreadComponent2>().dimension = _arrayBreadSpawnType[i];
 
 
                 float amountToDivideX = spriteSize.x / xPixelSprite;
                 float amountToDivideY = spriteSize.y / yPixelSprite;
 
-                Transform breadThrownTransform = newBread.transform.Find("Sprite");
+                Transform breadThrownTransform = newBread.transform.Find("AirSprite");
 
                 breadThrownTransform.gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
                 breadThrownTransform.localScale = new Vector3(breadThrownTransform.localScale.x / amountToDivideX, breadThrownTransform.localScale.y / amountToDivideY, 0);
