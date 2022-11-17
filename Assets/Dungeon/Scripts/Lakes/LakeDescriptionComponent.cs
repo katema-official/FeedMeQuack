@@ -369,6 +369,9 @@ namespace LevelStageNamespace {
                 _arrayBreadSpawnTime.Add(Random.Range(_minIntervalTimeSpawnBread, _maxIntervaltimeSpawnBread));
             }
 
+            _totalNumberOfBreadPiecesToBeEaten = _totalNumberOfBreadPiecesToSpawn;
+            _totalNumberOfBreadPiecesEaten = 0;
+
         }
 
 
@@ -422,6 +425,23 @@ namespace LevelStageNamespace {
 
 
             yield return null;
+        }
+
+
+        //function used by the bread pieces to notify that they have been eaten completely
+        public void NotifyBreadEaten()
+        {
+            _totalNumberOfBreadPiecesEaten += 1;
+            if(_totalNumberOfBreadPiecesEaten == _totalNumberOfBreadPiecesToBeEaten)
+            {
+                //CALL A FUNCTION THAT ENDS THE LAKE
+            }
+        }
+
+        //function used to notify that a new piece of bread has been, somehow, generated (somehow = e.g. spawned because of a stealing action)
+        public void NotifyBreadCreated()
+        {
+            _totalNumberOfBreadPiecesToBeEaten += 1;
         }
 
 
