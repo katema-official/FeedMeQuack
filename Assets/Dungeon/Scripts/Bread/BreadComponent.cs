@@ -57,10 +57,13 @@ namespace BreadNamespace
         }
 
         //function used to subtract BreadPoints (usually one, could be more if needed) from this piece of bread.
-        //returns the number of bread points subtracted
-        public int SubtractBreadPoints(int nOfBreadPoints)
+        //returns:
+        //-as first value of the tuple, a bool that signal that the bread has been eaten completely (true) or not (false)
+        //-the number of bread points subtracted
+        public (bool, int) SubtractBreadPoints(int nOfBreadPoints)
         {
             int eaten = 0;
+            bool destroyed = false;
             if (BreadPoints >= nOfBreadPoints)
             {
                 BreadPoints -= nOfBreadPoints;
@@ -74,10 +77,12 @@ namespace BreadNamespace
 
             if(BreadPoints == 0)
             {
-
+                destroyed = true;
+                GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeDescriptionComponent>().NotifyBreadEaten();
+                Destroy(this.gameObject);
             }
 
-            return eaten;
+            return (destroyed, eaten);
         }
 
 

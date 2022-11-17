@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -7831249527691965963}
   m_Layer: 0
   m_Name: BreadMedium
-  m_TagString: Untagged
+  m_TagString: Bread
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,5 +100,6 @@ MonoBehaviour:
   _smallBreadSO: {fileID: 11400000, guid: e809afdee7935b742b386aaa3fe8f2c0, type: 2}
   _mediumBreadSO: {fileID: 11400000, guid: cf9b1ab0c7073284e9c459a4e306116a, type: 2}
   _largeBreadSO: {fileID: 11400000, guid: 857c5e16b78696243bf3faa32c995886, type: 2}
-  dimension: 0
+  Dimension: 0
   BreadPoints: 0
+  IsBeingEaten: 0

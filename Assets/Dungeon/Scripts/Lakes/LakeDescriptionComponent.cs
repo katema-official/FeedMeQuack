@@ -37,7 +37,10 @@ namespace LevelStageNamespace {
         //radius of area arount the enemies in which we don't want other enemies to spawn
         public float RadiusAroundEnemy;
 
-
+        //original y scale of the west and east river
+        private float _yScaleOfRiver;
+        //original x scale of the north and south river
+        private float _xScaleOfRiver;
 
         private GameObject _lake;
         private GameObject _terrain;
@@ -192,6 +195,8 @@ namespace LevelStageNamespace {
             _southRiver = transform.Find("Rivers/South").gameObject;
             _westRiver = transform.Find("Rivers/West").gameObject;
             _eastRiver = transform.Find("Rivers/East").gameObject;
+            _yScaleOfRiver = _westRiver.transform.Find("Sprite").localScale.y;
+            _xScaleOfRiver = _northRiver.transform.Find("Sprite").localScale.x;
             if (_lakeDescriptionForThisLake.HasNorthRiver == false)
             {
                 //if the north lake is not present, we obscure its sprite, and leave the colliders as they are
@@ -237,6 +242,8 @@ namespace LevelStageNamespace {
             }
         }
 
+        //########################################################## CLOSE RIVER MANAGEMENT ##########################################################
+
         //called by EnterPlayerInLakeComponent to signal that the player entered the lake, and the rivers must be closed
         public void CloseLakesWithAnimation()
         {
@@ -276,14 +283,14 @@ namespace LevelStageNamespace {
             {
                 case EnumsDungeon.CompassDirection.North:
                 case EnumsDungeon.CompassDirection.South:
-                    length = river.localScale.x;
+                    length = _xScaleOfRiver;
                     amountToReduce = length * percentageToReducePerUnitOfTime;
                     reduceVector = new Vector3(amountToReduce, 0, 0);
                     break;
 
                 case EnumsDungeon.CompassDirection.West:
                 case EnumsDungeon.CompassDirection.East:
-                    length = river.localScale.y;
+                    length = _yScaleOfRiver;
                     amountToReduce = length * percentageToReducePerUnitOfTime;
                     reduceVector = new Vector3(0, amountToReduce, 0);
                     break;
@@ -320,23 +327,103 @@ namespace LevelStageNamespace {
                     }
                     break;
             }
-
-
             yield return null;
         }
 
+        //########################################################## OPEN RIVER MANAGEMENT ##########################################################
+
         public void OpenLakesWithAnimation()
         {
-
+            if (_lakeDescriptionForThisLake.HasNorthRiver == true)
+            {
+                _northRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                StartCoroutine(OpenLakeCoroutine(_northRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.North));
+            }
+            if (_lakeDescriptionForThisLake.HasSouthRiver == true)
+            {
+                _southRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                StartCoroutine(OpenLakeCoroutine(_southRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.South));
+            }
+            if (_lakeDescriptionForThisLake.HasWestRiver == true)
+            {
+                _westRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                StartCoroutine(OpenLakeCoroutine(_westRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.West));
+            }
+            if (_lakeDescriptionForThisLake.HasEastRiver == true)
+            {
+                _eastRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                StartCoroutine(OpenLakeCoroutine(_eastRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.East));
+            }
         }
 
-        //########################################################################################################################################################
-        //########################################################################################################################################################
-        //########################################################### BREAD TYPE AND TIME GENERATION #############################################################
-        //########################################################################################################################################################
-        //########################################################################################################################################################
+        private IEnumerator OpenLakeCoroutine(Transform river, EnumsDungeon.CompassDirection direction)
+        {
+            //TODO: for this moment, I'll just stick the values here, because otherwise I would have to manage too many variables in this monobehaviour,
+            //and I also don't know if I want exactly this kind of animation.
+            float timeBetweenEnlarging = 0.005f;
+            float percentageToAddPerUnitOfTime = 0.01f;
 
-        private void GenerateArrayBreadSpawn()
+            float length;
+            float amountToAdd;
+            Vector3 addVector = Vector3.zero;
+            switch (direction)
+            {
+                case EnumsDungeon.CompassDirection.North:
+                case EnumsDungeon.CompassDirection.South:
+                    length = _xScaleOfRiver;
+                    amountToAdd = length * percentageToAddPerUnitOfTime;
+                    addVector = new Vector3(amountToAdd, 0, 0);
+                    break;
+
+                case EnumsDungeon.CompassDirection.West:
+                case EnumsDungeon.CompassDirection.East:
+                    length = _yScaleOfRiver;
+                    amountToAdd = length * percentageToAddPerUnitOfTime;
+                    addVector = new Vector3(0, amountToAdd, 0);
+                    break;
+            }
+
+            switch (direction)
+            {
+                case EnumsDungeon.CompassDirection.North:
+                    while (river.localScale.x < _xScaleOfRiver)
+                    {
+                        river.localScale += addVector;
+                        yield return new WaitForSeconds(timeBetweenEnlarging);
+                    }
+                    break;
+                case EnumsDungeon.CompassDirection.South:
+                    while (river.localScale.x < _xScaleOfRiver)
+                    {
+                        river.localScale += addVector;
+                        yield return new WaitForSeconds(timeBetweenEnlarging);
+                    }
+                    break;
+                case EnumsDungeon.CompassDirection.West:
+                    while (river.localScale.y < _yScaleOfRiver)
+                    {
+                        river.localScale += addVector;
+                        yield return new WaitForSeconds(timeBetweenEnlarging);
+                    }
+                    break;
+                case EnumsDungeon.CompassDirection.East:
+                    while (river.localScale.y < _yScaleOfRiver)
+                    {
+                        river.localScale += addVector;
+                        yield return new WaitForSeconds(timeBetweenEnlarging);
+                    }
+                    break;
+            }
+            yield return null;
+        }
+
+            //########################################################################################################################################################
+            //########################################################################################################################################################
+            //########################################################### BREAD TYPE AND TIME GENERATION #############################################################
+            //########################################################################################################################################################
+            //########################################################################################################################################################
+
+            private void GenerateArrayBreadSpawn()
         {
             _arrayBreadSpawnTime = new List<float>();
             _arrayBreadSpawnType = new List<EnumsDungeon.BreadType>();
@@ -435,6 +522,10 @@ namespace LevelStageNamespace {
             if(_totalNumberOfBreadPiecesEaten == _totalNumberOfBreadPiecesToBeEaten)
             {
                 //CALL A FUNCTION THAT ENDS THE LAKE
+                Debug.Log("ALL BREAD EATEN; OPEN THE GATES!");
+                OpenLakesWithAnimation();
+                _levelStageManager.SetLakeAsCleared();
+
             }
         }
 
