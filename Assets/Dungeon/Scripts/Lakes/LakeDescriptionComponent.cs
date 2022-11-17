@@ -208,6 +208,7 @@ namespace LevelStageNamespace {
             {
                 //otherwise, we leave the sprite as it is, but we remove the collider (We do the same for the other rivers)
                 _northRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                if(_lakeDescriptionForThisLake.IsFinalRoom && _lakeDescriptionForThisLake.ExitStageDirection == EnumsDungeon.CompassDirection.North) SetRiverAsFinal(_northRiver);
 
             }
             if (_lakeDescriptionForThisLake.HasSouthRiver == false)
@@ -219,6 +220,7 @@ namespace LevelStageNamespace {
             else
             {
                 _southRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                if (_lakeDescriptionForThisLake.IsFinalRoom && _lakeDescriptionForThisLake.ExitStageDirection == EnumsDungeon.CompassDirection.South) SetRiverAsFinal(_southRiver);
             }
             if (_lakeDescriptionForThisLake.HasWestRiver == false)
             {
@@ -229,6 +231,7 @@ namespace LevelStageNamespace {
             else
             {
                 _westRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                if (_lakeDescriptionForThisLake.IsFinalRoom && _lakeDescriptionForThisLake.ExitStageDirection == EnumsDungeon.CompassDirection.West) SetRiverAsFinal(_westRiver);
             }
             if (_lakeDescriptionForThisLake.HasEastRiver == false)
             {
@@ -239,6 +242,7 @@ namespace LevelStageNamespace {
             else
             {
                 _eastRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                if (_lakeDescriptionForThisLake.IsFinalRoom && _lakeDescriptionForThisLake.ExitStageDirection == EnumsDungeon.CompassDirection.East) SetRiverAsFinal(_eastRiver);
             }
         }
 
@@ -417,13 +421,23 @@ namespace LevelStageNamespace {
             yield return null;
         }
 
-            //########################################################################################################################################################
-            //########################################################################################################################################################
-            //########################################################### BREAD TYPE AND TIME GENERATION #############################################################
-            //########################################################################################################################################################
-            //########################################################################################################################################################
+        //###################################################### RIVER TO NEXT STAGE MANAGEMENT ######################################################
 
-            private void GenerateArrayBreadSpawn()
+        private void SetRiverAsFinal(GameObject river)
+        {
+            SpriteRenderer spr = river.transform.Find("Sprite").GetComponent<SpriteRenderer>();
+            spr.color = new Color(0, 149, 224, 255);
+        }
+
+
+
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+        //########################################################### BREAD TYPE AND TIME GENERATION #############################################################
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+
+        private void GenerateArrayBreadSpawn()
         {
             _arrayBreadSpawnTime = new List<float>();
             _arrayBreadSpawnType = new List<EnumsDungeon.BreadType>();

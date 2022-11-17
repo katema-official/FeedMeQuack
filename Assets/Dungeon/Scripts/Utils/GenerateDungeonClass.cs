@@ -254,8 +254,43 @@ namespace LevelStageNamespace
                     }
                 }
             }
+
             farthestLake.IsFinalRoom = true;
-            Debug.Log("farthest lake: " + farthestLake.IsFinalRoom);
+
+            List<EnumsDungeon.CompassDirection> possibleExits = new List<EnumsDungeon.CompassDirection>();
+            if(farthestLake.HasNorthRiver == false)
+            {
+                possibleExits.Add(EnumsDungeon.CompassDirection.North);
+            }
+            if (farthestLake.HasSouthRiver == false)
+            {
+                possibleExits.Add(EnumsDungeon.CompassDirection.South);
+            }
+            if (farthestLake.HasWestRiver == false)
+            {
+                possibleExits.Add(EnumsDungeon.CompassDirection.West);
+            }
+            if (farthestLake.HasEastRiver == false)
+            {
+                possibleExits.Add(EnumsDungeon.CompassDirection.East);
+            }
+            farthestLake.ExitStageDirection = possibleExits[Random.Range(0, possibleExits.Count)];
+            switch (farthestLake.ExitStageDirection)
+            {
+                case EnumsDungeon.CompassDirection.North:
+                    farthestLake.HasNorthRiver = true;
+                    break;
+                case EnumsDungeon.CompassDirection.South:
+                    farthestLake.HasSouthRiver = true;
+                    break;
+                case EnumsDungeon.CompassDirection.West:
+                    farthestLake.HasWestRiver = true;
+                    break;
+                case EnumsDungeon.CompassDirection.East:
+                    farthestLake.HasEastRiver = true;
+                    break;
+            }
+                
             return finalMap;
 
         }

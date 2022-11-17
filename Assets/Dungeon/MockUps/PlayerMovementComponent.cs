@@ -13,6 +13,8 @@ public class PlayerMovementComponent : MonoBehaviour
 
     public GameObject BreadInMouth = null;
 
+    public int BreadDigested = 30;
+
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
@@ -54,6 +56,8 @@ public class PlayerMovementComponent : MonoBehaviour
                 bool destroyed;
                 int eaten;
                 (destroyed, eaten) = BreadInMouth.GetComponent<BreadNamespace.BreadComponent>().SubtractBreadPoints(1);
+
+                BreadDigested += eaten;
 
                 if (destroyed)
                 {

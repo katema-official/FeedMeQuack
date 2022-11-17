@@ -122,6 +122,19 @@ namespace LevelStageNamespace
 
         public void ExitLake(EnumsDungeon.CompassDirection exitDirectionFromCurrentLake)
         {
+
+            //SPECIAL CASE: when the player is exiting from the stage, we have to check its BreadPoints.
+            //If they are enough, it can go to the shop. Otherwise, it's game over.
+            if(GameObject.Find("DummyPlayer").GetComponent<PlayerMovementComponent>().BreadDigested >= GetStage(GetLevel(_currentLevel), _currentStage).BreadPointsRequiredToCompleteStage){
+                Debug.Log("CE L'HAI FATTA, HAI MANGIATO ABBASTANZA!");
+            }
+            else
+            {
+                Debug.Log("COMPLIMENTI, SEI MORTO DI FAME!");
+            }
+
+
+
             //when this function gets called, the parameters tell in which lake the player currently is in (_xOfCurrentLake and
             //_yOfCurrentLake of this class) and the direction in which it moved (north, south, west or east), and, based
             //on this information, moves the player in another lake.
