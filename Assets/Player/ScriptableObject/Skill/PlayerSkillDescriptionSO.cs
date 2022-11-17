@@ -9,5 +9,6 @@ namespace Player
     public class PlayerSkillDescriptionSO : ScriptableObject
     {
         public PlayerSkillTypeSO Type;
+        public bool EnabledByDefault = false; 
     }
 }
