@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Player
 { 
-    [CreateAssetMenu(menuName = "Duck/DuckDescription")]
+    [CreateAssetMenu(menuName = "Player/Description/Duck")]
     public class PlayerDuckDescriptionSO : ScriptableObject
     {
         public string Name = "";
