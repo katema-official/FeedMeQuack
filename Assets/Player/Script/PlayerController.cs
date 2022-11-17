@@ -17,7 +17,7 @@ namespace Player
 
         private bool _moveForward = false;
         private float _rotationMovement = 0.0f;
-        private float _rotationSpeed = 90.0f;
+      //  private float _rotationSpeed = 90.0f;
 
         private float _force = 0.0f;
         private PlayerState _state = PlayerState.Normal;
@@ -28,9 +28,9 @@ namespace Player
         //Derived from DuckDescription
         //---------------------------------
         [SerializeField] private float _speed = 0.0f;
-        [SerializeField] private float _eatingSpeed = 0.0f;
-        [SerializeField] private float _chewingRate = 0.0f;
-        [SerializeField] private int _mouthSize = 0;
+        //[SerializeField] private float _eatingSpeed = 0.0f;
+        //[SerializeField] private float _chewingRate = 0.0f;
+        //[SerializeField] private int _mouthSize = 0;
         //---------------------------------
 
         public void Move(float speed, float rotationMovement, bool moveForward)
@@ -86,9 +86,9 @@ namespace Player
             _description = duckTypeManager.getTypeFromName("Mallard");
 
             _speed = _description.Speed;
-            _eatingSpeed = _description.EatingSpeed;
-            _chewingRate = _description.ChewingRate;
-            _mouthSize = _description.MouthSize;        
+            //_eatingSpeed = _description.EatingSpeed;
+            //_chewingRate = _description.ChewingRate;
+            //_mouthSize = _description.MouthSize;        
         
 
 

@@ -12,8 +12,6 @@ namespace Player
         public string Name = "";
         public string Description = "";
         public float  Speed = 0.0f;
-        public float  EatingSpeed = 0.0f;
-        public float  ChewingRate = 0.0f;
-        public int    MouthSize = 0;
+        public PlayerSkillDescriptionSO[] Skills;
     }
 }
