@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class CameraUtility
+namespace Player
+{
+    public static class CameraUtility
 {
     public static Bounds OrthographicBounds(this Camera camera)
     {
@@ -13,4 +15,5 @@ public static class CameraUtility
             new Vector3(cameraHeight * screenAspect, cameraHeight, 0));
         return bounds;
     }
+}
 }

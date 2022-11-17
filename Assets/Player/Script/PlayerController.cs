@@ -25,6 +25,9 @@ namespace Player
 
 
         private PlayerDuckDescriptionSO _description = null;
+        private List<PlayerSkill> _skills;
+
+
         //Derived from DuckDescription
         //---------------------------------
         [SerializeField] private float _speed = 0.0f;
@@ -50,6 +53,9 @@ namespace Player
             _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
 
              Debug.Log("Current player velocity: " + _rigidBody.velocity);
+
+
+            
         }
 
         private void MoveCamera()
@@ -91,12 +97,18 @@ namespace Player
             //_mouthSize = _description.MouthSize;        
         
 
-
-
-
             _force = _speed * 1.5f;
             _camera = transform.parent.GetComponentInChildren<Camera>();
             _mouth = transform.Find("Mouth");
+
+
+
+            _skills = new List<PlayerSkill>();
+            foreach (var s in _description.Skills)
+            {
+                var skill = SkillUtility.CreateSkillFromDescription(s,gameObject);
+                _skills.Add(skill);
+            }
         }
 
         // Start is called before the first frame update
