@@ -66,7 +66,7 @@ namespace Enemies
             }
 
             if (State == ActionState.Eating){
-                collisionManager.RestartColliders();
+                collisionManager.TurnOnColliders();
             }
 
             switch (newState){
@@ -89,8 +89,9 @@ namespace Enemies
                     State = ActionState.MovingToBread;
                     break;
                 case ActionState.Eating:
-                    movementManager
-                        .StopMoving(); //todo: questo potreebbe creare casini nel caso in cui si imbatta casualmente nel pane
+                    collisionManager.TurnOffColliders();
+                    movementManager.StopMoving(); //todo: questo potreebbe creare casini nel caso in cui si imbatta casualmente nel pane
+                    breadTargeted = null;
                     State = ActionState.Eating;
                     break;
                 case ActionState.Stealing:

@@ -69,9 +69,17 @@ public class CollisionManager : MonoBehaviour
         _myColliderManagers.Add(colliderManager);
     }
 
-    public void RestartColliders(){
+    public void TurnOnColliders(){
         foreach (var colliderManager in _myColliderManagers){
-            colliderManager.RestartCollider();
+            colliderManager.TurnOnCollider();
+        }
+        mediumColliderBreadAlreadyAnalyzed = new List<GameObject>();
+        outerColliderBreadAlreadyAnalyzed = new List<GameObject>();
+    }
+
+    public void TurnOffColliders(){
+        foreach (var colliderManager in _myColliderManagers){
+            colliderManager.TurnOffCollider();
         }
     }
 }

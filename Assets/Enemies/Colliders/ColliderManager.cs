@@ -18,6 +18,7 @@ public class ColliderManager : MonoBehaviour
 
     private void Awake(){
         _collisionManager = GetComponentInParent<CollisionManager>();
+        GetComponent<CircleCollider2D>().radius = _myCollider.radius;
     }
 
     // Start is called before the first frame update
@@ -35,9 +36,13 @@ public class ColliderManager : MonoBehaviour
         _collisionManager.BreadDetectedAction(col, _myCollider);
     }
 
-    public void RestartCollider(){
+    public void TurnOnCollider(){
+        GameObject collider2DGameObject = _collider2D.gameObject;
+        collider2DGameObject.SetActive(true);
+    }
+
+    public void TurnOffCollider(){
         GameObject collider2DGameObject = _collider2D.gameObject;
         collider2DGameObject.SetActive(false);
-        collider2DGameObject.SetActive(true);
     }
 }
