@@ -36,6 +36,9 @@ namespace Player
             _renderer = GetComponentInChildren<SpriteRenderer>();
             SetPoints(Random.Range(1, 15));
         }
+
+
+
     }
 }
 

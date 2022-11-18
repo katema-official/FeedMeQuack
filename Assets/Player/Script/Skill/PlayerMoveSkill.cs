@@ -67,7 +67,7 @@ namespace Player
 
             _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
 
-            Debug.Log("Current player velocity: " + _rigidBody.velocity);
+           // Debug.Log("Current player velocity: " + _rigidBody.velocity);
         }
 
 

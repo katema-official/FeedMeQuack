@@ -18,6 +18,10 @@ namespace Player
         private PlayerEatSkillDescriptionSO _eatDesc = null;
 
 
+        private BreadController _locatedBread = null;
+        private BreadController _catchedBread = null;
+
+
         private Rigidbody2D _rigidBody = null;
         private Vector3 _forwardAxis;
         private Vector3 _rightwardAxis;
@@ -75,20 +79,20 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                _controller.ChangeState(PlayerState.Eating);
+            //if (Input.GetKeyDown(KeyCode.E))
+            //{
+            //    _controller.ChangeState(PlayerState.Eating);
 
-                if (_controller.GetState() == PlayerState.Eating)
-                    _moveSkill.EnableInput(true);
+            //    if (_controller.GetState() == PlayerState.Eating)
+            //        _moveSkill.EnableInput(true);
 
-                CheckData();
-            }
+            //    CheckData();
+            //}
 
-            if (_controller.GetState() == PlayerState.Eating)
-            {
+            //if (_controller.GetState() == PlayerState.Eating)
+            //{
 
-            }
+            //}
             //PlayerUtility.Move(_eatingSpeed, _forwardAxis, _rightwardAxis, _rigidBody, _moveForward, ref _rotationMovement);
         }
 
@@ -98,6 +102,29 @@ namespace Player
 
             //PlayerUtility.Move(_speed, _forwardAxis, _rightwardAxis, _rigidBody, _moveForward, ref _rotationMovement);
             _moveSkill.Move(_eatingSpeed);
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            var breadController = collision.gameObject.GetComponentInParent<BreadController>();
+
+            if (breadController)
+            {
+                _locatedBread = breadController;
+                Debug.Log("Bread located");
+            }
+
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            var breadController = collision.gameObject.GetComponentInParent<BreadController>();
+
+            if (breadController)
+            {
+                _locatedBread = null;
+                Debug.Log("Bread missed");
+            }
         }
     }
 }
