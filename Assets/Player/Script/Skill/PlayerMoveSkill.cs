@@ -13,7 +13,7 @@ namespace Player
 
 
         private PlayerController _controller = null;
-        PlayerMoveSkillDescriptionSO _moveDesc = null;
+        private PlayerMoveSkillDescriptionSO _moveDesc = null;
 
 
         private Rigidbody2D _rigidBody = null;
@@ -24,6 +24,11 @@ namespace Player
         private float _rotationMovement = 0.0f;
 
         private float _force = 0.0f;
+        private float _overrideSpeed = 0.0f;
+
+
+        private bool _enableInput = true;
+
 
 
         public override void SetDescription(PlayerSkillDescriptionSO desc)
@@ -34,26 +39,36 @@ namespace Player
             _speed = _moveDesc.Speed;
         }
 
+        public void EnableInput(bool enable)
+        {
+            _enableInput = enable;
+        }
 
 
-        //private void Move(float speed, float rotationMovement, bool moveForward)
+        //public void SetOverrideSpeed(float overrideSpeed)
         //{
-        //    if (moveForward)
-        //    {
-        //        var finalDir = _forwardAxis + _rightwardAxis;
-        //        finalDir.Normalize();
-
-        //        float angle = Mathf.Atan2(-finalDir.x, finalDir.y) * Mathf.Rad2Deg;
-        //        _rotationMovement = angle;
-        //        _force = _speed * 1.5f;
-        //        _rigidBody.AddForce(finalDir * _force, ForceMode2D.Force);
-        //        _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity, _speed);
-        //    }
-
-        //    _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
-
-        //    Debug.Log("Current player velocity: " + _rigidBody.velocity);
+        //    _overrideSpeed = overrideSpeed;
         //}
+
+
+        public void Move(float speed/*, bool moveForward*/)
+        {
+            if (_moveForward)
+            {
+                var finalDir = _forwardAxis + _rightwardAxis;
+                finalDir.Normalize();
+
+                float angle = Mathf.Atan2(-finalDir.x, finalDir.y) * Mathf.Rad2Deg;
+                _rotationMovement = angle;
+                _force = speed * 1.5f;
+                _rigidBody.AddForce(finalDir * _force, ForceMode2D.Force);
+                _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity, _speed);
+            }
+
+            _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
+
+            Debug.Log("Current player velocity: " + _rigidBody.velocity);
+        }
 
 
         private void Awake()
@@ -72,36 +87,40 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
-            if (_controller.GetState() != PlayerState.Normal) return;
+            if (!_enableInput) return;
 
-            PlayerUtility.GetMovementAxis(ref _moveForward, ref _forwardAxis, ref _rightwardAxis);
+            //if (_controller.GetState() != PlayerState.Normal &&
+            //    _controller.GetState() != PlayerState.Eating) return;
+
+
+            // PlayerUtility.GetMovementAxis(ref _moveForward, ref _forwardAxis, ref _rightwardAxis);
 
 
 
-            //_moveForward = false;
-            //_forwardAxis = new Vector3(0, 0);
-            //_rightwardAxis = new Vector3(0, 0);
+            _moveForward = false;
+            _forwardAxis = new Vector3(0, 0);
+            _rightwardAxis = new Vector3(0, 0);
 
-            //if (Input.GetKey(KeyCode.W))
-            //{
-            //    _forwardAxis = new Vector3(0, 1);
-            //    _moveForward = true;
-            //}
-            //if (Input.GetKey(KeyCode.A))
-            //{
-            //    _rightwardAxis = new Vector3(-1, 0);
-            //    _moveForward = true;
-            //}
-            //if (Input.GetKey(KeyCode.S))
-            //{
-            //    _forwardAxis = new Vector3(0, -1);
-            //    _moveForward = true;
-            //}
-            //if (Input.GetKey(KeyCode.D))
-            //{
-            //    _rightwardAxis = new Vector3(1, 0);
-            //    _moveForward = true;
-            //}
+            if (Input.GetKey(KeyCode.W))
+            {
+                _forwardAxis = new Vector3(0, 1);
+                _moveForward = true;
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                _rightwardAxis = new Vector3(-1, 0);
+                _moveForward = true;
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                _forwardAxis = new Vector3(0, -1);
+                _moveForward = true;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                _rightwardAxis = new Vector3(1, 0);
+                _moveForward = true;
+            }
         }
 
 
@@ -109,8 +128,8 @@ namespace Player
         {
             if (_controller.GetState() != PlayerState.Normal) return;
 
-            PlayerUtility.Move(_speed, _forwardAxis, _rightwardAxis, _rigidBody, _moveForward, ref _rotationMovement);
-           // Move(_speed, _rotationMovement, _moveForward);
+            //PlayerUtility.Move(_speed, _forwardAxis, _rightwardAxis, _rigidBody, _moveForward, ref _rotationMovement);
+            Move(_speed/*, _moveForward*/);
         }
     }
 }
