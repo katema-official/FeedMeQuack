@@ -8,6 +8,6 @@ public class Species : ScriptableObject
     public float maxSpeed, mouthSize, eatingSpeed=1, steeringSpeed, idleTime, idleCD, accelerationTimeSeconds;
     
     
-    public float innerRadiusCollider, mediumRadiusCollider, outerRadiusCollider;
+    public float innerRadiusCollider, mediumRadiusCollider, outerRadiusCollider, innerColliderChance, mediumColliderChance, outerColliderChance;
     public float stealingCd, stealingPerc;
 }

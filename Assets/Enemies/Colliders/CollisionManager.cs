@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Enemies;
+using Enemies.Colliders;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -11,15 +12,22 @@ public class CollisionManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> mediumColliderBreadAlreadyAnalyzed, outerColliderBreadAlreadyAnalyzed;
 
-    private List<ColliderManager> _myColliderManagers;
+    [SerializeField] private List<ColliderManager> _EnemyCustomColliderManagers;
 
     public GameObject BreadTargeted;
 
-    private EnemyFSM _enemyFsm;
+    [SerializeField] private EnemyFSM _enemyFsm;
 
     private void Awake(){
         _enemyFsm = GetComponentInParent<EnemyFSM>();
-        _myColliderManagers = new List<ColliderManager>();
+        _EnemyCustomColliderManagers = new List<ColliderManager>();
+    }
+
+    public void InitializeColliders(Species species){
+        //assegno il tipo di collider ai vari gameObject, e così facendo setto i loro parametri
+        _EnemyCustomColliderManagers[0].InitializeValuesAndName(EnemyColliderType.Inner, species);
+        _EnemyCustomColliderManagers[1].InitializeValuesAndName(EnemyColliderType.Medium, species);
+        _EnemyCustomColliderManagers[2].InitializeValuesAndName(EnemyColliderType.Outer, species);
     }
 
     public bool IsEating(){
@@ -30,29 +38,30 @@ public class CollisionManager : MonoBehaviour
         Debug.Log("Checking stealing options!");
     }
 
-    public void BreadDetectedAction(Collider2D col, MyCollider myCollider){
+    public void BreadDetectedAction(Collider2D col, EnemyCustomCollider enemyCustomCollider){
+        EnemyColliderType type = enemyCustomCollider.ColliderType;
         GameObject breadGameObject = col.gameObject;
-        if(HasBreadAlreadyBeenAnalyzed(breadGameObject, myCollider.radiusType)) return;
-        AddBreadToAnalyzedOnes(breadGameObject, myCollider.radiusType);
-        if (CheckIfInterestedInBread(myCollider) && !AlreadyMovingToCloserBread(breadGameObject)){
+        if(HasBreadAlreadyBeenAnalyzed(breadGameObject, type)) return;
+        AddBreadToAnalyzedOnes(breadGameObject, type);
+        if (CheckIfInterestedInBread(enemyCustomCollider) && !AlreadyMovingToCloserBread(breadGameObject)){
                 _enemyFsm.TargetBread(breadGameObject);
         }
     }
 
-    private bool HasBreadAlreadyBeenAnalyzed(GameObject breadGameObject, MyCollider.RadiusType radiusType){
-        if ((radiusType == MyCollider.RadiusType.Outer && outerColliderBreadAlreadyAnalyzed.Contains(breadGameObject)) ||
-            (radiusType == MyCollider.RadiusType.Medium) && mediumColliderBreadAlreadyAnalyzed.Contains(breadGameObject)) return true;
+    private bool HasBreadAlreadyBeenAnalyzed(GameObject breadGameObject, EnemyColliderType radiusType){
+        if ((radiusType == EnemyColliderType.Outer && outerColliderBreadAlreadyAnalyzed.Contains(breadGameObject)) ||
+            (radiusType == EnemyColliderType.Medium) && mediumColliderBreadAlreadyAnalyzed.Contains(breadGameObject)) return true;
         return false;
     }
 
-    private void AddBreadToAnalyzedOnes(GameObject breadGameObject, MyCollider.RadiusType radiusType){
-        if (radiusType == MyCollider.RadiusType.Outer) outerColliderBreadAlreadyAnalyzed.Add(breadGameObject);
-        else if(radiusType == MyCollider.RadiusType.Medium) mediumColliderBreadAlreadyAnalyzed.Add(breadGameObject);
+    private void AddBreadToAnalyzedOnes(GameObject breadGameObject, EnemyColliderType radiusType){
+        if (radiusType == EnemyColliderType.Outer) outerColliderBreadAlreadyAnalyzed.Add(breadGameObject);
+        else if(radiusType == EnemyColliderType.Medium) mediumColliderBreadAlreadyAnalyzed.Add(breadGameObject);
     }
 
-    private bool CheckIfInterestedInBread(MyCollider myCollider){
+    private bool CheckIfInterestedInBread(EnemyCustomCollider enemyCustomCollider){
         float rand = Random.value;
-        if (rand < myCollider.detectionChance) return true;
+        if (rand < enemyCustomCollider.DetectionChance) return true;
         return false;
     }
 
@@ -66,11 +75,15 @@ public class CollisionManager : MonoBehaviour
     }
 
     public void AddSelfToColliderManagers(ColliderManager colliderManager){
-        _myColliderManagers.Add(colliderManager);
+        if (_EnemyCustomColliderManagers == null) _EnemyCustomColliderManagers=new List<ColliderManager>();
+        _EnemyCustomColliderManagers.Add(colliderManager);
+        if (_EnemyCustomColliderManagers.Count == 3){
+            InitializeColliders(_enemyFsm.MySpecies);
+        }
     }
 
     public void TurnOnColliders(){
-        foreach (var colliderManager in _myColliderManagers){
+        foreach (var colliderManager in _EnemyCustomColliderManagers){
             colliderManager.TurnOnCollider();
         }
         mediumColliderBreadAlreadyAnalyzed = new List<GameObject>();
@@ -78,7 +91,7 @@ public class CollisionManager : MonoBehaviour
     }
 
     public void TurnOffColliders(){
-        foreach (var colliderManager in _myColliderManagers){
+        foreach (var colliderManager in _EnemyCustomColliderManagers){
             colliderManager.TurnOffCollider();
         }
     }

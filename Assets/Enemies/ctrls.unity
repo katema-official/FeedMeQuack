@@ -185,7 +185,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider2D: {fileID: 484672862}
-  _myCollider: {fileID: 11400000, guid: 4da3bd82f0ca0cf4687299c634f9dc01, type: 2}
 --- !u!1 &871765765
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,7 +247,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider2D: {fileID: 871765767}
-  _myCollider: {fileID: 11400000, guid: d22493817e9f1f44ea9a2241749d9f68, type: 2}
 --- !u!1 &1326638961
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,8 +446,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breadPrefab: {fileID: 8239734597683774029, guid: fceda9f900e0a0c4ea5748fbbd6f39af, type: 3}
-  CD: 1
-  qty: 0
+  CD: 2
+  qty: 3
 --- !u!4 &1453071008
 Transform:
   m_ObjectHideFlags: 0
@@ -527,7 +525,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider2D: {fileID: 1592282366}
-  _myCollider: {fileID: 11400000, guid: 532a0e7194fb317469a2ead271f45a3f, type: 2}
 --- !u!1 &1697782349
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,6 +641,7 @@ MonoBehaviour:
   mediumColliderBreadAlreadyAnalyzed: []
   outerColliderBreadAlreadyAnalyzed: []
   BreadTargeted: {fileID: 0}
+  _enemyFsm: {fileID: 0}
 --- !u!4 &1927527736
 Transform:
   m_ObjectHideFlags: 0

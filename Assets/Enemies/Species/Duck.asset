@@ -19,13 +19,11 @@ MonoBehaviour:
   idleTime: 3
   idleCD: 7
   accelerationTimeSeconds: 1.5
-  steeringAngleMax: 45
-  steeringCd: 1
-  innerRadiusCollider: 20
-  mediumRadiusCollider: 50
-  outerRadiusCollider: 100
+  innerRadiusCollider: 5
+  mediumRadiusCollider: 10
+  outerRadiusCollider: 20
+  innerColliderChance: 100
+  mediumColliderChance: 60
+  outerColliderChance: 30
   stealingCd: 0
   stealingPerc: 0
-  percInnerRadius: 100
-  percMediumRadius: 70
-  percOuterRadius: 40

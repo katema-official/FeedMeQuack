@@ -24,7 +24,7 @@ public class MovementManager : MonoBehaviour
 
     private void Awake(){
         _parentGameObject = gameObject.transform.parent.gameObject;
-        Species species = enemyFsm.Species;
+        Species species = enemyFsm.MySpecies;
         _maxSpeed = species.maxSpeed;
         _accelerationTimeSeconds = species.accelerationTimeSeconds;
         _idleTime = species.idleTime;

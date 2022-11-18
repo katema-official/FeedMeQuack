@@ -20,12 +20,6 @@ public class SpawnBread : MonoBehaviour
         Instantiate(breadPrefab, pos, Quaternion.identity);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     IEnumerator WaitForSeconds(int sec){
         yield return new WaitForSeconds(sec);
         SpawnSingleBread();
@@ -40,7 +34,7 @@ public class SpawnBread : MonoBehaviour
     }
 
     private void GenerateBread(){
-        Vector3 pos=new Vector3(Random.Range(0, 100), Random.Range(-100, 100));
+        Vector3 pos=new Vector3(Random.Range(-150, 150), Random.Range(-150, 150));
         Instantiate(breadPrefab, pos, Quaternion.identity);
     }
 }

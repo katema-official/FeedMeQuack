@@ -13,7 +13,7 @@ namespace Enemies
 {
     public class EnemyFSM : MonoBehaviour
     {
-        public Species Species;
+        public Species MySpecies;
         [SerializeField] private CollisionManager collisionManager;
         [SerializeField] private MovementManager movementManager;
         private float _maxSpeed, _mouthSize, _eatingSpeed = 1;
@@ -37,15 +37,16 @@ namespace Enemies
         public ActionState State;
         [SerializeField] private Vector3 _movingVector;
         void Start(){
+            //collisionManager.InitializeColliders(Species);
             _movingVector = new Vector2(_maxSpeed, 0);
             ChangeState(ActionState.Roaming);
         }
 
         private void Awake(){
-            _maxSpeed = Species.maxSpeed;
-            _mouthSize = Species.mouthSize;
-            _eatingSpeed = Species.eatingSpeed;
-            stealingCd = Species.stealingCd;
+            _maxSpeed = MySpecies.maxSpeed;
+            _mouthSize = MySpecies.mouthSize;
+            _eatingSpeed = MySpecies.eatingSpeed;
+            stealingCd = MySpecies.stealingCd;
         }
 
         public void ChangeState(ActionState newState){

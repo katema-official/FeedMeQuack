@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Enemies;
+using Enemies.Colliders;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,14 +12,13 @@ public class ColliderManager : MonoBehaviour
 
     [SerializeField] private Collider2D _collider2D;
 
-    [SerializeField] private MyCollider _myCollider;
+    [SerializeField] private EnemyCustomCollider _myCollider;
 
     private CollisionManager _collisionManager;
 
 
     private void Awake(){
         _collisionManager = GetComponentInParent<CollisionManager>();
-        GetComponent<CircleCollider2D>().radius = _myCollider.radius;
     }
 
     // Start is called before the first frame update
@@ -44,5 +44,13 @@ public class ColliderManager : MonoBehaviour
     public void TurnOffCollider(){
         GameObject collider2DGameObject = _collider2D.gameObject;
         collider2DGameObject.SetActive(false);
+    }
+
+    public void InitializeValuesAndName(EnemyColliderType type, Species species){
+        _myCollider = new EnemyCustomCollider(species, type);
+        gameObject.name = type.ToString();
+        CircleCollider2D circleCollider2D = GetComponent<CircleCollider2D>();
+        circleCollider2D.radius = _myCollider.Radius;
+        _collider2D.gameObject.SetActive(true);
     }
 }
