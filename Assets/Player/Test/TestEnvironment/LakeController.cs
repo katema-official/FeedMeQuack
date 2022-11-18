@@ -7,7 +7,23 @@ namespace Player
 {
     public class LakeController : MonoBehaviour
     {
+        public GameObject BreadPrefab;
+
+
         private Bounds _dimension;
+
+
+        public BreadController GenerateNewBread()
+        {
+            var b = Instantiate(BreadPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            return b.GetComponentInChildren<BreadController>();
+        }
+
+        public void DestroyBread(BreadController controller)
+        {
+            Destroy(controller.gameObject);
+        }
+
         public Bounds getBounds()
         {
             return _dimension;
@@ -17,5 +33,13 @@ namespace Player
         {
             _dimension = transform.Find("Ground").GetComponent<SpriteRenderer>().bounds;
         }
+
+
+
+
+
+
+
+
     }
 }

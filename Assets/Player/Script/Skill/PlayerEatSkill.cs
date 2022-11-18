@@ -17,20 +17,8 @@ namespace Player
         private PlayerMoveSkill _moveSkill = null;
         private PlayerEatSkillDescriptionSO _eatDesc = null;
 
-
         private BreadController _locatedBread = null;
         private BreadController _catchedBread = null;
-
-
-        private Rigidbody2D _rigidBody = null;
-        private Vector3 _forwardAxis;
-        private Vector3 _rightwardAxis;
-
-        private bool _moveForward = false;
-        private float _rotationMovement = 0.0f;
-
-        private float _force = 0.0f;
-
 
         public override void SetDescription(PlayerSkillDescriptionSO desc)
         {
@@ -43,66 +31,75 @@ namespace Player
         }
 
 
-
-        private void CheckData()
-        {
-            if (_controller.GetState() == PlayerState.Eating)
-            {
-
-            }
-            else
-            {
-
-            }
-        }
-
-
-
-
-
         private void Awake()
         {
-            _rigidBody = GetComponent<Rigidbody2D>();
             _controller = GetComponent<PlayerController>();
             _moveSkill = GetComponent<PlayerMoveSkill>();
 
             var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
         }
+
         // Start is called before the first frame update
         void Start()
         {
-            //PlayerUtility.GetMovementAxis(ref _moveForward, ref _forwardAxis, ref _rightwardAxis);
-
-
         }
 
         // Update is called once per frame
         void Update()
         {
-            //if (Input.GetKeyDown(KeyCode.E))
-            //{
-            //    _controller.ChangeState(PlayerState.Eating);
+            if (Input.GetKeyDown(KeyCode.E) && !_catchedBread && _locatedBread)
+            {
 
-            //    if (_controller.GetState() == PlayerState.Eating)
-            //        _moveSkill.EnableInput(true);
+                _controller.ChangeState(PlayerState.Eating);
 
-            //    CheckData();
-            //}
+                if (_controller.GetState() == PlayerState.Eating)
+                    _moveSkill.EnableInput(true);
 
-            //if (_controller.GetState() == PlayerState.Eating)
-            //{
 
-            //}
+                //take a piece of the located bread, or the entire located bread based on mouth size
+                if (_locatedBread.GetPoints() > _mouthSize)
+                {
+                    _locatedBread.EatPoints(_mouthSize);
+                    var l = _controller.GetLake();
+                    _catchedBread = l.GenerateNewBread();
+                    _catchedBread.SetPoints(_mouthSize);
+                }
+                else
+                {
+                    _catchedBread = _locatedBread;
+                }
+            }
+
+
+            if (_controller.GetState() == PlayerState.Eating && _catchedBread)
+            {
+                if (_catchedBread.GetPoints() <= 0)
+                {
+                    _controller.GetLake().DestroyBread(_catchedBread);// the removing of bread should be handled by lake or other manaager
+                    _catchedBread = null;
+                    _controller.ChangeState(PlayerState.Normal);
+                }
+            }
+
             //PlayerUtility.Move(_eatingSpeed, _forwardAxis, _rightwardAxis, _rigidBody, _moveForward, ref _rotationMovement);
         }
 
         private void FixedUpdate()
         {
-            if (_controller.GetState() != PlayerState.Eating) return;
-
-            //PlayerUtility.Move(_speed, _forwardAxis, _rightwardAxis, _rigidBody, _moveForward, ref _rotationMovement);
-            _moveSkill.Move(_eatingSpeed);
+            if (_controller.GetState() == PlayerState.Eating && _catchedBread)
+            {
+                _moveSkill.Move(_eatingSpeed);
+                _catchedBread.Move(_controller.GetMouthTransform().position);
+                _catchedBread.EatPoints(_chewingRate * Time.deltaTime);//eat chewingRate points each second
+            }
         }
+
+
+
+
+
+
+
 
         private void OnTriggerEnter2D(Collider2D collision)
         {

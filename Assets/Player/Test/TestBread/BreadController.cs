@@ -26,6 +26,11 @@ namespace Player
             UpdateColor();
 
         }
+        public void Move(Vector3 position)
+        {
+            transform.position = position;
+        }
+
         private void UpdateColor()
         {
             _renderer.color = new Color(0.2f + _breadPoints / 20.0f, 0.2f + _breadPoints / 20.0f, 0);

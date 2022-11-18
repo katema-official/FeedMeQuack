@@ -10,7 +10,7 @@ namespace Player
         private Camera _camera = null;
         private Transform _mouth = null;
 
-        //private LakeController _currentLake = null;
+        private LakeController _currentLake = null;
 
       //  private Vector3 _forwardAxis;
       //  private Vector3 _rightwardAxis;
@@ -58,10 +58,17 @@ namespace Player
 
         //}
 
-
+        public Transform GetMouthTransform()
+        {
+            return _mouth;
+        }
         public PlayerState GetState()
         {
             return _state;
+        }
+        public LakeController GetLake()
+        {
+            return _currentLake;
         }
 
         public void ChangeState(PlayerState newState)
@@ -195,16 +202,16 @@ namespace Player
            // MoveCamera();
         }
 
-        //private void OnTriggerEnter2D(Collider2D collision)
-        //{
-        //    var lakeController = collision.gameObject.GetComponentInChildren<LakeController>();
-        //    if (lakeController)  _currentLake = lakeController;
-        //}
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            var lakeController = collision.gameObject.GetComponentInChildren<LakeController>();
+            if (lakeController) _currentLake = lakeController;
+        }
 
-        //private void OnTriggerExit2D(Collider2D collision)
-        //{
-        //    var lakeController = collision.gameObject.GetComponentInChildren<LakeController>();
-        //    if (lakeController)  _currentLake = null;
-        //}
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            var lakeController = collision.gameObject.GetComponentInChildren<LakeController>();
+            if (lakeController) _currentLake = null;
+        }
     }
 }
