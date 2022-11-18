@@ -113,6 +113,7 @@ namespace Player
             _skills = new List<PlayerSkill>();
             foreach (var s in _description.Skills)
             {
+                if (!s.EnabledByDefault) continue;
                 var skill = SkillUtility.CreateSkillFromDescription(s,gameObject);
                 _skills.Add(skill);
             }

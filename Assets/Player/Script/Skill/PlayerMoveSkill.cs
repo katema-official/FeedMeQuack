@@ -6,12 +6,15 @@ namespace Player
 {
     public class PlayerMoveSkill : PlayerSkill
     {
+        //Move Skill Data
+        //------------------------------------------
         [SerializeField] private float _speed = 0.0f;
-
-
+        //------------------------------------------
 
 
         private PlayerController _controller = null;
+        PlayerMoveSkillDescriptionSO _moveDesc = null;
+
 
         private Rigidbody2D _rigidBody = null;
         private Vector3 _forwardAxis;
@@ -21,6 +24,15 @@ namespace Player
         private float _rotationMovement = 0.0f;
 
         private float _force = 0.0f;
+
+
+        public override void SetDescription(PlayerSkillDescriptionSO desc)
+        {
+            _description = desc;
+            _moveDesc = (PlayerMoveSkillDescriptionSO)_description;
+
+            _speed = _moveDesc.Speed;
+        }
 
 
 

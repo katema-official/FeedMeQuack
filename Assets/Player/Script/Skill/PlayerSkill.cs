@@ -7,16 +7,13 @@ namespace Player
 {
     public class PlayerSkill : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        protected PlayerSkillDescriptionSO _description = null;
         
-        }
 
-        // Update is called once per frame
-        void Update()
+
+        public virtual void SetDescription(PlayerSkillDescriptionSO desc)
         {
-        
+            _description = desc;
         }
     }
 }

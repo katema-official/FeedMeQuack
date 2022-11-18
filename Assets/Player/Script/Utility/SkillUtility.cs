@@ -9,11 +9,18 @@ namespace Player
     {
         public static PlayerSkill CreateSkillFromDescription(PlayerSkillDescriptionSO description, GameObject gameObject)
         {
-            if (description.Type.Name == "MoveSkill")
-                return gameObject.AddComponent<PlayerMoveSkill>();
-            else if (description.Type.Name == "EatSkill")
-                return gameObject.AddComponent<PlayerEatSkill>();
+            PlayerSkill skill = null;
 
+            if (description.Type.Name == "MoveSkill")
+                skill = gameObject.AddComponent<PlayerMoveSkill>();
+            else if (description.Type.Name == "EatSkill")
+                skill = gameObject.AddComponent<PlayerEatSkill>();
+
+            if (skill)
+            { 
+                skill.SetDescription(description);
+                return skill;
+            }
 
             return null;
         }
