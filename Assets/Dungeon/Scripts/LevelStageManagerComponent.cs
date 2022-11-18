@@ -115,7 +115,7 @@ namespace LevelStageNamespace
 
         //#######################################################################################################################################################
         //#######################################################################################################################################################
-        //#######################################################################################################################################################
+        //################################################################### EXIT LAKE LOGIC ###################################################################
         //#######################################################################################################################################################
         //#######################################################################################################################################################
 
@@ -125,12 +125,22 @@ namespace LevelStageNamespace
 
             //SPECIAL CASE: when the player is exiting from the stage, we have to check its BreadPoints.
             //If they are enough, it can go to the shop. Otherwise, it's game over.
-            if(GameObject.Find("DummyPlayer").GetComponent<PlayerMovementComponent>().BreadDigested >= GetStage(GetLevel(_currentLevel), _currentStage).BreadPointsRequiredToCompleteStage){
-                Debug.Log("CE L'HAI FATTA, HAI MANGIATO ABBASTANZA!");
-            }
-            else
+            if (GetLakeDescriptionSO().IsFinalRoom && exitDirectionFromCurrentLake == GetLakeDescriptionSO().ExitStageDirection)
             {
-                Debug.Log("COMPLIMENTI, SEI MORTO DI FAME!");
+                if (GameObject.Find("DummyPlayer").GetComponent<PlayerMovementComponent>().BreadDigested >= GetStage(GetLevel(_currentLevel), _currentStage).BreadPointsRequiredToCompleteStage)
+                {
+                    Debug.Log("CE L'HAI FATTA, HAI MANGIATO ABBASTANZA!");
+                    FadeOutGoToShop();
+                    return;
+
+                }
+                else
+                {
+                    Debug.Log("COMPLIMENTI, SEI MORTO DI FAME!");
+                    Destroy(this.gameObject);
+                    SceneManager.LoadScene("GameOverScreen");
+                    return;
+                }
             }
 
 
@@ -140,7 +150,7 @@ namespace LevelStageNamespace
             //on this information, moves the player in another lake.
 
             //first: a fade out effect
-            FadeOut();
+            FadeOutGoToLake();
 
             //second: update the x and y of the current stage depending on where the player exited, and save, in the LakeDescriptionSO of the
             //new room, from where the player arrives
@@ -186,15 +196,21 @@ namespace LevelStageNamespace
                     SceneManager.LoadScene("LakeSmall");    //TODO: LakeLarge
                     break;
             }
+        }
 
-            
+        public void EnterShop()
+        {
+            SceneManager.LoadScene("Shop1");
         }
 
 
-        public void FadeOut()
+
+
+
+        public void FadeOutGoToLake()
         {
             _blackSquare = Instantiate(_blackSquarePrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            _blackSquare.GetComponent<FadeBlackComponent>().fadeToBlack();  //-> will call EnterLake when it's done
+            _blackSquare.GetComponent<FadeBlackComponent>().fadeToBlackAndGoToLake();  //-> will call EnterLake when it's done
         }
 
         public void FadeIn()
@@ -203,6 +219,12 @@ namespace LevelStageNamespace
             _blackSquare.GetComponent<FadeBlackComponent>().fadeFromBlack();  //-> will call EnterLake when it's done
         }
 
+
+        public void FadeOutGoToShop()
+        {
+            _blackSquare = Instantiate(_blackSquarePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            _blackSquare.GetComponent<FadeBlackComponent>().fadeToBlackAndGoToShop();  //-> will call EnterShop when it's done
+        }
 
         //#######################################################################################################################################################
         //#######################################################################################################################################################

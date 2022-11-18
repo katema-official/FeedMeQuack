@@ -24,12 +24,12 @@ public class FadeBlackComponent : MonoBehaviour
 
 
 
-    public void fadeToBlack()
+    public void fadeToBlackAndGoToLake()
     {
         var color = _sprite.color;
         color.a = 0f;
         _sprite.color = color;
-        StartCoroutine(fadeToBlackCoroutine());
+        StartCoroutine(fadeToBlackAndGoToLakeCoroutine());
     }
 
     public void fadeFromBlack()
@@ -41,8 +41,19 @@ public class FadeBlackComponent : MonoBehaviour
     }
 
 
+    public void fadeToBlackAndGoToShop()
+    {
+        var color = _sprite.color;
+        color.a = 0f;
+        _sprite.color = color;
+        StartCoroutine(fadeToBlackAndGoToShopCoroutine());
+    }
 
-    private IEnumerator fadeToBlackCoroutine()
+
+
+
+
+    private IEnumerator fadeToBlackAndGoToLakeCoroutine()
     {
         Color c;
         while(_sprite.color.a < 1)
@@ -73,12 +84,20 @@ public class FadeBlackComponent : MonoBehaviour
     }
 
 
-
-
-    // Update is called once per frame
-    void Update()
+    private IEnumerator fadeToBlackAndGoToShopCoroutine()
     {
-        
+        Color c;
+        while (_sprite.color.a < 1)
+        {
+            c = _sprite.color;
+            c.a += _alphaAmountPerUnitOfTime;
+            _sprite.color = c;
+            yield return new WaitForSeconds(_timeBetweenAlphas);
+        }
+
+        _levelStageManager.EnterShop();
+
+        yield return null;
     }
 
 
