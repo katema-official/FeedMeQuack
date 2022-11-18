@@ -11,7 +11,6 @@ namespace Player
     {
         public string Name = "";
         public string Description = "";
-        public float  Speed = 0.0f;
         public PlayerSkillDescriptionSO[] Skills;
     }
 }

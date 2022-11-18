@@ -91,7 +91,7 @@ namespace Player
             var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
             _description = duckTypeManager.getTypeFromName("Mallard");
 
-            _speed = _description.Speed;
+            //_speed = _description.Speed;
             //_eatingSpeed = _description.EatingSpeed;
             //_chewingRate = _description.ChewingRate;
             //_mouthSize = _description.MouthSize;        

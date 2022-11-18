@@ -9,8 +9,11 @@ namespace Player
     {
         public static PlayerSkill CreateSkillFromDescription(PlayerSkillDescriptionSO description, GameObject gameObject)
         {
-            if (description.Type.Name == "EatSkill")
+            if (description.Type.Name == "MoveSkill")
+                return gameObject.AddComponent<PlayerMoveSkill>();
+            else if (description.Type.Name == "EatSkill")
                 return gameObject.AddComponent<PlayerEatSkill>();
+
 
             return null;
         }
