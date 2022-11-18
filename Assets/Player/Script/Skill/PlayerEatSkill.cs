@@ -37,6 +37,25 @@ namespace Player
             _chewingRate = _eatDesc.ChewingRate;
             _mouthSize = _eatDesc.MouthSize;
         }
+
+
+
+        private void CheckData()
+        {
+            if (_controller.GetState() == PlayerState.Eating)
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+
+
+
+
+
         private void Awake()
         {
             _rigidBody = GetComponent<Rigidbody2D>();
@@ -48,8 +67,6 @@ namespace Player
         // Start is called before the first frame update
         void Start()
         {
-            if (_controller.GetState() != PlayerState.Eating) return;
-
             //PlayerUtility.GetMovementAxis(ref _moveForward, ref _forwardAxis, ref _rightwardAxis);
 
 
@@ -58,12 +75,20 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
-            if (_controller.GetState() != PlayerState.Eating) return;
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                _controller.ChangeState(PlayerState.Eating);
 
+                if (_controller.GetState() == PlayerState.Eating)
+                    _moveSkill.EnableInput(true);
 
+                CheckData();
+            }
 
+            if (_controller.GetState() == PlayerState.Eating)
+            {
 
-
+            }
             //PlayerUtility.Move(_eatingSpeed, _forwardAxis, _rightwardAxis, _rigidBody, _moveForward, ref _rotationMovement);
         }
 
