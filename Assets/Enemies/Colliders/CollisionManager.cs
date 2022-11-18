@@ -30,6 +30,10 @@ public class CollisionManager : MonoBehaviour
         _EnemyCustomColliderManagers[2].InitializeValuesAndName(EnemyColliderType.Outer, species);
     }
 
+    private void Update(){
+        //todo: fare in modo che la transform sia la stessa del padre
+    }
+
     public bool IsEating(){
         return _enemyFsm.breadBeingEaten!=null;
     }
@@ -44,7 +48,9 @@ public class CollisionManager : MonoBehaviour
         if(HasBreadAlreadyBeenAnalyzed(breadGameObject, type)) return;
         AddBreadToAnalyzedOnes(breadGameObject, type);
         if (CheckIfInterestedInBread(enemyCustomCollider) && !AlreadyMovingToCloserBread(breadGameObject)){
+            //if(breadGameObject!= BreadTargeted) Debug.Log("Nuovo target");
                 _enemyFsm.TargetBread(breadGameObject);
+                
         }
     }
 
@@ -66,12 +72,13 @@ public class CollisionManager : MonoBehaviour
     }
 
     private bool AlreadyMovingToCloserBread(GameObject breadGameObject){
-        return (BreadTargeted != null && Distance(BreadTargeted) < Distance(breadGameObject));
+        //todo: capire perchè non funziona
+        return BreadTargeted != null && Distance(BreadTargeted) < Distance(breadGameObject);
     }
 
     private float Distance(GameObject destinationGameObject){
         Vector3 dest = destinationGameObject.transform.position;
-        return math.distance(dest, transform.position);
+        return math.distance(dest, transform.parent.position);
     }
 
     public void AddSelfToColliderManagers(ColliderManager colliderManager){

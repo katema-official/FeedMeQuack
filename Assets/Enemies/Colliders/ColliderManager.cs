@@ -14,6 +14,8 @@ public class ColliderManager : MonoBehaviour
 
     [SerializeField] private EnemyCustomCollider _myCollider;
 
+    [SerializeField] private float detectionChance;
+
     private CollisionManager _collisionManager;
 
 
@@ -32,9 +34,15 @@ public class ColliderManager : MonoBehaviour
         if (_collisionManager.IsEating()){
             return;
         }
-        if (col.gameObject.GetComponent<PlayerDuck>() != null) _collisionManager.CheckStealingOptions(col.gameObject);
-        _collisionManager.BreadDetectedAction(col, _myCollider);
+        if (col.gameObject.GetComponent<PlayerDuck>() != null){
+            _collisionManager.CheckStealingOptions(col.gameObject);
+        }
+        else{
+            _collisionManager.BreadDetectedAction(col, _myCollider);
+        }
     }
+    
+    
 
     public void TurnOnCollider(){
         GameObject collider2DGameObject = _collider2D.gameObject;
@@ -51,6 +59,7 @@ public class ColliderManager : MonoBehaviour
         gameObject.name = type.ToString();
         CircleCollider2D circleCollider2D = GetComponent<CircleCollider2D>();
         circleCollider2D.radius = _myCollider.Radius;
+        detectionChance = _myCollider.DetectionChance;
         _collider2D.gameObject.SetActive(true);
     }
 }

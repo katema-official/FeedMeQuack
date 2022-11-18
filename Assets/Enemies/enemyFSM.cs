@@ -59,7 +59,7 @@ namespace Enemies
             if (State == ActionState.Eating) StopCoroutine(EatBread(breadBeingEaten));
             if (State == ActionState.MovingToBread){
                 breadTargeted = null;
-                movementManager.StopMoving();
+                if(newState!=ActionState.Eating) movementManager.StopMoving(); //coroutine already stopped in the switch case below
                 movementManager.StopMovementRelatedCoroutine(CoroutineType.SteerForBread);
             }
 
@@ -68,6 +68,10 @@ namespace Enemies
 
             if (State == ActionState.Eating){
                 collisionManager.TurnOnColliders();
+            }
+
+            if (State == ActionState.Chilling){
+                movementManager.StopChilling();
             }
 
             switch (newState){
@@ -79,19 +83,19 @@ namespace Enemies
                 case ActionState.Roaming:
                     State = ActionState.Roaming;
                     movementManager.StartMovementRelatedCoroutine(CoroutineType.Idle);
-                    movementManager.StartMovement();
-                    movementManager.StartMovementRelatedCoroutine(CoroutineType.Moving);
                     break;
                 case ActionState.Dashing:
                     State = ActionState.Dashing;
                     break;
                 case ActionState.MovingToBread:
+                    if(State==ActionState.Roaming) movementManager.StopMovementRelatedCoroutine(CoroutineType.Moving);
                     movementManager.StartMovementRelatedCoroutine(CoroutineType.Moving);
                     State = ActionState.MovingToBread;
                     break;
                 case ActionState.Eating:
                     collisionManager.TurnOffColliders();
-                    movementManager.StopMoving(); //todo: questo potreebbe creare casini nel caso in cui si imbatta casualmente nel pane
+                    //if(State!=ActionState.MovingToBread) 
+                        movementManager.StopMoving(); //todo: questo potreebbe creare casini nel caso in cui si imbatta casualmente nel pane
                     breadTargeted = null;
                     State = ActionState.Eating;
                     break;
@@ -100,6 +104,10 @@ namespace Enemies
                     break;
                 case ActionState.GettingRobbed:
                     State = ActionState.GettingRobbed;
+                    break;
+                case ActionState.Chilling:
+                    State = ActionState.Chilling;
+                    movementManager.StartChilling();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -114,11 +122,13 @@ namespace Enemies
             MovingToBread,
             Eating,
             Stealing,
-            GettingRobbed
+            GettingRobbed,
+            Chilling //after eating food
         }
 
         public void TargetBread(GameObject breadGameObject){
             breadTargeted = breadGameObject;
+            //movementManager.StartMovementRelatedCoroutine(CoroutineType.GoToBread);
             movementManager.MoveToBread(breadGameObject);
         }
 
@@ -136,8 +146,8 @@ namespace Enemies
                 i++;
                 yield return new WaitForSeconds(_eatingSpeed);
             }
-
-            ChangeState(ActionState.Roaming);
+            //todo: al posto che andare in roaming, prima guardo se c'è del pane
+            ChangeState(ActionState.Chilling);
         }
     }
 }

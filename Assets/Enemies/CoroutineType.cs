@@ -3,6 +3,7 @@
     public enum CoroutineType
     {
         Moving,
+        GoToBread,
         Idle,
         Accelerate,
         Decelerate,

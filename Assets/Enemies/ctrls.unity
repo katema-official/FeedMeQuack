@@ -166,7 +166,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider2D: {fileID: 484672862}
+  detectionChance: 0
 --- !u!1 &871765765
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,7 +229,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -247,6 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider2D: {fileID: 871765767}
+  detectionChance: 0
 --- !u!1 &1326638961
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,7 +449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   breadPrefab: {fileID: 8239734597683774029, guid: fceda9f900e0a0c4ea5748fbbd6f39af, type: 3}
   CD: 2
-  qty: 3
+  qty: 7
 --- !u!4 &1453071008
 Transform:
   m_ObjectHideFlags: 0
@@ -506,7 +508,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -525,6 +527,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider2D: {fileID: 1592282366}
+  detectionChance: 0
 --- !u!1 &1697782349
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,6 +643,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mediumColliderBreadAlreadyAnalyzed: []
   outerColliderBreadAlreadyAnalyzed: []
+  _EnemyCustomColliderManagers: []
   BreadTargeted: {fileID: 0}
   _enemyFsm: {fileID: 0}
 --- !u!4 &1927527736
@@ -692,7 +696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e00b19182aa36945aa4463759c9e154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Species: {fileID: 11400000, guid: ad499b62bc4e5584089b2dea3e6781dc, type: 2}
+  MySpecies: {fileID: 11400000, guid: ad499b62bc4e5584089b2dea3e6781dc, type: 2}
   collisionManager: {fileID: 1927527735}
   movementManager: {fileID: 2013984282}
   stealingCd: 0
@@ -840,6 +844,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyFsm: {fileID: 2003164853}
   _speedPerc: 0
+  _movingVector: {x: 0, y: 0, z: 0}
 --- !u!4 &2013984283
 Transform:
   m_ObjectHideFlags: 0

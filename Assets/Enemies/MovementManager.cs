@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Enemies;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class MovementManager : MonoBehaviour
@@ -11,13 +12,13 @@ public class MovementManager : MonoBehaviour
 
     [SerializeField] private EnemyFSM enemyFsm;
 
-    [SerializeField] private float _speedPerc;
+    [SerializeField] private float _speedPerc=0;
     
     private float _maxSpeed, _accelerationTimeSeconds, _idleTime, _idleCD, _deactivationRange;
     
-    private Coroutine _movingCoroutineVar, _temporaryIdleCoroutine, _accelerateCoroutine, _decelerateCoroutine, _steerForBreadCoroutine, _chasingPlayerCoroutine;
+    private Coroutine _movingCoroutineVar, _temporaryIdleCoroutine, _accelerateCoroutine, _decelerateCoroutine, _steerForBreadCoroutine, _chasingPlayerCoroutine, _chillingCoroutine;
     
-    private Vector3 _movingVector;
+    [SerializeField] private Vector3 _movingVector;
 
     private GameObject _enemyGameObject,_breadTargeted, _parentGameObject;
 
@@ -48,7 +49,6 @@ public class MovementManager : MonoBehaviour
 
     private IEnumerator AccelerateCoroutine(){
         if(_decelerateCoroutine!=null) StopCoroutine(_decelerateCoroutine);
-        _speedPerc = 0;
         while (_speedPerc<1){
             _speedPerc += 0.01f;
             yield return new WaitForSeconds(_accelerationTimeSeconds/100);
@@ -67,11 +67,10 @@ public class MovementManager : MonoBehaviour
 
     private IEnumerator TemporaryIdleCoroutine(){
         while (enemyFsm.State== EnemyFSM.ActionState.Roaming){
+            StartMovement();
             yield return new WaitForSeconds(_idleCD);
             StopRoaming();
             yield return new WaitForSeconds(_idleTime);
-            StartMovement();
-            yield return null;
         }
         yield return null;
     }
@@ -85,6 +84,8 @@ public class MovementManager : MonoBehaviour
     }
 
     private IEnumerator DecelerateCoroutine(){
+        //todo: problema, non stoppo la coroutine del movimento quando passo da roaming a moving to Bread
+        StopCoroutine(_accelerateCoroutine);
         while (_speedPerc>0){
             _speedPerc -= 0.01f;
             yield return new WaitForSeconds(_accelerationTimeSeconds/100);
@@ -92,11 +93,25 @@ public class MovementManager : MonoBehaviour
         StopCoroutine(_movingCoroutineVar);
         yield return null;
     }
+    
+    private IEnumerator DecelerateCoroutine(float valueToDecelerateUpTo){
+        if (valueToDecelerateUpTo >= 1){
+            Debug.Log("CAREFUL: YOU'RE TRYING TO DECELERATE TO A VALUE BIGGER THAN 1 (THE MAX SPEED)!!! CHANGING IT TO MAX SPEED FOR YOUR SAKE");
+            valueToDecelerateUpTo = 0.999f;
+        }
+        while (_speedPerc>valueToDecelerateUpTo){
+            _speedPerc -= 0.01f;
+            yield return new WaitForSeconds(_accelerationTimeSeconds/100);
+        }
+        _accelerateCoroutine = StartCoroutine(AccelerateCoroutine());
+        yield return null;
+    }
 
     public void MoveToBread(GameObject breadGameObject){
         _breadTargeted = breadGameObject;
+        //SteerForBreadNewVersion();
         _steerForBreadCoroutine = StartCoroutine(SteerForBreadCoroutine());
-        _speedPerc = 1;
+        //_speedPerc = 1;
         if(enemyFsm.State!=EnemyFSM.ActionState.MovingToBread)  enemyFsm.ChangeState(EnemyFSM.ActionState.MovingToBread);
     }
 
@@ -107,14 +122,7 @@ public class MovementManager : MonoBehaviour
             float delta = Time.time - startTime;
             _movingVector = AddForceToMovingVector(vecToAdd, delta);
             yield return new WaitForSeconds(0.001f);
-            /*if (_breadTargeted!=null && Distance(_breadTargeted) > outerRadiusCollider){
-                Debug.Log("dist targeted: "+ Distance(_breadTargeted));
-                _breadTargeted = null;
-                enemyFsm.ChangeState(EnemyFSM.ActionState.Roaming);
-                //todo: reset dei collider
-            }*/
         }
-
         yield return null;
     }
 
@@ -129,8 +137,23 @@ public class MovementManager : MonoBehaviour
         vecToAdd = NormalizeToMaxSpeed(vecToAdd);
         float timeAdj = deltaT /2000;
         Vector2 weakerVector = new Vector2(vecToAdd.x*timeAdj, vecToAdd.y* timeAdj);
-        Vector2 newVector = _movingVector + (Vector3) weakerVector;
+        Vector2 newVector = _movingVector*_speedPerc + (Vector3) weakerVector;
         return NormalizeToMaxSpeed(newVector);
+    }
+
+    private void SteerForBreadNewVersion(){
+        //prima rallento fino di una percentuale pari a metà dell'ampiezza dell'angolo, e mentre lo faccio inizio già a modificare la traiettoria. Quando ho finito di 
+        //decelerare, riprendo ad accelerare fino alla velocità di crociera, sempre continuando a modificare l'angolo.
+        Vector2 vecToAdd = Direction(_breadTargeted);
+        float angle = Vector2.Angle(_movingVector, vecToAdd);
+        float decelerationFactor = angle / 200f;
+        float speedToDecelerateTo = 1 - decelerationFactor;
+        DecelerateAndAccelerate(speedToDecelerateTo);
+        _steerForBreadCoroutine = StartCoroutine(SteerForBreadCoroutine());
+    }
+
+    private void DecelerateAndAccelerate(float speedToDecelerateTo){
+        if(_decelerateCoroutine==null) _decelerateCoroutine = StartCoroutine(DecelerateCoroutine(speedToDecelerateTo));
     }
 
     private float Distance(GameObject destinationGameObject){
@@ -160,6 +183,9 @@ public class MovementManager : MonoBehaviour
                 break;
             case CoroutineType.Chase:
                 break;
+            case CoroutineType.GoToBread:
+                
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(coroutineType), coroutineType, null);
         }
@@ -168,7 +194,7 @@ public class MovementManager : MonoBehaviour
     public void StopMovementRelatedCoroutine(CoroutineType coroutineType){
         switch (coroutineType){
             case CoroutineType.Moving:
-                
+                StopCoroutine(_movingCoroutineVar);
                 break;
             case CoroutineType.Idle:
                 StopCoroutine(_temporaryIdleCoroutine);
@@ -205,5 +231,21 @@ public class MovementManager : MonoBehaviour
         StartMovementRelatedCoroutine(CoroutineType.Chase);
         _movingCoroutineVar = StartCoroutine(MovingCoroutine());
         _chasingPlayerCoroutine = StartCoroutine(ChasePlayerCoroutine(playerGameObjectToChase));
+    }
+
+    public void StartChilling(){
+        _chillingCoroutine = StartCoroutine(ChillingCoroutine());
+    }
+
+    private IEnumerator ChillingCoroutine(){
+        yield return new WaitForSeconds(_idleTime*0.5f);
+        if (enemyFsm.State == EnemyFSM.ActionState.Chilling){
+            enemyFsm.ChangeState(EnemyFSM.ActionState.Roaming);
+        }
+        yield return null;
+    }
+
+    public void StopChilling(){
+        StopCoroutine(_chillingCoroutine);
     }
 }
