@@ -64,6 +64,41 @@ namespace Player
             return _state;
         }
 
+        public void ChangeState(PlayerState newState)
+        {
+            if (_state == PlayerState.Normal)
+            {
+                if (newState == PlayerState.Dashing ||
+                    newState == PlayerState.Eating ||
+                    newState == PlayerState.Stealing)
+                {
+                    _state = newState;
+                }
+            }
+            else if (_state == PlayerState.Dashing)
+            {
+                if (newState == PlayerState.Normal)
+                {
+                    _state = newState;
+                }
+            }
+            else if (_state == PlayerState.Eating)
+            {
+                if (newState == PlayerState.Spitting ||
+                    newState == PlayerState.Normal ||
+                    newState == PlayerState.Stealing)
+                {
+                    _state = newState;
+                }
+            }
+            else if (_state == PlayerState.Spitting)
+            {
+                if (newState == PlayerState.Normal)
+                {
+                    _state = newState;
+                }
+            }
+        }
 
         //private void MoveCamera()
         //{
