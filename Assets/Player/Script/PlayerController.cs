@@ -5,13 +5,18 @@ using UnityEngine;
 namespace Player
 {
     public class PlayerController : MonoBehaviour
-    {
+    { 
+        [SerializeField] private float _breadPoints = 0.0f;
+
+
+
         private Rigidbody2D _rigidBody = null;
         private Camera _camera = null;
         private Transform _mouth = null;
 
         private LakeController _currentLake = null;
 
+       
       //  private Vector3 _forwardAxis;
       //  private Vector3 _rightwardAxis;
 
@@ -73,6 +78,17 @@ namespace Player
         public Vector3 GetPosition()
         {
             return _rigidBody.position;
+        }
+        public void AddBreadPoints(float points)
+        {
+            _breadPoints += points;
+
+            Debug.Log("Current player bread points: " + _breadPoints);
+        }
+        public void RoundPoints()
+        {
+            _breadPoints = Mathf.RoundToInt(_breadPoints);
+            Debug.Log("Current player bread points: " + _breadPoints);
         }
 
 

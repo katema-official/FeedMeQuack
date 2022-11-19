@@ -91,7 +91,15 @@ namespace Player
             {
                 _moveSkill.Move(_eatingSpeed);
                 _catchedBread.Move(_controller.GetMouthTransform().position);
-                _catchedBread.EatPoints(_chewingRate * Time.deltaTime);//eat chewingRate points each second
+                float points = _chewingRate * Time.deltaTime;
+                _catchedBread.EatPoints(points);//eat chewingRate points each second
+
+                if (_catchedBread.GetPoints() <= 0)
+                    _controller.RoundPoints();
+                else
+                    _controller.AddBreadPoints(points);
+
+
             }
         }
 
@@ -109,7 +117,7 @@ namespace Player
             if (breadController)
             {
                 _locatedBread = breadController;
-                Debug.Log("Bread located");
+                Debug.Log("Bread located - Points: " + _locatedBread.GetPoints());
             }
 
         }

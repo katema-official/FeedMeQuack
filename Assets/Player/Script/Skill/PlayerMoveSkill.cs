@@ -14,7 +14,7 @@ namespace Player
 
         private PlayerController _controller = null;
         private PlayerMoveSkillDescriptionSO _moveDesc = null;
-
+        private Camera _camera = null;
 
         private Rigidbody2D _rigidBody = null;
         private Vector3 _forwardAxis;
@@ -76,14 +76,35 @@ namespace Player
 
             _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
 
-            Debug.Log("Current player velocity: " + _rigidBody.velocity);
+            MoveCamera();
+           // Debug.Log("Current player velocity: " + _rigidBody.velocity);
         }
 
+        private void MoveCamera()
+        {
+            _camera.transform.position = _rigidBody.position;
+            var cameraBounds = CameraUtility.OrthographicBounds(_camera);
+            Bounds lakeBounds;
 
+            if (_controller.GetLake())
+                lakeBounds = _controller.GetLake().getBounds();
+            else
+                lakeBounds = new Bounds();
+
+            Vector3 newCamPos = transform.position;
+
+            if (cameraBounds.min.x < lakeBounds.min.x) newCamPos.x += lakeBounds.min.x - cameraBounds.min.x;
+            if (cameraBounds.max.x > lakeBounds.max.x) newCamPos.x -= cameraBounds.max.x - lakeBounds.max.x;
+            if (cameraBounds.min.y < lakeBounds.min.y) newCamPos.y += lakeBounds.min.y - cameraBounds.min.y;
+            if (cameraBounds.max.y > lakeBounds.max.y) newCamPos.y -= cameraBounds.max.y - lakeBounds.max.y;
+
+            _camera.transform.position = newCamPos;
+        }
         private void Awake()
         {
             _rigidBody = GetComponent<Rigidbody2D>();
             _controller = GetComponent<PlayerController>();
+            _camera = transform.parent.GetComponentInChildren<Camera>();
 
             var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
         }

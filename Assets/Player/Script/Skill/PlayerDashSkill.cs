@@ -64,6 +64,8 @@ namespace Player
             {
                 if (_controller.GetState() == PlayerState.Dashing)
                 {
+                    _controller.ChangeState(PlayerState.Normal);
+
                     if (_controller.GetState() == PlayerState.Normal)
                         _moveSkill.EnableInput(true);
                 }
