@@ -46,6 +46,10 @@ namespace Player
             _enableInput = enable;
         }
 
+        public Vector3 GetDirection()
+        {
+            return _finalDir;
+        }
 
         //public void SetOverrideSpeed(float overrideSpeed)
         //{

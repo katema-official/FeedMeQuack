@@ -63,17 +63,23 @@ namespace Player
             if (Input.GetKeyDown(KeyCode.Q) && _dashCoolDownElapsedSeconds <= 0)
             {
                 if (_controller.GetState() == PlayerState.Dashing)
-                    _controller.ChangeState(PlayerState.Normal);
+                {
+                    if (_controller.GetState() == PlayerState.Normal)
+                        _moveSkill.EnableInput(true);
+                }
                 else
-                    _controller.ChangeState(PlayerState.Dashing);
+                {
+                    var p = _controller.GetPosition() + _moveSkill.GetDirection() * _maxSpeed * _maxDuration;
 
+                    if (_controller.GetLake().Contains(p))
+                    {
+                        _controller.ChangeState(PlayerState.Dashing);
+                    }         
+                }
 
                 if (_controller.GetState() == PlayerState.Dashing)
                     _moveSkill.EnableInput(false);
 
-
-
-                CheckData();
             }
 
 

@@ -70,6 +70,11 @@ namespace Player
         {
             return _currentLake;
         }
+        public Vector3 GetPosition()
+        {
+            return _rigidBody.position;
+        }
+
 
         public void ChangeState(PlayerState newState)
         {
