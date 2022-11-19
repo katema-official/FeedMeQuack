@@ -61,23 +61,93 @@ namespace Player
         {
             if (_moveForward || moveForward)
             {
+               // var ax = new Vector3();
                 if (_enableInput)
-                { 
-                    _finalDir = _forwardAxis + _rightwardAxis;
+                {
+                    _finalDir = _forwardAxis;//_forwardAxis + _rightwardAxis;
                     _finalDir.Normalize();
+
+                  //  var x = (_forwardAxis.x >= 0) ? Mathf.Ceil(_forwardAxis.x) : Mathf.Floor(_forwardAxis.x);
+                 //   var y = (_forwardAxis.y >= 0) ? Mathf.Ceil(_forwardAxis.y) : Mathf.Floor(_forwardAxis.y);
+
+                 //   ax = new Vector3(x,y, 0);
+                 //   ax.Normalize();
                 }
 
+              
                 float angle = Mathf.Atan2(-_finalDir.x, _finalDir.y) * Mathf.Rad2Deg;
+                // float angleInt = Mathf.Atan2(-ax.x, ax.y) * Mathf.Rad2Deg;
+
+
+
+                ////up
+                //if (angle >= 0 && angle < 22.5)
+                //{
+                //    angle = 0; 
+                //}
+                ////up-left
+                //else if (angle >= 22.5f && angle < 77.5f)
+                //{
+                //    angle = 45;
+                //}
+                ////left
+                //else if (angle >= 77.5f && angle < 112.5)
+                //{
+                //    angle = 90;
+                //}
+                ////down-left
+                //else if (angle >= 112.5 && angle < 157.5)
+                //{
+                //    angle = 135;
+                //}
+                ////down
+                //else if (angle >= 157.5 && angle < 180)
+                //{
+                //    angle = 180;
+                //}
+
+
+
+                ////down
+                //else if (angle >= -180 && angle < -157.5)
+                //{
+                //    angle = -180;
+                //}
+                ////down-right
+                //else if (angle >= -157.5 && angle < -112.5)
+                //{
+                //    angle = -135;
+                //}
+                ////right
+                //else if (angle >= -112.5 && angle < -77.5f)
+                //{
+                //    angle = -90;
+                //}
+                ////up-right
+                //else if (angle >= -77.5f && angle < -22.5f )
+                //{
+                //    angle = -45;
+                //}
+                ////up
+                //else if (angle >=  -22.5 && angle < 0)
+                //{
+                //    angle = 0;
+                //}
+
+
+
                 _rotationMovement = angle;
                 _force = speed * 1.5f;
                 _rigidBody.AddForce(_finalDir * _force, ForceMode2D.Force);
-                _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity, speed);
+                _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity, speed); 
+                
+                Debug.Log("Current player velocity: " +  angle);
             }
 
             _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
 
             MoveCamera();
-           // Debug.Log("Current player velocity: " + _rigidBody.velocity);
+           
         }
 
         private void MoveCamera()
@@ -129,28 +199,45 @@ namespace Player
 
             _moveForward = false;
             _forwardAxis = new Vector3(0, 0);
-            _rightwardAxis = new Vector3(0, 0);
+           // _rightwardAxis = new Vector3(0, 0);
 
-            if (Input.GetKey(KeyCode.W))
-            {
-                _forwardAxis = new Vector3(0, 1);
+            var h = Input.GetAxisRaw("Horizontal");
+            var v = Input.GetAxisRaw("Vertical");
+
+            _forwardAxis = new Vector3(h,v);
+
+            if (h!=0 || v!=0)
                 _moveForward = true;
-            }
-            if (Input.GetKey(KeyCode.A))
-            {
-                _rightwardAxis = new Vector3(-1, 0);
-                _moveForward = true;
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                _forwardAxis = new Vector3(0, -1);
-                _moveForward = true;
-            }
-            if (Input.GetKey(KeyCode.D))
-            {
-                _rightwardAxis = new Vector3(1, 0);
-                _moveForward = true;
-            }
+
+
+
+
+
+           // Debug.Log("H dir:" + h);
+          //  Debug.Log("V dir:" + v);
+
+
+
+            //if (Input.GetKey(KeyCode.W))
+            //{
+            //    _forwardAxis = new Vector3(0, 1);
+            //    _moveForward = true;
+            //}
+            //if (Input.GetKey(KeyCode.A))
+            //{
+            //    _rightwardAxis = new Vector3(-1, 0);
+            //    _moveForward = true;
+            //}
+            //if (Input.GetKey(KeyCode.S))
+            //{
+            //    _forwardAxis = new Vector3(0, -1);
+            //    _moveForward = true;
+            //}
+            //if (Input.GetKey(KeyCode.D))
+            //{
+            //    _rightwardAxis = new Vector3(1, 0);
+            //    _moveForward = true;
+            //}
         }
 
 
