@@ -7,7 +7,7 @@ namespace Player
     {
         //Dash Skill Data
         //------------------------------------------
-        [SerializeField]  private float _maxSpeed = 0.0f;
+        [SerializeField] private float _maxSpeed = 0.0f;
         [SerializeField] private float _maxDuration = 0.0f;
         [SerializeField] private float _coolDown = 0.0f;
         //-------------------------------------
@@ -31,6 +31,26 @@ namespace Player
             _coolDown = _dashDesc.CoolDown;
         }
 
+        private void CheckData()
+        {
+            if (_controller.GetState() == PlayerState.Dashing)
+            {
+                _dashCoolDownElapsedSeconds = 0;
+            }
+            else
+            {
+                _dashElapsedSeconds = 0.0f;
+                _dashCoolDownElapsedSeconds = _coolDown;
+            }
+        }
+
+
+        void Awake()
+        {
+            _controller = GetComponent<PlayerController>();
+            _moveSkill = GetComponent<PlayerMoveSkill>();
+        }
+
         // Start is called before the first frame update
         void Start()
         {
@@ -40,7 +60,46 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
-        
+            if (Input.GetKeyDown(KeyCode.Q) && _dashCoolDownElapsedSeconds <= 0)
+            {
+                if (_controller.GetState() == PlayerState.Dashing)
+                    _controller.ChangeState(PlayerState.Normal);
+                else
+                    _controller.ChangeState(PlayerState.Dashing);
+
+
+                if (_controller.GetState() == PlayerState.Dashing)
+                    _moveSkill.EnableInput(false);
+
+
+
+                CheckData();
+            }
+
+
+            if (_controller.GetState() == PlayerState.Dashing && _dashElapsedSeconds >= _maxDuration && _dashCoolDownElapsedSeconds <= 0)
+            {
+                _controller.ChangeState(PlayerState.Normal);
+
+                if (_controller.GetState() == PlayerState.Normal)
+                    _moveSkill.EnableInput(true);
+
+                CheckData();
+            }
+        }
+
+        void FixedUpdate()
+        {
+            if (_controller.GetState() == PlayerState.Dashing && _dashElapsedSeconds < _maxDuration && _dashCoolDownElapsedSeconds <= 0)
+            {
+                _dashElapsedSeconds += Time.deltaTime;
+                _moveSkill.Move(_maxSpeed, true);
+            }
+
+            if (_controller.GetState() != PlayerState.Dashing && _dashCoolDownElapsedSeconds > 0)
+            {
+                _dashCoolDownElapsedSeconds -= Time.deltaTime;
+            }
         }
     }
 }

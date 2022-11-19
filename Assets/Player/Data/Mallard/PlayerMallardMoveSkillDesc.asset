@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: {fileID: 11400000, guid: 2fdb2f8d8543b3946b0006170b5ade20, type: 2}
   EnabledByDefault: 1
-  Speed: 7
+  Speed: 4

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: {fileID: 11400000, guid: e251464c95778aa4dad79035f773baa6, type: 2}
   EnabledByDefault: 1
-  MaxSpeed: 5
-  MaxDuration: 2
+  MaxSpeed: 8
+  MaxDuration: 1
   CoolDown: 5

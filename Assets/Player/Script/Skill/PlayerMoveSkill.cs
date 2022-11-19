@@ -19,6 +19,8 @@ namespace Player
         private Rigidbody2D _rigidBody = null;
         private Vector3 _forwardAxis;
         private Vector3 _rightwardAxis;
+        private Vector3 _finalDir;
+
 
         private bool _moveForward = false;
         private float _rotationMovement = 0.0f;
@@ -51,23 +53,26 @@ namespace Player
         //}
 
 
-        public void Move(float speed/*, bool moveForward*/)
+        public void Move(float speed, bool moveForward = false)
         {
-            if (_moveForward)
+            if (_moveForward || moveForward)
             {
-                var finalDir = _forwardAxis + _rightwardAxis;
-                finalDir.Normalize();
+                if (_enableInput)
+                { 
+                    _finalDir = _forwardAxis + _rightwardAxis;
+                    _finalDir.Normalize();
+                }
 
-                float angle = Mathf.Atan2(-finalDir.x, finalDir.y) * Mathf.Rad2Deg;
+                float angle = Mathf.Atan2(-_finalDir.x, _finalDir.y) * Mathf.Rad2Deg;
                 _rotationMovement = angle;
                 _force = speed * 1.5f;
-                _rigidBody.AddForce(finalDir * _force, ForceMode2D.Force);
-                _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity, _speed);
+                _rigidBody.AddForce(_finalDir * _force, ForceMode2D.Force);
+                _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity, speed);
             }
 
             _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
 
-           // Debug.Log("Current player velocity: " + _rigidBody.velocity);
+            Debug.Log("Current player velocity: " + _rigidBody.velocity);
         }
 
 

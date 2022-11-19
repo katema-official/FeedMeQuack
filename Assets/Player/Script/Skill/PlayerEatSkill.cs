@@ -78,6 +78,7 @@ namespace Player
                     _controller.GetLake().DestroyBread(_catchedBread);// the removing of bread should be handled by lake or other manaager
                     _catchedBread = null;
                     _controller.ChangeState(PlayerState.Normal);
+
                 }
             }
 
