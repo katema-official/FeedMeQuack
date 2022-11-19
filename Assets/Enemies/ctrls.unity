@@ -448,8 +448,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breadPrefab: {fileID: 8239734597683774029, guid: fceda9f900e0a0c4ea5748fbbd6f39af, type: 3}
-  CD: 2
-  qty: 7
+  CD: 1
+  qty: 10
 --- !u!4 &1453071008
 Transform:
   m_ObjectHideFlags: 0

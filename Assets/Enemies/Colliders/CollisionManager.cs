@@ -49,6 +49,7 @@ public class CollisionManager : MonoBehaviour
         AddBreadToAnalyzedOnes(breadGameObject, type);
         if (CheckIfInterestedInBread(enemyCustomCollider) && !AlreadyMovingToCloserBread(breadGameObject)){
             //if(breadGameObject!= BreadTargeted) Debug.Log("Nuovo target");
+            BreadTargeted = breadGameObject;
                 _enemyFsm.TargetBread(breadGameObject);
                 
         }
@@ -101,5 +102,9 @@ public class CollisionManager : MonoBehaviour
         foreach (var colliderManager in _EnemyCustomColliderManagers){
             colliderManager.TurnOffCollider();
         }
+    }
+
+    public void ResetBreadTarget(){
+        BreadTargeted = null;
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fda69db312a69d47a598a32d6dc93f6, type: 3}
   m_Name: Duck
   m_EditorClassIdentifier: 
-  maxSpeed: 40
+  maxSpeed: 30
   mouthSize: 0
   eatingSpeed: 1
   idleTime: 3

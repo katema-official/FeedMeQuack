@@ -67,6 +67,7 @@ namespace Enemies
             }
 
             if (State == ActionState.Eating){
+                collisionManager.ResetBreadTarget();
                 collisionManager.TurnOnColliders();
             }
 

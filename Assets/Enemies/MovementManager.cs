@@ -50,8 +50,8 @@ public class MovementManager : MonoBehaviour
     private IEnumerator AccelerateCoroutine(){
         if(_decelerateCoroutine!=null) StopCoroutine(_decelerateCoroutine);
         while (_speedPerc<1){
-            _speedPerc += 0.01f;
-            yield return new WaitForSeconds(_accelerationTimeSeconds/100);
+            _speedPerc += 0.001f;
+            yield return new WaitForSeconds(_accelerationTimeSeconds/1000);
         }
 
         yield return null;
@@ -117,7 +117,7 @@ public class MovementManager : MonoBehaviour
 
     private IEnumerator SteerForBreadCoroutine(){
         float startTime = Time.time;
-        while (_breadTargeted!=null && Distance(_breadTargeted)>0 ){ //todo: vedere che succede nel momento in cui il pane che punto viene mangiato da un altro
+        while (_breadTargeted!=null){ //todo: vedere che succede nel momento in cui il pane che punto viene mangiato da un altro
             Vector2 vecToAdd = Direction(_breadTargeted);
             float delta = Time.time - startTime;
             _movingVector = AddForceToMovingVector(vecToAdd, delta);
@@ -141,24 +141,9 @@ public class MovementManager : MonoBehaviour
         return NormalizeToMaxSpeed(newVector);
     }
 
-    private void SteerForBreadNewVersion(){
-        //prima rallento fino di una percentuale pari a metà dell'ampiezza dell'angolo, e mentre lo faccio inizio già a modificare la traiettoria. Quando ho finito di 
-        //decelerare, riprendo ad accelerare fino alla velocità di crociera, sempre continuando a modificare l'angolo.
-        Vector2 vecToAdd = Direction(_breadTargeted);
-        float angle = Vector2.Angle(_movingVector, vecToAdd);
-        float decelerationFactor = angle / 200f;
-        float speedToDecelerateTo = 1 - decelerationFactor;
-        DecelerateAndAccelerate(speedToDecelerateTo);
-        _steerForBreadCoroutine = StartCoroutine(SteerForBreadCoroutine());
-    }
-
-    private void DecelerateAndAccelerate(float speedToDecelerateTo){
-        if(_decelerateCoroutine==null) _decelerateCoroutine = StartCoroutine(DecelerateCoroutine(speedToDecelerateTo));
-    }
-
     private float Distance(GameObject destinationGameObject){
         Vector3 dest = destinationGameObject.transform.position;
-        return math.distance(dest, transform.position);
+        return math.distance(dest, transform.parent.position);
     }
 
     private Vector2 Direction(GameObject destinationGameObject){
