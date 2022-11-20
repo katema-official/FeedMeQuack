@@ -491,37 +491,6 @@ namespace LevelStageNamespace {
             {
                 GameObject newBread = Instantiate(BreadToThrow);
                 newBread.GetComponent<BreadNamespace.BreadThrownComponent>().InitializeBreadThrownFromPeople(_arrayBreadSpawnType[i], 60f, 80f, 85f);
-                /*Vector2 spriteSize = Vector2.zero;
-
-                Sprite sprite = null;
-                switch (_arrayBreadSpawnType[i])
-                {
-                    case EnumsDungeon.BreadType.Small:
-                        sprite = SmallBreadPrefab.GetComponent<SpriteRenderer>().sprite;
-                        spriteSize = sprite.rect.size;
-                        newBread.GetComponent<BreadNamespace.BreadThrownComponent>().BreadToSpawnPrefab = SmallBreadPrefab;
-                        break;
-                    case EnumsDungeon.BreadType.Medium:
-                        sprite = MediumBreadPrefab.GetComponent<SpriteRenderer>().sprite;
-                        spriteSize = sprite.rect.size;
-                        newBread.GetComponent<BreadNamespace.BreadThrownComponent>().BreadToSpawnPrefab = MediumBreadPrefab;
-                        break;
-                    case EnumsDungeon.BreadType.Large:
-                        sprite = LargeBreadPrefab.GetComponent<SpriteRenderer>().sprite;
-                        spriteSize = sprite.rect.size;
-                        newBread.GetComponent<BreadNamespace.BreadThrownComponent>().BreadToSpawnPrefab = LargeBreadPrefab;
-                        break;
-                }
-                newBread.GetComponent<BreadNamespace.BreadThrownComponent>().dimension = _arrayBreadSpawnType[i];
-
-
-                float amountToDivideX = spriteSize.x / xPixelSprite;
-                float amountToDivideY = spriteSize.y / yPixelSprite;
-
-                Transform breadThrownTransform = newBread.transform.Find("AirSprite");
-
-                breadThrownTransform.gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
-                breadThrownTransform.localScale = new Vector3(breadThrownTransform.localScale.x / amountToDivideX, breadThrownTransform.localScale.y / amountToDivideY, 0);*/
                 yield return new WaitForSeconds(_arrayBreadSpawnTime[i]);
             }
 
@@ -769,20 +738,32 @@ namespace LevelStageNamespace {
 
 
 
-        // Start is called before the first frame update
-        void Start()
+
+
+        //function used to check if a certain point is inside the lake
+        public bool Contains(Vector3 point)
         {
-
-
-
-
-
+            return true;    //TODO
         }
 
-        // Update is called once per frame
-        void Update()
-        {
 
+
+
+        //DA DISCUTERE CON IVAN
+        public (float, float) GetTerrainBounds()
+        {
+            GameObject terrain = transform.Find("Terrain").gameObject;
+            float terrainWidth = terrain.transform.localScale.x;
+            float terrainHeight = terrain.transform.localScale.y;
+            float terrainCenterX = terrain.transform.position.x;
+            float terrainCenterY = terrain.transform.position.y;
+            Vector2 topRightCorner = new Vector2(1, 1);
+            Vector2 edgeVector = Camera.main.ViewportToWorldPoint(topRightCorner);
+            float height = edgeVector.y * 2;
+            float width = edgeVector.x * 2;
+            float cameraWidth = width;
+            float cameraHeight = height;
+            return (terrainWidth, terrainHeight);
         }
     }
 }

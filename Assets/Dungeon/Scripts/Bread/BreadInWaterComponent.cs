@@ -19,6 +19,7 @@ namespace BreadNamespace
 
         private int _breadPoints;
 
+        private LevelStageNamespace.LakeDescriptionComponent _lakeDescriptionComponent;
 
 
 
@@ -67,20 +68,19 @@ namespace BreadNamespace
         //-If necessary, the BreadInMouth returned has the variable IsLastBread = true, if getting that BreadInMouth resulted indestroying this BreadInLake
         public GameObject GenerateNewBreadInMouth(int breadPointsToTake)
         {
-            Debug.Log("_BP = " + _breadPoints + ", BP TO TAKE = " + breadPointsToTake);
             GameObject newBreadInMouth = Instantiate(BreadInMouthPrefab);
             BreadInMouthComponent breadInMouthComponent = newBreadInMouth.GetComponent<BreadInMouthComponent>();
             if(_breadPoints > breadPointsToTake)
             {
-                Debug.Log("_ATE A PART");
+                Debug.Log("IS NOT LAST PIECE!");
                 _breadPoints -= breadPointsToTake;
                 SetBreadSprite();
-                breadInMouthComponent.Initialize(breadPointsToTake, false);
+                breadInMouthComponent.Initialize(breadPointsToTake, false, _dimension);
             }
             else
             {
-                Debug.Log("_ATE ALL");
-                breadInMouthComponent.Initialize(_breadPoints, true);
+                Debug.Log("IS LAST PIECE!");
+                breadInMouthComponent.Initialize(_breadPoints, true, _dimension);
                 _breadPoints = 0;
                 Destroy(this.gameObject);   //Should be delayed after newBreadInMouth is returned, but it should be checked
             }
@@ -113,7 +113,7 @@ namespace BreadNamespace
         // Start is called before the first frame update
         void Start()
         {
-
+            _lakeDescriptionComponent = GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeDescriptionComponent>();
         }
 
         // Update is called once per frame

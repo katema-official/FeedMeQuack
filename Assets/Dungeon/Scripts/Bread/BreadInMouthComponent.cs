@@ -21,13 +21,16 @@ namespace BreadNamespace
 
         private LevelStageNamespace.EnumsDungeon.BreadType _dimension;
 
+        private LevelStageNamespace.LakeDescriptionComponent _lakeDescriptionComponent;
 
 
 
-        public void Initialize(int breadPoints, bool isLastPiece)
+
+        public void Initialize(int breadPoints, bool isLastPiece, LevelStageNamespace.EnumsDungeon.BreadType dimension)
         {
             _breadPoints = breadPoints;
             _isLastPiece = isLastPiece;
+            _dimension = dimension;
         }
 
         //returns the number of bread points eaten from this piece of bread + true when this bread is destroyed, false otherwise
@@ -40,6 +43,10 @@ namespace BreadNamespace
             }
             else
             {
+                if (_isLastPiece)
+                {
+                    _lakeDescriptionComponent.NotifyBreadEaten();
+                }
                 Destroy(this.gameObject);
                 return (_breadPoints, true);
             }
@@ -47,10 +54,18 @@ namespace BreadNamespace
 
 
 
+        public void Move(Vector3 point)
+        {
+            transform.position = point;
+        }
+
+
+
+
         // Start is called before the first frame update
         void Start()
         {
-
+            _lakeDescriptionComponent = GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeDescriptionComponent>();
         }
 
         // Update is called once per frame

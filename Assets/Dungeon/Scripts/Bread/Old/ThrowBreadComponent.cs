@@ -160,7 +160,7 @@ namespace BreadNamespace
 
                 //the breadThrown object can be destroyed, and the actual bread can be instantiated
                 GameObject b = Instantiate(BreadToSpawnPrefab, transform.position, Quaternion.identity);
-                b.GetComponent<BreadComponent>().InitializedBread(dimension);
+                //b.GetComponent<BreadComponent>().InitializedBread(dimension);
                 Destroy(gameObject);
             }
         }

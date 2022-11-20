@@ -66,6 +66,11 @@ public class PlayerMovementComponent : MonoBehaviour
             }
         }
 
+        if(BreadInMouth != null)
+        {
+            BreadInMouth.GetComponent<BreadNamespace.BreadInMouthComponent>().Move(transform.position);
+        }
+
 
     }
 

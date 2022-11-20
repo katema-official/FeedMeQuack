@@ -10,6 +10,7 @@ MonoImporter:
   - _breadSmallSO: {fileID: 11400000, guid: e809afdee7935b742b386aaa3fe8f2c0, type: 2}
   - _breadMediumSO: {fileID: 11400000, guid: cf9b1ab0c7073284e9c459a4e306116a, type: 2}
   - _breadLargeSO: {fileID: 11400000, guid: 857c5e16b78696243bf3faa32c995886, type: 2}
+  - BreadInMouthPrefab: {fileID: 8860026179006951707, guid: 9becfb6c6edd26f4d982233c04656fd5, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
