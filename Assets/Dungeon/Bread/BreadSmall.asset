@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b383ffc6346da84eb9dd26d65ea7519, type: 3}
   m_Name: BreadSmall
   m_EditorClassIdentifier: 
-  MinAmountOfBreadPoints: 3
-  MaxAmountOfBreadPoints: 5
+  MinBreadPoints: 1
+  MaxBreadPoints: 5
+  MinBreadPointsSpawn: 3
+  MaxBreadPointsSpawn: 5
   dimension: 0

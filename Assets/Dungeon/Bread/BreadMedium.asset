@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b383ffc6346da84eb9dd26d65ea7519, type: 3}
   m_Name: BreadMedium
   m_EditorClassIdentifier: 
-  MinAmountOfBreadPoints: 7
-  MaxAmountOfBreadPoints: 10
-  dimension: 2
+  MinBreadPoints: 6
+  MaxBreadPoints: 10
+  MinBreadPointsSpawn: 7
+  MaxBreadPointsSpawn: 10
+  dimension: 1

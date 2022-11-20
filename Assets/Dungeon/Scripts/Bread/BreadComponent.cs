@@ -28,13 +28,13 @@ namespace BreadNamespace
             switch (Dimension)
             {
                 case LevelStageNamespace.EnumsDungeon.BreadType.Small:
-                    BreadPoints = Random.Range(_smallBreadSO.MinAmountOfBreadPoints, _smallBreadSO.MaxAmountOfBreadPoints + 1);
+                    //BreadPoints = Random.Range(_smallBreadSO.MinAmountOfBreadPoints, _smallBreadSO.MaxAmountOfBreadPoints + 1);
                     break;
                 case LevelStageNamespace.EnumsDungeon.BreadType.Medium:
-                    BreadPoints = Random.Range(_mediumBreadSO.MinAmountOfBreadPoints, _mediumBreadSO.MaxAmountOfBreadPoints + 1);
+                    //BreadPoints = Random.Range(_mediumBreadSO.MinAmountOfBreadPoints, _mediumBreadSO.MaxAmountOfBreadPoints + 1);
                     break;
                 case LevelStageNamespace.EnumsDungeon.BreadType.Large:
-                    BreadPoints = Random.Range(_largeBreadSO.MinAmountOfBreadPoints, _largeBreadSO.MaxAmountOfBreadPoints + 1);
+                    //BreadPoints = Random.Range(_largeBreadSO.MinAmountOfBreadPoints, _largeBreadSO.MaxAmountOfBreadPoints + 1);
                     break;
             }
         }

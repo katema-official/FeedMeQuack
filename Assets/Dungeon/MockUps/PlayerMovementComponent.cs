@@ -27,9 +27,9 @@ public class PlayerMovementComponent : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            GameObject[] breads = GameObject.FindGameObjectsWithTag("Bread");
+            GameObject[] breads = GameObject.FindGameObjectsWithTag("FoodInWater");
             float minDist = 10000000f;
-            BreadInMouth = null;
+            GameObject BreadInWaterClosest = null;
             for(int i = 0; i < breads.Length; i++)
             {
                 float dist = Vector3.Distance(breads[i].transform.position, transform.position);
@@ -38,14 +38,14 @@ public class PlayerMovementComponent : MonoBehaviour
                     if(dist <= minDist)
                     {
                         minDist = dist;
-                        BreadInMouth = breads[i];
+                        BreadInWaterClosest = breads[i];
                     }
                 }
             }
 
-            if(BreadInMouth != null)
+            if(BreadInWaterClosest != null && BreadInMouth == null)
             {
-                BreadInMouth.GetComponent<BreadNamespace.BreadComponent>().StartedToBeEaten(this.gameObject);
+                BreadInMouth = BreadInWaterClosest.GetComponent<BreadNamespace.BreadInWaterComponent>().GenerateNewBreadInMouth(2);
             }
         }
 
@@ -55,7 +55,7 @@ public class PlayerMovementComponent : MonoBehaviour
             {
                 bool destroyed;
                 int eaten;
-                (destroyed, eaten) = BreadInMouth.GetComponent<BreadNamespace.BreadComponent>().SubtractBreadPoints(1);
+                (eaten, destroyed) = BreadInMouth.GetComponent<BreadNamespace.BreadInMouthComponent>().SubtractBreadPoints(1);
 
                 BreadDigested += eaten;
 

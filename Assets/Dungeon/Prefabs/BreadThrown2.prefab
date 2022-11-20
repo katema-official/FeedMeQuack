@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 5068300214913579371}
   m_Layer: 0
   m_Name: BreadThrown2
-  m_TagString: Untagged
+  m_TagString: FoodThrown
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,14 +152,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3a3f5abe2c9d2345982e51888e76e6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 60
-  velocity: 0
+  _gravity: 100
+  _velocity: 0
   MinInitialVelocity: 50
   MaxInitialVelocity: 75
-  sleep: 1
-  _height: 0
-  dimension: 0
-  BreadToSpawnPrefab: {fileID: 5893006966154478284, guid: 900e93e0c77dd274787f99350dc81dc4, type: 3}
+  _sleep: 1
+  wholeLakeComponent: {fileID: 0}
+  BreadToSpawnPrefab: {fileID: 1022965557331288907, guid: b568f7f40479f3a45818df291f047aee, type: 3}
 --- !u!1 &6025553274490918952
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +170,6 @@ GameObject:
   - component: {fileID: 5411142755761404765}
   - component: {fileID: 8518409383421833607}
   - component: {fileID: 5693963138762521002}
-  - component: {fileID: 599100659719637142}
   m_Layer: 0
   m_Name: Shadow
   m_TagString: Untagged
@@ -267,23 +265,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &599100659719637142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6025553274490918952}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c68e76ce2ab565c43b108d0a1a7697c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gravity: 125
-  velocity: 0
-  MinInitialVelocity: 75
-  MaxInitialVelocity: 125
-  sleep: 1
-  _height: 0
-  dimension: 0
-  BreadToSpawnPrefab: {fileID: 65588710454410848, guid: 92b61302c44f3c2469a542a43a178366, type: 3}

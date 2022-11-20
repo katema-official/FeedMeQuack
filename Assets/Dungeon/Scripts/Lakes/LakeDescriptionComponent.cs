@@ -484,13 +484,14 @@ namespace LevelStageNamespace {
         private IEnumerator ThrowBreads()
         {
 
-            float xPixelSprite = 100f;
-            float yPixelSprite = 100f;
+            //float xPixelSprite = 100f;
+            //float yPixelSprite = 100f;
 
             for(int i = 0; i < _totalNumberOfBreadPiecesToSpawn; i++)
             {
                 GameObject newBread = Instantiate(BreadToThrow);
-                Vector2 spriteSize = Vector2.zero;
+                newBread.GetComponent<BreadNamespace.BreadThrownComponent>().InitializeBreadThrownFromPeople(_arrayBreadSpawnType[i], 60f, 80f, 85f);
+                /*Vector2 spriteSize = Vector2.zero;
 
                 Sprite sprite = null;
                 switch (_arrayBreadSpawnType[i])
@@ -498,20 +499,20 @@ namespace LevelStageNamespace {
                     case EnumsDungeon.BreadType.Small:
                         sprite = SmallBreadPrefab.GetComponent<SpriteRenderer>().sprite;
                         spriteSize = sprite.rect.size;
-                        newBread.GetComponent<BreadNamespace.ThrowBreadComponent2>().BreadToSpawnPrefab = SmallBreadPrefab;
+                        newBread.GetComponent<BreadNamespace.BreadThrownComponent>().BreadToSpawnPrefab = SmallBreadPrefab;
                         break;
                     case EnumsDungeon.BreadType.Medium:
                         sprite = MediumBreadPrefab.GetComponent<SpriteRenderer>().sprite;
                         spriteSize = sprite.rect.size;
-                        newBread.GetComponent<BreadNamespace.ThrowBreadComponent2>().BreadToSpawnPrefab = MediumBreadPrefab;
+                        newBread.GetComponent<BreadNamespace.BreadThrownComponent>().BreadToSpawnPrefab = MediumBreadPrefab;
                         break;
                     case EnumsDungeon.BreadType.Large:
                         sprite = LargeBreadPrefab.GetComponent<SpriteRenderer>().sprite;
                         spriteSize = sprite.rect.size;
-                        newBread.GetComponent<BreadNamespace.ThrowBreadComponent2>().BreadToSpawnPrefab = LargeBreadPrefab;
+                        newBread.GetComponent<BreadNamespace.BreadThrownComponent>().BreadToSpawnPrefab = LargeBreadPrefab;
                         break;
                 }
-                newBread.GetComponent<BreadNamespace.ThrowBreadComponent2>().dimension = _arrayBreadSpawnType[i];
+                newBread.GetComponent<BreadNamespace.BreadThrownComponent>().dimension = _arrayBreadSpawnType[i];
 
 
                 float amountToDivideX = spriteSize.x / xPixelSprite;
@@ -520,7 +521,7 @@ namespace LevelStageNamespace {
                 Transform breadThrownTransform = newBread.transform.Find("AirSprite");
 
                 breadThrownTransform.gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
-                breadThrownTransform.localScale = new Vector3(breadThrownTransform.localScale.x / amountToDivideX, breadThrownTransform.localScale.y / amountToDivideY, 0);
+                breadThrownTransform.localScale = new Vector3(breadThrownTransform.localScale.x / amountToDivideX, breadThrownTransform.localScale.y / amountToDivideY, 0);*/
                 yield return new WaitForSeconds(_arrayBreadSpawnTime[i]);
             }
 
