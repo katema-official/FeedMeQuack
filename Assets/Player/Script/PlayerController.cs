@@ -86,15 +86,16 @@ namespace Player
 
             Debug.Log("Current player bread points: " + _breadPoints);
         }
-        public void RoundPoints()
-        {
-            _breadPoints = Mathf.RoundToInt(_breadPoints);
-            Debug.Log("Current player bread points: " + _breadPoints);
-        }
+        //public void RoundPoints()
+        //{
+        //    _breadPoints = Mathf.RoundToInt(_breadPoints);
+        //    Debug.Log("Current player bread points: " + _breadPoints);
+        //}
 
         public void NotifyStageCompleted(int points)
         {
             _digestedBreadPoints += (_breadPoints - points);
+            _breadPoints = 0;
         }
 
         public void ChangeState(PlayerState newState)
