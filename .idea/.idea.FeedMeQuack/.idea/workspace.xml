@@ -3,12 +3,38 @@
   <component name="ChangeListManager">
     <list default="true" id="099dc64e-a604-4b85-85cc-6be12a6baf46" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/L.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/L.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Bird.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Bird.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/BlackSwan.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/BlackSwan.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/BreadInWater.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/BreadInWater.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Combat.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Combat.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Duck.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Duck.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/FishSpawn.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/FishSpawn.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/GameOver.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/GameOver.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Goose.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Goose.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/LakeClear.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/LakeClear.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Menu.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Menu.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/River.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/River.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Shop.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Shop.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Swan.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Swan.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Swimming.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Swimming.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Tutorial.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Tutorial.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Scripts/UniversalAudio.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Assets/Scripts/UniversalAudio.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
@@ -18,6 +44,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../Codes/AudioSwap.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Music/Assets/Scripts/MainMenu.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../wetransfer_asteroids-thirdworkshop-start-zip_2022-10-03_1536/SkeletonMenuSystem/SkeletonMenuSystem/Assets/MenuManagement/Scripts/Menus/CreditsScreen.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../wetransfer_asteroids-thirdworkshop-start-zip_2022-10-03_1536/SkeletonMenuSystem/SkeletonMenuSystem/Assets/MenuManagement/Scripts/Menus/GameMenu.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../wetransfer_asteroids-thirdworkshop-start-zip_2022-10-03_1536/SkeletonMenuSystem/SkeletonMenuSystem/Assets/MenuManagement/Scripts/Menus/PauseMenu.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../wetransfer_asteroids-thirdworkshop-start-zip_2022-10-03_1536/SkeletonMenuSystem/SkeletonMenuSystem/Assets/MenuManagement/Scripts/Menus/SplashScreen.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Udemy/DungeonGunnerCourse/Assets/Scripts/Dungeon/Door.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Udemy/DungeonGunnerCourse/Assets/Scripts/DungeonMap/DungeonMap.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Udemy/DungeonGunnerCourse/Assets/Scripts/Effects/MaterializeEffect.cs" root0="SKIP_HIGHLIGHTING" />
@@ -92,7 +124,8 @@
       <workItem from="1668172763048" duration="51000" />
       <workItem from="1668856712821" duration="20926000" />
       <workItem from="1668932222691" duration="3486000" />
-      <workItem from="1668937091170" duration="25948000" />
+      <workItem from="1668937091170" duration="26541000" />
+      <workItem from="1669015667323" duration="26586000" />
     </task>
     <servers />
   </component>
