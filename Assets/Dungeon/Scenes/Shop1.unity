@@ -427,9 +427,9 @@ GameObject:
   - component: {fileID: 584304051}
   - component: {fileID: 584304052}
   - component: {fileID: 584304053}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WaterRight
-  m_TagString: Untagged
+  m_TagString: Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -590,9 +590,9 @@ GameObject:
   - component: {fileID: 663941924}
   - component: {fileID: 663941925}
   - component: {fileID: 663941926}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WaterCenter
-  m_TagString: Untagged
+  m_TagString: Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1000,7 +1000,6 @@ MonoBehaviour:
   Terrain: {fileID: 0}
   x: 0
   y: 0
-  gtest: {fileID: 0}
 --- !u!1 &1138952567
 GameObject:
   m_ObjectHideFlags: 0
@@ -1180,9 +1179,9 @@ GameObject:
   - component: {fileID: 1218472636}
   - component: {fileID: 1218472638}
   - component: {fileID: 1218472637}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Water
-  m_TagString: Untagged
+  m_TagString: Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1573,9 +1572,9 @@ GameObject:
   - component: {fileID: 1617262830}
   - component: {fileID: 1617262834}
   - component: {fileID: 1617262835}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WaterLeft
-  m_TagString: Untagged
+  m_TagString: Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -52,17 +52,42 @@ public class CameraFollowPlayerComponent : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            if (gtest.transform.Find("Water").gameObject.GetComponent<CompositeCollider2D>().OverlapPoint(new Vector2(x, y)))
+            float range = 10000f;
+
+            Ray rayNorth = new Ray(new Vector3(x, y, 0), new Vector3(0, 1, 0));
+            Ray raySouth = new Ray(new Vector3(x, y, 0), new Vector3(0, -1, 0));
+            Ray rayWest = new Ray(new Vector3(x, y, 0), new Vector3(1, 0, 0));
+            Ray rayEast = new Ray(new Vector3(x, y, 0), new Vector3(-1, 0, 0));
+            
+
+
+            Debug.DrawRay(new Vector3(x, y, 0), new Vector3(0, 1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(new Vector3(x, y, 0), new Vector3(0, -1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(new Vector3(x, y, 0), new Vector3(1, 0, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(new Vector3(x, y, 0), new Vector3(-1, 0, 0) * range, Color.red, 10f, false);
+
+            RaycastHit2D hit1 = Physics2D.Raycast(new Vector2(x, y), new Vector2(0, 1), range, LayerMask.GetMask("WaterLayer"));
+            RaycastHit2D hit2 = Physics2D.Raycast(new Vector2(x, y), new Vector2(0, -1), range, LayerMask.GetMask("WaterLayer"));
+            RaycastHit2D hit3 = Physics2D.Raycast(new Vector2(x, y), new Vector2(1, 0), range, LayerMask.GetMask("WaterLayer"));
+            RaycastHit2D hit4 = Physics2D.Raycast(new Vector2(x, y), new Vector2(-1, 0), range, LayerMask.GetMask("WaterLayer"));
+
+            if (hit1 && hit2 && hit3 && hit4)
             {
-                Debug.Log("OOO point is inside collider");
+                Debug.Log("INSIDE");
             }
+            else
+            {
+                Debug.Log("OUTSIDE");
+            }
+            
+
+            Debug.Log("AAA" + LayerMask.NameToLayer("Water") + " AAA " + LayerMask.GetMask("WaterLayer"));
         }
 
     }
 
     public int x;
     public int y;
-    public GameObject gtest;
 
 
     
