@@ -23,5 +23,10 @@ namespace Player
         {
             return DuckTypes[index];
         }
+
+        private void Awake()
+        {
+            DontDestroyOnLoad(this.gameObject);
+        }
     }
 }
