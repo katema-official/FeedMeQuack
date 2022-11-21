@@ -740,6 +740,12 @@ namespace LevelStageNamespace {
 
 
 
+
+
+
+
+
+
         //function used to check if a certain point is inside the lake
         public bool Contains(Vector3 point)
         {
@@ -749,9 +755,12 @@ namespace LevelStageNamespace {
 
 
 
-        //DA DISCUTERE CON IVAN
-        public (float, float) GetTerrainBounds()
+        //Method used to get the bounds of the terrain
+        public Bounds GetTerrainBounds()
         {
+            return _terrain.GetComponent<SpriteRenderer>().bounds;
+
+            /*
             GameObject terrain = transform.Find("Terrain").gameObject;
             float terrainWidth = terrain.transform.localScale.x;
             float terrainHeight = terrain.transform.localScale.y;
@@ -764,6 +773,7 @@ namespace LevelStageNamespace {
             float cameraWidth = width;
             float cameraHeight = height;
             return (terrainWidth, terrainHeight);
+            */
         }
     }
 }

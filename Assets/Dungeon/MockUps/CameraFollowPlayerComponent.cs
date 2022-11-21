@@ -48,6 +48,22 @@ public class CameraFollowPlayerComponent : MonoBehaviour
         pos.x = Mathf.Clamp(transform.position.x, terrainCenterX - terrainWidth / 2 + width / 2, terrainCenterX + terrainWidth / 2 - width / 2);
         pos.y = Mathf.Clamp(transform.position.y, terrainCenterY - terrainHeight / 2 + height / 2, terrainCenterY + terrainHeight / 2 - height / 2);
         transform.position = pos;*/
-        
+
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (gtest.transform.Find("Water").gameObject.GetComponent<CompositeCollider2D>().OverlapPoint(new Vector2(x, y)))
+            {
+                Debug.Log("OOO point is inside collider");
+            }
+        }
+
     }
+
+    public int x;
+    public int y;
+    public GameObject gtest;
+
+
+    
 }

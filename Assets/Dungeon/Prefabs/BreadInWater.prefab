@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 9095635821266453244}
   - component: {fileID: 7609751382689288976}
   - component: {fileID: 477859776105704451}
+  - component: {fileID: -55700907750927919}
+  - component: {fileID: -8029163909807919281}
   m_Layer: 0
   m_Name: BreadInWater
   m_TagString: FoodInWater
@@ -104,3 +106,40 @@ MonoBehaviour:
   _breadMediumSO: {fileID: 11400000, guid: cf9b1ab0c7073284e9c459a4e306116a, type: 2}
   _breadLargeSO: {fileID: 11400000, guid: 857c5e16b78696243bf3faa32c995886, type: 2}
   BreadInMouthPrefab: {fileID: 8860026179006951707, guid: 9becfb6c6edd26f4d982233c04656fd5, type: 3}
+--- !u!50 &-55700907750927919
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022965557331288907}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &-8029163909807919281
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022965557331288907}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 15
