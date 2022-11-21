@@ -7,6 +7,7 @@ namespace Player
     public class PlayerController : MonoBehaviour
     { 
         [SerializeField] private float _breadPoints = 0.0f;
+        [SerializeField] private float _digestedBreadPoints = 0.0f;
 
 
 
@@ -91,6 +92,10 @@ namespace Player
             Debug.Log("Current player bread points: " + _breadPoints);
         }
 
+        public void NotifyStageCompleted(int points)
+        {
+            _digestedBreadPoints += (_breadPoints - points);
+        }
 
         public void ChangeState(PlayerState newState)
         {
