@@ -63,7 +63,6 @@ public class FadeBlackComponent : MonoBehaviour
             _sprite.color = c;
             yield return new WaitForSeconds(_timeBetweenAlphas);
         }
-
         _levelStageManager.EnterLake();
 
         yield return null;

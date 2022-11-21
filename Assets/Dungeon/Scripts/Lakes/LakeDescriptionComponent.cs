@@ -109,7 +109,7 @@ namespace LevelStageNamespace {
 
         private void Awake()
         {
-
+            Debug.Log("LAKE AWAKENED");
             _levelStageManager = GameObject.Find("LevelStageManagerObject").GetComponent<LevelStageManagerComponent>();
             _lakeDescriptionForThisLake = _levelStageManager.GetLakeDescriptionSO();
             ManageRiversOfthisLake();
@@ -136,16 +136,16 @@ namespace LevelStageNamespace {
                 switch (SpawnPlayer)
                 {
                     case EnumsDungeon.CompassDirection.North:
-                        _playerObject.transform.position = transform.Find("Rivers/North").transform.position + new Vector3(0, -OffsetYPlayer, 0);
+                        _playerObject.transform.position = transform.Find("Water/Rivers/North").transform.position + new Vector3(0, -OffsetYPlayer, 0);
                         break;
                     case EnumsDungeon.CompassDirection.South:
-                        _playerObject.transform.position = transform.Find("Rivers/South").transform.position + new Vector3(0, OffsetYPlayer, 0);
+                        _playerObject.transform.position = transform.Find("Water/Rivers/South").transform.position + new Vector3(0, OffsetYPlayer, 0);
                         break;
                     case EnumsDungeon.CompassDirection.West:
-                        _playerObject.transform.position = transform.Find("Rivers/West").transform.position + new Vector3(OffsetXPlayer, 0, 0);
+                        _playerObject.transform.position = transform.Find("Water/Rivers/West").transform.position + new Vector3(OffsetXPlayer, 0, 0);
                         break;
                     case EnumsDungeon.CompassDirection.East:
-                        _playerObject.transform.position = transform.Find("Rivers/East").transform.position + new Vector3(-OffsetXPlayer, 0, 0);
+                        _playerObject.transform.position = transform.Find("Water/Rivers/East").transform.position + new Vector3(-OffsetXPlayer, 0, 0);
                         break;
                 }
 
@@ -191,23 +191,23 @@ namespace LevelStageNamespace {
 
         private void ManageRiversOfthisLake()
         {
-            _northRiver = transform.Find("Rivers/North").gameObject;
-            _southRiver = transform.Find("Rivers/South").gameObject;
-            _westRiver = transform.Find("Rivers/West").gameObject;
-            _eastRiver = transform.Find("Rivers/East").gameObject;
+            _northRiver = transform.Find("Water/Rivers/North").gameObject;
+            _southRiver = transform.Find("Water/Rivers/South").gameObject;
+            _westRiver = transform.Find("Water/Rivers/West").gameObject;
+            _eastRiver = transform.Find("Water/Rivers/East").gameObject;
             _yScaleOfRiver = _westRiver.transform.Find("Sprite").localScale.y;
             _xScaleOfRiver = _northRiver.transform.Find("Sprite").localScale.x;
             if (_lakeDescriptionForThisLake.HasNorthRiver == false)
             {
-                //if the north lake is not present, we obscure its sprite, and leave the colliders as they are
+                //if the north lake is not present, we obscure its sprite, and deactivate the collider
                 var t = _northRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
                 _northRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(0, t.y, t.z);
                 _northRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
+                _northRiver.transform.Find("Collider").gameObject.SetActive(false);
             }
             else
             {
-                //otherwise, we leave the sprite as it is, but we remove the collider (We do the same for the other rivers)
-                _northRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                //otherwise, we leave the sprite as it is (we do the same for the other rivers)
                 if(_lakeDescriptionForThisLake.IsFinalRoom && _lakeDescriptionForThisLake.ExitStageDirection == EnumsDungeon.CompassDirection.North) SetRiverAsFinal(_northRiver);
 
             }
@@ -216,10 +216,10 @@ namespace LevelStageNamespace {
                 var t = _southRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
                 _southRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(0, t.y, t.z);
                 _southRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
+                _southRiver.transform.Find("Collider").gameObject.SetActive(false);
             }
             else
             {
-                _southRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
                 if (_lakeDescriptionForThisLake.IsFinalRoom && _lakeDescriptionForThisLake.ExitStageDirection == EnumsDungeon.CompassDirection.South) SetRiverAsFinal(_southRiver);
             }
             if (_lakeDescriptionForThisLake.HasWestRiver == false)
@@ -227,10 +227,10 @@ namespace LevelStageNamespace {
                 var t = _westRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
                 _westRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(t.x, 0, t.z);
                 _westRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
+                _westRiver.transform.Find("Collider").gameObject.SetActive(false);
             }
             else
             {
-                _westRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
                 if (_lakeDescriptionForThisLake.IsFinalRoom && _lakeDescriptionForThisLake.ExitStageDirection == EnumsDungeon.CompassDirection.West) SetRiverAsFinal(_westRiver);
             }
             if (_lakeDescriptionForThisLake.HasEastRiver == false)
@@ -238,10 +238,10 @@ namespace LevelStageNamespace {
                 var t = _eastRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
                 _eastRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(t.x, 0, t.z);
                 _eastRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
+                _eastRiver.transform.Find("Collider").gameObject.SetActive(false);
             }
             else
             {
-                _eastRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
                 if (_lakeDescriptionForThisLake.IsFinalRoom && _lakeDescriptionForThisLake.ExitStageDirection == EnumsDungeon.CompassDirection.East) SetRiverAsFinal(_eastRiver);
             }
         }
@@ -253,22 +253,22 @@ namespace LevelStageNamespace {
         {
             if(_lakeDescriptionForThisLake.HasNorthRiver == true)
             {
-                _northRiver.transform.Find("BlockingCollider").gameObject.SetActive(true);
+                _northRiver.transform.Find("Collider").gameObject.SetActive(false);
                 StartCoroutine(CloseLakeCoroutine(_northRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.North));
             }
             if (_lakeDescriptionForThisLake.HasSouthRiver == true)
             {
-                _southRiver.transform.Find("BlockingCollider").gameObject.SetActive(true);
+                _southRiver.transform.Find("Collider").gameObject.SetActive(false);
                 StartCoroutine(CloseLakeCoroutine(_southRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.South));
             }
             if (_lakeDescriptionForThisLake.HasWestRiver == true)
             {
-                _westRiver.transform.Find("BlockingCollider").gameObject.SetActive(true);
+                _westRiver.transform.Find("Collider").gameObject.SetActive(false);
                 StartCoroutine(CloseLakeCoroutine(_westRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.West));
             }
             if (_lakeDescriptionForThisLake.HasEastRiver == true)
             {
-                _eastRiver.transform.Find("BlockingCollider").gameObject.SetActive(true);
+                _eastRiver.transform.Find("Collider").gameObject.SetActive(false);
                 StartCoroutine(CloseLakeCoroutine(_eastRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.East));
             }
         }
@@ -340,22 +340,22 @@ namespace LevelStageNamespace {
         {
             if (_lakeDescriptionForThisLake.HasNorthRiver == true)
             {
-                _northRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                _northRiver.transform.Find("Collider").gameObject.SetActive(true);
                 StartCoroutine(OpenLakeCoroutine(_northRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.North));
             }
             if (_lakeDescriptionForThisLake.HasSouthRiver == true)
             {
-                _southRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                _southRiver.transform.Find("Collider").gameObject.SetActive(true);
                 StartCoroutine(OpenLakeCoroutine(_southRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.South));
             }
             if (_lakeDescriptionForThisLake.HasWestRiver == true)
             {
-                _westRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                _westRiver.transform.Find("Collider").gameObject.SetActive(true);
                 StartCoroutine(OpenLakeCoroutine(_westRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.West));
             }
             if (_lakeDescriptionForThisLake.HasEastRiver == true)
             {
-                _eastRiver.transform.Find("BlockingCollider").gameObject.SetActive(false);
+                _eastRiver.transform.Find("Collider").gameObject.SetActive(true);
                 StartCoroutine(OpenLakeCoroutine(_eastRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.East));
             }
         }
@@ -688,10 +688,10 @@ namespace LevelStageNamespace {
         public (float, float) GeneratePointInsideLake()
         {
 
-            float widthLake = _lake.transform.localScale.x;
-            float heightLake = _lake.transform.localScale.y;
-            float xCenterLake = _lake.transform.position.x;
-            float yCenterLake = _lake.transform.position.y;
+            float widthLake = _lake.transform.Find("WaterCenter").localScale.x;
+            float heightLake = _lake.transform.Find("WaterCenter").localScale.y;
+            float xCenterLake = _lake.transform.Find("WaterCenter").position.x;
+            float yCenterLake = _lake.transform.Find("WaterCenter").position.y;
 
             bool generatedEnd = false;
             float x = 0f;
@@ -744,15 +744,41 @@ namespace LevelStageNamespace {
 
 
 
-
+        //per Ivan
 
         //function used to check if a certain point is inside the lake
         public bool Contains(Vector3 point)
         {
-            return true;    //TODO
+            float range = 10000f;
+
+            Ray rayNorth = new Ray(point, new Vector3(0, 1, 0));
+            Ray raySouth = new Ray(point, new Vector3(0, -1, 0));
+            Ray rayWest = new Ray(point, new Vector3(1, 0, 0));
+            Ray rayEast = new Ray(point, new Vector3(-1, 0, 0));
+
+
+
+            Debug.DrawRay(point, new Vector3(0, 1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(0, -1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(1, 0, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(-1, 0, 0) * range, Color.red, 10f, false);
+
+            RaycastHit2D hit1 = Physics2D.Raycast(new Vector2(point.x, point.y), new Vector2(0, 1), range, LayerMask.GetMask("WaterLayer"));
+            RaycastHit2D hit2 = Physics2D.Raycast(new Vector2(point.x, point.y), new Vector2(0, -1), range, LayerMask.GetMask("WaterLayer"));
+            RaycastHit2D hit3 = Physics2D.Raycast(new Vector2(point.x, point.y), new Vector2(1, 0), range, LayerMask.GetMask("WaterLayer"));
+            RaycastHit2D hit4 = Physics2D.Raycast(new Vector2(point.x, point.y), new Vector2(-1, 0), range, LayerMask.GetMask("WaterLayer"));
+
+            if (hit1 && hit2 && hit3 && hit4)
+            {
+                Debug.Log("INSIDE");
+                return true;
+            }
+            else
+            {
+                Debug.Log("OUTSIDE");
+                return false;
+            }
         }
-
-
 
 
         //Method used to get the bounds of the terrain

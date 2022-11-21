@@ -41,12 +41,12 @@ namespace LevelStageNamespace
         void Start()
         {
             _enterCollidersList = new List<GameObject>();
-            _lakeDescriptionComponent = transform.parent.parent.parent.gameObject.GetComponent<LakeDescriptionComponent>();
+            _lakeDescriptionComponent = transform.parent.parent.parent.parent.gameObject.GetComponent<LakeDescriptionComponent>();
             _levelStageManagerComponent = GameObject.Find("LevelStageManagerObject").GetComponent<LevelStageManagerComponent>();
-            _enterCollidersList.Add(_lakeDescriptionComponent.transform.Find("Rivers/North/TriggerEnteredCollider").gameObject);           
-            _enterCollidersList.Add(_lakeDescriptionComponent.transform.Find("Rivers/South/TriggerEnteredCollider").gameObject);
-            _enterCollidersList.Add(_lakeDescriptionComponent.transform.Find("Rivers/West/TriggerEnteredCollider").gameObject);       
-            _enterCollidersList.Add(_lakeDescriptionComponent.transform.Find("Rivers/East/TriggerEnteredCollider").gameObject);
+            _enterCollidersList.Add(_lakeDescriptionComponent.transform.Find("Water/Rivers/North/TriggerEnteredCollider").gameObject);           
+            _enterCollidersList.Add(_lakeDescriptionComponent.transform.Find("Water/Rivers/South/TriggerEnteredCollider").gameObject);
+            _enterCollidersList.Add(_lakeDescriptionComponent.transform.Find("Water/Rivers/West/TriggerEnteredCollider").gameObject);       
+            _enterCollidersList.Add(_lakeDescriptionComponent.transform.Find("Water/Rivers/East/TriggerEnteredCollider").gameObject);
 
         }
 

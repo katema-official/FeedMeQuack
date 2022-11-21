@@ -271,6 +271,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 166821738}
+  - component: {fileID: 166821739}
   m_Layer: 0
   m_Name: WholeLake
   m_TagString: Untagged
@@ -295,6 +296,47 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &166821739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166821737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 650b0b90d2a8d374787ca3f4bd27b3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OffsetXTerrain: 10
+  OffsetYTerrain: 8
+  OffsetXLake: 15
+  OffsetYLake: 10
+  OffsetXPlayer: 4
+  OffsetYPlayer: 3
+  RadiusAroundPlayer: 3
+  RadiusAroundEnemy: 2
+  NumberOfMallard: 0
+  NumberOfCoot: 0
+  NumberOfGoose: 0
+  NumberOfFish: 0
+  NumberOfSeagull: 0
+  MallardPrefab: {fileID: 4603421480620428047, guid: e43395094df0de8469ef4f9d7ec48f1d, type: 3}
+  CootPrefab: {fileID: 1074246190212038766, guid: fde59fc7d0c8f8d4bb0492a5ef8b73ab, type: 3}
+  GoosePrefab: {fileID: 0}
+  FishPrefab: {fileID: 0}
+  SeagullPrefab: {fileID: 0}
+  NorthRiver: {fileID: 2073853183}
+  SouthRiver: {fileID: 1616623185}
+  WestRiver: {fileID: 1321766971}
+  EastRiver: {fileID: 1906931282}
+  SpawnPlayer: 0
+  SmallBreadPrefab: {fileID: 65588710454410848, guid: 92b61302c44f3c2469a542a43a178366, type: 3}
+  MediumBreadPrefab: {fileID: 5893006966154478284, guid: 900e93e0c77dd274787f99350dc81dc4, type: 3}
+  LargeBreadPrefab: {fileID: 5326331285147822205, guid: 0d27a9bcddca6ef49992c9ab43df07c5, type: 3}
+  BreadToThrow: {fileID: 1755011509421745852, guid: bc5b90effb4d1e14aa7d7ef1cb7db7f3, type: 3}
+  Dimension: 0
+  LakeCleared: 0
 --- !u!1 &240915380
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,65 +494,7 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 240915383}
-    m_ColliderPaths:
-    - - X: 99615744
-        Y: 240066832
-      - X: 99615784
-        Y: 360000000
-      - X: -99615784
-        Y: 360000000
-      - X: -99615784
-        Y: 240066848
-      - X: -137109376
-        Y: 236328128
-      - X: -263671872
-        Y: 201171872
-      - X: -362109376
-        Y: 146484368
-      - X: -425390624
-        Y: 76171872
-      - X: -559704192
-        Y: 76209200
-      - X: -560035712
-        Y: -76085080
-      - X: -425390624
-        Y: -76171872
-      - X: -362109376
-        Y: -146484368
-      - X: -263671872
-        Y: -201171872
-      - X: -137109376
-        Y: -236328128
-      - X: -100354288
-        Y: -239993168
-      - X: -100317232
-        Y: -360309152
-      - X: 100189136
-        Y: -360202080
-      - X: 100231064
-        Y: -240005472
-      - X: 137109376
-        Y: -236328128
-      - X: 263671872
-        Y: -201171872
-      - X: 362109376
-        Y: -146484368
-      - X: 425390624
-        Y: -76171872
-      - X: 561722112
-        Y: -76118336
-      - X: 561598464
-        Y: 76238040
-      - X: 425390624
-        Y: 76171872
-      - X: 362109376
-        Y: 146484368
-      - X: 263671872
-        Y: 201171872
-      - X: 137109376
-        Y: 236328128
+  m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
     - - {x: -10.031723, y: -36.030888}
@@ -635,7 +619,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &301429544
 Transform:
   m_ObjectHideFlags: 0

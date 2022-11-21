@@ -189,6 +189,7 @@ namespace LevelStageNamespace
 
         public void EnterLake()
         {
+            Debug.Log("EnterLake in LevelStageManagerComponent: Ma cos");
             //third: go to the right lake
             switch (GetLakeDescriptionSO().Dimension)
             {
@@ -200,6 +201,9 @@ namespace LevelStageNamespace
                     break;
                 case EnumsDungeon.LakeDimension.Large:
                     SceneManager.LoadScene("LakeSmall");    //TODO: LakeLarge
+                    break;
+                default:
+                    Debug.Log("Non dovresti assolutamente essere qui");
                     break;
             }
         }
@@ -274,6 +278,9 @@ namespace LevelStageNamespace
 
 
         
+
+
+
 
 
     }
