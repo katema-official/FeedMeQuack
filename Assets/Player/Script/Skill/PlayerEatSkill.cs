@@ -13,6 +13,10 @@ namespace Player
         [SerializeField] private int _mouthSize = 0;
         //------------------------------------------
 
+        private float _chewingElapsedSeconds = 0;
+
+
+
         private PlayerController _controller = null;
         private PlayerMoveSkill _moveSkill = null;
         private PlayerEatSkillDescriptionSO _eatDesc = null;
@@ -91,13 +95,20 @@ namespace Player
             {
                 _moveSkill.Move(_eatingSpeed);
                 _catchedBread.Move(_controller.GetMouthTransform().position);
-                float points = _chewingRate * Time.deltaTime;
-                _catchedBread.EatPoints(points);//eat chewingRate points each second
+              //  float points = _chewingRate * Time.deltaTime;
+                _chewingElapsedSeconds += Time.deltaTime;
 
-                if (_catchedBread.GetPoints() <= 0)
-                    _controller.RoundPoints();
-                else
-                    _controller.AddBreadPoints(points);
+                if (_chewingElapsedSeconds >= _chewingRate)
+                { 
+                    _catchedBread.EatPoints(1);//eat a point each chewingRate seconds
+                    _controller.AddBreadPoints(1);
+                    _chewingElapsedSeconds = 0;
+                }
+                  
+                //if (_catchedBread.GetPoints() <= 0)
+                //    _controller.RoundPoints();
+                //else
+                    
 
 
             }
