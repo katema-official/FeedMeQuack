@@ -130,6 +130,7 @@ namespace LevelStageNamespace
                 if (GameObject.Find("DummyPlayer").GetComponent<PlayerMovementComponent>().BreadDigested >= GetStage(GetLevel(_currentLevel), _currentStage).BreadPointsRequiredToCompleteStage)
                 {
                     Debug.Log("CE L'HAI FATTA, HAI MANGIATO ABBASTANZA!");
+                    GameObject.Find("DummyPlayer").GetComponent<PlayerMovementComponent>().NotifyStageCompleted(GetStage(GetLevel(_currentLevel), _currentStage).BreadPointsRequiredToCompleteStage);
                     FadeOutGoToShop();
                     return;
 

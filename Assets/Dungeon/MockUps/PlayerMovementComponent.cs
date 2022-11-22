@@ -78,4 +78,9 @@ public class PlayerMovementComponent : MonoBehaviour
     {
         body.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
     }
+
+
+    public void NotifyStageCompleted(int minBPStage){
+        int i = 0;
+    }
 }
