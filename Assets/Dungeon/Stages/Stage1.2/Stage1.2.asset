@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1c01b7bb633cf48b41a367dcf8bc20, type: 3}
+  m_Name: Stage1.2
+  m_EditorClassIdentifier: 
+  MinNumberOfLakes: 5
+  MaxNumberOfLakes: 6
+  ProbabilitiesOfLake:
+  - 0.85
+  - 0.15
+  - 0
+  MinNumberOfBreadPerLake: 4
+  MaxNumberOfBreadPerLake: 7
+  ProbabilitiesOfBread:
+  - 0.7
+  - 0.3
+  - 0
+  MinNumberOfEnemiesPerLake: 3
+  MaxNumberOfEnemiesPerLake: 4
+  ProbabilitiesOfEnemies:
+  - 0.85
+  - 0.15
+  - 0
+  - 0
+  - 0
+  MinNumberOfEachEnemy: 0100000000000000000000000000000000000000
+  BreadPointsRequiredToCompleteStage: 40
+  ListBreadSpawnSO:
+  - {fileID: 11400000, guid: 2f3229dbe89fa8449b91716eae1f1921, type: 2}
+  - {fileID: 11400000, guid: f4ee14ddabf5d4243b065f97a516dce6, type: 2}
+  - {fileID: 11400000, guid: 71f5851bdce23fb41b48a2bf2b091897, type: 2}

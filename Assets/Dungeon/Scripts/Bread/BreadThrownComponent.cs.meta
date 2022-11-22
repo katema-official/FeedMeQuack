@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: a3a3f5abe2c9d2345982e51888e76e6f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - wholeLakeComponent: {instanceID: 0}
+  - BreadToSpawnPrefab: {fileID: 1022965557331288907, guid: b568f7f40479f3a45818df291f047aee, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
