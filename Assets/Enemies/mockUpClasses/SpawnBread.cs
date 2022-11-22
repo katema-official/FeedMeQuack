@@ -9,7 +9,8 @@ public class SpawnBread : MonoBehaviour
 {
     [SerializeField] private GameObject breadPrefab;
 
-    public int CD, qty;
+    public float CD;
+    public int qty;
     // Start is called before the first frame update
     void Start(){
         //StartCoroutine(WaitForSeconds(2));

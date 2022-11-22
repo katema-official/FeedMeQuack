@@ -14,13 +14,15 @@ public class MovementManager : MonoBehaviour
 
     [SerializeField] private float _speedPerc=0;
     
-    private float _maxSpeed, _accelerationTimeSeconds, _idleTime, _idleCD, _deactivationRange;
+    private float _maxSpeed, _accelerationTimeSeconds, _idleTime, _movementDuration, _outerRadius, _chillingTime, _steeringValue;
     
     private Coroutine _movingCoroutineVar, _temporaryIdleCoroutine, _accelerateCoroutine, _decelerateCoroutine, _steerForBreadCoroutine, _chasingPlayerCoroutine, _chillingCoroutine;
     
     [SerializeField] private Vector3 _movingVector;
 
     private GameObject _enemyGameObject,_breadTargeted, _parentGameObject;
+
+    private float _movMultiplier;
 
 
     private void Awake(){
@@ -29,8 +31,10 @@ public class MovementManager : MonoBehaviour
         _maxSpeed = species.maxSpeed;
         _accelerationTimeSeconds = species.accelerationTimeSeconds;
         _idleTime = species.idleTime;
-        _idleCD = species.idleCD;
-        _deactivationRange = species.outerRadiusCollider * 1.5f;
+        _movementDuration = species.movementDuration;
+        _outerRadius = species.outerRadiusCollider;
+        _chillingTime = species.chillingTime;
+        _steeringValue = species.steeringValue;
     }
 
 
@@ -58,17 +62,29 @@ public class MovementManager : MonoBehaviour
     }
 
     private void ChangeDirection(){
+        _movMultiplier = Random.Range(0.8f, 1.2f);
         float rng = Random.Range(0,8);
-        _movingVector= new Vector2( _maxSpeed, 0);
-        _movingVector = Quaternion.AngleAxis(rng*45, Vector3.forward)* _movingVector;
+        bool wouldHitBorder = true;
+        while (wouldHitBorder){
+            _movingVector = new Vector2(_maxSpeed, 0);
+            _movingVector = Quaternion.AngleAxis(rng * 45, Vector3.forward) * _movingVector;
+            wouldHitBorder = CheckIfMovementWouldHitBorder(_movingVector);
+        }
     }
-    
-    
+
+    private bool CheckIfMovementWouldHitBorder(Vector3 directionToEvaluate){
+        float distanceToTravel = _maxSpeed * _movementDuration * _movMultiplier;
+        Vector3 finalDestination= _parentGameObject.transform.position+ directionToEvaluate * distanceToTravel;
+        //todo: ritornare il risultato del metodo contains passandogli come parametro finalDestination
+        //return !.Contains(finalDestination);
+        return false;
+    }
+
 
     private IEnumerator TemporaryIdleCoroutine(){
         while (enemyFsm.State== EnemyFSM.ActionState.Roaming){
             StartMovement();
-            yield return new WaitForSeconds(_idleCD);
+            yield return new WaitForSeconds(_movementDuration* _movMultiplier);
             StopRoaming();
             yield return new WaitForSeconds(_idleTime);
         }
@@ -93,25 +109,10 @@ public class MovementManager : MonoBehaviour
         StopCoroutine(_movingCoroutineVar);
         yield return null;
     }
-    
-    private IEnumerator DecelerateCoroutine(float valueToDecelerateUpTo){
-        if (valueToDecelerateUpTo >= 1){
-            Debug.Log("CAREFUL: YOU'RE TRYING TO DECELERATE TO A VALUE BIGGER THAN 1 (THE MAX SPEED)!!! CHANGING IT TO MAX SPEED FOR YOUR SAKE");
-            valueToDecelerateUpTo = 0.999f;
-        }
-        while (_speedPerc>valueToDecelerateUpTo){
-            _speedPerc -= 0.01f;
-            yield return new WaitForSeconds(_accelerationTimeSeconds/100);
-        }
-        _accelerateCoroutine = StartCoroutine(AccelerateCoroutine());
-        yield return null;
-    }
 
     public void MoveToBread(GameObject breadGameObject){
         _breadTargeted = breadGameObject;
-        //SteerForBreadNewVersion();
         _steerForBreadCoroutine = StartCoroutine(SteerForBreadCoroutine());
-        //_speedPerc = 1;
         if(enemyFsm.State!=EnemyFSM.ActionState.MovingToBread)  enemyFsm.ChangeState(EnemyFSM.ActionState.MovingToBread);
     }
 
@@ -135,7 +136,7 @@ public class MovementManager : MonoBehaviour
 
     private Vector2 AddForceToMovingVector(Vector2 vecToAdd, float deltaT){
         vecToAdd = NormalizeToMaxSpeed(vecToAdd);
-        float timeAdj = deltaT /2000;
+        float timeAdj = deltaT /_steeringValue;
         Vector2 weakerVector = new Vector2(vecToAdd.x*timeAdj, vecToAdd.y* timeAdj);
         Vector2 newVector = _movingVector*_speedPerc + (Vector3) weakerVector;
         return NormalizeToMaxSpeed(newVector);
@@ -206,7 +207,7 @@ public class MovementManager : MonoBehaviour
 
     private IEnumerator ChasePlayerCoroutine(GameObject playerGameObject){
         PlayerDuck playerDuck = playerGameObject.GetComponent<PlayerDuck>();
-        while (enemyFsm.State == EnemyFSM.ActionState.Chasing && Distance(playerGameObject) < _deactivationRange && playerDuck.FoodInMouth > 0){
+        while (enemyFsm.State == EnemyFSM.ActionState.Chasing && playerDuck.FoodInMouth > 0){
             _movingVector = Direction(playerGameObject);
             yield return null;
         }
@@ -223,7 +224,7 @@ public class MovementManager : MonoBehaviour
     }
 
     private IEnumerator ChillingCoroutine(){
-        yield return new WaitForSeconds(_idleTime*0.5f);
+        yield return new WaitForSeconds(_chillingTime);
         if (enemyFsm.State == EnemyFSM.ActionState.Chilling){
             enemyFsm.ChangeState(EnemyFSM.ActionState.Roaming);
         }

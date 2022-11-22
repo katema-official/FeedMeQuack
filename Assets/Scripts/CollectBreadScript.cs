@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Enemies;
 using UnityEngine;
 
-public class EatBreadScript : MonoBehaviour
+public class CollectBreadScript : MonoBehaviour
 {
     public GameObject fatherGameObject;
     [SerializeField] private EnemyFSM _fsmScript;
@@ -21,6 +21,7 @@ public class EatBreadScript : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other){
         if(other.GetComponent<EnemyFSM>()!=null || other.GetComponentInParent<EnemyFSM>()!=null) return;
         if(_fsmScript.breadBeingEaten!=null) return;
-        _fsmScript.StartEatingBread(other.gameObject);
+        if(!_fsmScript.IsEating()) _fsmScript.StartEatingBread(other.gameObject);
     }
 }
+//chewingRate 0.7 => ogni 0.7 sec mangio un bread point

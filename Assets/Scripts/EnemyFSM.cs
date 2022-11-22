@@ -16,7 +16,7 @@ namespace Enemies
         public Species MySpecies;
         [SerializeField] private CollisionManager collisionManager;
         [SerializeField] private MovementManager movementManager;
-        private float _maxSpeed, _mouthSize, _eatingSpeed = 1;
+        [SerializeField] private EatingManager eatingManager;
 
         private Coroutine _movingCoroutineVar,
             _temporaryIdleCoroutine,
@@ -35,17 +35,12 @@ namespace Enemies
         [SerializeField] private GameObject breadTargeted;
 
         public ActionState State;
-        [SerializeField] private Vector3 _movingVector;
         void Start(){
             //collisionManager.InitializeColliders(Species);
-            _movingVector = new Vector2(_maxSpeed, 0);
             ChangeState(ActionState.Roaming);
         }
 
         private void Awake(){
-            _maxSpeed = MySpecies.maxSpeed;
-            _mouthSize = MySpecies.mouthSize;
-            _eatingSpeed = MySpecies.eatingSpeed;
             stealingCd = MySpecies.stealingCd;
         }
 
@@ -56,7 +51,10 @@ namespace Enemies
                 movementManager.StopMovementRelatedCoroutine(CoroutineType.Idle);
             }
 
-            if (State == ActionState.Eating) StopCoroutine(EatBread(breadBeingEaten));
+            if (State == ActionState.Eating){
+                
+            }
+            
             if (State == ActionState.MovingToBread){
                 breadTargeted = null;
                 if(newState!=ActionState.Eating) movementManager.StopMoving(); //coroutine already stopped in the switch case below
@@ -134,21 +132,24 @@ namespace Enemies
         }
 
         public void StartEatingBread(GameObject breadGameObject){
-            breadBeingEaten = breadGameObject.GetComponent<Bread>();
+            Bread breadAboutToBeEaten= breadGameObject.GetComponent<Bread>();
+            if (breadAboutToBeEaten.BreadPoints > MySpecies.mouthSize){
+                eatingManager.StartEatingBread(MySpecies.mouthSize);
+                breadAboutToBeEaten.BreadPoints -= MySpecies.mouthSize;
+            }
+            else{
+                eatingManager.StartEatingBread(breadAboutToBeEaten);
+                Destroy(breadGameObject);
+            }
             ChangeState(ActionState.Eating);
-            _eatBreadCoroutine = StartCoroutine(EatBread(breadBeingEaten));
-            Destroy(breadGameObject);
+        }
+    
+        public void LevelFinished(){
+            //todo: vola fuori dal lago e poi distruggo il game object
         }
 
-        IEnumerator EatBread(Bread bread){
-            int i = 0;
-            while (bread.BreadPoints > 0){
-                bread.BreadPoints--;
-                i++;
-                yield return new WaitForSeconds(_eatingSpeed);
-            }
-            //todo: al posto che andare in roaming, prima guardo se c'è del pane
-            ChangeState(ActionState.Chilling);
+        public bool IsEating(){
+            return eatingManager.IsEating();
         }
     }
 }
