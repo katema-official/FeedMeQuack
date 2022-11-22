@@ -157,6 +157,8 @@ namespace Player
 
         private void Awake()
         {
+            DontDestroyOnLoad(this.transform.parent.gameObject);
+
             _rigidBody = GetComponent<Rigidbody2D>();
             if (_rigidBody)
             {
