@@ -917,7 +917,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &1103458706
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1431,7 +1431,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1485157455
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1853,7 +1853,7 @@ GameObject:
   - component: {fileID: 2135072888}
   - component: {fileID: 2135072889}
   m_Layer: 0
-  m_Name: WholeShop
+  m_Name: WholeLake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

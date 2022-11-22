@@ -15,7 +15,7 @@ namespace Player
         private Camera _camera = null;
         private Transform _mouth = null;
 
-        private LevelStageNamespace.LakeDescriptionComponent _currentLake = null;
+        private LevelStageNamespace.LakeShopDescriptionComponent _currentLake = null;
 
        
       //  private Vector3 _forwardAxis;
@@ -72,10 +72,9 @@ namespace Player
         {
             return _state;
         }
-        public LevelStageNamespace.LakeDescriptionComponent GetLake()
+        public LevelStageNamespace.LakeShopDescriptionComponent GetLake()
         {
-            _currentLake = GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeDescriptionComponent>();
-            //if (_currentLake) Debug.Log("TROVATO");
+            _currentLake = GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeShopDescriptionComponent>();
             return _currentLake;
         }
         public Vector3 GetPosition()
