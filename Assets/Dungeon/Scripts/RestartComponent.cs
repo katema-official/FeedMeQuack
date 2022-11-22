@@ -8,7 +8,10 @@ public class RestartComponent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //DISTRUGGI IL GIOCATORE E IL LEVEL STAGE MANAGER
+        Destroy(GameObject.Find("LevelStageManager"));
+        Destroy(GameObject.Find("DuckPlayer"));
+        Destroy(GameObject.Find("DuckTypeManager"));
     }
 
     // Update is called once per frame

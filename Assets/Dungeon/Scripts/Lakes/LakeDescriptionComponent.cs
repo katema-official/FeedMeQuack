@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace LevelStageNamespace {
-    public class LakeDescriptionComponent : MonoBehaviour
+    public class LakeDescriptionComponent : LakeShopDescriptionComponent
     {
         //component that specifies the nature of a lake
 
@@ -43,7 +43,7 @@ namespace LevelStageNamespace {
         private float _xScaleOfRiver;
 
         private GameObject _lake;
-        private GameObject _terrain;
+        //private GameObject _terrain;
 
 
         //########################################################################################################################################################
@@ -107,15 +107,16 @@ namespace LevelStageNamespace {
 
 
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             Debug.Log("LAKE AWAKENED");
             _levelStageManager = GameObject.Find("LevelStageManagerObject").GetComponent<LevelStageManagerComponent>();
             _lakeDescriptionForThisLake = _levelStageManager.GetLakeDescriptionSO();
             ManageRiversOfthisLake();
             _breadSpawnForThisLake = _levelStageManager.GetBreadSpawnSO();
             _lake = transform.Find("Water").gameObject;
-            _terrain = transform.Find("Terrain").gameObject;
+            //_terrain = transform.Find("Terrain").gameObject;
 
             //first of all, a fade in effect
             _levelStageManager.FadeIn();
@@ -736,88 +737,7 @@ namespace LevelStageNamespace {
             return (x, y);
         }
 
-
-
-
-
-
-
-
-
-        //per Ivan
-
-        //function used to check if a certain point is inside the lake
-        public bool Contains(Vector3 point)
-        {
-            float range = 10000f;
-
-            Ray rayNorth = new Ray(point, new Vector3(0, 1, 0));
-            Ray raySouth = new Ray(point, new Vector3(0, -1, 0));
-            Ray rayWest = new Ray(point, new Vector3(1, 0, 0));
-            Ray rayEast = new Ray(point, new Vector3(-1, 0, 0));
-
-
-
-            Debug.DrawRay(point, new Vector3(0, 1, 0) * range, Color.red, 10f, false);
-            Debug.DrawRay(point, new Vector3(0, -1, 0) * range, Color.red, 10f, false);
-            Debug.DrawRay(point, new Vector3(1, 0, 0) * range, Color.red, 10f, false);
-            Debug.DrawRay(point, new Vector3(-1, 0, 0) * range, Color.red, 10f, false);
-
-            RaycastHit2D hit1 = Physics2D.Raycast(new Vector2(point.x, point.y), new Vector2(0, 1), range, LayerMask.GetMask("WaterLayer"));
-            RaycastHit2D hit2 = Physics2D.Raycast(new Vector2(point.x, point.y), new Vector2(0, -1), range, LayerMask.GetMask("WaterLayer"));
-            RaycastHit2D hit3 = Physics2D.Raycast(new Vector2(point.x, point.y), new Vector2(1, 0), range, LayerMask.GetMask("WaterLayer"));
-            RaycastHit2D hit4 = Physics2D.Raycast(new Vector2(point.x, point.y), new Vector2(-1, 0), range, LayerMask.GetMask("WaterLayer"));
-
-            if (hit1)
-            {
-                Debug.Log("1");
-            }
-            if (hit1)
-            {
-                Debug.Log("2");
-            }
-            if (hit1)
-            {
-                Debug.Log("3");
-            }
-            if (hit1)
-            {
-                Debug.Log("4");
-            }
-
-            if (hit1 && hit2 && hit3 && hit4)
-            {
-                Debug.Log("INSIDE");
-                return true;
-            }
-            else
-            {
-                Debug.Log("OUTSIDE");
-                return false;
-            }
-        }
-
-
-        //Method used to get the bounds of the terrain
-        public Bounds GetTerrainBounds()
-        {
-            return _terrain.GetComponent<SpriteRenderer>().bounds;
-
-            /*
-            GameObject terrain = transform.Find("Terrain").gameObject;
-            float terrainWidth = terrain.transform.localScale.x;
-            float terrainHeight = terrain.transform.localScale.y;
-            float terrainCenterX = terrain.transform.position.x;
-            float terrainCenterY = terrain.transform.position.y;
-            Vector2 topRightCorner = new Vector2(1, 1);
-            Vector2 edgeVector = Camera.main.ViewportToWorldPoint(topRightCorner);
-            float height = edgeVector.y * 2;
-            float width = edgeVector.x * 2;
-            float cameraWidth = width;
-            float cameraHeight = height;
-            return (terrainWidth, terrainHeight);
-            */
-        }
+        
     }
 }
 
