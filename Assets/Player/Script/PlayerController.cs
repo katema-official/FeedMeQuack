@@ -15,7 +15,7 @@ namespace Player
         private Camera _camera = null;
         private Transform _mouth = null;
 
-        private LakeController _currentLake = null;
+        private LevelStageNamespace.LakeDescriptionComponent _currentLake = null;
 
        
       //  private Vector3 _forwardAxis;
@@ -72,8 +72,10 @@ namespace Player
         {
             return _state;
         }
-        public LakeController GetLake()
+        public LevelStageNamespace.LakeDescriptionComponent GetLake()
         {
+            _currentLake = GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeDescriptionComponent>();
+            //if (_currentLake) Debug.Log("TROVATO");
             return _currentLake;
         }
         public Vector3 GetPosition()
@@ -85,6 +87,10 @@ namespace Player
             _breadPoints += points;
 
             Debug.Log("Current player bread points: " + _breadPoints);
+        }
+        public int GetBreadPoints()
+        {
+            return (int) _breadPoints;
         }
         //public void RoundPoints()
         //{
@@ -169,6 +175,8 @@ namespace Player
             var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
             _description = duckTypeManager.getTypeFromName("Mallard");
 
+            
+
             //_speed = _description.Speed;
             //_eatingSpeed = _description.EatingSpeed;
             //_chewingRate = _description.ChewingRate;
@@ -193,6 +201,7 @@ namespace Player
         // Start is called before the first frame update
         private void Start()
         {
+            
         }
 
         // Update is called once per frame
@@ -231,7 +240,7 @@ namespace Player
            // MoveCamera();
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        /*private void OnTriggerEnter2D(Collider2D collision)
         {
             var lakeController = collision.gameObject.GetComponentInChildren<LakeController>();
             if (lakeController) _currentLake = lakeController;
@@ -242,5 +251,6 @@ namespace Player
             var lakeController = collision.gameObject.GetComponentInChildren<LakeController>();
             if (lakeController) _currentLake = null;
         }
+        */
     }
 }

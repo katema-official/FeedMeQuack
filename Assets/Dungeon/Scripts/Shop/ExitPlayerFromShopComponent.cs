@@ -12,7 +12,7 @@ namespace ShopNamespace
 
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            if (collider.gameObject.name == "DummyPlayer")
+            if (collider.gameObject.tag == "Player")
             {    //TODO: Change the name when you have the player
 
                 

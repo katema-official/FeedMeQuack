@@ -14,7 +14,7 @@ namespace LevelStageNamespace
 
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            if (_levelStageManagerComponent.GetLakeDescriptionSO().IsLakeCleared == false && collider.gameObject.name == "DummyPlayer")
+            if (_levelStageManagerComponent.GetLakeDescriptionSO().IsLakeCleared == false && collider.gameObject.tag == "Player")
             {
                 //when this triggers, the player has entered the lake.
                 //at this point, there are different things to do:

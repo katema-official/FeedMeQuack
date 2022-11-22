@@ -121,7 +121,7 @@ namespace LevelStageNamespace {
             _levelStageManager.FadeIn();
 
             //now we have to place the player in the correct spot
-            _playerObject = GameObject.Find("DummyPlayer");     //TODO: change in actual player when you have it
+            _playerObject = GameObject.FindWithTag("Player");     //TODO: change in actual player when you have it
 
             //if the room is the initial one and the player just arrived in the stage, we want it to be on the center of the room
             if (!_lakeDescriptionForThisLake.IsLakeCleared && _lakeDescriptionForThisLake.IsStartingRoom)
@@ -767,6 +767,23 @@ namespace LevelStageNamespace {
             RaycastHit2D hit2 = Physics2D.Raycast(new Vector2(point.x, point.y), new Vector2(0, -1), range, LayerMask.GetMask("WaterLayer"));
             RaycastHit2D hit3 = Physics2D.Raycast(new Vector2(point.x, point.y), new Vector2(1, 0), range, LayerMask.GetMask("WaterLayer"));
             RaycastHit2D hit4 = Physics2D.Raycast(new Vector2(point.x, point.y), new Vector2(-1, 0), range, LayerMask.GetMask("WaterLayer"));
+
+            if (hit1)
+            {
+                Debug.Log("1");
+            }
+            if (hit1)
+            {
+                Debug.Log("2");
+            }
+            if (hit1)
+            {
+                Debug.Log("3");
+            }
+            if (hit1)
+            {
+                Debug.Log("4");
+            }
 
             if (hit1 && hit2 && hit3 && hit4)
             {

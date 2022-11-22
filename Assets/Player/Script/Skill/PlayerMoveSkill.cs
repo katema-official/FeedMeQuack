@@ -157,7 +157,7 @@ namespace Player
             Bounds lakeBounds;
 
             if (_controller.GetLake())
-                lakeBounds = _controller.GetLake().getBounds();
+                lakeBounds = _controller.GetLake().GetTerrainBounds();
             else
                 lakeBounds = new Bounds();
 

@@ -127,10 +127,10 @@ namespace LevelStageNamespace
             //If they are enough, it can go to the shop. Otherwise, it's game over.
             if (GetLakeDescriptionSO().IsFinalRoom && exitDirectionFromCurrentLake == GetLakeDescriptionSO().ExitStageDirection)
             {
-                if (GameObject.Find("DummyPlayer").GetComponent<PlayerMovementComponent>().BreadDigested >= GetStage(GetLevel(_currentLevel), _currentStage).BreadPointsRequiredToCompleteStage)
+                if (GameObject.FindWithTag("Player").GetComponent<Player.PlayerController>().GetBreadPoints() >= GetStage(GetLevel(_currentLevel), _currentStage).BreadPointsRequiredToCompleteStage)
                 {
                     Debug.Log("CE L'HAI FATTA, HAI MANGIATO ABBASTANZA!");
-                    GameObject.Find("DummyPlayer").GetComponent<PlayerMovementComponent>().NotifyStageCompleted(GetStage(GetLevel(_currentLevel), _currentStage).BreadPointsRequiredToCompleteStage);
+                    GameObject.FindWithTag("Player").GetComponent<Player.PlayerController>().NotifyStageCompleted(GetStage(GetLevel(_currentLevel), _currentStage).BreadPointsRequiredToCompleteStage);
                     FadeOutGoToShop();
                     return;
 

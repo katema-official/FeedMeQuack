@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: {fileID: 11400000, guid: 51c2380ab210d1145ac3f635b31ef911, type: 2}
   EnabledByDefault: 1
-  EatingSpeed: 1.5
+  EatingSpeed: 5
   ChewingRate: 1
   MouthSize: 3

@@ -21,8 +21,11 @@ namespace Player
         private PlayerMoveSkill _moveSkill = null;
         private PlayerEatSkillDescriptionSO _eatDesc = null;
 
-        private BreadController _locatedBread = null;
-        private BreadController _catchedBread = null;
+        private BreadNamespace.BreadInWaterComponent _locatedBread = null;
+        private BreadNamespace.BreadInMouthComponent _catchedBread = null;
+
+
+        private bool _hasBreadBeenFullyEaten = false;
 
         public override void SetDescription(PlayerSkillDescriptionSO desc)
         {
@@ -59,9 +62,11 @@ namespace Player
                 if (_controller.GetState() == PlayerState.Eating)
                     _moveSkill.EnableInput(true);
 
+                _catchedBread = _locatedBread.GenerateNewBreadInMouth(_mouthSize).GetComponent<BreadNamespace.BreadInMouthComponent>();
+
 
                 //take a piece of the located bread, or the entire located bread based on mouth size
-                if (_locatedBread.GetPoints() > _mouthSize)
+                /*if (_locatedBread.GetPoints() > _mouthSize)
                 {
                     _locatedBread.EatPoints(_mouthSize);
                     var l = _controller.GetLake();
@@ -72,18 +77,20 @@ namespace Player
                 {
                     _catchedBread = _locatedBread;
                 }
+                */
             }
 
 
-            if (_controller.GetState() == PlayerState.Eating && _catchedBread)
+            if (_controller.GetState() == PlayerState.Eating && _hasBreadBeenFullyEaten)
             {
-                if (_catchedBread.GetPoints() <= 0)
-                {
-                    _controller.GetLake().DestroyBread(_catchedBread);// the removing of bread should be handled by lake or other manaager
+                //if (/*_catchedBread.GetPoints() <= 0*/ _hasBreadBeenFullyEaten)
+                //{
+                    //_controller.GetLake().DestroyBread(_catchedBread);// the removing of bread should be handled by lake or other manaager
                     _catchedBread = null;
                     _controller.ChangeState(PlayerState.Normal);
+                    _hasBreadBeenFullyEaten = false;
 
-                }
+                //}
             }
 
             //PlayerUtility.Move(_eatingSpeed, _forwardAxis, _rightwardAxis, _rigidBody, _moveForward, ref _rotationMovement);
@@ -98,9 +105,14 @@ namespace Player
               //  float points = _chewingRate * Time.deltaTime;
                 _chewingElapsedSeconds += Time.deltaTime;
 
-                if (_chewingElapsedSeconds >= _chewingRate)
-                { 
-                    _catchedBread.EatPoints(1);//eat a point each chewingRate seconds
+                if (_chewingElapsedSeconds >= _chewingRate && !_hasBreadBeenFullyEaten)
+                {
+                    int a;
+                    (a, _hasBreadBeenFullyEaten) = _catchedBread.SubtractBreadPoints(1);//eat a point each chewingRate seconds
+                    if (_hasBreadBeenFullyEaten)
+                    {
+                        Debug.Log("Qualcosa");
+                    }
                     _controller.AddBreadPoints(1);
                     _chewingElapsedSeconds = 0;
                 }
@@ -123,21 +135,21 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            var breadController = collision.gameObject.GetComponentInParent<BreadController>();
+            var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
 
             if (breadController)
             {
                 _locatedBread = breadController;
-                Debug.Log("Bread located - Points: " + _locatedBread.GetPoints());
+                //Debug.Log("Bread located - Points: " + _locatedBread.GetPoints());
             }
 
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            var breadController = collision.gameObject.GetComponentInParent<BreadController>();
+            var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
 
-            if (breadController)
+            if (breadController == _locatedBread)
             {
                 _locatedBread = null;
                 Debug.Log("Bread missed");
