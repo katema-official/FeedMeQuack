@@ -124,6 +124,10 @@ public class MovementManager : MonoBehaviour
             _movingVector = AddForceToMovingVector(vecToAdd, delta);
             yield return new WaitForSeconds(0.001f);
         }
+
+        if (_breadTargeted == null && !enemyFsm.IsEating()){
+            enemyFsm.ChangeState(EnemyFSM.ActionState.Chilling);
+        }
         yield return null;
     }
 
