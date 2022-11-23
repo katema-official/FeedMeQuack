@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fda69db312a69d47a598a32d6dc93f6, type: 3}
-  m_Name: Duck
+  m_Name: Mallard
   m_EditorClassIdentifier: 
-  mouthSize: 5
-  maxSpeed: 100
-  chewingRate: 0.75
-  idleTime: 3
-  movementDuration: 3
-  accelerationTimeSeconds: 1.5
+  mouthSize: 3
+  maxSpeed: 20
+  chewingRate: 1
+  idleTime: 2
+  movementDuration: 1
+  accelerationTimeSeconds: 0.5
   chillingTime: 3
-  steeringValue: 200
+  steeringValue: 100
   innerRadiusCollider: 5
   mediumRadiusCollider: 10
   outerRadiusCollider: 20

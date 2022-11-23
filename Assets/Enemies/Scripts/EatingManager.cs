@@ -9,13 +9,13 @@ namespace Enemies
     {
         [SerializeField] private EnemyFSM _fsmScript;
 
-        public int BreadPointsInMouth = 0;
+        //public int BreadPointsInMouth = 0;
 
         private float _chewingRate;
 
         private Coroutine _eatingCoroutine;
 
-        public Bread BreadInMouth;
+        public BreadNamespace.BreadInMouthComponent BreadInMouth;
 
         // Start is called before the first frame update
         void Start(){
@@ -24,7 +24,13 @@ namespace Enemies
             _chewingRate = species.chewingRate;
         }
 
-        public void StartEatingBread(int breadPoints){
+        public void StartEatingBread(BreadNamespace.BreadInMouthComponent breadInMouth)
+        {
+            BreadInMouth = breadInMouth;
+            _eatingCoroutine = StartCoroutine(EatingCoroutine());
+        }
+
+        /*public void StartEatingBread(int breadPoints){
             BreadPointsInMouth = breadPoints;
             _eatingCoroutine = StartCoroutine(EatingCoroutine());
         }
@@ -33,13 +39,15 @@ namespace Enemies
             BreadInMouth = bread;
             BreadPointsInMouth = bread.BreadPoints;
             _eatingCoroutine = StartCoroutine(EatingCoroutine());
-        }
+        }*/
 
         private IEnumerator EatingCoroutine(){
-            while (BreadPointsInMouth > 0){
+            int eatenAmount;
+            bool eatenCompletely = false;
+            while (eatenCompletely == false && BreadInMouth!=null){
                 yield return new WaitForSeconds(_chewingRate);
-                BreadPointsInMouth--;
-                if (BreadInMouth != null) BreadInMouth.BreadPoints = BreadPointsInMouth;
+                (eatenAmount, eatenCompletely) = BreadInMouth.SubtractBreadPoints(1);
+                //TODO: caso in cui il giocatore ruba il mio pane? Stoppare la coroutine e passare nello stato stealingPassive
             }
 
             FinishEating();
@@ -48,12 +56,12 @@ namespace Enemies
 
         private void FinishEating(){
             BreadInMouth = null;
-            BreadPointsInMouth = 0;
+            //BreadPointsInMouth = 0;
             _fsmScript.ChangeState(EnemyFSM.ActionState.Chilling);
         }
 
         public bool IsEating(){
-            return BreadPointsInMouth > 0;
+            return BreadInMouth != null;
         }
     }
 }

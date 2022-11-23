@@ -35,6 +35,12 @@ namespace Enemies
         [SerializeField] private GameObject breadTargeted;
 
         public ActionState State;
+
+
+
+
+        private CollectBreadScript _collectBreadScript;
+
         void Start(){
             //collisionManager.InitializeColliders(Species);
             ChangeState(ActionState.Roaming);
@@ -42,6 +48,7 @@ namespace Enemies
 
         private void Awake(){
             stealingCd = MySpecies.stealingCd;
+            _collectBreadScript = gameObject.GetComponentInChildren<CollectBreadScript>();
         }
 
         public void ChangeState(ActionState newState){
@@ -52,7 +59,7 @@ namespace Enemies
             }
 
             if (State == ActionState.Eating){
-                
+                _collectBreadScript.ResetCollider();
             }
             
             if (State == ActionState.MovingToBread){
@@ -132,7 +139,10 @@ namespace Enemies
         }
 
         public void StartEatingBread(GameObject breadGameObject){
-            Bread breadAboutToBeEaten= breadGameObject.GetComponent<Bread>();
+            BreadNamespace.BreadInWaterComponent breadInWaterComponent = breadGameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
+            BreadNamespace.BreadInMouthComponent breadAboutToBeEaten = breadInWaterComponent.GenerateNewBreadInMouth(MySpecies.mouthSize).GetComponent<BreadNamespace.BreadInMouthComponent>();
+
+            /*Bread breadAboutToBeEaten = breadGameObject.GetComponent<Bread>();
             if (breadAboutToBeEaten.BreadPoints > MySpecies.mouthSize){
                 eatingManager.StartEatingBread(MySpecies.mouthSize);
                 breadAboutToBeEaten.BreadPoints -= MySpecies.mouthSize;
@@ -140,7 +150,8 @@ namespace Enemies
             else{
                 eatingManager.StartEatingBread(breadAboutToBeEaten);
                 Destroy(breadGameObject);
-            }
+            }*/
+            eatingManager.StartEatingBread(breadAboutToBeEaten);
             ChangeState(ActionState.Eating);
         }
     

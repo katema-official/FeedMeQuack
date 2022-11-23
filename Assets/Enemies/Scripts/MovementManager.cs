@@ -38,6 +38,8 @@ namespace Enemies
 
         private float _movMultiplier;
 
+        private LevelStageNamespace.LakeShopDescriptionComponent _lakeShopDescriptionComponent;
+
 
         private void Awake(){
             _parentGameObject = gameObject.transform.parent.gameObject;
@@ -49,6 +51,7 @@ namespace Enemies
             _outerRadius = species.outerRadiusCollider;
             _chillingTime = species.chillingTime;
             _steeringValue = species.steeringValue;
+            _lakeShopDescriptionComponent = GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeShopDescriptionComponent>();
         }
 
 
@@ -81,17 +84,24 @@ namespace Enemies
             bool wouldHitBorder = true;
             while (wouldHitBorder){
                 _movingVector = new Vector2(_maxSpeed, 0);
+                rng = Random.Range(0, 8);
+                _movMultiplier = Random.Range(0.8f, 1.2f);
                 _movingVector = Quaternion.AngleAxis(rng * 45, Vector3.forward) * _movingVector;
                 wouldHitBorder = CheckIfMovementWouldHitBorder(_movingVector);
             }
         }
 
         private bool CheckIfMovementWouldHitBorder(Vector3 directionToEvaluate){
-            float distanceToTravel = _maxSpeed * _movementDuration * _movMultiplier;
-            Vector3 finalDestination = _parentGameObject.transform.position + directionToEvaluate * distanceToTravel;
-            //todo: ritornare il risultato del metodo contains passandogli come parametro finalDestination
-            //return !.Contains(finalDestination);
+            //return false;
+            //float distanceToTravel = _maxSpeed * _movementDuration * _movMultiplier;
+            //Vector3 finalDestination = _parentGameObject.transform.position + (_movingVector * _movementDuration * _movMultiplier);//directionToEvaluate * distanceToTravel;
             return false;
+            float timeAtMaxSpeed = _movementDuration * _movMultiplier - _accelerationTimeSeconds;
+            Vector3 movementVectorAtMaxSpeed = _movingVector * timeAtMaxSpeed;
+            Vector3 finalDestination = _parentGameObject.transform.position + movementVectorAtMaxSpeed;
+
+            return !_lakeShopDescriptionComponent.Contains(finalDestination);   //return
+            //return false;
         }
 
 

@@ -31,17 +31,23 @@ namespace Enemies
         }
 
         private void OnTriggerEnter2D(Collider2D col){
-            if (col.gameObject.GetComponentInParent<EnemyFSM>() != null) return;
+            //if (col.gameObject.GetComponentInParent<EnemyFSM>() != null) return;
             if (_collisionManager.IsEating()){
                 return;
             }
+            
 
-            if (col.gameObject.GetComponent<PlayerDuck>() != null){
+            //if (col.gameObject.GetComponent<PlayerDuck>() != null){
+            if (col.gameObject.tag == "Player") 
+            {
                 _collisionManager.CheckStealingOptions(col.gameObject);
             }
-            else{
+            
+            if (col.gameObject.tag == "FoodInWater")
+            {
                 _collisionManager.BreadDetectedAction(col, _myCollider);
             }
+            
         }
 
 
