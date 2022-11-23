@@ -13,6 +13,7 @@ namespace Player
         //-------------------------------------
         private float _dashElapsedSeconds = 0.0f;
         private float _dashCoolDownElapsedSeconds = 0.0f;
+        private float _noDashArea = 10.0f;
         //-------------------------------------
 
 
@@ -67,16 +68,20 @@ namespace Player
                     _controller.ChangeState(PlayerState.Normal);
 
                     if (_controller.GetState() == PlayerState.Normal)
+                    {
                         _moveSkill.EnableInput(true);
+                        _dashElapsedSeconds = 0.0f;
+                        _dashCoolDownElapsedSeconds = _coolDown;
+                    }
                 }
                 else
                 {
-                    var p = _controller.GetPosition() + _moveSkill.GetDirection() * _maxSpeed * _maxDuration;
+                    var p = _controller.GetPosition() + _moveSkill.GetDirection() * _noDashArea;
 
                     if (_controller.GetLake().Contains(p))
                     {
                         _controller.ChangeState(PlayerState.Dashing);
-                    }         
+                    }
                 }
 
                 if (_controller.GetState() == PlayerState.Dashing)
@@ -109,5 +114,26 @@ namespace Player
                 _dashCoolDownElapsedSeconds -= Time.deltaTime;
             }
         }
+
+        void OnCollisionEnter2D(Collision2D col)
+        {
+            if (_controller.GetState() == PlayerState.Dashing)
+            {
+                _controller.ChangeState(PlayerState.Normal);
+
+                if (_controller.GetState() == PlayerState.Normal)
+                {
+                    _moveSkill.EnableInput(true);
+                    _dashElapsedSeconds = 0.0f;
+                    _dashCoolDownElapsedSeconds = _coolDown;
+                }
+            }
+        }
+
+        void OnCollisionExit2D(Collision2D other)
+        {
+        }
+
+
     }
 }
