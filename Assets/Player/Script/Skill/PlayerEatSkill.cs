@@ -55,6 +55,11 @@ namespace Player
             return res;
         }
 
+        public HashSet<BreadNamespace.BreadInMouthComponent> GetCatchedBread()
+        {
+            return _catchedBread;
+        }
+
 
         private void Awake()
         {
