@@ -3,40 +3,679 @@
   <component name="ChangeListManager">
     <list default="true" id="099dc64e-a604-4b85-85cc-6be12a6baf46" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Bird.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Bird.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/BlackSwan.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/BlackSwan.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/BreadInWater.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/BreadInWater.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Combat.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Combat.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Duck.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Duck.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/FishSpawn.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/FishSpawn.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/GameOver.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/GameOver.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Goose.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Goose.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/LakeClear.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/LakeClear.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Menu.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Menu.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/River.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/River.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Shop.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Shop.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Swan.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Swan.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Swimming.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Swimming.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Tutorial.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Resources/Tutorial.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Scripts/MainMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Assets/Scripts/MainMenu.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Music/Assets/Scripts/UniversalAudio.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Assets/Scripts/UniversalAudio.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/After.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/After.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Cmd.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Cmd.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/DisableSceneView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/DisableSceneView.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Displays.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Displays/DisplayInfo.windows.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Displays/DisplayInfo.windows.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Disposables.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Disposables.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/FixGameViewMouseInput.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/FixGameViewMouseInput.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Fullscreen.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Fullscreen.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/FullscreenCallbacks.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/FullscreenCallbacks.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/FullscreenContainer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/FullscreenContainer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/FullscreenContainerInternal.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/FullscreenContainerInternal.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/FullscreenOnPlay.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/FullscreenOnPlay.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/FullscreenPreferences.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/FullscreenPreferences.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/FullscreenRects.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/FullscreenRects.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/FullscreenUtility.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/FullscreenUtility.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/FullscreenView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/FullscreenView.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/FullscreenWindow.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/FullscreenWindow.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/GameViewLowResolutionAspectRatios.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/GameViewLowResolutionAspectRatios.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/GameViewVSync.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/GameViewVSync.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/GlobalToolbarHiding.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/GlobalToolbarHiding.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Integration.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Integration.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/InternalTypes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/InternalTypes.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/KeepFullscreenBelow.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/KeepFullscreenBelow.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Linux.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Linux/NativeFullscreenHook.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Linux/NativeFullscreenHook.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Linux/wmctrl.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Linux/wmctrl.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Logger.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Logger.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/MenuItems.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/MenuItems.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Patcher.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Patcher.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/PlaceholderWindow.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/PlaceholderWindow.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/PrefItem.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/PrefItem.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/ReflectionUtility.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/ReflectionUtility.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Shortcut.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Shortcut.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/ViewPyramid.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/ViewPyramid.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Windows.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Windows/GDI32.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Windows/GDI32.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Windows/ShCore.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Windows/ShCore.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Windows/Structs.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Windows/Structs.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Windows/User32.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Editor/Windows/User32.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/FullscreenEditor.asmdef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/FullscreenEditor.asmdef.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Readme.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Fullscreen/Readme.pdf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/README.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Documentation.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Documentation/TextMesh Pro User Guide 2016.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Documentation/TextMesh Pro User Guide 2016.pdf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Fonts.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Fonts/LiberationSans - OFL.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Fonts/LiberationSans - OFL.txt.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Fonts/LiberationSans.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Fonts/LiberationSans.ttf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/Fonts &amp; Materials.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Drop Shadow.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Drop Shadow.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Outline.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Outline.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/LineBreaking Following Characters.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/LineBreaking Following Characters.txt.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/LineBreaking Leading Characters.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/LineBreaking Leading Characters.txt.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/Sprite Assets.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/Sprite Assets/EmojiOne.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/Sprite Assets/EmojiOne.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/Style Sheets.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/Style Sheets/Default Style Sheet.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/Style Sheets/Default Style Sheet.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/TMP Settings.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/TMP Settings.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_Bitmap.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_Bitmap.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_SDF Overlay.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_SDF Overlay.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_SDF SSD.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_SDF SSD.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_SDF-Surface.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_SDF-Surface.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_SDF.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_SDF.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_Sprite.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMP_Sprite.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMPro.cginc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMPro.cginc.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMPro_Mobile.cginc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMPro_Mobile.cginc.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMPro_Properties.cginc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMPro_Properties.cginc.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMPro_Surface.cginc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Shaders/TMPro_Surface.cginc.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Sprites.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Sprites/EmojiOne Attribution.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Sprites/EmojiOne Attribution.txt.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Sprites/EmojiOne.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Sprites/EmojiOne.json.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Sprites/EmojiOne.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Sprites/EmojiOne.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Button Icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Button Icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Dropdown Icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Dropdown Icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Image Icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Image Icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/InputField Icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/InputField Icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/RawImage Icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/RawImage Icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/allign_bottom.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/allign_bottom.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/allign_center.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/allign_center.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/allign_left.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/allign_left.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/allign_middle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/allign_middle.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/allign_right.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/allign_right.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/allign_top.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/allign_top.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/distribute_horizontally.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/distribute_horizontally.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/distribute_vertically.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/distribute_vertically.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/free_parent_mode_off.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/free_parent_mode_off.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/free_parent_mode_on.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/free_parent_mode_on.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/snap_all_direction_point.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/snap_all_direction_point.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/snap_all_edges.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/snap_all_edges.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/snap_horizontal_edges.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/snap_horizontal_edges.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/snap_horizontal_point.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/snap_horizontal_point.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/snap_to_childs_all.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/snap_to_childs_all.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/snap_to_childs_h.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/snap_to_childs_h.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/snap_to_childs_v.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/snap_to_childs_v.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/snap_vertical_edges.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/snap_vertical_edges.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/snap_vertical_point.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/snap_vertical_point.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/wizard_banner.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Resources/wizard_banner.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/ScrollRect Icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/ScrollRect Icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Scrollbar Icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Scrollbar Icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Selectable Icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Selectable Icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Slider Icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Slider Icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Text Icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Text Icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Toggle Icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/Toggle Icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/anchor_override_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/anchor_override_icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/axis_aligned_layout_group_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/axis_aligned_layout_group_icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/content_size_fitter_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/content_size_fitter_icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/d_GridLayoutGroup Icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/d_GridLayoutGroup Icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/d_HorizontalLayoutGroup Icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/d_HorizontalLayoutGroup Icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/d_VerticalLayoutGroup Icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/d_VerticalLayoutGroup Icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/interaction_area_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/interaction_area_icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/layout_element_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/layout_element_icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/location_animations_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/location_animations_icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/override_screen_properites_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/override_screen_properites_icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/prefab_normal_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/prefab_normal_icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/prefab_normal_icon_black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/prefab_normal_icon_black.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/rect_transform_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/rect_transform_icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/scale_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/scale_icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/size_change_tracker_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Icons/size_change_tracker_icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Helpers.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Helpers/BetterElementHelper.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Helpers/BetterElementHelper.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Helpers/Betterizer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Helpers/Betterizer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Helpers/EditorGuiUtils.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Helpers/EditorGuiUtils.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Helpers/ScreenConfigConnectionHelper.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Helpers/ScreenConfigConnectionHelper.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Helpers/SerializedPropertyExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Helpers/SerializedPropertyExtensions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Helpers/SerializedPropertyUtil.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Helpers/SerializedPropertyUtil.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Helpers/StoredEditorValue.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Helpers/StoredEditorValue.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Helpers/TransitionsDrawer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Helpers/TransitionsDrawer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/ResolutionMonitorEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/ResolutionMonitorEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/ResolutionSizer.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/ResolutionSizer/MarginDrawer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/ResolutionSizer/MarginDrawer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/ResolutionSizer/SizeModifierDrawer.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/ResolutionSizer/SizeModifierDrawer/FloatSizeModifierDrawer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/ResolutionSizer/SizeModifierDrawer/FloatSizeModifierDrawer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/ResolutionSizer/SizeModifierDrawer/MarginSizeModifierDrawer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/ResolutionSizer/SizeModifierDrawer/MarginSizeModifierDrawer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/ResolutionSizer/SizeModifierDrawer/ScreenDependentSizeModifierDrawer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/ResolutionSizer/SizeModifierDrawer/ScreenDependentSizeModifierDrawer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/ResolutionSizer/SizeModifierDrawer/Vector2SizeModifierDrawer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/ResolutionSizer/SizeModifierDrawer/Vector2SizeModifierDrawer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/ResolutionSizer/SizeModifierDrawer/Vector3SizeModifierDrawer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/ResolutionSizer/SizeModifierDrawer/Vector3SizeModifierDrawer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterButtonEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterButtonEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterDropdownEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterDropdownEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterImageEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterImageEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterInputFieldEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterInputFieldEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterRawImageEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterRawImageEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterScrollRectEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterScrollRectEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterScrollbarEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterScrollbarEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterSelectableEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterSelectableEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterSliderEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterSliderEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterTextEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterTextEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterToggleEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/BetterToggleEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/ImageAppearanceProviderEditorHelper.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/ImageAppearanceProviderEditorHelper.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/InteractionAreaEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiElements/InteractionAreaEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/AnchorOverrideEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/AnchorOverrideEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/BetterAspectRatioFitterEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/BetterAspectRatioFitterEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/BetterAxisAlignedLayoutGroupEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/BetterAxisAlignedLayoutGroupEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/BetterContentSizeFitterEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/BetterContentSizeFitterEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/BetterGridLayoutGroupEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/BetterGridLayoutGroupEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/BetterHorizontalLayoutGroupEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/BetterHorizontalLayoutGroupEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/BetterHorizontalOrVerticalLayoutGroupEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/BetterHorizontalOrVerticalLayoutGroupEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/BetterLayoutElementEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/BetterLayoutElementEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/BetterLocatorEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/BetterLocatorEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/BetterVerticalLayoutGroupEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/BetterVerticalLayoutGroupEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/GameObjectActivatorEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/GameObjectActivatorEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/LocationAnimationsEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/LocationAnimationsEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/OverrideScreenPropertiesEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/OverrideScreenPropertiesEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/RectTransformDataDrawer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/RectTransformDataDrawer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/SizeDeltaSizerEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/SizeDeltaSizerEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/TransformScalerEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/UiLayout/TransformScalerEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Utils.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Utils/ScriptableObjectInstantiator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Utils/ScriptableObjectInstantiator.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/AlignDistribute.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/AlignDistribute/Align.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/AlignDistribute/Align.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/AlignDistribute/AlignDistributeEnums.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/AlignDistribute/AlignDistributeEnums.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/AlignDistribute/AlignDistributeWindow.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/AlignDistribute/AlignDistributeWindow.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/AlignDistribute/Distribute.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/AlignDistribute/Distribute.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/AlignDistribute/Utility.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/AlignDistribute/Utility.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/PointSelectorPopupWindow.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/PointSelectorPopupWindow.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/ResolutionPicker.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/ResolutionPicker.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/SetNameOrDeleteOptimizedScreen.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/SetNameOrDeleteOptimizedScreen.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/SmartParentWindow.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/SmartParentWindow.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/SnapAnchorsWindow.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Windows/SnapAnchorsWindow.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/Pages.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/Pages/AssemblyDefinitionsPage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/Pages/AssemblyDefinitionsPage.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/Pages/ExampleScenesPage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/Pages/ExampleScenesPage.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/Pages/FinalPage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/Pages/FinalPage.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/Pages/RefreshingPage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/Pages/RefreshingPage.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/Pages/ResolutionMonitorPage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/Pages/ResolutionMonitorPage.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/Pages/ThirdPartySupportPage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/Pages/ThirdPartySupportPage.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/Pages/ToolsPage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/Pages/ToolsPage.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/Pages/WelcomePage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/Pages/WelcomePage.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/SetupWizard.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/SetupWizard.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/IWizard.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/IWizard.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/IWizardDataElement.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/IWizardDataElement.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/PageElements.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/PageElements/CustomWizardPageElement.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/PageElements/CustomWizardPageElement.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/PageElements/InfoWithButtonWizardPageElement.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/PageElements/InfoWithButtonWizardPageElement.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/PageElements/InfoWizardPageElement.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/PageElements/InfoWizardPageElement.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/PageElements/InstallPackageSelectionWizardPageElement.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/PageElements/InstallPackageSelectionWizardPageElement.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/PageElements/SeparatorWizardPageElement.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/PageElements/SeparatorWizardPageElement.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/PageElements/UnserializedButtonPageElement.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/PageElements/UnserializedButtonPageElement.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/PageElements/ValueWizardPageElement.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/PageElements/ValueWizardPageElement.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/ParseHelper.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/ParseHelper.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/PersistentWizardData.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/PersistentWizardData.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/WizardPage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/WizardPage.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/WizardPageElementBase.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/Scripts/Wizard/WizardFramework/WizardPageElementBase.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/setup~.wizard" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Editor/setup~.wizard.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Packages.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Packages/BetterUI_TextMeshPro_EditorPanelUI.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Packages/BetterUI_TextMeshPro_UiEditorPanel.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Packages/Example_AnchorAnimations.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Packages/Example_CustomScreenTag.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Packages/Example_Ghost.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Packages/Example_Overview.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Packages/Example_ResolutionTracking.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Packages/asmdef_excl_TextMeshPro.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Packages/asmdef_incl_TextMeshPro.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Plugins.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Plugins/WebGL_dpi_fix.jslib" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Plugins/WebGL_dpi_fix.jslib.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/README.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/README.txt.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/ColorOverlay.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/ColorOverlay.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/ColorOverlay_Additive.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/ColorOverlay_Additive.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/ColorOverlay_LinearDodge.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/ColorOverlay_LinearDodge.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/ColorOverlay_Multiply.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/ColorOverlay_Multiply.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/ColorOverlay_Normal.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/ColorOverlay_Normal.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/ColorOverlay_Overlay.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/ColorOverlay_Overlay.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Grayscale.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Grayscale.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Grayscale_Additive.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Grayscale_Additive.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Grayscale_LinearDodge.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Grayscale_LinearDodge.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Grayscale_Multiply.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Grayscale_Multiply.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Grayscale_Normal.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Grayscale_Normal.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Grayscale_Overlay.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Grayscale_Overlay.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/HueSaturationBrightness.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/HueSaturationBrightness.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/HueSaturationBrightness_Additive.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/HueSaturationBrightness_Additive.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/HueSaturationBrightness_LinearDodge.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/HueSaturationBrightness_LinearDodge.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/HueSaturationBrightness_Multiply.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/HueSaturationBrightness_Multiply.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/HueSaturationBrightness_Normal.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/HueSaturationBrightness_Normal.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/HueSaturationBrightness_Overlay.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/HueSaturationBrightness_Overlay.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Standard.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Standard.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Standard_Additive.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Standard_Additive.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Standard_LinearDodge.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Standard_LinearDodge.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Standard_Multiply.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Standard_Multiply.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Standard_Normal.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Standard_Normal.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Standard_Overlay.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Resources/Materials/Standard_Overlay.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterButton.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterButton.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterDropdown.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterDropdown.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterImage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterImage.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterInputField.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterInputField.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterRawImage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterRawImage.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterScrollRect.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterScrollRect.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterScrollbar.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterScrollbar.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterSelectable.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterSelectable.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterSlider.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterSlider.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterText.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterText.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterToggle.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/BetterToggle.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/InteractionArea.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/InteractionArea.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/AlphaTransitions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/AlphaTransitions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/AnimationTransitions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/AnimationTransitions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/Color32Transitions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/Color32Transitions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/ColorTransitions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/ColorTransitions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/CustomTransition.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/CustomTransition.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/LocationAnimationTransitions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/LocationAnimationTransitions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/MaterialPropertyTransition.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/MaterialPropertyTransition.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/ObjectActivenessTransitions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/ObjectActivenessTransitions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/SpriteSwapTransitions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/SpriteSwapTransitions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/TransitionStateCollection.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/TransitionStateCollection.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/Transitions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiElements/Transitions/Transitions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/AnchorOverride.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/AnchorOverride.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/BetterAspectRatioFitter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/BetterAspectRatioFitter.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/BetterAxisAlignedLayoutGroup.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/BetterAxisAlignedLayoutGroup.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/BetterContentSizeFitter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/BetterContentSizeFitter.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/BetterGridLayoutGroup.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/BetterGridLayoutGroup.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/BetterHorizontalLayoutGroup.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/BetterHorizontalLayoutGroup.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/BetterLayoutElement.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/BetterLayoutElement.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/BetterLocator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/BetterLocator.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/BetterVerticalLayoutGroup.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/BetterVerticalLayoutGroup.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/GameObjectActivator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/GameObjectActivator.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/ILayoutChildDependency.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/ILayoutChildDependency.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/IScreenConfigConnection.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/IScreenConfigConnection.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/LocationAnimations.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/LocationAnimations.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/Margin.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/Margin.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/OverrideScreenProperties.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/OverrideScreenProperties.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/RectTransformData.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/RectTransformData.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/ResolutionSizer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/ResolutionSizer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeChangeTracker.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeChangeTracker.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeDeltaSizer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeDeltaSizer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeModifiers.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeModifiers/FloatSizeModifier.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeModifiers/FloatSizeModifier.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeModifiers/ImpactMode.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeModifiers/ImpactMode.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeModifiers/MarginSizeModifier.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeModifiers/MarginSizeModifier.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeModifiers/ResolutionDependentSize.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeModifiers/ResolutionDependentSize.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeModifiers/SizeConfigCollection.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeModifiers/SizeConfigCollection.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeModifiers/SizeModifierCollection.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeModifiers/SizeModifierCollection.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeModifiers/Vector2SizeModifier.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeModifiers/Vector2SizeModifier.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeModifiers/Vector3SizeModifier.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/SizeModifiers/Vector3SizeModifier.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/TransformScaler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/BetterUiLayout/TransformScaler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Extensions.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Extensions/RectTransformExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Extensions/RectTransformExtensions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Interfaces.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Interfaces/IBetterHorizontalOrVerticalLayoutGroup.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Interfaces/IBetterHorizontalOrVerticalLayoutGroup.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Interfaces/IBetterTransitionUiElement.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Interfaces/IBetterTransitionUiElement.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Interfaces/IImageAppearanceProvider.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Interfaces/IImageAppearanceProvider.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Interfaces/IResolutionDependency.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Interfaces/IResolutionDependency.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/DpiManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/DpiManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ImageAppearanceProviderHelper.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ImageAppearanceProviderHelper.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/IngameResolutionMonitor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/IngameResolutionMonitor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/Materials.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/Materials.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ResolutionMonitor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ResolutionMonitor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType/AspectRatio.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType/AspectRatio.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType/IIsActive.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType/IIsActive.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType/IScreenTypeCheck.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType/IScreenTypeCheck.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType/IsCertainAspectRatio.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType/IsCertainAspectRatio.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType/IsCertainScreenOrientation.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType/IsCertainScreenOrientation.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType/IsScreenOfCertainDeviceInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType/IsScreenOfCertainDeviceInfo.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType/IsScreenOfCertainSize.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType/IsScreenOfCertainSize.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType/IsScreenTagPresent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType/IsScreenTagPresent.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType/ScreenInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType/ScreenInfo.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType/ScreenTypeConditions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/ScreenType/ScreenTypeConditions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/SingletonScriptableObject.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/SingletonScriptableObject.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/StaticSizerMethod.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/StaticSizerMethod.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/VertexMaterialData.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI/Runtime/Scripts/Utils/VertexMaterialData.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Editor.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Editor/Icons.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Editor/Icons/TMP_Dropdown.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Editor/Icons/TMP_Dropdown.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Editor/Icons/TMP_InputField.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Editor/Icons/TMP_InputField.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Editor/Icons/TMP_Text.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Editor/Icons/TMP_Text.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Editor/Scripts.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Editor/Scripts/BetterTextMeshProDropdownEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Editor/Scripts/BetterTextMeshProDropdownEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Editor/Scripts/BetterTextMeshProInputFieldEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Editor/Scripts/BetterTextMeshProInputFieldEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Editor/Scripts/BetterTextMeshProUGUIEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Editor/Scripts/BetterTextMeshProUGUIEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Runtime.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Runtime/BetterTextMeshProDropdown.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Runtime/BetterTextMeshProDropdown.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Runtime/BetterTextMeshProInputField.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Runtime/BetterTextMeshProInputField.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Runtime/BetterTextMeshProUGUI.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/BetterUI_TextMeshPro/Runtime/BetterTextMeshProUGUI.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/Resources.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/Resources/ResolutionMonitor.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TheraBytes/Resources/ResolutionMonitor.asset.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +700,7 @@
     <setting file="file://$PROJECT_DIR$/../../../Udemy/DungeonGunnerCourse/Assets/Scripts/Sounds/SoundEffectManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Udemy/DungeonGunnerCourse/Assets/Scripts/Sounds/SoundEffectSO.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Udemy/DungeonGunnerCourse/Assets/Scripts/StaticEvents/StaticEventHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../Udemy/DungeonGunnerCourse/Assets/Scripts/UI/MainMenuUI.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -126,6 +766,7 @@
       <workItem from="1668932222691" duration="3486000" />
       <workItem from="1668937091170" duration="26541000" />
       <workItem from="1669015667323" duration="26586000" />
+      <workItem from="1669310027537" duration="5230000" />
     </task>
     <servers />
   </component>
