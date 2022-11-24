@@ -94,6 +94,7 @@ namespace Enemies
                     State = ActionState.Dashing;
                     break;
                 case ActionState.MovingToBread:
+                    //todo: capita che entra in sto stato e poi si bugga
                     if(State==ActionState.Roaming) movementManager.StopMovementRelatedCoroutine(CoroutineType.Moving);
                     movementManager.StartMovementRelatedCoroutine(CoroutineType.Moving);
                     State = ActionState.MovingToBread;

@@ -18,8 +18,9 @@ namespace Enemies
 
         private float _maxSpeed,
             _accelerationTimeSeconds,
+            _decelerationTimeSeconds,
             _idleTime,
-            _movementDuration,
+            _movementAtMaxSpeedDuration,
             _outerRadius,
             _chillingTime,
             _steeringValue;
@@ -46,8 +47,9 @@ namespace Enemies
             Species species = enemyFsm.MySpecies;
             _maxSpeed = species.maxSpeed;
             _accelerationTimeSeconds = species.accelerationTimeSeconds;
+            _decelerationTimeSeconds = species.decelerationTimeSeconds;
             _idleTime = species.idleTime;
-            _movementDuration = species.movementDuration;
+            _movementAtMaxSpeedDuration = species.movementAtMaxSpeedDuration;
             _outerRadius = species.outerRadiusCollider;
             _chillingTime = species.chillingTime;
             _steeringValue = species.steeringValue;
@@ -96,7 +98,7 @@ namespace Enemies
             //float distanceToTravel = _maxSpeed * _movementDuration * _movMultiplier;
             //Vector3 finalDestination = _parentGameObject.transform.position + (_movingVector * _movementDuration * _movMultiplier);//directionToEvaluate * distanceToTravel;
             return false;
-            float timeAtMaxSpeed = _movementDuration * _movMultiplier - _accelerationTimeSeconds;
+            float timeAtMaxSpeed = _movementAtMaxSpeedDuration * _movMultiplier - _accelerationTimeSeconds;
             Vector3 movementVectorAtMaxSpeed = _movingVector * timeAtMaxSpeed;
             Vector3 finalDestination = _parentGameObject.transform.position + movementVectorAtMaxSpeed;
 
@@ -108,7 +110,7 @@ namespace Enemies
         private IEnumerator TemporaryIdleCoroutine(){
             while (enemyFsm.State == EnemyFSM.ActionState.Roaming){
                 StartMovement();
-                yield return new WaitForSeconds(_movementDuration * _movMultiplier);
+                yield return new WaitForSeconds(_accelerationTimeSeconds +_movementAtMaxSpeedDuration * _movMultiplier);
                 StopRoaming();
                 yield return new WaitForSeconds(_idleTime);
             }
@@ -129,7 +131,7 @@ namespace Enemies
             StopCoroutine(_accelerateCoroutine);
             while (_speedPerc > 0){
                 _speedPerc -= 0.01f;
-                yield return new WaitForSeconds(_accelerationTimeSeconds / 100);
+                yield return new WaitForSeconds(_decelerationTimeSeconds / 100);
             }
 
             StopCoroutine(_movingCoroutineVar);
