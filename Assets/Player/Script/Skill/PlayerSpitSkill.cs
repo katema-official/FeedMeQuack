@@ -14,6 +14,24 @@ namespace Player
         [SerializeField] private float _chargeSpeed = 0.0f;
         //------------------------------------------
 
+        private PlayerController _controller = null;
+        private PlayerMoveSkill _moveSkill = null;
+        private PlayerSpitSkillDescriptionSO _spitDesc = null;
+
+        private BreadController _locatedBread = null;
+        private BreadController _catchedBread = null;
+
+        public override void SetDescription(PlayerSkillDescriptionSO desc)
+        {
+            _description = desc;
+            _spitDesc = (PlayerSpitSkillDescriptionSO)_description;
+
+            _maxPower = _spitDesc.MaxPower;
+            _maxRange = _spitDesc.MaxRange ;
+            _coolDown = _spitDesc.CoolDown;
+            _chargeSpeed = _spitDesc.ChargeSpeed;
+
+        }
 
         // Start is called before the first frame update
         void Start()
