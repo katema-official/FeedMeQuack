@@ -13,8 +13,10 @@ namespace Player
         [SerializeField] private float _coolDown = 0.0f;
         [SerializeField] private float _chargeSpeed = 0.0f;
         //------------------------------------------
-      
+
         //-------------------------------------
+        private float _spitElapsedSeconds = 0.0f;
+        private float _spitCoolDownElapsedSeconds = 0.0f;
         private float _spitPower = 0.0f;
         private bool _canSpit = false;
         //-------------------------------------
@@ -32,7 +34,7 @@ namespace Player
             _spitDesc = (PlayerSpitSkillDescriptionSO)_description;
 
             _maxPower = _spitDesc.MaxPower;
-            _maxRange = _spitDesc.MaxRange ;
+            _maxRange = _spitDesc.MaxRange;
             _coolDown = _spitDesc.CoolDown;
             _chargeSpeed = _spitDesc.ChargeSpeed;
         }
@@ -61,17 +63,19 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Z) && _eatSkill.GetCatchedBread())
+            if (Input.GetKeyDown(KeyCode.Z) && _eatSkill.GetCatchedBread() && _spitCoolDownElapsedSeconds <= 0)
             {
                 _controller.ChangeState(PlayerState.Spitting);
 
                 if (_controller.GetState() == PlayerState.Spitting)
+                {
                     _moveSkill.EnableInput(true);
+                }
 
                 CheckData();
             }
 
-            if (Input.GetKeyUp(KeyCode.Z) && _eatSkill.GetCatchedBread())
+            if (Input.GetKeyUp(KeyCode.Z) && _eatSkill.GetCatchedBread() && _spitCoolDownElapsedSeconds <= 0)
             {
                 _canSpit = true;
             }
@@ -81,15 +85,17 @@ namespace Player
                 _controller.ChangeState(PlayerState.Normal);
 
                 if (_controller.GetState() == PlayerState.Normal)
+                {
                     _moveSkill.EnableInput(true);
-
+                    _spitCoolDownElapsedSeconds = _coolDown;
+                }
                 CheckData();
             }
         }
 
         void FixedUpdate()
         {
-            if (_controller.GetState() == PlayerState.Spitting && _eatSkill.GetCatchedBread() && !_canSpit)
+            if (_controller.GetState() == PlayerState.Spitting && _eatSkill.GetCatchedBread() && !_canSpit && _spitCoolDownElapsedSeconds <= 0)
             {
                 _moveSkill.Rotate();
                 _eatSkill.GetCatchedBread().Move(_controller.GetMouthTransform().position);
@@ -110,6 +116,12 @@ namespace Player
             if (_controller.GetState() == PlayerState.Spitting && _eatSkill.GetCatchedBread() && _canSpit)
             {
                 _eatSkill.ReleaseBread();
+                _spitPower = 0;
+            }
+
+            if (_controller.GetState() != PlayerState.Spitting && _spitCoolDownElapsedSeconds > 0)
+            {
+                _spitCoolDownElapsedSeconds -= Time.deltaTime;
             }
         }
     }

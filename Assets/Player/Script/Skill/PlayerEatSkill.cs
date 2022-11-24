@@ -55,7 +55,7 @@ namespace Player
             return res;
         }
 
-        public HashSet<BreadNamespace.BreadInMouthComponent> GetCatchedBread()
+        public BreadNamespace.BreadInMouthComponent GetCatchedBread()
         {
             return _catchedBread;
         }
@@ -64,6 +64,7 @@ namespace Player
         {
             if (_controller.GetState() != PlayerState.Eating && _catchedBread)
             {
+                //_catchedBread.
                 _catchedBread = null;
             }
         }

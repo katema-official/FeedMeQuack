@@ -136,21 +136,22 @@ namespace Player
 
 
 
-                _rotationMovement = angle;
+               // _rotationMovement = angle;
             { 
                 if (_enableInput)
-                { 
-                    _finalDir = _forwardAxis + _rightwardAxis;
+                {
+                    _finalDir = _forwardAxis;// _forwardAxis + _rightwardAxis;
                     _finalDir.Normalize(); 
-                    float angle = Mathf.Atan2(-_finalDir.x, _finalDir.y) * Mathf.Rad2Deg;
-                    _rotationMovement = angle;
-                }
+                } 
+
+                float angle = Mathf.Atan2(-_finalDir.x, _finalDir.y) * Mathf.Rad2Deg;
+                _rotationMovement = angle;
 
                 _force = speed * 1.5f;
                 _rigidBody.AddForce(_finalDir * _force, ForceMode2D.Force);
                 _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity, speed); 
                 
-                Debug.Log("Current player velocity: " +  angle);
+               // Debug.Log("Current player velocity: " +  angle);
             }
 
             _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
@@ -185,13 +186,19 @@ namespace Player
         {
             if (_moveForward)
             {
-                _finalDir = _forwardAxis + _rightwardAxis;
-                _finalDir.Normalize();
+                if (_enableInput)
+                {
+                    _finalDir = _forwardAxis;// _forwardAxis + _rightwardAxis;
+                    _finalDir.Normalize();
+                }
+
                 float angle = Mathf.Atan2(-_finalDir.x, _finalDir.y) * Mathf.Rad2Deg;
                 _rotationMovement = angle;
             }
 
             _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
+
+            MoveCamera();
         }
 
         private void Awake()
