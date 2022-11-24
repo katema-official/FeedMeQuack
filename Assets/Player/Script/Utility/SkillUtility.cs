@@ -17,6 +17,8 @@ namespace Player
                 skill = gameObject.AddComponent<PlayerEatSkill>();
             else if (description.Type.Name == "DashSkill")
                 skill = gameObject.AddComponent<PlayerDashSkill>();
+            else if (description.Type.Name == "SpitSkill")
+                skill = gameObject.AddComponent<PlayerSpitSkill>();
 
             if (skill)
             { 

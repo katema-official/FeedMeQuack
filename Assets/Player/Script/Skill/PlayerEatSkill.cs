@@ -60,6 +60,14 @@ namespace Player
             return _catchedBread;
         }
 
+        public void ReleaseBread()
+        {
+            if (_controller.GetState() != PlayerState.Eating && _catchedBread)
+            {
+                _catchedBread = null;
+            }
+        }
+
 
         private void Awake()
         {

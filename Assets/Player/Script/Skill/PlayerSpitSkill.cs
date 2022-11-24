@@ -64,6 +64,10 @@ namespace Player
             if (Input.GetKeyDown(KeyCode.Z) && _eatSkill.GetCatchedBread())
             {
                 _controller.ChangeState(PlayerState.Spitting);
+
+                if (_controller.GetState() == PlayerState.Spitting)
+                    _moveSkill.EnableInput(true);
+
                 CheckData();
             }
 
@@ -75,13 +79,38 @@ namespace Player
             if (_canSpit && !_eatSkill.GetCatchedBread())
             {
                 _controller.ChangeState(PlayerState.Normal);
+
+                if (_controller.GetState() == PlayerState.Normal)
+                    _moveSkill.EnableInput(true);
+
                 CheckData();
             }
         }
 
         void FixedUpdate()
         {
+            if (_controller.GetState() == PlayerState.Spitting && _eatSkill.GetCatchedBread() && !_canSpit)
+            {
+                _moveSkill.Rotate();
+                _eatSkill.GetCatchedBread().Move(_controller.GetMouthTransform().position);
 
+                if (_spitPower < _maxPower)
+                {
+                    _spitPower += _chargeSpeed * Time.deltaTime;
+                    Debug.Log("Spit Power: " + _spitPower);
+                }
+                else
+                {
+                    _spitPower = _maxPower;
+                    Debug.Log("Max Spit Power Reached: " + _spitPower);
+                }
+            }
+
+
+            if (_controller.GetState() == PlayerState.Spitting && _eatSkill.GetCatchedBread() && _canSpit)
+            {
+                _eatSkill.ReleaseBread();
+            }
         }
     }
 }
