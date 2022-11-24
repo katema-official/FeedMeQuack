@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 
 public class MenuManager : Singleton<MenuManager>
@@ -75,7 +76,8 @@ public class MenuManager : Singleton<MenuManager>
     
     public void OpenLevelsMenu()
     {
-        SetMenu(Menu.Levels);
+        SceneManager.LoadScene("StartRunLoading");
+        //SetMenu(Menu.Levels);
     }
 
     public void OpenSettingsMenu()

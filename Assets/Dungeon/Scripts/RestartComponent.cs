@@ -21,5 +21,9 @@ public class RestartComponent : MonoBehaviour
         {
             SceneManager.LoadScene("StartRunLoading");
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 }
