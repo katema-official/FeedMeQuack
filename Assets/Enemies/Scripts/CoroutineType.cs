@@ -9,6 +9,7 @@
         Decelerate,
         Eat,
         Chase,
-        SteerForBread
+        SteerForBread,
+        Recovery
     }
 }

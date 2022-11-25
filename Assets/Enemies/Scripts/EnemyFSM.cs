@@ -66,6 +66,7 @@ namespace Enemies
                 breadTargeted = null;
                 if(newState!=ActionState.Eating) movementManager.StopMoving(); //coroutine already stopped in the switch case below
                 movementManager.StopMovementRelatedCoroutine(CoroutineType.SteerForBread);
+                movementManager.StopMovementRelatedCoroutine(CoroutineType.Recovery);
             }
 
             if (State == ActionState.Chasing){
@@ -98,6 +99,7 @@ namespace Enemies
                     if(State==ActionState.Roaming) movementManager.StopMovementRelatedCoroutine(CoroutineType.Moving);
                     movementManager.StartMovementRelatedCoroutine(CoroutineType.Moving);
                     State = ActionState.MovingToBread;
+                    movementManager.StartMovementRelatedCoroutine(CoroutineType.Recovery);
                     break;
                 case ActionState.Eating:
                     collisionManager.TurnOffColliders();

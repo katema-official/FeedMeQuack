@@ -31,13 +31,12 @@ namespace Enemies
             _decelerateCoroutine,
             _steerForBreadCoroutine,
             _chasingPlayerCoroutine,
-            _chillingCoroutine;
+            _chillingCoroutine,
+            _recoveryCoroutine;
 
         [SerializeField] private Vector3 _movingVector;
 
         private GameObject _enemyGameObject, _breadTargeted, _parentGameObject;
-
-        private float _movMultiplier;
 
         private LevelStageNamespace.LakeShopDescriptionComponent _lakeShopDescriptionComponent;
 
@@ -81,26 +80,21 @@ namespace Enemies
         }
 
         private void ChangeDirection(){
-            _movMultiplier = Random.Range(0.8f, 1.2f);
-            float rng = Random.Range(0, 8);
             bool wouldHitBorder = true;
             while (wouldHitBorder){
                 _movingVector = new Vector2(_maxSpeed, 0);
-                rng = Random.Range(0, 8);
-                _movMultiplier = Random.Range(0.8f, 1.2f);
+                float rng = Random.Range(0, 8);
                 _movingVector = Quaternion.AngleAxis(rng * 45, Vector3.forward) * _movingVector;
-                wouldHitBorder = CheckIfMovementWouldHitBorder(_movingVector);
+                wouldHitBorder = CheckIfMovementWouldHitBorder();
             }
         }
 
-        private bool CheckIfMovementWouldHitBorder(Vector3 directionToEvaluate){
+        private bool CheckIfMovementWouldHitBorder(){
             //return false;
             //float distanceToTravel = _maxSpeed * _movementDuration * _movMultiplier;
             //Vector3 finalDestination = _parentGameObject.transform.position + (_movingVector * _movementDuration * _movMultiplier);//directionToEvaluate * distanceToTravel;
-            return false;
-            float timeAtMaxSpeed = _movementAtMaxSpeedDuration * _movMultiplier - _accelerationTimeSeconds;
-            Vector3 movementVectorAtMaxSpeed = _movingVector * timeAtMaxSpeed;
-            Vector3 finalDestination = _parentGameObject.transform.position + movementVectorAtMaxSpeed;
+            Vector3 movementVectorAtMaxSpeed = _movingVector * _movementAtMaxSpeedDuration;
+            Vector3 finalDestination = _parentGameObject.transform.position + movementVectorAtMaxSpeed * 1.1f;
 
             return !_lakeShopDescriptionComponent.Contains(finalDestination);   //return
             //return false;
@@ -110,7 +104,7 @@ namespace Enemies
         private IEnumerator TemporaryIdleCoroutine(){
             while (enemyFsm.State == EnemyFSM.ActionState.Roaming){
                 StartMovement();
-                yield return new WaitForSeconds(_accelerationTimeSeconds +_movementAtMaxSpeedDuration * _movMultiplier);
+                yield return new WaitForSeconds(_accelerationTimeSeconds +_movementAtMaxSpeedDuration);
                 StopRoaming();
                 yield return new WaitForSeconds(_idleTime);
             }
@@ -207,6 +201,9 @@ namespace Enemies
                 case CoroutineType.GoToBread:
 
                     break;
+                case  CoroutineType.Recovery:
+                    _recoveryCoroutine = StartCoroutine(RecoveryFromStandingStillCoroutine());
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(coroutineType), coroutineType, null);
             }
@@ -234,6 +231,9 @@ namespace Enemies
                     break;
                 case CoroutineType.SteerForBread:
                     StopCoroutine(_steerForBreadCoroutine);
+                    break;
+                case CoroutineType.Recovery:
+                    StopCoroutine(_recoveryCoroutine);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(coroutineType), coroutineType, null);
@@ -269,6 +269,22 @@ namespace Enemies
 
         public void StopChilling(){
             StopCoroutine(_chillingCoroutine);
+        }
+
+        private IEnumerator RecoveryFromStandingStillCoroutine(){
+            Vector3 oldPosition = _parentGameObject.transform.position;
+            EnemyFSM.ActionState state = enemyFsm.State;
+            while (true){
+                if (state == EnemyFSM.ActionState.MovingToBread){
+                    yield return new WaitForSeconds(1);
+                    Vector3 newPosition = _parentGameObject.transform.position;
+                    if (newPosition != oldPosition) oldPosition = newPosition;
+                    else{
+                        enemyFsm.ChangeState(EnemyFSM.ActionState.Roaming);
+                    }
+                }
+            }
+            yield return null;
         }
     }
 }

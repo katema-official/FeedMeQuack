@@ -16,8 +16,9 @@ MonoBehaviour:
   maxSpeed: 20
   chewingRate: 1
   idleTime: 2
-  movementDuration: 1
+  movementAtMaxSpeedDuration: 1.5
   accelerationTimeSeconds: 0.5
+  decelerationTimeSeconds: 0.5
   chillingTime: 3
   steeringValue: 100
   innerRadiusCollider: 5
