@@ -15,9 +15,8 @@ namespace Player
         //------------------------------------------
 
         //-------------------------------------
-        private float _spitElapsedSeconds = 0.0f;
-        private float _spitCoolDownElapsedSeconds = 0.0f;
-        private float _spitPower = 0.0f;
+        [SerializeField]  private float _spitCoolDownElapsedSeconds = 0.0f;
+        [SerializeField]  private float _spitPower = 0.0f;
         private bool _canSpit = false;
         //-------------------------------------
 

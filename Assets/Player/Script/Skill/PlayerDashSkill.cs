@@ -11,8 +11,8 @@ namespace Player
         [SerializeField] private float _maxDuration = 0.0f;
         [SerializeField] private float _coolDown = 0.0f;
         //-------------------------------------
-        private float _dashElapsedSeconds = 0.0f;
-        private float _dashCoolDownElapsedSeconds = 0.0f;
+        [SerializeField] private float _dashElapsedSeconds = 0.0f;
+        [SerializeField] private float _dashCoolDownElapsedSeconds = 0.0f;
         private float _noDashArea = 10.0f;
         //-------------------------------------
 
