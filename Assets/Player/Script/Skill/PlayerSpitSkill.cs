@@ -19,6 +19,7 @@ namespace Player
         [SerializeField]  private float _spitPower = 0.0f;
         private bool _canSpit = false;
         private GameObject _spitArrow = null;
+        private GameObject _spitProgressBar = null;
         //-------------------------------------
 
 
@@ -54,6 +55,9 @@ namespace Player
             _moveSkill = GetComponent<PlayerMoveSkill>();
             _eatSkill = GetComponent<PlayerEatSkill>();
             _spitArrow = GameObject.Find("SpitArrow");
+            _spitProgressBar = GameObject.Find("SpitProgressBar");
+            _spitArrow.SetActive(false);
+            _spitProgressBar.SetActive(false);
         }
         // Start is called before the first frame update
         void Start()
@@ -71,6 +75,8 @@ namespace Player
                 if (_controller.GetState() == PlayerState.Spitting)
                 {
                     _moveSkill.EnableInput(true);
+                    _spitArrow.SetActive(true);
+                    _spitProgressBar.SetActive(true);
                 }
 
                 CheckData();
@@ -87,15 +93,15 @@ namespace Player
 
                 if (_controller.GetState() == PlayerState.Normal)
                 {
+                    _spitArrow.SetActive(false);
+                    _spitProgressBar.SetActive(false);
                     _moveSkill.EnableInput(true);
                     _spitCoolDownElapsedSeconds = _coolDown;
                 }
                 CheckData();
             }
 
-            _spitArrow.transform.rotation = (Quaternion.AngleAxis(_moveSkill.GetAngle(), Vector3.forward));
-
-
+         
            // _spitArrow.transform.rotation = Quaternion.//Rotate(new Vector3(0, 0, _moveSkill.GetAngle() * Mathf.Deg2Rad), Space.World);
             Debug.Log("Spit Power: " + _moveSkill.GetAngle());
         }
@@ -110,7 +116,11 @@ namespace Player
             {
                 _moveSkill.Rotate();
                 _eatSkill.GetCatchedBread().Move(_controller.GetMouthTransform().position);
-               
+                _spitArrow.transform.position = _controller.GetPosition();
+                _spitArrow.transform.rotation = (Quaternion.AngleAxis(_moveSkill.GetAngle(), Vector3.forward));
+
+                _spitProgressBar.transform.position = _controller.GetPosition();
+
 
                 if (_spitPower < _maxPower)
                 {
