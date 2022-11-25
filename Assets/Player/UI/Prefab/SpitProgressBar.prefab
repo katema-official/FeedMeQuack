@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7486298366992837978}
   - component: {fileID: 6474543425425354763}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Outer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,6 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3848852236411071565}
+  - component: {fileID: 1563543036273940194}
   m_Layer: 0
   m_Name: SpitProgressBar
   m_TagString: Untagged
@@ -118,6 +119,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1563543036273940194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2945353291414194016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f5f7e1f6c392b8489ce80919f219d6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5750716353882299854
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,7 +142,7 @@ GameObject:
   - component: {fileID: 9049995852958127206}
   - component: {fileID: 4041959725008111445}
   m_Layer: 0
-  m_Name: Square (1)
+  m_Name: Inner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -213,7 +226,7 @@ GameObject:
   - component: {fileID: 1663866909379481274}
   - component: {fileID: 324788647468158095}
   m_Layer: 0
-  m_Name: Square (2)
+  m_Name: Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -227,8 +240,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6414616883346912406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.3993, y: -1.9926, z: 0}
-  m_LocalScale: {x: 3.0488467, y: 0.8766861, z: 1}
+  m_LocalPosition: {x: -0.0024, y: -1.9926, z: 0}
+  m_LocalScale: {x: 3.8427665, y: 0.8766861, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3848852236411071565}

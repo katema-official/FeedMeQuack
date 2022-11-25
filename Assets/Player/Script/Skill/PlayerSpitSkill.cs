@@ -19,7 +19,7 @@ namespace Player
         [SerializeField]  private float _spitPower = 0.0f;
         private bool _canSpit = false;
         private GameObject _spitArrow = null;
-        private GameObject _spitProgressBar = null;
+        private SpitProgressBar _spitProgressBar = null;
         //-------------------------------------
 
 
@@ -55,9 +55,9 @@ namespace Player
             _moveSkill = GetComponent<PlayerMoveSkill>();
             _eatSkill = GetComponent<PlayerEatSkill>();
             _spitArrow = GameObject.Find("SpitArrow");
-            _spitProgressBar = GameObject.Find("SpitProgressBar");
+            _spitProgressBar = GameObject.FindObjectOfType<SpitProgressBar>();
             _spitArrow.SetActive(false);
-            _spitProgressBar.SetActive(false);
+            _spitProgressBar.gameObject.SetActive(false);
         }
         // Start is called before the first frame update
         void Start()
@@ -76,13 +76,14 @@ namespace Player
                 {
                     _moveSkill.EnableInput(true);
                     _spitArrow.SetActive(true);
-                    _spitProgressBar.SetActive(true);
+                    _spitProgressBar.gameObject.SetActive(true);
                 }
 
                 CheckData();
             }
 
-            if (Input.GetKeyUp(KeyCode.Z) && _eatSkill.GetCatchedBread() && _spitCoolDownElapsedSeconds <= 0)
+            if ((Input.GetKeyUp(KeyCode.Z) && _eatSkill.GetCatchedBread() && _spitCoolDownElapsedSeconds <= 0) ||
+                (_spitPower >= _maxPower))
             {
                 _canSpit = true;
             }
@@ -94,7 +95,9 @@ namespace Player
                 if (_controller.GetState() == PlayerState.Normal)
                 {
                     _spitArrow.SetActive(false);
-                    _spitProgressBar.SetActive(false);
+                   _spitProgressBar.SetProgress(0);
+                    _spitProgressBar.gameObject.SetActive(false);
+
                     _moveSkill.EnableInput(true);
                     _spitCoolDownElapsedSeconds = _coolDown;
                 }
@@ -119,8 +122,8 @@ namespace Player
                 _spitArrow.transform.position = _controller.GetPosition();
                 _spitArrow.transform.rotation = (Quaternion.AngleAxis(_moveSkill.GetAngle(), Vector3.forward));
 
-                _spitProgressBar.transform.position = _controller.GetPosition();
-
+                _spitProgressBar.gameObject.transform.position = _controller.GetPosition();
+                _spitProgressBar.SetProgress((_spitPower / _maxPower));
 
                 if (_spitPower < _maxPower)
                 {
