@@ -18,6 +18,7 @@ namespace Player
         [SerializeField]  private float _spitCoolDownElapsedSeconds = 0.0f;
         [SerializeField]  private float _spitPower = 0.0f;
         private bool _canSpit = false;
+        private GameObject _spitArrow = null;
         //-------------------------------------
 
 
@@ -52,6 +53,7 @@ namespace Player
             _controller = GetComponent<PlayerController>();
             _moveSkill = GetComponent<PlayerMoveSkill>();
             _eatSkill = GetComponent<PlayerEatSkill>();
+            _spitArrow = GameObject.Find("SpitArrow");
         }
         // Start is called before the first frame update
         void Start()
@@ -90,24 +92,35 @@ namespace Player
                 }
                 CheckData();
             }
+
+            _spitArrow.transform.rotation = (Quaternion.AngleAxis(_moveSkill.GetAngle(), Vector3.forward));
+
+
+           // _spitArrow.transform.rotation = Quaternion.//Rotate(new Vector3(0, 0, _moveSkill.GetAngle() * Mathf.Deg2Rad), Space.World);
+            Debug.Log("Spit Power: " + _moveSkill.GetAngle());
         }
 
         void FixedUpdate()
         {
+            
+            
+
+
             if (_controller.GetState() == PlayerState.Spitting && _eatSkill.GetCatchedBread() && !_canSpit && _spitCoolDownElapsedSeconds <= 0)
             {
                 _moveSkill.Rotate();
                 _eatSkill.GetCatchedBread().Move(_controller.GetMouthTransform().position);
+               
 
                 if (_spitPower < _maxPower)
                 {
                     _spitPower += _chargeSpeed * Time.deltaTime;
-                    Debug.Log("Spit Power: " + _spitPower);
+                   // Debug.Log("Spit Power: " + _spitPower);
                 }
                 else
                 {
                     _spitPower = _maxPower;
-                    Debug.Log("Max Spit Power Reached: " + _spitPower);
+                  //  Debug.Log("Max Spit Power Reached: " + _spitPower);
                 }
             }
 

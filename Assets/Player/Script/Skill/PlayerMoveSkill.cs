@@ -50,7 +50,10 @@ namespace Player
         {
             return _finalDir;
         }
-
+        public float GetAngle()
+        {
+            return _rotationMovement;
+        }
         //public void SetOverrideSpeed(float overrideSpeed)
         //{
         //    _overrideSpeed = overrideSpeed;
