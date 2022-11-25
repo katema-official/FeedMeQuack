@@ -2,21 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QTEButtonCollisionDetectionComponent : MonoBehaviour
-{
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.transform.parent.gameObject.name == "QuickTimeEventManagerGameobject")
-        {
-            Debug.Log("TOUCH");
-        }
-    }
+namespace QTEStealNamespace {
 
-    private void OnTriggerExit2D(Collider2D collision)
+    public class QTEButtonCollisionDetectionComponent : MonoBehaviour
     {
-        if (collision.gameObject.transform.parent.gameObject.name == "QuickTimeEventManagerGameobject")
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            Debug.Log("UN-TOUCH");
+            if (collision.gameObject.transform.parent.gameObject.name == "QuickTimeEventManagerGameobject")
+            {
+                Debug.Log("TOUCH");
+                transform.parent.gameObject.GetComponent<QTEButtonManagerComponent>().ChangeState(EnumsQTESteal.QTEButtonState.InPressing);
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.gameObject.transform.parent.gameObject.name == "QuickTimeEventManagerGameobject")
+            {
+                Debug.Log("UN-TOUCH");
+                transform.parent.gameObject.GetComponent<QTEButtonManagerComponent>().ChangeState(EnumsQTESteal.QTEButtonState.Failure);
+            }
         }
     }
 }
