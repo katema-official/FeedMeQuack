@@ -114,6 +114,9 @@ namespace Player
 
             if (_controller.GetState() == PlayerState.Spitting && _eatSkill.GetCatchedBread() && _canSpit)
             {
+                Vector3 startPos = _controller.GetPosition();
+                Vector3 endPos = _controller.GetPosition() + _moveSkill.GetDirection() * (_maxRange * (_spitPower / _maxPower));
+
                 _eatSkill.ReleaseBread();
                 _spitPower = 0;
             }
