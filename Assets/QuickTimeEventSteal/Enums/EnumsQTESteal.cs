@@ -16,6 +16,13 @@ namespace QTEStealNamespace
             Right
         };
 
+        public enum QTEButtonState
+        {
+            BeforePress,    //when the button is moving towars the area in which it needs to be pressed
+            InPressing,     //when the button is inside the area in which it needs to be pressed
+            Success,        //if the button was correctly pressed
+            Failure         //If the button was not correctly pressed or not pressed at all
+        }
     }
 
 
