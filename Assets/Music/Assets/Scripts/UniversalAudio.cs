@@ -48,37 +48,34 @@ namespace Music.Assets.Scripts // To change correctly
         // Main initializations 
 
         //Now Initialize the variable (the instance _universalAudioMonoBehaviour)
-        private static void Init()
+        private static void Init(GameObject musicManagerGO)
         {
             // If the instance not exists the first time we call the static class
             if (_universalAudioMonoBehaviour == null)
             {
-                //Create an empty object called UniversalAudioMB
-                GameObject gameObject = new GameObject("UniversalAudioMonoBehaviour");
-
 
                 //Add this script to the object
-                _universalAudioMonoBehaviour = gameObject.AddComponent<UniversalAudioMonoBehaviour>();
+                _universalAudioMonoBehaviour = musicManagerGO.AddComponent<UniversalAudioMonoBehaviour>();
             }
         }
 
-        private static void CreateAudioSources()
+        private static void GetAudioSources(GameObject musicManager)
         {
             // Create the AudioSources if they not exist
             if (_audioSource1 == null)
             {
                 //Create an empty object called MyStatic
-                GameObject gameObject = new GameObject("AudioSource1");
+                GameObject gameObject = musicManager.transform.Find("AudioSource1").gameObject;
 
                 //Add this script to the object
-                _audioSource1 = gameObject.AddComponent<AudioSource>();
+                _audioSource1 = gameObject.GetComponent<AudioSource>();
             }
 
             if (_audioSource2 == null)
             {
-                GameObject gameObject = new GameObject("AudioSource2");
+                GameObject gameObject = musicManager.transform.Find("AudioSource2").gameObject;
 
-                _audioSource2 = gameObject.AddComponent<AudioSource>();
+                _audioSource2 = gameObject.GetComponent<AudioSource>();
             }
 
             // To enable looping 
@@ -147,12 +144,12 @@ namespace Music.Assets.Scripts // To change correctly
         }
         
         //Now, a simple function to initialize in one shot all the main stuff
-        public static void InitAllCoroutine()
+        public static void InitAllCoroutine(GameObject musicManagerGO)
         {
             // Call the initializers 
             //CreateSlider();
-            Init();
-            CreateAudioSources();
+            Init(musicManagerGO);
+            GetAudioSources(musicManagerGO);
             InitDictionary();
         }
 

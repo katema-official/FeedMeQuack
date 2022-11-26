@@ -31,6 +31,9 @@ namespace LevelStageNamespace
                 //then, we have to start generating the bread for this lake. The component that will do so is
                 //in the WholeLake object, and the specific component will be the LakeDescriptionComponent
                 _lakeDescriptionComponent.StartThrowingAllTheBread();
+
+                //MUSIC: since this is a new "combat" room, reproduce combat music
+                Music.Assets.Scripts.UniversalAudio.PlayMusic("Combat", true);
             }
         }
 

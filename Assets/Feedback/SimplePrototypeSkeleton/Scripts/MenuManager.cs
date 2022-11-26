@@ -8,6 +8,9 @@ using Debug = UnityEngine.Debug;
 
 public class MenuManager : Singleton<MenuManager>
 {
+
+
+
     public enum Menu
     {
         Main,
@@ -57,16 +60,29 @@ public class MenuManager : Singleton<MenuManager>
     }
     // Start is called before the first frame update
     void Start()
-    {    
+    {
         SetMenu(Menu.Main);
+        StartCoroutine(StartMusicCoroutine());
     }
 
-    private void Update()
+    //How much did it cost?
+    //Everything.
+    IEnumerator StartMusicCoroutine()
+    {
+        yield return new WaitForSeconds(0.01f);
+        Music.Assets.Scripts.UniversalAudio.PlayMusic("Menu", false);
+        yield return null;
+    }
+
+
+        private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             SetMenu(Menu.Main);
         }
+
+
     }
     
     public void OpenMainMenu()

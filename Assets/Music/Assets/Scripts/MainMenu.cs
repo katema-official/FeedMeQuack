@@ -20,18 +20,19 @@ namespace Music.Assets.Scripts // To change correctly
       private void Awake()
       {
          //UniversalAudio.CreateSlider();
-         UniversalAudio.InitAllCoroutine();
+         //UniversalAudio.InitAllCoroutine();
       }
 
       private void Start()
       {
          UniversalAudio.PlayMusic("Menu", false);
+         
       }
 
       private void Update()
       {
-         //StartCoroutine(UniversalAudio.ChangeVolumes());
-         StartCoroutine(UniversalAudio.UpdateTime());
-      }
+            //StartCoroutine(UniversalAudio.ChangeVolumes());
+            //StartCoroutine(UniversalAudio.UpdateTime());
+        }
    }
 }

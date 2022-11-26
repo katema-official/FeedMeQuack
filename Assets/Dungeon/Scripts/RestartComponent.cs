@@ -12,6 +12,7 @@ public class RestartComponent : MonoBehaviour
         Destroy(GameObject.Find("LevelStageManager"));
         Destroy(GameObject.Find("DuckPlayer"));
         Destroy(GameObject.Find("DuckTypeManager"));
+        Music.Assets.Scripts.UniversalAudio.PlaySound("GameOver", transform);
     }
 
     // Update is called once per frame
