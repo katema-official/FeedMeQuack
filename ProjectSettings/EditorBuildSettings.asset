@@ -9,15 +9,15 @@ EditorBuildSettings:
     path: Assets/Dungeon/Scenes/LakeSmall.unity
     guid: 37ef3562e6d7f3e44a80c898151ff78f
   - enabled: 1
-    path: Assets/Dungeon/Scenes/StartRunLoading.unity
-    guid: d9b8f4d538a655f4bb241783601c97cb
+    path: Assets/Dungeon/Scenes/GameOverScreen.unity
+    guid: 2cd4649608a677541b13ed94cebdbf90
   - enabled: 1
     path: Assets/Dungeon/Scenes/Shop1.unity
     guid: d44414c70c872054c872e4908fcb764b
   - enabled: 1
-    path: Assets/Dungeon/Scenes/MenuScreenMU.unity
-    guid: 966f4e0010bf11f48bc538c9fd65f5c3
+    path: Assets/Dungeon/Scenes/StartRunLoading.unity
+    guid: d9b8f4d538a655f4bb241783601c97cb
   - enabled: 1
-    path: Assets/Dungeon/Scenes/GameOverScreen.unity
-    guid: 2cd4649608a677541b13ed94cebdbf90
+    path: Assets/Feedback/SimplePrototypeSkeleton/Scenes/MainMenu.unity
+    guid: b365cbf0c497747cf8d75cb80d305e1e
   m_configObjects: {}

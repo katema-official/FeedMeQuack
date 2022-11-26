@@ -114,6 +114,7 @@ namespace BreadNamespace
         void Start()
         {
             _lakeDescriptionComponent = GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeDescriptionComponent>();
+            Music.Assets.Scripts.UniversalAudio.PlaySound("BreadInWater", transform);
         }
 
         // Update is called once per frame

@@ -106,6 +106,9 @@ namespace LevelStageNamespace
                 //could also have called GoToLake, but this should make things simpler: the initial lake is always small and without enemies, after all.
                 //The only thing to touch is the rivers.
                 SceneManager.LoadScene("LakeSmall");
+
+                //MUSIC: Reproduce calm music when entering new stage
+                Music.Assets.Scripts.UniversalAudio.PlayMusic("Swimming", false);
             }
             else
             {

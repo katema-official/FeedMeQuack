@@ -511,6 +511,11 @@ namespace LevelStageNamespace {
                 OpenLakesWithAnimation();
                 _levelStageManager.SetLakeAsCleared();
 
+                //MUSIC: since all bread has been eaten, this lake goes back to "normal" music
+                Music.Assets.Scripts.UniversalAudio.PlayMusic("Swimming", false);
+                //SFX: the lake has been cleared
+                Music.Assets.Scripts.UniversalAudio.PlaySound("LakeClear", transform);
+
             }
         }
 
