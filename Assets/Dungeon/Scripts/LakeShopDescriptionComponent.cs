@@ -22,10 +22,10 @@ namespace LevelStageNamespace
             Ray rayWest = new Ray(point, new Vector3(1, 0, 0));
             Ray rayEast = new Ray(point, new Vector3(-1, 0, 0));
 
-            Debug.DrawRay(point, new Vector3(0, 1, 0) * range, Color.red, 10f, false);
+            /*Debug.DrawRay(point, new Vector3(0, 1, 0) * range, Color.red, 10f, false);
             Debug.DrawRay(point, new Vector3(0, -1, 0) * range, Color.red, 10f, false);
             Debug.DrawRay(point, new Vector3(1, 0, 0) * range, Color.red, 10f, false);
-            Debug.DrawRay(point, new Vector3(-1, 0, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(-1, 0, 0) * range, Color.red, 10f, false);*/
 
             RaycastHit2D hit1 = Physics2D.Raycast(new Vector2(point.x, point.y), new Vector2(0, 1), range, LayerMask.GetMask("WaterLayer"));
             RaycastHit2D hit2 = Physics2D.Raycast(new Vector2(point.x, point.y), new Vector2(0, -1), range, LayerMask.GetMask("WaterLayer"));
@@ -35,12 +35,12 @@ namespace LevelStageNamespace
 
             if (hit1 && hit2 && hit3 && hit4)
             {
-                Debug.Log("INSIDE");
+                //Debug.Log("INSIDE");
                 return true;
             }
             else
             {
-                Debug.Log("OUTSIDE");
+                //Debug.Log("OUTSIDE");
                 return false;
             }
         }

@@ -31,9 +31,6 @@ namespace Enemies
         [SerializeField] private GameObject playerGameObjectToChase;
         private bool _justFinishedEating;
 
-        public Bread breadBeingEaten;
-        [SerializeField] private GameObject breadTargeted;
-
         public ActionState State;
 
 
@@ -42,7 +39,6 @@ namespace Enemies
         private CollectBreadScript _collectBreadScript;
 
         void Start(){
-            //collisionManager.InitializeColliders(Species);
             ChangeState(ActionState.Roaming);
         }
 
@@ -57,13 +53,8 @@ namespace Enemies
                 movementManager.StopRoaming();
                 movementManager.StopMovementRelatedCoroutine(CoroutineType.Idle);
             }
-
-            if (State == ActionState.Eating){
-                _collectBreadScript.ResetCollider();
-            }
             
             if (State == ActionState.MovingToBread){
-                breadTargeted = null;
                 if(newState!=ActionState.Eating) movementManager.StopMoving(); //coroutine already stopped in the switch case below
                 movementManager.StopMovementRelatedCoroutine(CoroutineType.SteerForBread);
                 movementManager.StopMovementRelatedCoroutine(CoroutineType.Recovery);
@@ -74,7 +65,9 @@ namespace Enemies
 
             if (State == ActionState.Eating){
                 collisionManager.ResetBreadTarget();
+                collisionManager.TurnOffColliders();
                 collisionManager.TurnOnColliders();
+                _collectBreadScript.ResetCollider();
             }
 
             if (State == ActionState.Chilling){
@@ -102,10 +95,8 @@ namespace Enemies
                     movementManager.StartMovementRelatedCoroutine(CoroutineType.Recovery);
                     break;
                 case ActionState.Eating:
-                    collisionManager.TurnOffColliders();
                     //if(State!=ActionState.MovingToBread) 
-                        movementManager.StopMoving(); //todo: questo potreebbe creare casini nel caso in cui si imbatta casualmente nel pane
-                    breadTargeted = null;
+                    movementManager.StopMoving(); //todo: questo potreebbe creare casini nel caso in cui si imbatta casualmente nel pane
                     State = ActionState.Eating;
                     break;
                 case ActionState.Stealing:
@@ -136,24 +127,12 @@ namespace Enemies
         }
 
         public void TargetBread(GameObject breadGameObject){
-            breadTargeted = breadGameObject;
-            //movementManager.StartMovementRelatedCoroutine(CoroutineType.GoToBread);
             movementManager.MoveToBread(breadGameObject);
         }
 
         public void StartEatingBread(GameObject breadGameObject){
             BreadNamespace.BreadInWaterComponent breadInWaterComponent = breadGameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
             BreadNamespace.BreadInMouthComponent breadAboutToBeEaten = breadInWaterComponent.GenerateNewBreadInMouth(MySpecies.mouthSize).GetComponent<BreadNamespace.BreadInMouthComponent>();
-
-            /*Bread breadAboutToBeEaten = breadGameObject.GetComponent<Bread>();
-            if (breadAboutToBeEaten.BreadPoints > MySpecies.mouthSize){
-                eatingManager.StartEatingBread(MySpecies.mouthSize);
-                breadAboutToBeEaten.BreadPoints -= MySpecies.mouthSize;
-            }
-            else{
-                eatingManager.StartEatingBread(breadAboutToBeEaten);
-                Destroy(breadGameObject);
-            }*/
             eatingManager.StartEatingBread(breadAboutToBeEaten);
             ChangeState(ActionState.Eating);
         }

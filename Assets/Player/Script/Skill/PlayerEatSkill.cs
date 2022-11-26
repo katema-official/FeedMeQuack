@@ -152,7 +152,7 @@ namespace Player
             if (breadController == _locatedBread)
             {
                 _locatedBread = null;
-                Debug.Log("Bread missed");
+                //Debug.Log("Bread missed");
             }
         }
     }

@@ -72,14 +72,14 @@ namespace BreadNamespace
             BreadInMouthComponent breadInMouthComponent = newBreadInMouth.GetComponent<BreadInMouthComponent>();
             if(_breadPoints > breadPointsToTake)
             {
-                Debug.Log("IS NOT LAST PIECE!");
+                //Debug.Log("IS NOT LAST PIECE!");
                 _breadPoints -= breadPointsToTake;
                 SetBreadSprite();
                 breadInMouthComponent.Initialize(breadPointsToTake, false, _dimension);
             }
             else
             {
-                Debug.Log("IS LAST PIECE!");
+                //Debug.Log("IS LAST PIECE!");
                 breadInMouthComponent.Initialize(_breadPoints, true, _dimension);
                 _breadPoints = 0;
                 Destroy(this.gameObject);   //Should be delayed after newBreadInMouth is returned, but it should be checked

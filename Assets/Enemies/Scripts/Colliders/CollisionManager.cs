@@ -37,7 +37,7 @@ namespace Enemies
         }
 
         public bool IsEating(){
-            return _enemyFsm.breadBeingEaten != null;
+            return _enemyFsm.IsEating();
         }
 
         public void CheckStealingOptions(GameObject colGameObject){

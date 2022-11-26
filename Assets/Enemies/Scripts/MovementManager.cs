@@ -70,7 +70,13 @@ namespace Enemies
         }
 
         private IEnumerator AccelerateCoroutine(){
-            if (_decelerateCoroutine != null) StopCoroutine(_decelerateCoroutine);
+            if (_decelerateCoroutine != null){
+                StopCoroutine(_decelerateCoroutine);
+                StopCoroutine(_movingCoroutineVar);
+                //todo: check se rompe qualcosa, in teoria dovrebbe fixare tipo tutto. In alternativa, fare in modo che la decelerate corotine chiami un metodo che aspetta decelerateTime e poi
+                //blocchi la moving coroutine, piuttosto che farlo alla fine della coroutine stessa, dato che potrebbe venire fermata a metà esecuzione e creare problemi.
+            }
+
             while (_speedPerc < 1){
                 _speedPerc += 0.001f;
                 yield return new WaitForSeconds(_accelerationTimeSeconds / 1000);
@@ -106,7 +112,7 @@ namespace Enemies
                 StartMovement();
                 yield return new WaitForSeconds(_accelerationTimeSeconds +_movementAtMaxSpeedDuration);
                 StopRoaming();
-                yield return new WaitForSeconds(_idleTime);
+                yield return new WaitForSeconds(_idleTime + _decelerationTimeSeconds);
             }
 
             yield return null;
