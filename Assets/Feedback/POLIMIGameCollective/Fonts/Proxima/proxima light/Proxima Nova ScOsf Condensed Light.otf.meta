@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: 5769627ab67af46cba32c9bdee40c0ca
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Proxima Nova ScOsf Condensed
+  fontNames:
+  - Proxima Nova ScOsf Condensed
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 32ecad80cb1a2476c9db688211d0b0a2, type: 3}
+  - {fileID: 12800000, guid: a29697d32bd2c440aaa506af35d6e6a0, type: 3}
+  - {fileID: 12800000, guid: 24727365483a842f8b7ab5da9a7b9dd1, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
