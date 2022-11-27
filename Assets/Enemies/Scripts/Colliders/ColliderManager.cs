@@ -30,24 +30,14 @@ namespace Enemies
             _collisionManager.AddSelfToColliderManagers(this);
         }
 
-        private void OnTriggerEnter2D(Collider2D col){
+        private void OnTriggerStay2D(Collider2D col){
             //if (col.gameObject.GetComponentInParent<EnemyFSM>() != null) return;
-            if (_collisionManager.IsEating()){
+            if (_collisionManager.IsEating())
                 return;
-            }
-            
-
-            //if (col.gameObject.GetComponent<PlayerDuck>() != null){
-            if (col.gameObject.tag == "Player") 
-            {
+            if (col.gameObject.CompareTag("Player")) //todo: stare attenti qua che molto probabilmente inseguirà sempre il player
                 _collisionManager.CheckStealingOptions(col.gameObject);
-            }
-            
-            if (col.gameObject.tag == "FoodInWater")
-            {
+            if (col.gameObject.CompareTag("FoodInWater")) 
                 _collisionManager.BreadDetectedAction(col, _myCollider);
-            }
-            
         }
 
 
