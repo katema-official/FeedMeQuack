@@ -87,6 +87,14 @@ namespace Player
                     _state = newState;
                 }
             }
+            else if (_state == PlayerState.Stealing)
+            {
+                if (newState == PlayerState.Eating || 
+                    newState == PlayerState.Normal)
+                {
+                    _state = newState;
+                }
+            }
         }
 
         private void Awake()

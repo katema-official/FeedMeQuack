@@ -4,12 +4,23 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerSpitSkill : PlayerSkill
+    public class PlayerStealSkill : PlayerSkill
     {
         //Steal Skill Data
         //------------------------------------------
-        [SerializeField] private float _maxPower = 0.0f;
+        [SerializeField] private float _coolDown = 0.0f;
         //------------------------------------------
+        private PlayerStealSkillDescriptionSO _stealDesc = null;
+
+
+        public override void SetDescription(PlayerSkillDescriptionSO desc)
+        {
+            _description = desc;
+            _stealDesc = (PlayerStealSkillDescriptionSO)_description;
+
+            _coolDown = _stealDesc.CoolDown;
+
+        }
 
         // Start is called before the first frame update
         void Start()
