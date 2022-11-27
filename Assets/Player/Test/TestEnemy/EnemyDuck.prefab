@@ -245,8 +245,8 @@ GameObject:
   - component: {fileID: 8801708487298901951}
   - component: {fileID: 4243683483734629340}
   - component: {fileID: 1659270689403190159}
-  - component: {fileID: 7442643071303418794}
   - component: {fileID: 2289832158912268034}
+  - component: {fileID: 5661696077670321688}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -378,18 +378,6 @@ PolygonCollider2D:
       - {x: 0.37200058, y: -0.3470006}
       - {x: 0.47173426, y: 0.036866613}
       - {x: 0.33106732, y: 0.3538673}
---- !u!114 &7442643071303418794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6911906498469065819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69aeeefe27cfa60448e6ea28bb28d464, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &2289832158912268034
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -406,6 +394,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.48986766
+--- !u!114 &5661696077670321688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6911906498469065819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f61f7b7e44b19840b1fe20ff55981e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6925062931313091942
 GameObject:
   m_ObjectHideFlags: 0
