@@ -84,9 +84,16 @@ namespace LevelStageNamespace {
 
         [SerializeField] private GameObject BreadToThrow;
 
+        //########################################################################################################################################################
+        //######################################################## INFORMATIONS ABOUT QUICK TIME EVENT ###########################################################
+        //########################################################################################################################################################
+
+        [SerializeField] private GameObject QTEMinigamePrefab;
 
 
-        [SerializeField] public EnumsDungeon.LakeDimension Dimension;
+
+
+        //[SerializeField] public EnumsDungeon.LakeDimension Dimension;
 
         public Dictionary<EnumsDungeon.BreadType, int> BreadToSpawnMap;
 
@@ -99,7 +106,7 @@ namespace LevelStageNamespace {
         private float _minIntervalTimeSpawnBread;
         private float _maxIntervaltimeSpawnBread;
 
-        [SerializeField] public bool LakeCleared;
+        //[SerializeField] public bool LakeCleared;
 
 
 
@@ -737,7 +744,25 @@ namespace LevelStageNamespace {
             return (x, y);
         }
 
-        
+
+
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+        //################################################################### PLAYER STEALING ####################################################################
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+
+        //function that the player can call when it tries to steal bread from another duck. It requires as argument the piece of bread that the player
+        //is trying to steal, and at its end will call a function of the player to notify him of the result of the stealing.
+        public void PlayerStealFromEnemy(GameObject breadToSteal, float x, float y)
+        {
+            GameObject qteManager = Instantiate(QTEMinigamePrefab);
+            qteManager.GetComponent<QTEStealNamespace.QTEManagerComponment>().Initialize(x, y,
+                (3 * (_levelStageManager.GetCurrentLevelIndex()-1)) + 1 + _levelStageManager.GetCurrentStageIndex());
+        }
+
+
+
     }
 }
 

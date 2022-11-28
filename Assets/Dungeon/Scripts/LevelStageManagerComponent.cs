@@ -63,7 +63,15 @@ namespace LevelStageNamespace
             return level.Stages[i - 1];
         }
 
+        public int GetCurrentLevelIndex()
+        {
+            return _currentLevel;
+        }
 
+        public int GetCurrentStageIndex()
+        {
+            return _currentStage;
+        }
 
 
 

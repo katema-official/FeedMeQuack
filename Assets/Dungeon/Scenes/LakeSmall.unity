@@ -335,8 +335,7 @@ MonoBehaviour:
   MediumBreadPrefab: {fileID: 5893006966154478284, guid: 900e93e0c77dd274787f99350dc81dc4, type: 3}
   LargeBreadPrefab: {fileID: 5326331285147822205, guid: 0d27a9bcddca6ef49992c9ab43df07c5, type: 3}
   BreadToThrow: {fileID: 1755011509421745852, guid: bc5b90effb4d1e14aa7d7ef1cb7db7f3, type: 3}
-  Dimension: 0
-  LakeCleared: 0
+  QTEMinigamePrefab: {fileID: 1723338386323634851, guid: c7d59b2e752e2b14692f67a4f2724a60, type: 3}
 --- !u!1 &240915380
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,8 +676,7 @@ MonoBehaviour:
   MediumBreadPrefab: {fileID: 5893006966154478284, guid: 900e93e0c77dd274787f99350dc81dc4, type: 3}
   LargeBreadPrefab: {fileID: 5326331285147822205, guid: 0d27a9bcddca6ef49992c9ab43df07c5, type: 3}
   BreadToThrow: {fileID: 1755011509421745852, guid: bc5b90effb4d1e14aa7d7ef1cb7db7f3, type: 3}
-  Dimension: 0
-  LakeCleared: 0
+  QTEMinigamePrefab: {fileID: 0}
 --- !u!1 &333245148
 GameObject:
   m_ObjectHideFlags: 0

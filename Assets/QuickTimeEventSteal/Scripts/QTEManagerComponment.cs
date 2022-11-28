@@ -33,7 +33,7 @@ namespace QTEStealNamespace
         // Start is called before the first frame update
         void Start()
         {
-            Initialize(0, 0, 40, 15, 1, 8);
+            //Initialize(0, 0, 40, 15, 1, 8);
         }
 
         // Update is called once per frame
@@ -44,7 +44,7 @@ namespace QTEStealNamespace
 
         //method to initialize this quick time event.
         //nButtons = how many buttons must be generated for this quick time event
-        public void Initialize(int x, int y, int nButtons, float xOffsetButtons = 10f, int maxNumberOfEmptySpaces = 0, float buttonSpeed = 10f)
+        public void Initialize(float x, float y, int nButtons, float xOffsetButtons = 10f, int maxNumberOfEmptySpaces = 0, float buttonSpeed = 10f)
         {
             transform.position = new Vector3(x, y, 0);
             _numberOfButtonsToPress = nButtons;
