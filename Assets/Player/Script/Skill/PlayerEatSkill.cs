@@ -59,6 +59,16 @@ namespace Player
         {
             return _catchedBread;
         }
+        public void SetCatchedBread(BreadNamespace.BreadInMouthComponent bread)
+        {
+            _controller.ChangeState(PlayerState.Eating);
+
+            if (_controller.GetState() == PlayerState.Eating)
+                _moveSkill.EnableInput(true);
+
+            _catchedBread = bread;
+        }
+
 
         public void ReleaseBread()
         {

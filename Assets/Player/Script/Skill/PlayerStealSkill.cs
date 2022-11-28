@@ -10,6 +10,11 @@ namespace Player
         //------------------------------------------
         [SerializeField] private float _coolDown = 0.0f;
         //------------------------------------------
+        //-------------------------------------
+        [SerializeField] private float _stealCoolDownElapsedSeconds = 0.0f;
+
+
+
 
         private PlayerController _controller = null;
         private PlayerMoveSkill _moveSkill = null;
@@ -18,6 +23,7 @@ namespace Player
 
         private HashSet<EnemyController> _locatedEnemies;
         private EnemyController _locatedEnemy;
+        private bool _canSteal = false;
 
 
         public override void SetDescription(PlayerSkillDescriptionSO desc)
@@ -54,91 +60,66 @@ namespace Player
         // Start is called before the first frame update
         void Start()
         {
-        
         }
 
         // Update is called once per frame
         void Update()
         {
-            //if (Input.GetKeyDown(KeyCode.X) && _eatSkill.GetCatchedBread() && _spitCoolDownElapsedSeconds <= 0)
-            //{
-            //    _controller.ChangeState(PlayerState.Spitting);
 
-            //    if (_controller.GetState() == PlayerState.Spitting)
-            //    {
-            //        _moveSkill.EnableInput(true);
-            //        _spitArrow.SetActive(true);
-            //        _spitProgressBar.gameObject.SetActive(true);
-            //    }
+            if (Input.GetKeyDown(KeyCode.LeftShift) && 
+                _locatedEnemy && /*_locatedEnemy.GetCatchedBread() &&*/
+                _controller.GetState() != PlayerState.Stealing &&
+                _stealCoolDownElapsedSeconds <= 0)
+            {
+                _controller.ChangeState(PlayerState.Stealing);
 
-            //    CheckData();
-            //}
-
-            //if ((Input.GetKeyUp(KeyCode.Z) && _eatSkill.GetCatchedBread() && _spitCoolDownElapsedSeconds <= 0) ||
-            //    (_spitPower >= _maxPower))
-            //{
-            //    _canSpit = true;
-            //}
-
-            //if (_canSpit && !_eatSkill.GetCatchedBread())
-            //{
-            //    _controller.ChangeState(PlayerState.Normal);
-
-            //    if (_controller.GetState() == PlayerState.Normal)
-            //    {
-            //        _spitArrow.SetActive(false);
-            //        _spitProgressBar.SetProgress(0);
-            //        _spitProgressBar.gameObject.SetActive(false);
-
-            //        _moveSkill.EnableInput(true);
-            //        _spitCoolDownElapsedSeconds = _coolDown;
-            //    }
-            //    CheckData();
-            //}
+                if (_controller.GetState() == PlayerState.Stealing)
+                {
+                    _moveSkill.EnableInput(false);
+                    // _locatedEnemy.StealFromDuck(); //this function should allow the enemy to pass to passive steal state
+                    // _qteController.StartQTEStealActive(); //let's active the Quick Time Event.
+                }
+            }
 
 
-            //// _spitArrow.transform.rotation = Quaternion.//Rotate(new Vector3(0, 0, _moveSkill.GetAngle() * Mathf.Deg2Rad), Space.World);
-            //Debug.Log("Spit Power: " + _moveSkill.GetAngle());
+
+
+            //===================================================================================================
+            //===================================================================================================
+            //===================================================================================================
+            //===================================================================================================
+            //===================================================================================================
+
+
+
+
+
+            if (_controller.GetState() == PlayerState.Stealing && _locatedEnemy && _stealCoolDownElapsedSeconds <= 0)
+            {
+                BreadNamespace.BreadInMouthComponent breadForDuck = null;
+                BreadNamespace.BreadInMouthComponent breadForEnemy = null;
+
+                //if (_qteController.IsFinished())
+                //{
+                //    (breadForDuck,breadForEnemy) = _qteController.GetResult();
+                //    _locatedEnemy.NotifyFinishedSteal(breadForEnemy);
+                //    _eatSkill.SetCatchedBread(breadForDuck);
+                //    _stealCoolDownElapsedSeconds = _coolDown;
+                //}
+            }
+
+            if (_controller.GetState() != PlayerState.Stealing && _stealCoolDownElapsedSeconds > 0)
+            {
+                _stealCoolDownElapsedSeconds -= Time.deltaTime;
+
+                if (_stealCoolDownElapsedSeconds < 0)
+                    _stealCoolDownElapsedSeconds = 0;
+            }
+
         }
 
         void FixedUpdate()
         {
-            //if (_controller.GetState() == PlayerState.Spitting && _eatSkill.GetCatchedBread() && !_canSpit && _spitCoolDownElapsedSeconds <= 0)
-            //{
-            //    _moveSkill.Rotate();
-            //    _eatSkill.GetCatchedBread().Move(_controller.GetMouthTransform().position);
-            //    _spitArrow.transform.position = _controller.GetPosition();
-            //    _spitArrow.transform.rotation = (Quaternion.AngleAxis(_moveSkill.GetAngle(), Vector3.forward));
-
-            //    _spitProgressBar.gameObject.transform.position = _controller.GetPosition();
-            //    _spitProgressBar.SetProgress((_spitPower / _maxPower));
-
-            //    if (_spitPower < _maxPower)
-            //    {
-            //        _spitPower += _chargeSpeed * Time.deltaTime;
-            //        // Debug.Log("Spit Power: " + _spitPower);
-            //    }
-            //    else
-            //    {
-            //        _spitPower = _maxPower;
-            //        //  Debug.Log("Max Spit Power Reached: " + _spitPower);
-            //    }
-            //}
-
-
-            //if (_controller.GetState() == PlayerState.Spitting && _eatSkill.GetCatchedBread() && _canSpit)
-            //{
-            //    Vector3 startPos = _controller.GetPosition();
-            //    Vector3 endPos = _controller.GetPosition() + _moveSkill.GetDirection() * (_maxRange * (_spitPower / _maxPower));
-
-            //    _eatSkill.ReleaseBread();
-            //    _spitPower = 0;
-            //}
-
-            //if (_controller.GetState() != PlayerState.Spitting && _spitCoolDownElapsedSeconds > 0)
-            //{
-            //    _spitCoolDownElapsedSeconds -= Time.deltaTime;
-            //}
         }
 
 
