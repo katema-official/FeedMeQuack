@@ -106,7 +106,7 @@ namespace Player
 
          
            // _spitArrow.transform.rotation = Quaternion.//Rotate(new Vector3(0, 0, _moveSkill.GetAngle() * Mathf.Deg2Rad), Space.World);
-            Debug.Log("Spit Power: " + _moveSkill.GetAngle());
+           // Debug.Log("Spit Power: " + _moveSkill.GetAngle());
         }
 
         void FixedUpdate()
