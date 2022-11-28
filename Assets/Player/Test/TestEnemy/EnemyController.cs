@@ -33,18 +33,18 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            var lakeController = collision.gameObject.GetComponentInChildren<LakeController>();
-            if (lakeController) {
-                _currentLake = lakeController;
-                _catchedBread = _currentLake.GenerateNewBread();
-                _catchedBread.Move(_mouth.position);
-            }
+            //var lakeController = collision.gameObject.GetComponentInChildren<LakeController>();
+            //if (lakeController) {
+            //    _currentLake = lakeController;
+            //    _catchedBread = _currentLake.GenerateNewBread();
+            //    _catchedBread.Move(_mouth.position);
+            //}
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            var lakeController = collision.gameObject.GetComponentInChildren<LakeController>();
-            if (lakeController) _currentLake = null;
+            //var lakeController = collision.gameObject.GetComponentInChildren<LakeController>();
+            //if (lakeController) _currentLake = null;
         }
     }
 }
