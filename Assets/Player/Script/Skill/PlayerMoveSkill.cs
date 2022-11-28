@@ -159,7 +159,7 @@ namespace Player
 
             _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
 
-            MoveCamera();
+           // MoveCamera();
            
         }
 
@@ -201,7 +201,7 @@ namespace Player
 
             _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
 
-            MoveCamera();
+           // MoveCamera();
         }
 
         private void Awake()
@@ -277,10 +277,14 @@ namespace Player
 
         private void FixedUpdate()
         {
+            MoveCamera();
+
             if (_controller.GetState() != PlayerState.Normal) return;
 
             //PlayerUtility.Move(_speed, _forwardAxis, _rightwardAxis, _rigidBody, _moveForward, ref _rotationMovement);
             Move(_speed/*, _moveForward*/);
+
+
         }
     }
 }
