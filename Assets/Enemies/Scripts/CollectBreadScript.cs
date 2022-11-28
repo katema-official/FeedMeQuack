@@ -20,10 +20,10 @@ namespace Enemies
             _fsmScript = fatherGameObject.GetComponent<EnemyFSM>();
         }
 
-        private void OnTriggerEnter2D(Collider2D other){
+        private void OnTriggerStay2D(Collider2D other){
             if (other.gameObject.tag != "FoodInWater") return;  //TODO: controllare se è il giocatore
             //if (other.GetComponent<EnemyFSM>() != null || other.GetComponentInParent<EnemyFSM>() != null) return;
-            if (_fsmScript.breadBeingEaten != null) return;
+            if (_fsmScript.IsEating()) return;
             if (!_fsmScript.IsEating()) _fsmScript.StartEatingBread(other.gameObject);
         }
 
