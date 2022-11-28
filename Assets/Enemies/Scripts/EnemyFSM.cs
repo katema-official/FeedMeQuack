@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using BreadNamespace;
 using Enemies;
 using Unity.Mathematics;
 using Unity.VisualScripting;
@@ -31,7 +32,7 @@ namespace Enemies
         [SerializeField] private GameObject playerGameObjectToChase;
         private bool _justFinishedEating;
 
-        public ActionState State;
+        public ActionState State=ActionState.Init;
 
 
 
@@ -64,10 +65,15 @@ namespace Enemies
             }
 
             if (State == ActionState.Eating){
-                collisionManager.ResetBreadTarget();
-                collisionManager.TurnOffColliders();
-                collisionManager.TurnOnColliders();
-                _collectBreadScript.ResetCollider();
+                if (newState == ActionState.GettingRobbed){
+                    eatingManager.GetRobbed();
+                }
+                else{
+                    collisionManager.ResetBreadTarget();
+                    collisionManager.TurnOffColliders();
+                    collisionManager.TurnOnColliders();
+                    _collectBreadScript.ResetCollider();
+                }
             }
 
             if (State == ActionState.Chilling){
@@ -116,6 +122,7 @@ namespace Enemies
 
         public enum ActionState
         {
+            Init,
             Chasing,
             Roaming,
             Dashing,
@@ -143,6 +150,16 @@ namespace Enemies
 
         public bool IsEating(){
             return eatingManager.IsEating();
+        }
+
+        public BreadInMouthComponent StartGettingRobbed(Vector3 positionToBeIn){
+            ChangeState(ActionState.GettingRobbed);
+            movementManager.GoTo(positionToBeIn);
+            return eatingManager.BreadInMouth;
+        }
+
+        public void AssignBreadAfterRobbery(BreadInMouthComponent newBread){
+            eatingManager.StartEatingAfterRobbery(newBread);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using BreadNamespace;
 using Enemies;
 using UnityEngine;
 
@@ -29,18 +30,6 @@ namespace Enemies
             BreadInMouth = breadInMouth;
             _eatingCoroutine = StartCoroutine(EatingCoroutine());
         }
-
-        /*public void StartEatingBread(int breadPoints){
-            BreadPointsInMouth = breadPoints;
-            _eatingCoroutine = StartCoroutine(EatingCoroutine());
-        }
-
-        public void StartEatingBread(Bread bread){
-            BreadInMouth = bread;
-            BreadPointsInMouth = bread.BreadPoints;
-            _eatingCoroutine = StartCoroutine(EatingCoroutine());
-        }*/
-
         private IEnumerator EatingCoroutine(){
             int eatenAmount;
             bool eatenCompletely = false;
@@ -62,6 +51,19 @@ namespace Enemies
 
         public bool IsEating(){
             return BreadInMouth != null;
+        }
+
+        public void GetRobbed(){
+            StopCoroutine(_eatingCoroutine);
+        }
+
+        public void StartEatingAfterRobbery(BreadInMouthComponent newBread){
+            if (newBread == null){
+                _fsmScript.ChangeState(EnemyFSM.ActionState.Roaming);
+                return;
+            }
+            BreadInMouth = newBread;
+            _fsmScript.ChangeState(EnemyFSM.ActionState.Eating);
         }
     }
 }

@@ -42,15 +42,17 @@ namespace Enemies
 
 
         private void Awake(){
+            float rng1 = Random.Range(0.75f, 1.0f);
+            float rng2 = Random.Range(0.9f, 1.0f);
             _parentGameObject = gameObject.transform.parent.gameObject;
             Species species = enemyFsm.MySpecies;
-            _maxSpeed = species.maxSpeed;
+            _maxSpeed = species.maxSpeed * rng1;
             _accelerationTimeSeconds = species.accelerationTimeSeconds;
             _decelerationTimeSeconds = species.decelerationTimeSeconds;
             _idleTime = species.idleTime;
             _movementAtMaxSpeedDuration = species.movementAtMaxSpeedDuration;
             _outerRadius = species.outerRadiusCollider;
-            _chillingTime = species.chillingTime;
+            _chillingTime = species.chillingTime * rng2;
             _steeringValue = species.steeringValue;
             _lakeShopDescriptionComponent = GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeShopDescriptionComponent>();
         }
@@ -265,7 +267,8 @@ namespace Enemies
         }
 
         private IEnumerator ChillingCoroutine(){
-            yield return new WaitForSeconds(_chillingTime);
+            float rng = Random.Range(0.75f, 1.25f);
+            yield return new WaitForSeconds(_chillingTime* rng);
             if (enemyFsm.State == EnemyFSM.ActionState.Chilling){
                 enemyFsm.ChangeState(EnemyFSM.ActionState.Roaming);
             }
@@ -291,6 +294,16 @@ namespace Enemies
                 }
             }
             yield return null;
+        }
+
+        public void GoTo(Vector3 positionToBeIn){
+            _movingVector =NormalizeToMaxSpeed( positionToBeIn - _parentGameObject.transform.position);
+            _movingCoroutineVar = StartCoroutine(MovingCoroutine());
+            while (_parentGameObject.transform.position!= positionToBeIn){
+                
+            }
+            StopCoroutine(_movingCoroutineVar);
+            //_decelerateCoroutine = StartCoroutine(DecelerateCoroutine());
         }
     }
 }
