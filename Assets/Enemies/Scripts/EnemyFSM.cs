@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using BreadNamespace;
 using Enemies;
 using Unity.Mathematics;
 using Unity.VisualScripting;
@@ -31,10 +32,7 @@ namespace Enemies
         [SerializeField] private GameObject playerGameObjectToChase;
         private bool _justFinishedEating;
 
-        public Bread breadBeingEaten;
-        [SerializeField] private GameObject breadTargeted;
-
-        public ActionState State;
+        public ActionState State=ActionState.Init;
 
 
 
@@ -42,7 +40,6 @@ namespace Enemies
         private CollectBreadScript _collectBreadScript;
 
         void Start(){
-            //collisionManager.InitializeColliders(Species);
             ChangeState(ActionState.Roaming);
         }
 
@@ -57,23 +54,26 @@ namespace Enemies
                 movementManager.StopRoaming();
                 movementManager.StopMovementRelatedCoroutine(CoroutineType.Idle);
             }
-
-            if (State == ActionState.Eating){
-                _collectBreadScript.ResetCollider();
-            }
             
             if (State == ActionState.MovingToBread){
-                breadTargeted = null;
                 if(newState!=ActionState.Eating) movementManager.StopMoving(); //coroutine already stopped in the switch case below
                 movementManager.StopMovementRelatedCoroutine(CoroutineType.SteerForBread);
+                movementManager.StopMovementRelatedCoroutine(CoroutineType.Recovery);
             }
 
             if (State == ActionState.Chasing){
             }
 
             if (State == ActionState.Eating){
-                collisionManager.ResetBreadTarget();
-                collisionManager.TurnOnColliders();
+                if (newState == ActionState.GettingRobbed){
+                    eatingManager.GetRobbed();
+                }
+                else{
+                    collisionManager.ResetBreadTarget();
+                    collisionManager.TurnOffColliders();
+                    collisionManager.TurnOnColliders();
+                    _collectBreadScript.ResetCollider();
+                }
             }
 
             if (State == ActionState.Chilling){
@@ -94,15 +94,15 @@ namespace Enemies
                     State = ActionState.Dashing;
                     break;
                 case ActionState.MovingToBread:
+                    //todo: capita che entra in sto stato e poi si bugga
                     if(State==ActionState.Roaming) movementManager.StopMovementRelatedCoroutine(CoroutineType.Moving);
                     movementManager.StartMovementRelatedCoroutine(CoroutineType.Moving);
                     State = ActionState.MovingToBread;
+                    movementManager.StartMovementRelatedCoroutine(CoroutineType.Recovery);
                     break;
                 case ActionState.Eating:
-                    collisionManager.TurnOffColliders();
                     //if(State!=ActionState.MovingToBread) 
-                        movementManager.StopMoving(); //todo: questo potreebbe creare casini nel caso in cui si imbatta casualmente nel pane
-                    breadTargeted = null;
+                    movementManager.StopMoving(); //todo: questo potreebbe creare casini nel caso in cui si imbatta casualmente nel pane
                     State = ActionState.Eating;
                     break;
                 case ActionState.Stealing:
@@ -122,6 +122,7 @@ namespace Enemies
 
         public enum ActionState
         {
+            Init,
             Chasing,
             Roaming,
             Dashing,
@@ -133,24 +134,12 @@ namespace Enemies
         }
 
         public void TargetBread(GameObject breadGameObject){
-            breadTargeted = breadGameObject;
-            //movementManager.StartMovementRelatedCoroutine(CoroutineType.GoToBread);
             movementManager.MoveToBread(breadGameObject);
         }
 
         public void StartEatingBread(GameObject breadGameObject){
             BreadNamespace.BreadInWaterComponent breadInWaterComponent = breadGameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
             BreadNamespace.BreadInMouthComponent breadAboutToBeEaten = breadInWaterComponent.GenerateNewBreadInMouth(MySpecies.mouthSize).GetComponent<BreadNamespace.BreadInMouthComponent>();
-
-            /*Bread breadAboutToBeEaten = breadGameObject.GetComponent<Bread>();
-            if (breadAboutToBeEaten.BreadPoints > MySpecies.mouthSize){
-                eatingManager.StartEatingBread(MySpecies.mouthSize);
-                breadAboutToBeEaten.BreadPoints -= MySpecies.mouthSize;
-            }
-            else{
-                eatingManager.StartEatingBread(breadAboutToBeEaten);
-                Destroy(breadGameObject);
-            }*/
             eatingManager.StartEatingBread(breadAboutToBeEaten);
             ChangeState(ActionState.Eating);
         }
@@ -161,6 +150,16 @@ namespace Enemies
 
         public bool IsEating(){
             return eatingManager.IsEating();
+        }
+
+        public BreadInMouthComponent StartGettingRobbed(Vector3 positionToBeIn){
+            ChangeState(ActionState.GettingRobbed);
+            movementManager.GoTo(positionToBeIn);
+            return eatingManager.BreadInMouth;
+        }
+
+        public void AssignBreadAfterRobbery(BreadInMouthComponent newBread){
+            eatingManager.StartEatingAfterRobbery(newBread);
         }
     }
 }

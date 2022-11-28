@@ -12,8 +12,9 @@ namespace Enemies
         public float maxSpeed,
             chewingRate,
             idleTime,
-            movementDuration,
+            movementAtMaxSpeedDuration,
             accelerationTimeSeconds,
+            decelerationTimeSeconds,
             chillingTime,
             steeringValue;
 

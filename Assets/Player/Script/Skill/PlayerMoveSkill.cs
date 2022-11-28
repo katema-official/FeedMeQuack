@@ -141,7 +141,7 @@ namespace Player
                 _rigidBody.AddForce(_finalDir * _force, ForceMode2D.Force);
                 _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity, speed); 
                 
-                Debug.Log("Current player velocity: " +  angle);
+                //Debug.Log("Current player velocity: " +  angle);
             }
 
             _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));

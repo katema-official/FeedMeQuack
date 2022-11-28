@@ -18,8 +18,9 @@ namespace Enemies
 
         private float _maxSpeed,
             _accelerationTimeSeconds,
+            _decelerationTimeSeconds,
             _idleTime,
-            _movementDuration,
+            _movementAtMaxSpeedDuration,
             _outerRadius,
             _chillingTime,
             _steeringValue;
@@ -30,26 +31,28 @@ namespace Enemies
             _decelerateCoroutine,
             _steerForBreadCoroutine,
             _chasingPlayerCoroutine,
-            _chillingCoroutine;
+            _chillingCoroutine,
+            _recoveryCoroutine;
 
         [SerializeField] private Vector3 _movingVector;
 
         private GameObject _enemyGameObject, _breadTargeted, _parentGameObject;
 
-        private float _movMultiplier;
-
         private LevelStageNamespace.LakeShopDescriptionComponent _lakeShopDescriptionComponent;
 
 
         private void Awake(){
+            float rng1 = Random.Range(0.75f, 1.0f);
+            float rng2 = Random.Range(0.9f, 1.0f);
             _parentGameObject = gameObject.transform.parent.gameObject;
             Species species = enemyFsm.MySpecies;
-            _maxSpeed = species.maxSpeed;
+            _maxSpeed = species.maxSpeed * rng1;
             _accelerationTimeSeconds = species.accelerationTimeSeconds;
+            _decelerationTimeSeconds = species.decelerationTimeSeconds;
             _idleTime = species.idleTime;
-            _movementDuration = species.movementDuration;
+            _movementAtMaxSpeedDuration = species.movementAtMaxSpeedDuration;
             _outerRadius = species.outerRadiusCollider;
-            _chillingTime = species.chillingTime;
+            _chillingTime = species.chillingTime * rng2;
             _steeringValue = species.steeringValue;
             _lakeShopDescriptionComponent = GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeShopDescriptionComponent>();
         }
@@ -69,7 +72,13 @@ namespace Enemies
         }
 
         private IEnumerator AccelerateCoroutine(){
-            if (_decelerateCoroutine != null) StopCoroutine(_decelerateCoroutine);
+            if (_decelerateCoroutine != null){
+                StopCoroutine(_decelerateCoroutine);
+                StopCoroutine(_movingCoroutineVar);
+                //todo: check se rompe qualcosa, in teoria dovrebbe fixare tipo tutto. In alternativa, fare in modo che la decelerate corotine chiami un metodo che aspetta decelerateTime e poi
+                //blocchi la moving coroutine, piuttosto che farlo alla fine della coroutine stessa, dato che potrebbe venire fermata a metà esecuzione e creare problemi.
+            }
+
             while (_speedPerc < 1){
                 _speedPerc += 0.001f;
                 yield return new WaitForSeconds(_accelerationTimeSeconds / 1000);
@@ -79,26 +88,21 @@ namespace Enemies
         }
 
         private void ChangeDirection(){
-            _movMultiplier = Random.Range(0.8f, 1.2f);
-            float rng = Random.Range(0, 8);
             bool wouldHitBorder = true;
             while (wouldHitBorder){
                 _movingVector = new Vector2(_maxSpeed, 0);
-                rng = Random.Range(0, 8);
-                _movMultiplier = Random.Range(0.8f, 1.2f);
+                float rng = Random.Range(0, 8);
                 _movingVector = Quaternion.AngleAxis(rng * 45, Vector3.forward) * _movingVector;
-                wouldHitBorder = CheckIfMovementWouldHitBorder(_movingVector);
+                wouldHitBorder = CheckIfMovementWouldHitBorder();
             }
         }
 
-        private bool CheckIfMovementWouldHitBorder(Vector3 directionToEvaluate){
+        private bool CheckIfMovementWouldHitBorder(){
             //return false;
             //float distanceToTravel = _maxSpeed * _movementDuration * _movMultiplier;
             //Vector3 finalDestination = _parentGameObject.transform.position + (_movingVector * _movementDuration * _movMultiplier);//directionToEvaluate * distanceToTravel;
-            return false;
-            float timeAtMaxSpeed = _movementDuration * _movMultiplier - _accelerationTimeSeconds;
-            Vector3 movementVectorAtMaxSpeed = _movingVector * timeAtMaxSpeed;
-            Vector3 finalDestination = _parentGameObject.transform.position + movementVectorAtMaxSpeed;
+            Vector3 movementVectorAtMaxSpeed = _movingVector * _movementAtMaxSpeedDuration;
+            Vector3 finalDestination = _parentGameObject.transform.position + movementVectorAtMaxSpeed * 1.1f;
 
             return !_lakeShopDescriptionComponent.Contains(finalDestination);   //return
             //return false;
@@ -108,9 +112,9 @@ namespace Enemies
         private IEnumerator TemporaryIdleCoroutine(){
             while (enemyFsm.State == EnemyFSM.ActionState.Roaming){
                 StartMovement();
-                yield return new WaitForSeconds(_movementDuration * _movMultiplier);
+                yield return new WaitForSeconds(_accelerationTimeSeconds +_movementAtMaxSpeedDuration);
                 StopRoaming();
-                yield return new WaitForSeconds(_idleTime);
+                yield return new WaitForSeconds(_idleTime + _decelerationTimeSeconds);
             }
 
             yield return null;
@@ -129,7 +133,7 @@ namespace Enemies
             StopCoroutine(_accelerateCoroutine);
             while (_speedPerc > 0){
                 _speedPerc -= 0.01f;
-                yield return new WaitForSeconds(_accelerationTimeSeconds / 100);
+                yield return new WaitForSeconds(_decelerationTimeSeconds / 100);
             }
 
             StopCoroutine(_movingCoroutineVar);
@@ -205,6 +209,9 @@ namespace Enemies
                 case CoroutineType.GoToBread:
 
                     break;
+                case  CoroutineType.Recovery:
+                    _recoveryCoroutine = StartCoroutine(RecoveryFromStandingStillCoroutine());
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(coroutineType), coroutineType, null);
             }
@@ -233,6 +240,9 @@ namespace Enemies
                 case CoroutineType.SteerForBread:
                     StopCoroutine(_steerForBreadCoroutine);
                     break;
+                case CoroutineType.Recovery:
+                    StopCoroutine(_recoveryCoroutine);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(coroutineType), coroutineType, null);
             }
@@ -257,7 +267,8 @@ namespace Enemies
         }
 
         private IEnumerator ChillingCoroutine(){
-            yield return new WaitForSeconds(_chillingTime);
+            float rng = Random.Range(0.75f, 1.25f);
+            yield return new WaitForSeconds(_chillingTime* rng);
             if (enemyFsm.State == EnemyFSM.ActionState.Chilling){
                 enemyFsm.ChangeState(EnemyFSM.ActionState.Roaming);
             }
@@ -267,6 +278,32 @@ namespace Enemies
 
         public void StopChilling(){
             StopCoroutine(_chillingCoroutine);
+        }
+
+        private IEnumerator RecoveryFromStandingStillCoroutine(){
+            Vector3 oldPosition = _parentGameObject.transform.position;
+            EnemyFSM.ActionState state = enemyFsm.State;
+            while (true){
+                if (state == EnemyFSM.ActionState.MovingToBread){
+                    yield return new WaitForSeconds(1);
+                    Vector3 newPosition = _parentGameObject.transform.position;
+                    if (newPosition != oldPosition) oldPosition = newPosition;
+                    else{
+                        enemyFsm.ChangeState(EnemyFSM.ActionState.Roaming);
+                    }
+                }
+            }
+            yield return null;
+        }
+
+        public void GoTo(Vector3 positionToBeIn){
+            _movingVector =NormalizeToMaxSpeed( positionToBeIn - _parentGameObject.transform.position);
+            _movingCoroutineVar = StartCoroutine(MovingCoroutine());
+            while (_parentGameObject.transform.position!= positionToBeIn){
+                
+            }
+            StopCoroutine(_movingCoroutineVar);
+            //_decelerateCoroutine = StartCoroutine(DecelerateCoroutine());
         }
     }
 }
