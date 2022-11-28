@@ -80,8 +80,8 @@ namespace Enemies
             }
 
             while (_speedPerc < 1){
-                _speedPerc += 0.001f;
-                yield return new WaitForSeconds(_accelerationTimeSeconds / 1000);
+                _speedPerc += 0.01f;
+                yield return new WaitForSeconds(_accelerationTimeSeconds / 100);
             }
 
             yield return null;

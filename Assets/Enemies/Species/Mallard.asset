@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Mallard
   m_EditorClassIdentifier: 
   mouthSize: 3
-  maxSpeed: 20
-  chewingRate: 1
+  maxSpeed: 10
+  chewingRate: 2
   idleTime: 2
   movementAtMaxSpeedDuration: 1.5
   accelerationTimeSeconds: 0.5
