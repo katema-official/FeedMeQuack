@@ -15,6 +15,11 @@ namespace QTEStealNamespace
 
         [SerializeField] private GameObject QTEManagerGameobject;
 
+
+
+
+        [SerializeField] private GameObject _breadToSteal;
+
         // Update is called once per frame
         void Update()
         {
@@ -24,6 +29,13 @@ namespace QTEStealNamespace
                 go.GetComponent<QTEManagerComponment>().Initialize(0, 0, 40, 15, 1, 8);
 
             }
+
+
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeDescriptionComponent>().PlayerStartStealFromEnemy(null, _breadToSteal, 0, 0);
+            }
+
         }
     }
 }

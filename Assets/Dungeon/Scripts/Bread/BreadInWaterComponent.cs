@@ -28,22 +28,22 @@ namespace BreadNamespace
 
 
 
-        public void InitializeBread(LevelStageNamespace.EnumsDungeon.BreadType dimension)
+        public void InitializeBread(LevelStageNamespace.EnumsDungeon.BreadType dimension, int breadPoints = 0)
         {
             _dimension = dimension;
             switch (_dimension)
             {
                 case LevelStageNamespace.EnumsDungeon.BreadType.Small:
                     GetComponent<SpriteRenderer>().sprite = _breadSmallSprite;
-                    _breadPoints = Random.Range(_breadSmallSO.MinBreadPointsSpawn, _breadSmallSO.MaxBreadPointsSpawn);
+                    _breadPoints = (breadPoints == 0) ? Random.Range(_breadSmallSO.MinBreadPointsSpawn, _breadSmallSO.MaxBreadPointsSpawn) : breadPoints;
                     break;
                 case LevelStageNamespace.EnumsDungeon.BreadType.Medium:
                     GetComponent<SpriteRenderer>().sprite = _breadMediumSprite;
-                    _breadPoints = Random.Range(_breadMediumSO.MinBreadPointsSpawn, _breadMediumSO.MaxBreadPointsSpawn);
+                    _breadPoints = (breadPoints == 0) ? Random.Range(_breadMediumSO.MinBreadPointsSpawn, _breadMediumSO.MaxBreadPointsSpawn) : breadPoints;
                     break;
                 case LevelStageNamespace.EnumsDungeon.BreadType.Large:
                     GetComponent<SpriteRenderer>().sprite = _breadLargeSprite;
-                    _breadPoints = Random.Range(_breadLargeSO.MinBreadPointsSpawn, _breadLargeSO.MaxBreadPointsSpawn);
+                    _breadPoints = (breadPoints == 0) ? Random.Range(_breadLargeSO.MinBreadPointsSpawn, _breadLargeSO.MaxBreadPointsSpawn) : breadPoints;
                     break;
                 default:
                     break;
@@ -75,12 +75,12 @@ namespace BreadNamespace
                 Debug.Log("IS NOT LAST PIECE!");
                 _breadPoints -= breadPointsToTake;
                 SetBreadSprite();
-                breadInMouthComponent.Initialize(breadPointsToTake, false, _dimension);
+                breadInMouthComponent.Initialize(breadPointsToTake, false);
             }
             else
             {
                 Debug.Log("IS LAST PIECE!");
-                breadInMouthComponent.Initialize(_breadPoints, true, _dimension);
+                breadInMouthComponent.Initialize(_breadPoints, true);
                 _breadPoints = 0;
                 Destroy(this.gameObject);   //Should be delayed after newBreadInMouth is returned, but it should be checked
             }

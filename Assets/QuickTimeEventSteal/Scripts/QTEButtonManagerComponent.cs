@@ -12,11 +12,10 @@ namespace QTEStealNamespace
 
         private QTEManagerComponment _QTEManager;
         private EnumsQTESteal.KeysToPress _keyToPressEnum;
-        private List<KeyCode> _keyToPressActual;
         private Sprite _sprite;
 
         //informations regarding the state of this button
-        private EnumsQTESteal.QTEButtonState _state;
+        [SerializeField] private EnumsQTESteal.QTEButtonState _state;
 
         private GameObject _spriteChild;
         private GameObject _backgroundChild;
@@ -36,6 +35,9 @@ namespace QTEStealNamespace
         private bool _completedSuccessFeedback = false;
         private bool _completedFailureFeedback = false;
 
+
+
+        
 
 
         public void Awake()
@@ -60,6 +62,8 @@ namespace QTEStealNamespace
                 { EnumsQTESteal.KeysToPress.Left, new List<KeyCode>(){KeyCode.A, KeyCode.LeftArrow} },
                 { EnumsQTESteal.KeysToPress.Right, new List<KeyCode>(){KeyCode.D, KeyCode.RightArrow} },
             };
+
+            _state = EnumsQTESteal.QTEButtonState.BeforePress;
         }
 
 

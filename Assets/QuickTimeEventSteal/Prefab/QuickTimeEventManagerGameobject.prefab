@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a00ff13c609df4ab35442811a244b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _yOffsetButtons: 20
+  _xOffsetButtons: 10
+  _maxNumberOfEmptySpaces: 0
   _buttonSpeed: 3
   _buttonPrefab: {fileID: 2940981221956213834, guid: 9ec8187922efeab44a057d13c2259e33, type: 3}
 --- !u!1 &1723338387052950500
@@ -121,7 +122,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 15
   m_Sprite: {fileID: 21300000, guid: 4205e635adad5654aa5338db9f1e2ed1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

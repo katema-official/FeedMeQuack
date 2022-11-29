@@ -34,6 +34,8 @@ namespace BreadNamespace
         // follows the ground plane so we rotate the sprite by this velocity instead.
         float angularVelocity;
 
+        private int _breadPoints = 0; //if it's zero, it means that the actual value of bread points will be decided when the BreadInWater is created.
+        //Otherwise, this is the number of bread points that the new BreadInWater will have (this is the case if the player spits the bread)
 
 
 
@@ -92,10 +94,11 @@ namespace BreadNamespace
 
 
 
-        public void InitializeBreadThrownFromDuck(LevelStageNamespace.EnumsDungeon.BreadType dimension, float xInit, float yInit, float xEnd, float yEnd,
+        public void InitializeBreadThrownFromDuck(LevelStageNamespace.EnumsDungeon.BreadType dimension, int breadPoints, float xInit, float yInit, float xEnd, float yEnd,
                                                     float minInitialVelocity = 75f, float maxInitialVelocity = 125f, float gravity = 100f)
         {
             _dimension = dimension;
+            _breadPoints = breadPoints;
 
             _xInit = xInit;
             _yInit = yInit;
@@ -208,7 +211,7 @@ namespace BreadNamespace
 
                 //the breadThrown object can be destroyed, and the actual bread can be instantiated
                 GameObject b = Instantiate(BreadToSpawnPrefab, _shadow.transform.position, Quaternion.identity);
-                b.GetComponent<BreadInWaterComponent>().InitializeBread(_dimension);
+                b.GetComponent<BreadInWaterComponent>().InitializeBread(_dimension, _breadPoints);
                 Destroy(gameObject);
             }
 

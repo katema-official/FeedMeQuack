@@ -8,7 +8,7 @@ namespace QTEStealNamespace {
     {
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.transform.parent.gameObject.name == "QuickTimeEventManagerGameobject")
+            if (collision.gameObject.transform.parent.gameObject.name == "QuickTimeEventManagerGameobject(Clone)")  //TODO: change in tag
             {
                 //Debug.Log("TOUCH");
                 transform.parent.gameObject.GetComponent<QTEButtonManagerComponent>().ChangeState(EnumsQTESteal.QTEButtonState.InPressing);
@@ -17,7 +17,7 @@ namespace QTEStealNamespace {
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject.transform.parent.gameObject.name == "QuickTimeEventManagerGameobject")
+            if (collision.gameObject.transform.parent.gameObject.name == "QuickTimeEventManagerGameobject(Clone)")
             {
                 //Debug.Log("UN-TOUCH");
                 transform.parent.gameObject.GetComponent<QTEButtonManagerComponent>().ChangeState(EnumsQTESteal.QTEButtonState.Failure);
