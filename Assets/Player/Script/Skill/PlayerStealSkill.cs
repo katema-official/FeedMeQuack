@@ -66,7 +66,7 @@ namespace Player
         void Update()
         {
 
-            if (Input.GetKeyDown(KeyCode.LeftShift) && 
+            if (Input.GetButtonDown("StealButton") && 
                 _locatedEnemy && /*_locatedEnemy.GetCatchedBread() &&*/
                 _controller.GetState() != PlayerState.Stealing &&
                 _stealCoolDownElapsedSeconds <= 0)
@@ -76,6 +76,8 @@ namespace Player
                 if (_controller.GetState() == PlayerState.Stealing)
                 {
                     _moveSkill.EnableInput(false);
+
+                    _locatedEnemy.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
                     // _locatedEnemy.StealFromDuck(); //this function should allow the enemy to pass to passive steal state
                     // _qteController.StartQTEStealActive(); //let's active the Quick Time Event.
 
@@ -123,13 +125,14 @@ namespace Player
                 }
             }
 
-            if (Input.GetKeyUp(KeyCode.LeftShift) && _locatedEnemy && _stealCoolDownElapsedSeconds <= 0 && _controller.GetState() == PlayerState.Stealing)
+            if (Input.GetButtonUp("StealButton") && _locatedEnemy && _stealCoolDownElapsedSeconds <= 0 && _controller.GetState() == PlayerState.Stealing)
             {
                 _controller.ChangeState(PlayerState.Normal);
 
                 if (_controller.GetState() == PlayerState.Normal)
                 {
                     _moveSkill.EnableInput(true);
+                    _stealCoolDownElapsedSeconds = _coolDown;
                 }
             }
 
@@ -155,6 +158,13 @@ namespace Player
                 //    _locatedEnemy.NotifyFinishedSteal(breadForEnemy); // this function notifies the enemy about the end of the steal.
                 //    _eatSkill.SetCatchedBread(breadForDuck);  // this function allows the player to change from steal to eat or normal state.
                 //    _stealCoolDownElapsedSeconds = _coolDown;
+
+                //      _controller.ChangeState(PlayerState.Normal);
+
+                //   if (_controller.GetState() == PlayerState.Normal)
+                //   {
+                //    _moveSkill.EnableInput(true);
+                //    }
                 //}
             }
 

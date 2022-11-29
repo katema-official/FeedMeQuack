@@ -95,6 +95,10 @@ namespace Player
             var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
         }
 
+
+        
+
+
         // Start is called before the first frame update
         void Start()
         {
@@ -103,7 +107,7 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.E) && !_catchedBread && _locatedBread)
+            if (Input.GetButtonDown("EatButton") && !_catchedBread && _locatedBread)
             {
 
                 _controller.ChangeState(PlayerState.Eating);

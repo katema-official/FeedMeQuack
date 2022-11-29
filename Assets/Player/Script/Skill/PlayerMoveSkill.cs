@@ -44,6 +44,9 @@ namespace Player
         public void EnableInput(bool enable)
         {
             _enableInput = enable;
+           
+            if (!enable)
+                _rigidBody.velocity = new Vector2(0, 0);
         }
 
         public Vector3 GetDirection()

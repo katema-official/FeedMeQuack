@@ -71,7 +71,7 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Z) && _eatSkill.GetCatchedBread() && _spitCoolDownElapsedSeconds <= 0)
+            if (Input.GetButtonDown("SpitButton") && _eatSkill.GetCatchedBread() && _spitCoolDownElapsedSeconds <= 0)
             {
                 _controller.ChangeState(PlayerState.Spitting);
 
@@ -85,7 +85,7 @@ namespace Player
                 CheckData();
             }
 
-            if ((Input.GetKeyUp(KeyCode.Z) && _eatSkill.GetCatchedBread() && _spitCoolDownElapsedSeconds <= 0) ||
+            if ((Input.GetButtonUp("SpitButton") && _eatSkill.GetCatchedBread() && _spitCoolDownElapsedSeconds <= 0) ||
                 (_spitPower >= _maxPower))
             {
                 _canSpit = true;

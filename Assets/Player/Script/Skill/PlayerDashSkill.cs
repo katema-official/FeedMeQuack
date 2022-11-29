@@ -61,7 +61,7 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Q) && _dashCoolDownElapsedSeconds <= 0)
+            if (Input.GetButtonDown("DashButton") && _dashCoolDownElapsedSeconds <= 0)
             {
                 if (_controller.GetState() == PlayerState.Dashing)
                 {
