@@ -28,6 +28,8 @@ namespace BreadNamespace
 
 
 
+
+
         public void InitializeBread(LevelStageNamespace.EnumsDungeon.BreadType dimension, int breadPoints = 0)
         {
             _dimension = dimension;
@@ -56,6 +58,13 @@ namespace BreadNamespace
             float amountToDivideX = spriteSize.x / xPixelSprite;        //to remove
             float amountToDivideY = spriteSize.y / yPixelSprite;        //to remove
             transform.localScale = new Vector3(transform.localScale.x / amountToDivideX, transform.localScale.y / amountToDivideY, 0);      //to remove
+
+            //if the piece of bread was spawned outside the lake, it must be destroyed
+            if(_lakeDescriptionComponent.Contains(transform.position) == false)
+            {
+                _lakeDescriptionComponent.NotifyBreadEaten();
+                StartCoroutine(FadeOutOutsideLake());
+            }
 
         }
 
@@ -111,7 +120,7 @@ namespace BreadNamespace
 
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             _lakeDescriptionComponent = GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeDescriptionComponent>();
         }
@@ -137,5 +146,33 @@ namespace BreadNamespace
         {
             return _breadLargeSprite;
         }
+
+
+
+
+
+        //################################################################################################################################################################
+        //#################################################### FADE OUT FOR DESTROYING THE BREAD WHEN OUTSIDE THE LAKE ###################################################
+        //################################################################################################################################################################
+
+        IEnumerator FadeOutOutsideLake()
+        {
+            float duration = 0.5f;
+            float normalizedTime;
+            
+            for(float t = 0f; t < duration; t += Time.deltaTime)
+            {
+                normalizedTime = t / duration;
+                Color c = GetComponent<SpriteRenderer>().color;
+                c.a = Mathf.Lerp(1f, 0f, normalizedTime);
+                GetComponent<SpriteRenderer>().color = c;
+                yield return null;
+            }
+            Destroy(this.gameObject);
+            yield return null;
+        }
+
+
+
     }
 }

@@ -95,6 +95,11 @@ namespace BreadNamespace
             return _isLastPiece;
         }
 
+        public LevelStageNamespace.EnumsDungeon.BreadType GetDimension()
+        {
+            return _dimension;
+        }
+
 
 
         // Start is called before the first frame update
