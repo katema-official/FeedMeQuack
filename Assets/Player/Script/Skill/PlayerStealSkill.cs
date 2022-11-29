@@ -82,23 +82,22 @@ namespace Player
                     //find the point between ducks
                     var playerPos = _controller.gameObject.transform.position;
                     var enemyPos = _locatedEnemy.gameObject.transform.position;
-
                     var dir = (enemyPos - playerPos);
                     var len = dir.magnitude;
                     dir.Normalize();
-
                     var middlePos = playerPos + dir * (len * 0.5f);
 
+                    var distance = 1.5f;
                     //place the ducks face to face
                     if (middlePos.x < playerPos.x)
                     {
                         //player on the right
                         var pos = middlePos;
-                        pos.x += 0.5f;
+                        pos.x += distance;
                         _controller.gameObject.transform.position = pos;
-
+                        //enemy on the left
                         pos = middlePos;
-                        pos.x -= 0.5f;
+                        pos.x -= distance;
                         _locatedEnemy.gameObject.transform.position = pos;
 
                     }
@@ -106,11 +105,12 @@ namespace Player
                     {
                         //player on the left
                         var pos = middlePos;
-                        pos.x -= 0.5f;
+                        pos.x -= distance;
                         _controller.gameObject.transform.position = pos;
 
+                        //enemy on the right
                         pos = middlePos;
-                        pos.x += 0.5f;
+                        pos.x += distance;
                         _locatedEnemy.gameObject.transform.position = pos;
                     }
 
