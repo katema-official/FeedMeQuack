@@ -78,9 +78,7 @@ namespace Player
                     _moveSkill.EnableInput(false);
 
                     _locatedEnemy.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-                    // _locatedEnemy.StealFromDuck(); //this function should allow the enemy to pass to passive steal state
-                    // _qteController.StartQTEStealActive(); //let's active the Quick Time Event.
-
+                  
                     //find the point between ducks
                     var playerPos = _controller.gameObject.transform.position;
                     var enemyPos = _locatedEnemy.gameObject.transform.position;
@@ -90,6 +88,8 @@ namespace Player
                     var middlePos = playerPos + dir * (len * 0.5f);
 
                     var distance = 1.5f;
+                    var enemyDir = 0;
+                    Vector3 enemyFinalPos;
                     //place the ducks face to face
                     if (middlePos.x < playerPos.x)
                     {
@@ -97,10 +97,15 @@ namespace Player
                         var pos = middlePos;
                         pos.x += distance;
                         _controller.gameObject.transform.position = pos;
+                        _controller.gameObject.transform.rotation = Quaternion.AngleAxis(90.0f,new Vector3(0,0,1));
+
                         //enemy on the left
                         pos = middlePos;
                         pos.x -= distance;
                         _locatedEnemy.gameObject.transform.position = pos;
+                        _locatedEnemy.gameObject.transform.rotation = Quaternion.AngleAxis(-90.0f, new Vector3(0, 0, 1));
+                        enemyDir = 0;
+                        enemyFinalPos = pos;
 
                     }
                     else
@@ -109,19 +114,23 @@ namespace Player
                         var pos = middlePos;
                         pos.x -= distance;
                         _controller.gameObject.transform.position = pos;
+                        _controller.gameObject.transform.rotation = Quaternion.AngleAxis(-90.0f, new Vector3(0, 0, 1));
 
                         //enemy on the right
                         pos = middlePos;
                         pos.x += distance;
                         _locatedEnemy.gameObject.transform.position = pos;
+                        _locatedEnemy.gameObject.transform.rotation = Quaternion.AngleAxis(90.0f, new Vector3(0, 0, 1));
+                        enemyDir = 1;
+                        enemyFinalPos = pos;
                     }
 
+                    //this function should allow the enemy to pass to passive steal state and to displace it in the correct position/direction
+                    // enemyDir: 0 left | 1 right
+                    // _locatedEnemy.StealFromDuck(enemyFinalPos,enemyDir);
 
-
-
-
-
-
+                    //let's active the Quick Time Event.
+                    //_controller.GetLake().PlayerStartStealFromEnemy(_controller.gameObject, _locatedEnemy.GetCatchedBread(), 0, 0); 
                 }
             }
 
@@ -144,33 +153,6 @@ namespace Player
             //===================================================================================================
 
 
-
-
-
-            if (_controller.GetState() == PlayerState.Stealing && _locatedEnemy && _stealCoolDownElapsedSeconds <= 0)
-            {
-                BreadNamespace.BreadInMouthComponent breadForDuck = null;
-                BreadNamespace.BreadInMouthComponent breadForEnemy = null;
-
-                //if (_qteController.IsFinished())
-                //{
-                //    (breadForDuck,breadForEnemy) = _qteController.GetResult();
-                //    _locatedEnemy.NotifyFinishedSteal(breadForEnemy); // this function notifies the enemy about the end of the steal.
-                //    _eatSkill.SetCatchedBread(breadForDuck);  // this function allows the player to change from steal to eat or normal state.
-                //    _stealCoolDownElapsedSeconds = _coolDown;
-
-                //      _controller.ChangeState(PlayerState.Normal);
-
-                //   if (_controller.GetState() == PlayerState.Normal)
-                //   {
-                //    _moveSkill.EnableInput(true);
-                //    }
-                //}
-            }
-
-
-
-
             if (_controller.GetState() != PlayerState.Stealing && _stealCoolDownElapsedSeconds > 0)
             {
                 _stealCoolDownElapsedSeconds -= Time.deltaTime;
@@ -180,6 +162,26 @@ namespace Player
             }
 
         }
+
+
+        void NotifyFinishedQTE(BreadNamespace.BreadInMouthComponent breadForPlayer, BreadNamespace.BreadInMouthComponent breadForEnemy)
+        {
+            if (_controller.GetState() == PlayerState.Stealing && _locatedEnemy && _stealCoolDownElapsedSeconds <= 0)
+            {
+                //    _locatedEnemy.NotifyFinishedSteal(breadForEnemy); // this function notifies the enemy about the end of the steal and provides the resulting bread.
+                //    _eatSkill.SetCatchedBread(breadForPlayer);  // this function allows the player to change from steal to eat or normal state and provides the resulting bread.
+                //    _stealCoolDownElapsedSeconds = _coolDown;
+
+                //   _controller.ChangeState(PlayerState.Normal);
+
+                //   if (_controller.GetState() == PlayerState.Normal)
+                //   {
+                //       _moveSkill.EnableInput(true);
+                //   }
+            }
+        }
+
+
 
         void FixedUpdate()
         {
