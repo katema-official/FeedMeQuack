@@ -9,7 +9,7 @@ namespace Player
     {
         [SerializeField] private GameObject BreadToThrow;
 
-        public void ThrowBread(Vector3 startPos, Vector3 endPos)
+        public void ThrowBread(int breadPoints, Vector3 startPos, Vector3 endPos)
         {
             GameObject newBread = Instantiate(BreadToThrow);
             newBread.GetComponent<BreadNamespace.BreadThrownComponent>().InitializeBreadThrownFromDuck(

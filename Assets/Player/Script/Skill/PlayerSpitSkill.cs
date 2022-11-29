@@ -27,6 +27,7 @@ namespace Player
         private PlayerController _controller = null;
         private PlayerMoveSkill _moveSkill = null;
         private PlayerEatSkill _eatSkill = null;
+        private PlayerBreadManager _breadManager = null;
         private PlayerSpitSkillDescriptionSO _spitDesc = null;
 
         public override void SetDescription(PlayerSkillDescriptionSO desc)
@@ -54,6 +55,8 @@ namespace Player
             _controller = GetComponent<PlayerController>();
             _moveSkill = GetComponent<PlayerMoveSkill>();
             _eatSkill = GetComponent<PlayerEatSkill>();
+            _breadManager = GameObject.FindObjectOfType<PlayerBreadManager>();
+
             _spitArrow = GameObject.Find("SpitArrow");
             _spitProgressBar = GameObject.FindObjectOfType<SpitProgressBar>();
             _spitArrow.SetActive(false);
@@ -142,6 +145,7 @@ namespace Player
             {
                 Vector3 startPos = _controller.GetPosition();
                 Vector3 endPos = _controller.GetPosition() + _moveSkill.GetDirection() * (_maxRange * (_spitPower / _maxPower));
+                _breadManager.ThrowBread(/*_eatSkill.GetCatchedBread().GetPoints()*/0,startPos, endPos);
 
                 _eatSkill.ReleaseBread();
                 _spitPower = 0;
