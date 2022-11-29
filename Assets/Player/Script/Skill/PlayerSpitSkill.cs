@@ -154,6 +154,9 @@ namespace Player
             if (_controller.GetState() != PlayerState.Spitting && _spitCoolDownElapsedSeconds > 0)
             {
                 _spitCoolDownElapsedSeconds -= Time.deltaTime;
+
+                if (_spitCoolDownElapsedSeconds < 0)
+                    _spitCoolDownElapsedSeconds = 0;
             }
         }
     }

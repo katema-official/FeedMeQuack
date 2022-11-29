@@ -112,6 +112,9 @@ namespace Player
             if (_controller.GetState() != PlayerState.Dashing && _dashCoolDownElapsedSeconds > 0)
             {
                 _dashCoolDownElapsedSeconds -= Time.deltaTime;
+
+                if (_dashCoolDownElapsedSeconds < 0)
+                    _dashCoolDownElapsedSeconds = 0;
             }
         }
 
