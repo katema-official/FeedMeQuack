@@ -15,7 +15,7 @@ namespace Player
             newBread.GetComponent<BreadNamespace.BreadThrownComponent>().InitializeBreadThrownFromDuck(
                 LevelStageNamespace.EnumsDungeon.BreadType.Medium,
                 startPos.x,startPos.y,
-                 endPos.x, endPos.y);
+                 endPos.x, endPos.y,10,30);
         }
     }
 }
