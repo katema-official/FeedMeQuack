@@ -9,11 +9,12 @@ namespace Player
     {
         [SerializeField] private GameObject BreadToThrow;
 
-        public void ThrowBread(int breadPoints, Vector3 startPos, Vector3 endPos)
+        public void ThrowBread(LevelStageNamespace.EnumsDungeon.BreadType breadType, int breadPoints, Vector3 startPos, Vector3 endPos)
         {
             GameObject newBread = Instantiate(BreadToThrow);
             newBread.GetComponent<BreadNamespace.BreadThrownComponent>().InitializeBreadThrownFromDuck(
-                LevelStageNamespace.EnumsDungeon.BreadType.Medium,
+                breadType,
+                //breadPoints,
                 startPos.x,startPos.y,
                  endPos.x, endPos.y,10,30);
         }

@@ -145,7 +145,7 @@ namespace Player
             {
                 Vector3 startPos = _controller.GetPosition();
                 Vector3 endPos = _controller.GetPosition() + _moveSkill.GetDirection() * (_maxRange * (_spitPower / _maxPower));
-                _breadManager.ThrowBread(/*_eatSkill.GetCatchedBread().GetPoints()*/0,startPos, endPos);
+                _breadManager.ThrowBread(/*_eatSkill.GetCatchedBread().GetDimension()*/LevelStageNamespace.EnumsDungeon.BreadType.Medium,/*_eatSkill.GetCatchedBread().GetBreadPoints()*/0,startPos, endPos);
 
                 _eatSkill.ReleaseBread();
                 _spitPower = 0;
