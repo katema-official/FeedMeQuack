@@ -174,7 +174,6 @@ namespace Player
 
         public void NotifyFinishedQTE(GameObject breadForPlayer, GameObject breadForEnemy)
         {
-            Debug.Log("ENTRA NELL'IF SOLO SE E' TUTTO A POSTO: Stealing? : " + _controller.GetState() + " true?: " + (_enemyToSteal != null) + " <=0 ? :" + _stealCoolDownElapsedSeconds);
             if (_controller.GetState() == PlayerState.Stealing && _enemyToSteal && _stealCoolDownElapsedSeconds <= 0)
             {
                 Debug.Log("ENTRATO");

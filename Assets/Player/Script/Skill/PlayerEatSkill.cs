@@ -21,8 +21,8 @@ namespace Player
         private PlayerMoveSkill _moveSkill = null;
         private PlayerEatSkillDescriptionSO _eatDesc = null;
 
-        private BreadNamespace.BreadInWaterComponent _locatedBread = null;
-        private BreadNamespace.BreadInMouthComponent _catchedBread = null;
+        [SerializeField] private BreadNamespace.BreadInWaterComponent _locatedBread = null;     //TODO: remove serialize (do you really need to do it?)
+        [SerializeField] private BreadNamespace.BreadInMouthComponent _catchedBread = null;
 
         private HashSet<BreadNamespace.BreadInWaterComponent> _locatedBreads;
 
@@ -43,6 +43,9 @@ namespace Player
         {
             float _minDistance = 10000000;
             BreadNamespace.BreadInWaterComponent res = null;
+
+            _locatedBreads.RemoveWhere(s => s == null); //ADDED BY ALESSIO
+
             foreach (var b in _locatedBreads)
             {
                 var dist = b.gameObject.transform.position - _controller.gameObject.transform.position;
@@ -61,7 +64,6 @@ namespace Player
         }
         public void SetCatchedBread(BreadNamespace.BreadInMouthComponent bread)
         {
-            Debug.Log("IVAN NON SI FIDA");
             if (bread)
             {
                 _controller.ChangeState(PlayerState.Eating);
@@ -71,10 +73,8 @@ namespace Player
             }
             else
             {
-                Debug.Log("NON HO NULLA IN BOCCA!!!");
                 _catchedBread = null;
                 _controller.ChangeState(PlayerState.Normal);
-                Debug.Log("STATE IS " + _controller.GetState() + " AND SHOULD BE NORMAL");
                 if (_controller.GetState() == PlayerState.Normal)
                     _moveSkill.EnableInput(true);
                 _hasBreadBeenFullyEaten = false;
