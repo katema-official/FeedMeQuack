@@ -70,7 +70,7 @@ public class MenuManager : Singleton<MenuManager>
     IEnumerator StartMusicCoroutine()
     {
         yield return new WaitForSeconds(0.01f);
-        Music.Assets.Scripts.UniversalAudio.PlayMusic("Menu", false);
+        Music.UniversalAudio.PlayMusic("Menu", false);
         yield return null;
     }
 
