@@ -15,6 +15,6 @@ MonoBehaviour:
   Type: {fileID: 11400000, guid: 449f4d790880d4e4583b9c1fada2f1c1, type: 2}
   EnabledByDefault: 1
   MaxPower: 10
-  MaxRange: 20
+  MaxRange: 40
   CoolDown: 5
-  ChargeSpeed: 3
+  ChargeSpeed: 7

@@ -13,8 +13,7 @@ namespace Player
         {
             GameObject newBread = Instantiate(BreadToThrow);
             newBread.GetComponent<BreadNamespace.BreadThrownComponent>().InitializeBreadThrownFromDuck(
-                LevelStageNamespace.EnumsDungeon.BreadType.Medium,
-                //breadToThrow,
+                breadToThrow,
                 startPos.x,startPos.y,
                  endPos.x, endPos.y,10,30);
         }
