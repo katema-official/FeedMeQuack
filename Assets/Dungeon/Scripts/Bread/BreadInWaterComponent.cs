@@ -28,22 +28,24 @@ namespace BreadNamespace
 
 
 
-        public void InitializeBread(LevelStageNamespace.EnumsDungeon.BreadType dimension)
+
+
+        public void InitializeBread(LevelStageNamespace.EnumsDungeon.BreadType dimension, int breadPoints = 0)
         {
             _dimension = dimension;
             switch (_dimension)
             {
                 case LevelStageNamespace.EnumsDungeon.BreadType.Small:
                     GetComponent<SpriteRenderer>().sprite = _breadSmallSprite;
-                    _breadPoints = Random.Range(_breadSmallSO.MinBreadPointsSpawn, _breadSmallSO.MaxBreadPointsSpawn);
+                    _breadPoints = (breadPoints == 0) ? Random.Range(_breadSmallSO.MinBreadPointsSpawn, _breadSmallSO.MaxBreadPointsSpawn) : breadPoints;
                     break;
                 case LevelStageNamespace.EnumsDungeon.BreadType.Medium:
                     GetComponent<SpriteRenderer>().sprite = _breadMediumSprite;
-                    _breadPoints = Random.Range(_breadMediumSO.MinBreadPointsSpawn, _breadMediumSO.MaxBreadPointsSpawn);
+                    _breadPoints = (breadPoints == 0) ? Random.Range(_breadMediumSO.MinBreadPointsSpawn, _breadMediumSO.MaxBreadPointsSpawn) : breadPoints;
                     break;
                 case LevelStageNamespace.EnumsDungeon.BreadType.Large:
                     GetComponent<SpriteRenderer>().sprite = _breadLargeSprite;
-                    _breadPoints = Random.Range(_breadLargeSO.MinBreadPointsSpawn, _breadLargeSO.MaxBreadPointsSpawn);
+                    _breadPoints = (breadPoints == 0) ? Random.Range(_breadLargeSO.MinBreadPointsSpawn, _breadLargeSO.MaxBreadPointsSpawn) : breadPoints;
                     break;
                 default:
                     break;
@@ -56,6 +58,13 @@ namespace BreadNamespace
             float amountToDivideX = spriteSize.x / xPixelSprite;        //to remove
             float amountToDivideY = spriteSize.y / yPixelSprite;        //to remove
             transform.localScale = new Vector3(transform.localScale.x / amountToDivideX, transform.localScale.y / amountToDivideY, 0);      //to remove
+
+            //if the piece of bread was spawned outside the lake, it must be destroyed
+            if(_lakeDescriptionComponent.Contains(transform.position) == false)
+            {
+                _lakeDescriptionComponent.NotifyBreadEaten();
+                StartCoroutine(FadeOutOutsideLake());
+            }
 
         }
 
@@ -75,12 +84,12 @@ namespace BreadNamespace
                 //Debug.Log("IS NOT LAST PIECE!");
                 _breadPoints -= breadPointsToTake;
                 SetBreadSprite();
-                breadInMouthComponent.Initialize(breadPointsToTake, false, _dimension);
+                breadInMouthComponent.Initialize(breadPointsToTake, false);
             }
             else
             {
                 //Debug.Log("IS LAST PIECE!");
-                breadInMouthComponent.Initialize(_breadPoints, true, _dimension);
+                breadInMouthComponent.Initialize(_breadPoints, true);
                 _breadPoints = 0;
                 Destroy(this.gameObject);   //Should be delayed after newBreadInMouth is returned, but it should be checked
             }
@@ -111,7 +120,7 @@ namespace BreadNamespace
 
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             _lakeDescriptionComponent = GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeDescriptionComponent>();
             Music.Assets.Scripts.UniversalAudio.PlaySound("BreadInWater", transform);
@@ -138,5 +147,33 @@ namespace BreadNamespace
         {
             return _breadLargeSprite;
         }
+
+
+
+
+
+        //################################################################################################################################################################
+        //#################################################### FADE OUT FOR DESTROYING THE BREAD WHEN OUTSIDE THE LAKE ###################################################
+        //################################################################################################################################################################
+
+        IEnumerator FadeOutOutsideLake()
+        {
+            float duration = 0.5f;
+            float normalizedTime;
+            
+            for(float t = 0f; t < duration; t += Time.deltaTime)
+            {
+                normalizedTime = t / duration;
+                Color c = GetComponent<SpriteRenderer>().color;
+                c.a = Mathf.Lerp(1f, 0f, normalizedTime);
+                GetComponent<SpriteRenderer>().color = c;
+                yield return null;
+            }
+            Destroy(this.gameObject);
+            yield return null;
+        }
+
+
+
     }
 }

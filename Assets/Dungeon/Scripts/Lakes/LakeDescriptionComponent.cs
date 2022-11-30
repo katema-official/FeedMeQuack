@@ -84,9 +84,16 @@ namespace LevelStageNamespace {
 
         [SerializeField] private GameObject BreadToThrow;
 
+        //########################################################################################################################################################
+        //######################################################## INFORMATIONS ABOUT QUICK TIME EVENT ###########################################################
+        //########################################################################################################################################################
+
+        [SerializeField] private GameObject QTEMinigamePrefab;
 
 
-        [SerializeField] public EnumsDungeon.LakeDimension Dimension;
+
+
+        //[SerializeField] public EnumsDungeon.LakeDimension Dimension;
 
         public Dictionary<EnumsDungeon.BreadType, int> BreadToSpawnMap;
 
@@ -99,7 +106,7 @@ namespace LevelStageNamespace {
         private float _minIntervalTimeSpawnBread;
         private float _maxIntervaltimeSpawnBread;
 
-        [SerializeField] public bool LakeCleared;
+        //[SerializeField] public bool LakeCleared;
 
 
 
@@ -742,7 +749,91 @@ namespace LevelStageNamespace {
             return (x, y);
         }
 
-        
+
+
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+        //################################################################### PLAYER STEALING ####################################################################
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+
+        private GameObject _disputedBread;
+        private GameObject _playerReference;
+
+        //function that the player can call when it tries to steal bread from another duck. It requires as argument the piece of bread that the player
+        //is trying to steal, and at its end will call a function of the player to notify him of the result of the stealing.
+        public void PlayerStartStealFromEnemy(GameObject playerReference, GameObject breadToSteal, float x, float y)
+        {
+            GameObject qteManager = Instantiate(QTEMinigamePrefab);
+            qteManager.GetComponent<QTEStealNamespace.QTEManagerComponment>().Initialize(x, y,
+                (3 * (_levelStageManager.GetCurrentLevelIndex()-1)) + 1 + _levelStageManager.GetCurrentStageIndex(), 
+                10f + _levelStageManager.GetCurrentLevelIndex() + _levelStageManager.GetCurrentStageIndex(),
+                _levelStageManager.GetCurrentLevelIndex()-1, 
+                (_levelStageManager.GetCurrentLevelIndex()*6 + _levelStageManager.GetCurrentStageIndex()*2));
+
+            _playerReference = playerReference;
+            _disputedBread = breadToSteal;
+        }
+
+        //function called from the QTEManagerComponent (after its gameobject has been created by PlayerStartStealFromEnemy) to collect the result
+        //of the stealing action initiated by the player and notify him of the result
+        public void PlayerEndStealFromEnemy(int correct, int total) {
+            int disputedBreadBP = _disputedBread.GetComponent<BreadNamespace.BreadInMouthComponent>().GetBreadPoints();
+            bool disputedBreadIsLastPiece = _disputedBread.GetComponent<BreadNamespace.BreadInMouthComponent>().GetIsLastPiece();
+
+            float fraction = (float)(correct) / (float)(total);
+
+            int bpForPlayer = (int) Mathf.Floor((float) disputedBreadBP * fraction);
+            int bpForEnemy = (int)Mathf.Ceil((float) disputedBreadBP * (1f - fraction));
+
+            //Debug.Log("CORRECT: " + correct + ", TOTAL: " + total);
+
+            //Debug.Log("INITIAL BP = " + disputedBreadBP);
+            //Debug.Log("BREAD POINTS FOR PLAYER: " + bpForPlayer + ", BREAD POINTS FOR ENEMY: " + bpForEnemy);
+
+            GameObject breadInMouthForPlayer = null;
+            GameObject breadInMouthForEnemy = null;
+
+            if(bpForPlayer > 0 && bpForEnemy > 0)
+            {
+                //both the player and the enemy get a breadInMouth
+                breadInMouthForPlayer = Instantiate(_disputedBread);
+                breadInMouthForEnemy = Instantiate(_disputedBread);
+
+                if (disputedBreadIsLastPiece)
+                {
+                    NotifyBreadCreated();   //when both the player and the enemy created a last piece of bread from the piece that was originally of the enemy,
+                                            //it's like a new piece of bread gets created, that must be notified to the LakeDescriptionComponent.
+                }
+
+                breadInMouthForPlayer.GetComponent<BreadNamespace.BreadInMouthComponent>().Initialize(bpForPlayer, disputedBreadIsLastPiece);
+                breadInMouthForEnemy.GetComponent<BreadNamespace.BreadInMouthComponent>().Initialize(bpForEnemy, disputedBreadIsLastPiece);
+
+            }
+            else if(bpForPlayer > 0)
+            {
+                //only the player has a breadInMouth
+                breadInMouthForPlayer = Instantiate(_disputedBread);
+                breadInMouthForPlayer.GetComponent<BreadNamespace.BreadInMouthComponent>().Initialize(bpForPlayer, disputedBreadIsLastPiece);
+            }
+            else if(bpForEnemy > 0)
+            {
+                //only the enemy has a breadInMouth
+                breadInMouthForEnemy = Instantiate(_disputedBread);
+                breadInMouthForEnemy.GetComponent<BreadNamespace.BreadInMouthComponent>().Initialize(bpForEnemy, disputedBreadIsLastPiece);
+            }
+
+            
+
+
+            //call here a function on the player passing to him:
+            //-as first argument, the piece of bread that the player stole
+            //-as second, the piece of bread still in the enemy's mouth
+            
+            
+            
+        }
+
     }
 }
 
