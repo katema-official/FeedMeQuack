@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c225e49e42f7b664bb3cc14f0ae6e7eb, type: 3}
+  m_Name: PlayerMallardSpitSkillDesc
+  m_EditorClassIdentifier: 
+  Type: {fileID: 11400000, guid: 449f4d790880d4e4583b9c1fada2f1c1, type: 2}
+  EnabledByDefault: 1
+  MaxPower: 10
+  MaxRange: 20
+  CoolDown: 5
+  ChargeSpeed: 3
