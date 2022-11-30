@@ -24,6 +24,8 @@ namespace Player
         private BreadNamespace.BreadInWaterComponent _locatedBread = null;
         private BreadNamespace.BreadInMouthComponent _catchedBread = null;
 
+        private HashSet<BreadNamespace.BreadInWaterComponent> _locatedBreads;
+
 
         private bool _hasBreadBeenFullyEaten = false;
 
@@ -37,14 +39,72 @@ namespace Player
             _mouthSize = _eatDesc.MouthSize;
         }
 
+        public BreadNamespace.BreadInWaterComponent FindClosestBread()
+        {
+            float _minDistance = 10000000;
+            BreadNamespace.BreadInWaterComponent res = null;
+            foreach (var b in _locatedBreads)
+            {
+                var dist = b.gameObject.transform.position - _controller.gameObject.transform.position;
+                if (dist.magnitude < _minDistance)
+                {
+                    _minDistance = dist.magnitude;
+                    res = b;
+                }
+            }
+            return res;
+        }
+
+        public BreadNamespace.BreadInMouthComponent GetCatchedBread()
+        {
+            return _catchedBread;
+        }
+        public void SetCatchedBread(BreadNamespace.BreadInMouthComponent bread)
+        {
+            Debug.Log("IVAN NON SI FIDA");
+            if (bread)
+            {
+                _controller.ChangeState(PlayerState.Eating);
+                if (_controller.GetState() == PlayerState.Eating)
+                    _moveSkill.EnableInput(true);
+                _catchedBread = bread;
+            }
+            else
+            {
+                Debug.Log("NON HO NULLA IN BOCCA!!!");
+                _catchedBread = null;
+                _controller.ChangeState(PlayerState.Normal);
+                Debug.Log("STATE IS " + _controller.GetState() + " AND SHOULD BE NORMAL");
+                if (_controller.GetState() == PlayerState.Normal)
+                    _moveSkill.EnableInput(true);
+                _hasBreadBeenFullyEaten = false;
+            }
+
+
+        }
+
+
+        public void ReleaseBread()
+        {
+            if (_controller.GetState() != PlayerState.Eating && _catchedBread)
+            {
+                Destroy(_catchedBread.gameObject);  //Ivan non picchiarci dovrebbe funzionare
+                _catchedBread = null;
+            }
+        }
+
 
         private void Awake()
         {
             _controller = GetComponent<PlayerController>();
             _moveSkill = GetComponent<PlayerMoveSkill>();
-
+            _locatedBreads = new HashSet<BreadNamespace.BreadInWaterComponent>();
             var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
         }
+
+
+        
+
 
         // Start is called before the first frame update
         void Start()
@@ -54,7 +114,7 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.E) && !_catchedBread && _locatedBread)
+            if (Input.GetButtonDown("EatButton") && !_catchedBread && _locatedBread)
             {
 
                 _controller.ChangeState(PlayerState.Eating);
@@ -92,8 +152,6 @@ namespace Player
 
                 //}
             }
-
-            //PlayerUtility.Move(_eatingSpeed, _forwardAxis, _rightwardAxis, _rigidBody, _moveForward, ref _rotationMovement);
         }
 
         private void FixedUpdate()
@@ -102,36 +160,17 @@ namespace Player
             {
                 _moveSkill.Move(_eatingSpeed);
                 _catchedBread.Move(_controller.GetMouthTransform().position);
-              //  float points = _chewingRate * Time.deltaTime;
                 _chewingElapsedSeconds += Time.deltaTime;
 
                 if (_chewingElapsedSeconds >= _chewingRate && !_hasBreadBeenFullyEaten)
                 {
                     int a;
                     (a, _hasBreadBeenFullyEaten) = _catchedBread.SubtractBreadPoints(1);//eat a point each chewingRate seconds
-                    if (_hasBreadBeenFullyEaten)
-                    {
-                        Debug.Log("Qualcosa");
-                    }
                     _controller.AddBreadPoints(1);
                     _chewingElapsedSeconds = 0;
                 }
-                  
-                //if (_catchedBread.GetPoints() <= 0)
-                //    _controller.RoundPoints();
-                //else
-                    
-
-
             }
         }
-
-
-
-
-
-
-
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -139,9 +178,11 @@ namespace Player
 
             if (breadController)
             {
-                _locatedBread = breadController;
-                //Debug.Log("Bread located - Points: " + _locatedBread.GetPoints());
+                _locatedBreads.Add(breadController);
+                _locatedBread = FindClosestBread();
             }
+
+            
 
         }
 
@@ -149,10 +190,10 @@ namespace Player
         {
             var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
 
-            if (breadController == _locatedBread)
+            if (breadController)
             {
-                _locatedBread = null;
-                //Debug.Log("Bread missed");
+                _locatedBreads.Remove(breadController);
+                _locatedBread = FindClosestBread();
             }
         }
     }

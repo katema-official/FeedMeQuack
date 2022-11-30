@@ -62,8 +62,9 @@ public class MenuManager : Singleton<MenuManager>
     void Start()
     {
         SetMenu(Menu.Main);
-        StartCoroutine(StartMusicCoroutine());
+        //Music.UniversalAudio.PlayMusic("Menu", false);
     }
+    
 
     //How much did it cost?
     //Everything.

@@ -1,9 +1,16 @@
 fileFormatVersion: 2
-guid: 43d3927358b3c704f84b88f2de4572c5
+guid: 9cc0bb0c7beed4a45a67af2c91963fbb
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _breadSmallSprite: {fileID: 21300000, guid: 0bfbd9385beeafe489f43eefe17417ce, type: 3}
+  - _breadMediumSprite: {fileID: 21300000, guid: 7f6dba4062dec28438a2137f51ac7548, type: 3}
+  - _breadLargeSprite: {fileID: 21300000, guid: b05c519ccfad61a47813fc0dddde0d7a, type: 3}
+  - _breadSmallSO: {fileID: 11400000, guid: e809afdee7935b742b386aaa3fe8f2c0, type: 2}
+  - _breadMediumSO: {fileID: 11400000, guid: cf9b1ab0c7073284e9c459a4e306116a, type: 2}
+  - _breadLargeSO: {fileID: 11400000, guid: 857c5e16b78696243bf3faa32c995886, type: 2}
+  - BreadInMouthPrefab: {fileID: 8860026179006951707, guid: 9becfb6c6edd26f4d982233c04656fd5, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

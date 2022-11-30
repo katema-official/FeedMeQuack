@@ -9,6 +9,8 @@ TagManager:
   - FoodInMouth
   - Bread
   - Water
+  - DuckMouth
+  - QuickTimeEventManager
   layers:
   - Default
   - TransparentFX
