@@ -769,7 +769,7 @@ namespace LevelStageNamespace {
             GameObject qteManager = Instantiate(QTEMinigamePrefab);
             qteManager.GetComponent<QTEStealNamespace.QTEManagerComponment>().Initialize(x, y,
                 (3 * (_levelStageManager.GetCurrentLevelIndex()-1)) + 1 + _levelStageManager.GetCurrentStageIndex(), 
-                10f + _levelStageManager.GetCurrentLevelIndex() + _levelStageManager.GetCurrentStageIndex(),
+                3f + _levelStageManager.GetCurrentLevelIndex() + _levelStageManager.GetCurrentStageIndex(),
                 _levelStageManager.GetCurrentLevelIndex()-1, 
                 (_levelStageManager.GetCurrentLevelIndex()*6 + _levelStageManager.GetCurrentStageIndex()*2));
 

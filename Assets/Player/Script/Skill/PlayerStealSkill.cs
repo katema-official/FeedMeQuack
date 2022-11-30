@@ -71,7 +71,7 @@ namespace Player
 
             if (Input.GetButtonDown("StealButton") && 
                 _locatedEnemy && _locatedEnemy.IsEating() &&
-                _controller.GetState() != PlayerState.Stealing &&
+                _controller.GetState() == PlayerState.Normal &&
                 _stealCoolDownElapsedSeconds <= 0)
             {
                 _controller.ChangeState(PlayerState.Stealing);

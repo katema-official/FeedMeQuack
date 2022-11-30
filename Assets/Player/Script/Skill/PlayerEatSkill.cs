@@ -88,7 +88,7 @@ namespace Player
         {
             if (_controller.GetState() != PlayerState.Eating && _catchedBread)
             {
-                //_catchedBread.
+                Destroy(_catchedBread.gameObject);  //Ivan non picchiarci dovrebbe funzionare
                 _catchedBread = null;
             }
         }
