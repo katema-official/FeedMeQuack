@@ -85,6 +85,8 @@ namespace QTEStealNamespace
                 //when all buttons have passed, the player is notified of the fact that the minigame has ended.
                 GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeDescriptionComponent>().
                     PlayerEndStealFromEnemy(_numberOfButtonsCorrectlyPressed, _numberOfButtonsToPress);
+
+                Destroy(this.gameObject);
             }
         }
 

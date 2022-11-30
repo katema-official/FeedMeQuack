@@ -764,6 +764,8 @@ namespace LevelStageNamespace {
         //is trying to steal, and at its end will call a function of the player to notify him of the result of the stealing.
         public void PlayerStartStealFromEnemy(GameObject playerReference, GameObject breadToSteal, float x, float y)
         {
+            _playerReference = playerReference;
+            _disputedBread = breadToSteal;
             GameObject qteManager = Instantiate(QTEMinigamePrefab);
             qteManager.GetComponent<QTEStealNamespace.QTEManagerComponment>().Initialize(x, y,
                 (3 * (_levelStageManager.GetCurrentLevelIndex()-1)) + 1 + _levelStageManager.GetCurrentStageIndex(), 
@@ -771,8 +773,7 @@ namespace LevelStageNamespace {
                 _levelStageManager.GetCurrentLevelIndex()-1, 
                 (_levelStageManager.GetCurrentLevelIndex()*6 + _levelStageManager.GetCurrentStageIndex()*2));
 
-            _playerReference = playerReference;
-            _disputedBread = breadToSteal;
+            
         }
 
         //function called from the QTEManagerComponent (after its gameobject has been created by PlayerStartStealFromEnemy) to collect the result
@@ -823,15 +824,20 @@ namespace LevelStageNamespace {
                 breadInMouthForEnemy.GetComponent<BreadNamespace.BreadInMouthComponent>().Initialize(bpForEnemy, disputedBreadIsLastPiece);
             }
 
-            
 
+            Destroy(_disputedBread);
 
             //call here a function on the player passing to him:
             //-as first argument, the piece of bread that the player stole
             //-as second, the piece of bread still in the enemy's mouth
-            
-            
-            
+            Debug.Log("LO STO CHIAMANDO");
+            _playerReference.GetComponent<Player.PlayerStealSkill>().NotifyFinishedQTE(
+                breadInMouthForPlayer, 
+                breadInMouthForEnemy
+            );
+
+
+
         }
 
     }

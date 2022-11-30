@@ -41,7 +41,7 @@ namespace Enemies
         }
 
         public void CheckStealingOptions(GameObject colGameObject){
-            Debug.Log("Checking stealing options!");
+            //Debug.Log("Checking stealing options!");
         }
 
         public void BreadDetectedAction(Collider2D col, EnemyCustomCollider enemyCustomCollider){

@@ -61,6 +61,7 @@ namespace Player
         }
         public void SetCatchedBread(BreadNamespace.BreadInMouthComponent bread)
         {
+            Debug.Log("IVAN NON SI FIDA");
             if (bread)
             {
                 _controller.ChangeState(PlayerState.Eating);
@@ -70,10 +71,16 @@ namespace Player
             }
             else
             {
+                Debug.Log("NON HO NULLA IN BOCCA!!!");
                 _catchedBread = null;
                 _controller.ChangeState(PlayerState.Normal);
+                Debug.Log("STATE IS " + _controller.GetState() + " AND SHOULD BE NORMAL");
+                if (_controller.GetState() == PlayerState.Normal)
+                    _moveSkill.EnableInput(true);
                 _hasBreadBeenFullyEaten = false;
             }
+
+
         }
 
 

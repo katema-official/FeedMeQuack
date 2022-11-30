@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1723338386323634849}
   m_Layer: 0
   m_Name: QuickTimeEventManagerGameobject
-  m_TagString: Untagged
+  m_TagString: QuickTimeEventManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 1723338387052950497}
   m_Layer: 0
   m_Name: EmptyCircleSprite
-  m_TagString: Untagged
+  m_TagString: QuickTimeEventManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

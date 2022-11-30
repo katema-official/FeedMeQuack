@@ -6,9 +6,9 @@ namespace BreadNamespace
 {
     public class BreadInMouthComponent : MonoBehaviour
     {
-
-        private int _breadPoints;
-        private bool _isLastPiece;    //true = when this BreadInMouth was generated, it destroyed the BreadInWater, so, once this has been
+        //we serialize this two just to see them in the editor
+        [SerializeField] private int _breadPoints;
+        [SerializeField] private bool _isLastPiece;    //true = when this BreadInMouth was generated, it destroyed the BreadInWater, so, once this has been
         //fully eaten, notify the LakeDescriptionComponent
 
         [SerializeField] private Sprite _breadSmallSprite;
