@@ -11,8 +11,9 @@ namespace Player
         [SerializeField] private float _maxDuration = 0.0f;
         [SerializeField] private float _coolDown = 0.0f;
         //-------------------------------------
-        private float _dashElapsedSeconds = 0.0f;
-        private float _dashCoolDownElapsedSeconds = 0.0f;
+        [SerializeField] private float _dashElapsedSeconds = 0.0f;
+        [SerializeField] private float _dashCoolDownElapsedSeconds = 0.0f;
+        private float _noDashArea = 10.0f;
         //-------------------------------------
 
 
@@ -60,23 +61,27 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Q) && _dashCoolDownElapsedSeconds <= 0)
+            if (Input.GetButtonDown("DashButton") && _dashCoolDownElapsedSeconds <= 0)
             {
                 if (_controller.GetState() == PlayerState.Dashing)
                 {
                     _controller.ChangeState(PlayerState.Normal);
 
                     if (_controller.GetState() == PlayerState.Normal)
+                    {
                         _moveSkill.EnableInput(true);
+                        _dashElapsedSeconds = 0.0f;
+                        _dashCoolDownElapsedSeconds = _coolDown;
+                    }
                 }
                 else
                 {
-                    var p = _controller.GetPosition() + _moveSkill.GetDirection() * _maxSpeed * _maxDuration;
+                    var p = _controller.GetPosition() + _moveSkill.GetDirection() * _noDashArea;
 
                     if (_controller.GetLake().Contains(p))
                     {
                         _controller.ChangeState(PlayerState.Dashing);
-                    }         
+                    }
                 }
 
                 if (_controller.GetState() == PlayerState.Dashing)
@@ -107,7 +112,31 @@ namespace Player
             if (_controller.GetState() != PlayerState.Dashing && _dashCoolDownElapsedSeconds > 0)
             {
                 _dashCoolDownElapsedSeconds -= Time.deltaTime;
+
+                if (_dashCoolDownElapsedSeconds < 0)
+                    _dashCoolDownElapsedSeconds = 0;
             }
         }
+
+        void OnCollisionEnter2D(Collision2D col)
+        {
+            if (_controller.GetState() == PlayerState.Dashing)
+            {
+                _controller.ChangeState(PlayerState.Normal);
+
+                if (_controller.GetState() == PlayerState.Normal)
+                {
+                    _moveSkill.EnableInput(true);
+                    _dashElapsedSeconds = 0.0f;
+                    _dashCoolDownElapsedSeconds = _coolDown;
+                }
+            }
+        }
+
+        void OnCollisionExit2D(Collision2D other)
+        {
+        }
+
+
     }
 }

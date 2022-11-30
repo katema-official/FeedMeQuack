@@ -23,5 +23,11 @@ public class GenerateBreadComponentMU : MonoBehaviour
                 Instantiate(_bread);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            GameObject b = Instantiate(_bread);
+            b.GetComponent<BreadNamespace.BreadThrownComponent>().InitializeBreadThrownFromDuck(null, 0, 0, 100, 100);
+        }
     }
 }

@@ -44,13 +44,19 @@ namespace Player
         public void EnableInput(bool enable)
         {
             _enableInput = enable;
+           
+            if (!enable)
+                _rigidBody.velocity = new Vector2(0, 0);
         }
 
         public Vector3 GetDirection()
         {
             return _finalDir;
         }
-
+        public float GetAngle()
+        {
+            return _rotationMovement;
+        }
         //public void SetOverrideSpeed(float overrideSpeed)
         //{
         //    _overrideSpeed = overrideSpeed;
@@ -60,22 +66,22 @@ namespace Player
         public void Move(float speed, bool moveForward = false)
         {
             if (_moveForward || moveForward)
-            {
+            //{
                // var ax = new Vector3();
-                if (_enableInput)
-                {
-                    _finalDir = _forwardAxis;//_forwardAxis + _rightwardAxis;
-                    _finalDir.Normalize();
+               // if (_enableInput)
+               // {
+               //     _finalDir = _forwardAxis;//_forwardAxis + _rightwardAxis;
+                //    _finalDir.Normalize();
 
                   //  var x = (_forwardAxis.x >= 0) ? Mathf.Ceil(_forwardAxis.x) : Mathf.Floor(_forwardAxis.x);
                  //   var y = (_forwardAxis.y >= 0) ? Mathf.Ceil(_forwardAxis.y) : Mathf.Floor(_forwardAxis.y);
 
                  //   ax = new Vector3(x,y, 0);
                  //   ax.Normalize();
-                }
+               // }
 
               
-                float angle = Mathf.Atan2(-_finalDir.x, _finalDir.y) * Mathf.Rad2Deg;
+               // float angle = Mathf.Atan2(-_finalDir.x, _finalDir.y) * Mathf.Rad2Deg;
                 // float angleInt = Mathf.Atan2(-ax.x, ax.y) * Mathf.Rad2Deg;
 
 
@@ -136,17 +142,25 @@ namespace Player
 
 
 
+               // _rotationMovement = angle;
+            { 
+                if (_enableInput)
+                {
+                    _finalDir = _forwardAxis;// _forwardAxis + _rightwardAxis;
+                    _finalDir.Normalize(); 
+                } 
+
+                float angle = Mathf.Atan2(-_finalDir.x, _finalDir.y) * Mathf.Rad2Deg;
                 _rotationMovement = angle;
+
                 _force = speed * 1.5f;
                 _rigidBody.AddForce(_finalDir * _force, ForceMode2D.Force);
                 _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity, speed); 
-                
-                //Debug.Log("Current player velocity: " +  angle);
             }
 
             _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
 
-            MoveCamera();
+           // MoveCamera();
            
         }
 
@@ -169,7 +183,28 @@ namespace Player
             if (cameraBounds.max.y > lakeBounds.max.y) newCamPos.y -= cameraBounds.max.y - lakeBounds.max.y;
 
             _camera.transform.position = newCamPos;
+        }        
+        
+        
+        public void Rotate()
+        {
+            if (_moveForward)
+            {
+                if (_enableInput)
+                {
+                    _finalDir = _forwardAxis;// _forwardAxis + _rightwardAxis;
+                    _finalDir.Normalize();
+                }
+
+                float angle = Mathf.Atan2(-_finalDir.x, _finalDir.y) * Mathf.Rad2Deg;
+                _rotationMovement = angle;
+            }
+
+            _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
+
+           // MoveCamera();
         }
+
         private void Awake()
         {
             _rigidBody = GetComponent<Rigidbody2D>();
@@ -243,10 +278,14 @@ namespace Player
 
         private void FixedUpdate()
         {
+            MoveCamera();
+
             if (_controller.GetState() != PlayerState.Normal) return;
 
             //PlayerUtility.Move(_speed, _forwardAxis, _rightwardAxis, _rigidBody, _moveForward, ref _rotationMovement);
             Move(_speed/*, _moveForward*/);
+
+
         }
     }
 }

@@ -58,12 +58,14 @@ namespace Enemies
         }
 
         public void StartEatingAfterRobbery(BreadInMouthComponent newBread){
-            if (newBread == null){
+            if (newBread == null)
+            {
+                BreadInMouth = null;
                 _fsmScript.ChangeState(EnemyFSM.ActionState.Roaming);
                 return;
             }
-            BreadInMouth = newBread;
             _fsmScript.ChangeState(EnemyFSM.ActionState.Eating);
+            StartEatingBread(newBread);
         }
     }
 }

@@ -34,6 +34,7 @@ namespace BreadNamespace
         // follows the ground plane so we rotate the sprite by this velocity instead.
         float angularVelocity;
 
+        
 
 
 
@@ -49,7 +50,9 @@ namespace BreadNamespace
         //the LakeDescriptionComponent assigns to this variable the prefab of the bread that needs to be rendered when thrown, and to be spawned successively
         public GameObject BreadToSpawnPrefab;
 
-        private LevelStageNamespace.EnumsDungeon.BreadType _dimension;
+        private int _breadPoints = 0; //if it's zero, it means that the actual value of bread points will be decided when the BreadInWater is created.
+        //Otherwise, this is the number of bread points that the new BreadInWater will have (this is the case if the player spits the bread)
+        private LevelStageNamespace.EnumsDungeon.BreadType _dimension;   //will be changed as soon as this object is created
 
         void Awake()
         {
@@ -92,10 +95,17 @@ namespace BreadNamespace
 
 
 
-        public void InitializeBreadThrownFromDuck(LevelStageNamespace.EnumsDungeon.BreadType dimension, float xInit, float yInit, float xEnd, float yEnd,
+        public void InitializeBreadThrownFromDuck(BreadInMouthComponent breadInMouthToThrow, float xInit, float yInit, float xEnd, float yEnd,
                                                     float minInitialVelocity = 75f, float maxInitialVelocity = 125f, float gravity = 100f)
         {
-            _dimension = dimension;
+            _dimension = breadInMouthToThrow.GetDimension();
+            _breadPoints = breadInMouthToThrow.GetBreadPoints();
+            //if the piece of bread we are about to throw is NOT final, we have to notify the LakeDescriptionComponent of the fact that a new piece of bread
+            //is about to be created, and it's in addition to the already existing ones.
+            if(breadInMouthToThrow!=null && breadInMouthToThrow.GetIsLastPiece() == false)
+            {
+                wholeLakeComponent.NotifyBreadCreated();
+            }
 
             _xInit = xInit;
             _yInit = yInit;
@@ -206,10 +216,12 @@ namespace BreadNamespace
             {
                 _sleep = true;
 
+                Debug.Log("QQQ 1");
                 //the breadThrown object can be destroyed, and the actual bread can be instantiated
                 GameObject b = Instantiate(BreadToSpawnPrefab, _shadow.transform.position, Quaternion.identity);
-                b.GetComponent<BreadInWaterComponent>().InitializeBread(_dimension);
-                Destroy(gameObject);
+                b.GetComponent<BreadInWaterComponent>().InitializeBread(_dimension, _breadPoints);
+                Debug.Log("QQQ END OF BREAD THROWN!");
+                Destroy(this.gameObject);
             }
 
         }

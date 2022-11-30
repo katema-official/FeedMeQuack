@@ -80,8 +80,8 @@ namespace Enemies
             }
 
             while (_speedPerc < 1){
-                _speedPerc += 0.001f;
-                yield return new WaitForSeconds(_accelerationTimeSeconds / 1000);
+                _speedPerc += 0.01f;
+                yield return new WaitForSeconds(_accelerationTimeSeconds / 100);
             }
 
             yield return null;
@@ -297,13 +297,16 @@ namespace Enemies
         }
 
         public void GoTo(Vector3 positionToBeIn){
-            _movingVector =NormalizeToMaxSpeed( positionToBeIn - _parentGameObject.transform.position);
+            transform.parent.position = positionToBeIn;
+            transform.parent.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);   //Marco dovrebbe funzionare, non bastonarci :)
+            /*_movingVector =NormalizeToMaxSpeed( positionToBeIn - _parentGameObject.transform.position);
             _movingCoroutineVar = StartCoroutine(MovingCoroutine());
             while (_parentGameObject.transform.position!= positionToBeIn){
                 
             }
             StopCoroutine(_movingCoroutineVar);
             //_decelerateCoroutine = StartCoroutine(DecelerateCoroutine());
+            */
         }
     }
 }
