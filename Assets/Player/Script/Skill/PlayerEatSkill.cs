@@ -108,27 +108,13 @@ namespace Player
         {
             if (Input.GetButtonDown("EatButton") && !_caughtBread && _locatedBread)
             {
-
                 _controller.ChangeState(PlayerState.Eating);
 
                 if (_controller.GetState() == PlayerState.Eating)
                     _moveSkill.EnableInput(true);
 
-                _caughtBread = _locatedBread.GenerateNewBreadInMouth(_mouthSize).GetComponent<BreadNamespace.BreadInMouthComponent>();
-
                 //take a piece of the located bread, or the entire located bread based on mouth size
-                /*if (_locatedBread.GetPoints() > _mouthSize)
-                {
-                    _locatedBread.EatPoints(_mouthSize);
-                    var l = _controller.GetLake();
-                    _caughtBread = l.GenerateNewBread();
-                    _caughtBread.SetPoints(_mouthSize);
-                }
-                else
-                {
-                    _caughtBread = _locatedBread;
-                }
-                */
+                _caughtBread = _locatedBread.GenerateNewBreadInMouth(_mouthSize).GetComponent<BreadNamespace.BreadInMouthComponent>();
             }
 
 
