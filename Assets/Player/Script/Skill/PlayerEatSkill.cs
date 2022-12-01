@@ -18,6 +18,7 @@ namespace Player
         private PlayerController _controller = null;
         private PlayerMoveSkill _moveSkill = null;
         private PlayerEatSkillDescriptionSO _eatDesc = null;
+        private PlayerBreadManager _breadManager = null;
 
         [SerializeField] private BreadNamespace.BreadInWaterComponent _locatedBread = null;
         [SerializeField] private BreadNamespace.BreadInMouthComponent _caughtBread = null;
@@ -84,7 +85,8 @@ namespace Player
         {
             if (_controller.GetState() != PlayerState.Eating && _caughtBread)
             {
-                Destroy(_caughtBread.gameObject);
+                // Destroy(_caughtBread.gameObject);
+                _breadManager.ReleaseBread(_caughtBread);
                 _caughtBread = null;
             }
         }
@@ -95,6 +97,8 @@ namespace Player
             _controller = GetComponent<PlayerController>();
             _moveSkill = GetComponent<PlayerMoveSkill>();
             _locatedBreads = new HashSet<BreadNamespace.BreadInWaterComponent>();
+            _breadManager = GameObject.FindObjectOfType<PlayerBreadManager>();
+
             var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
         }
 
