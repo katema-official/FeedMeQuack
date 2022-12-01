@@ -51,15 +51,10 @@ namespace Music
                 soundSliders[0] = soundSliders[1];
             }
             
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                UniversalAudio.PlayStealing("Duck", "Swan", transform);
-            }
             _slidersIndex = SceneManager.GetActiveScene().buildIndex == 4 ? 0 : 1;
 
             soundSliders[_slidersIndex].onValueChanged.AddListener(delegate { UpdateRightSliders(_slidersIndex);});
             musicSliders[_slidersIndex].onValueChanged.AddListener(delegate { UpdateRightSliders(_slidersIndex);});
-            
         }
 
         private void UpdateRightSliders(int sliderIndex)
@@ -84,11 +79,11 @@ namespace Music
             musicSliders[0].minValue = 0.0001f;
             musicSliders[0].maxValue = 1;
             musicSliders[0].wholeNumbers = false;
-            musicSliders[0].value = PlayerPrefs.GetFloat("MusicValue", 0.30f);
+            musicSliders[0].value = PlayerPrefs.GetFloat("MusicValue", 0.25f);
             soundSliders[0].minValue = 0.0001f;
             soundSliders[0].maxValue = 1;
             soundSliders[0].wholeNumbers = false;
-            soundSliders[0].value = PlayerPrefs.GetFloat("SoundValue", 0.95f);
+            soundSliders[0].value = PlayerPrefs.GetFloat("SoundValue", 1);
             
             SetMusicVolume(musicSliders[0].value);
             SetSoundVolume(soundSliders[0].value);
@@ -129,11 +124,11 @@ namespace Music
         {
             mixer.ClearFloat("soundVolume");
             mixer.ClearFloat("musicVolume");
-            SetMusicVolume(0.3f);
-            SetSoundVolume(0.95f);
+            SetMusicVolume(0.25f);
+            SetSoundVolume(1);
 
-            soundSliders[0].value = 0.95f;
-            musicSliders[0].value = 0.30f;
+            soundSliders[0].value = 1;
+            musicSliders[0].value = 0.25f;
             
             musicSliders[1].value = SceneManager.GetActiveScene().buildIndex == 4 ? musicSliders[0].value : musicSliders[1].value;
             soundSliders[1].value = SceneManager.GetActiveScene().buildIndex == 4 ? soundSliders[0].value : soundSliders[1].value;

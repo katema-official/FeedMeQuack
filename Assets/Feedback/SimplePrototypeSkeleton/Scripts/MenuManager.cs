@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Music;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
@@ -62,18 +63,17 @@ public class MenuManager : Singleton<MenuManager>
     void Start()
     {
         SetMenu(Menu.Main);
-        //Music.UniversalAudio.PlayMusic("Menu", false);
     }
     
 
     //How much did it cost?
     //Everything.
-    IEnumerator StartMusicCoroutine()
+    /*IEnumerator StartMusicCoroutine()
     {
         yield return new WaitForSeconds(0.01f);
         Music.UniversalAudio.PlayMusic("Menu", false);
         yield return null;
-    }
+    }*/
 
 
         private void Update()

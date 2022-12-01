@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -14,6 +16,7 @@ namespace Music
       public AudioMixerSnapshot paused;
       public AudioMixerSnapshot unpaused;
       public GameObject canvasPauseMenu;
+      [SerializeField] private int timesLoadedMainMenu;
 
       private void Update()
       {
@@ -55,10 +58,36 @@ namespace Music
       {
          Pause();
          UniversalAudio.StopAllMusic();
+         
+         foreach (var o in FindObjectsOfType<GameObject>())
+         {
+            //if (o.transform.name.Equals("AudioManager"))
+            {
+               Destroy(o);
+            }
+         }
+         
          // Go in File -> Build Settings -> Add Open Scenes. Here will be loaded the scene at the specified index
-         SceneManager.LoadScene(4);
+         SceneManager.LoadScene("Music/MainMenu");
+
+         UniversalAudio.PlayMusic("Menu", true);
+         }
+
+      private static class ClassExtension
+      {
+         public static List<GameObject> GetAllChildren(GameObject go)
+         {
+            List<GameObject> list = new List<GameObject>();
+            for (int i = 0; i < go.transform.childCount; i++)
+            {
+               list.Add(go.transform.GetChild(i).gameObject);
+            }
+
+            return list;
+         }
       }
       
+
       public void BackToGame()
       {
          Pause();

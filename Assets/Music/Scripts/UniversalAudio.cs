@@ -47,6 +47,9 @@ namespace Music // To change correctly
         private const string
             PathFromSourcesForSound = "SFX/"; // Inside folder "Resources", if there is a relative path, write it here
 
+        private static float _minTimeBetweenQuackSteal = 0.3f;
+        private static int _maxTimeBetweenQuackSteal = 1;
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -286,7 +289,7 @@ namespace Music // To change correctly
 
             var numberRobbed = random.NextInt(0, MusicManagerComponent.stringAndNumberDictionary[robbed]);
 
-            yield return new WaitForSecondsRealtime(random.NextFloat(0.5f, 1.5f));
+            yield return new WaitForSecondsRealtime(random.NextFloat(_minTimeBetweenQuackSteal, _maxTimeBetweenQuackSteal));
 
             switch (numberRobbed)
             {
@@ -301,7 +304,7 @@ namespace Music // To change correctly
                     break;
             }
 
-            yield return new WaitForSeconds(random.NextFloat(0.5f, 2f));
+            yield return new WaitForSeconds(random.NextFloat(_minTimeBetweenQuackSteal, _maxTimeBetweenQuackSteal));
         }
 
         public static void PlayStealing(string robber, string robbed, Transform thisTransform)
