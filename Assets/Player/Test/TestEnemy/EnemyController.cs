@@ -10,7 +10,7 @@ namespace Player
     public class EnemyController : MonoBehaviour
     {
         private LakeController _currentLake = null;
-        private BreadController _catchedBread = null;
+        private BreadController _caughtBread = null;
         private Transform _mouth = null;
 
 
@@ -36,8 +36,8 @@ namespace Player
             //var lakeController = collision.gameObject.GetComponentInChildren<LakeController>();
             //if (lakeController) {
             //    _currentLake = lakeController;
-            //    _catchedBread = _currentLake.GenerateNewBread();
-            //    _catchedBread.Move(_mouth.position);
+            //    _caughtBread = _currentLake.GenerateNewBread();
+            //    _caughtBread.Move(_mouth.position);
             //}
         }
 
