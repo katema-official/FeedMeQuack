@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0808f2d5-72ad-4799-babc-2a377af7996b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuackTrue/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuackTrue/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Feedback/SimplePrototypeSkeleton/Scripts/MenuManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Feedback/SimplePrototypeSkeleton/Scripts/MenuManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/MainMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Prefabs/AudioManager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Prefabs/AudioManager.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Prefabs/MainMenuCanvas.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Prefabs/MainMenuCanvas.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/Mixers/GameAudioMixer.mixer" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Resources/Mixers/GameAudioMixer.mixer" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/MusicManagerComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Scripts/MusicManagerComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/PauseManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Scripts/PauseManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/UniversalAudio.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Scripts/UniversalAudio.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +74,7 @@
       <workItem from="1669809295121" duration="6051000" />
       <workItem from="1669822688845" duration="14881000" />
       <workItem from="1669849081236" duration="378000" />
-      <workItem from="1669894170236" duration="13728000" />
+      <workItem from="1669894170236" duration="14061000" />
     </task>
     <servers />
   </component>

@@ -48,7 +48,7 @@ namespace Music // To change correctly
             PathFromSourcesForSound = "SFX/"; // Inside folder "Resources", if there is a relative path, write it here
 
         private static float _minTimeBetweenQuackSteal = 0.3f;
-        private static int _maxTimeBetweenQuackSteal = 1;
+        private static float _maxTimeBetweenQuackSteal = 1f;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
