@@ -285,60 +285,48 @@ namespace LevelStageNamespace {
         {
             //TODO: for this moment, I'll just stick the values here, because otherwise I would have to manage too many variables in this monobehaviour,
             //and I also don't know if I want exactly this kind of animation.
-            float timeBetweenShrinking = 0.005f;
-            float percentageToReducePerUnitOfTime = 0.01f;
 
-            float length;
-            float amountToReduce;
-            Vector3 reduceVector = Vector3.zero;
-            switch (direction)
-            {
-                case EnumsDungeon.CompassDirection.North:
-                case EnumsDungeon.CompassDirection.South:
-                    length = _xScaleOfRiver;
-                    amountToReduce = length * percentageToReducePerUnitOfTime;
-                    reduceVector = new Vector3(amountToReduce, 0, 0);
-                    break;
+            float closingTime = .5f;
 
-                case EnumsDungeon.CompassDirection.West:
-                case EnumsDungeon.CompassDirection.East:
-                    length = _yScaleOfRiver;
-                    amountToReduce = length * percentageToReducePerUnitOfTime;
-                    reduceVector = new Vector3(0, amountToReduce, 0);
-                    break;
-            }
+            Vector3 start = river.localScale;
+            Vector3 end = Vector3.zero;
 
             switch (direction)
             {
                 case EnumsDungeon.CompassDirection.North:
-                    while(river.localScale.x > 0)
+                    end = new Vector3(0, river.localScale.y, river.localScale.z);
+                    for(float i = 0; i < closingTime; i += Time.deltaTime)
                     {
-                        river.localScale -= reduceVector;
-                        yield return new WaitForSeconds(timeBetweenShrinking);
+                        river.localScale = Vector3.Lerp(start, end, i/closingTime);
+                        yield return null;
                     }
                     break;
                 case EnumsDungeon.CompassDirection.South:
-                    while (river.localScale.x > 0)
+                    end = new Vector3(0, river.localScale.y, river.localScale.z);
+                    for (float i = 0; i < closingTime; i += Time.deltaTime)
                     {
-                        river.localScale -= reduceVector;
-                        yield return new WaitForSeconds(timeBetweenShrinking);
+                        river.localScale = Vector3.Lerp(start, end, i / closingTime);
+                        yield return null;
                     }
                     break;
                 case EnumsDungeon.CompassDirection.West:
-                    while (river.localScale.y > 0)
+                    end = new Vector3(river.localScale.x, 0, river.localScale.z);
+                    for (float i = 0; i < closingTime; i += Time.deltaTime)
                     {
-                        river.localScale -= reduceVector;
-                        yield return new WaitForSeconds(timeBetweenShrinking);
+                        river.localScale = Vector3.Lerp(start, end, i / closingTime);
+                        yield return null;
                     }
                     break;
                 case EnumsDungeon.CompassDirection.East:
-                    while (river.localScale.y > 0)
+                    end = new Vector3(river.localScale.x, 0, river.localScale.z);
+                    for (float i = 0; i < closingTime; i += Time.deltaTime)
                     {
-                        river.localScale -= reduceVector;
-                        yield return new WaitForSeconds(timeBetweenShrinking);
+                        river.localScale = Vector3.Lerp(start, end, i / closingTime);
+                        yield return null;
                     }
                     break;
             }
+            river.localScale = end;
             yield return null;
         }
 
@@ -372,60 +360,56 @@ namespace LevelStageNamespace {
         {
             //TODO: for this moment, I'll just stick the values here, because otherwise I would have to manage too many variables in this monobehaviour,
             //and I also don't know if I want exactly this kind of animation.
-            float timeBetweenEnlarging = 0.005f;
-            float percentageToAddPerUnitOfTime = 0.01f;
 
-            float length;
-            float amountToAdd;
-            Vector3 addVector = Vector3.zero;
-            switch (direction)
-            {
-                case EnumsDungeon.CompassDirection.North:
-                case EnumsDungeon.CompassDirection.South:
-                    length = _xScaleOfRiver;
-                    amountToAdd = length * percentageToAddPerUnitOfTime;
-                    addVector = new Vector3(amountToAdd, 0, 0);
-                    break;
+            float openingTime = .5f;
 
-                case EnumsDungeon.CompassDirection.West:
-                case EnumsDungeon.CompassDirection.East:
-                    length = _yScaleOfRiver;
-                    amountToAdd = length * percentageToAddPerUnitOfTime;
-                    addVector = new Vector3(0, amountToAdd, 0);
-                    break;
-            }
+            Vector3 start = river.localScale;
+            Vector3 end = Vector3.zero;
 
             switch (direction)
             {
                 case EnumsDungeon.CompassDirection.North:
-                    while (river.localScale.x < _xScaleOfRiver)
+
+                    end = new Vector3(_xScaleOfRiver, river.localScale.y, river.localScale.z);
+                    for (float i = 0; i < openingTime; i += Time.deltaTime)
                     {
-                        river.localScale += addVector;
-                        yield return new WaitForSeconds(timeBetweenEnlarging);
+                        river.localScale = Vector3.Lerp(start, end, i / openingTime);
+                        yield return null;
                     }
+
                     break;
                 case EnumsDungeon.CompassDirection.South:
-                    while (river.localScale.x < _xScaleOfRiver)
+
+                    end = new Vector3(_xScaleOfRiver, river.localScale.y, river.localScale.z);
+                    for (float i = 0; i < openingTime; i += Time.deltaTime)
                     {
-                        river.localScale += addVector;
-                        yield return new WaitForSeconds(timeBetweenEnlarging);
+                        river.localScale = Vector3.Lerp(start, end, i / openingTime);
+                        yield return null;
                     }
+
                     break;
                 case EnumsDungeon.CompassDirection.West:
-                    while (river.localScale.y < _yScaleOfRiver)
+
+                    end = new Vector3(river.localScale.x, _yScaleOfRiver, river.localScale.z);
+                    for (float i = 0; i < openingTime; i += Time.deltaTime)
                     {
-                        river.localScale += addVector;
-                        yield return new WaitForSeconds(timeBetweenEnlarging);
+                        river.localScale = Vector3.Lerp(start, end, i / openingTime);
+                        yield return null;
                     }
+
                     break;
                 case EnumsDungeon.CompassDirection.East:
-                    while (river.localScale.y < _yScaleOfRiver)
+
+                    end = new Vector3(river.localScale.x, _yScaleOfRiver, river.localScale.z);
+                    for (float i = 0; i < openingTime; i += Time.deltaTime)
                     {
-                        river.localScale += addVector;
-                        yield return new WaitForSeconds(timeBetweenEnlarging);
+                        river.localScale = Vector3.Lerp(start, end, i / openingTime);
+                        yield return null;
                     }
+
                     break;
             }
+            river.localScale = end;
             yield return null;
         }
 
