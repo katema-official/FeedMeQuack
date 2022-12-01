@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -25,7 +26,7 @@ namespace Music
         {
             InitSlidersAndPreferences();
             UniversalAudio.InitAllCoroutine(gameObject);
-            UniversalAudio.PlayMusic("Menu", true);
+            //UniversalAudio.PlayMusic("Menu", true);
         }
 
         private static void InitAnimalsSound()
@@ -40,18 +41,36 @@ namespace Music
 
         private void Start()
         {
+            Component[] sliders = GameObject.Find("MainMenuCanvas").transform.GetComponentsInChildren(typeof(Slider), true);
+            foreach (Slider s in sliders)
+            {
+                if (s.gameObject.name == "MusicSliderMainMenu")
+                {
+                    musicSliders[0] = s;
+                }
+                if (s.gameObject.name == "SoundSliderMainMenu")
+                {
+                    soundSliders[0] = s;
+                }
+            }
             InitAnimalsSound();
+            UniversalAudio.PlayMusic("Menu", true);
         }
 
         private void Update()
         {
+            if(UniversalAudio.universalAudioMonoBehaviour == null)
+            {
+                UniversalAudio.Init(gameObject);    //???
+            }
+
             if (musicSliders[0] == null && soundSliders[0] == null)
             {
                 musicSliders[0] = musicSliders[1];
                 soundSliders[0] = soundSliders[1];
             }
             
-            _slidersIndex = SceneManager.GetActiveScene().buildIndex == 4 ? 0 : 1;
+            _slidersIndex = SceneManager.GetActiveScene().name == "MainMenu" ? 0 : 1;
 
             soundSliders[_slidersIndex].onValueChanged.AddListener(delegate { UpdateRightSliders(_slidersIndex);});
             musicSliders[_slidersIndex].onValueChanged.AddListener(delegate { UpdateRightSliders(_slidersIndex);});
@@ -62,8 +81,8 @@ namespace Music
             SetSoundVolume(soundSliders[sliderIndex].value);
             SetMusicVolume(musicSliders[sliderIndex].value);
             
-            musicSliders[1].value = SceneManager.GetActiveScene().buildIndex == 4 ? musicSliders[0].value : musicSliders[1].value;
-            soundSliders[1].value = SceneManager.GetActiveScene().buildIndex == 4 ? soundSliders[0].value : soundSliders[1].value;
+            musicSliders[1].value = SceneManager.GetActiveScene().name == "MainMenu" ? musicSliders[0].value : musicSliders[1].value;
+            soundSliders[1].value = SceneManager.GetActiveScene().name == "MainMenu" ? soundSliders[0].value : soundSliders[1].value;
             
             mixer.SetFloat("musicVolume", Mathf.Log10(musicSliders[sliderIndex].value* 20));
             mixer.SetFloat("soundVolume", Mathf.Log10(soundSliders[sliderIndex].value * 20));
@@ -98,7 +117,7 @@ namespace Music
             soundSliders[1].wholeNumbers = false;
             soundSliders[1].value = soundSliders[0].value;
             
-            _slidersIndex = SceneManager.GetActiveScene().buildIndex == 4 ? 0 : 1;
+            _slidersIndex = SceneManager.GetActiveScene().name == "MainMenu" ? 0 : 1;
             mixer.SetFloat("musicVolume", Mathf.Log10(musicSliders[0].value * 20));
             mixer.SetFloat("soundVolume", Mathf.Log10(soundSliders[0].value * 20));
             audioSource1.volume = musicSliders[_slidersIndex].value;
@@ -130,8 +149,8 @@ namespace Music
             soundSliders[0].value = 1;
             musicSliders[0].value = 0.25f;
             
-            musicSliders[1].value = SceneManager.GetActiveScene().buildIndex == 4 ? musicSliders[0].value : musicSliders[1].value;
-            soundSliders[1].value = SceneManager.GetActiveScene().buildIndex == 4 ? soundSliders[0].value : soundSliders[1].value;
+            musicSliders[1].value = SceneManager.GetActiveScene().name == "MainMenu" ? musicSliders[0].value : musicSliders[1].value;
+            soundSliders[1].value = SceneManager.GetActiveScene().name == "MainMenu" ? soundSliders[0].value : soundSliders[1].value;
             
             audioSource1.volume = musicSliders[0].value;
             audioSource2.volume = musicSliders[0].value;

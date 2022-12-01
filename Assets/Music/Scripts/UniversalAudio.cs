@@ -18,8 +18,8 @@ namespace Music // To change correctly
         {
         }
 
-        private static UniversalAudioMonoBehaviour
-            _universalAudioMonoBehaviour; // Variable reference for the class to use instance at the occurrence
+        public static UniversalAudioMonoBehaviour
+            universalAudioMonoBehaviour; // Variable reference for the class to use instance at the occurrence
 
         private static Dictionary<string, float>
             _audioClipTimerDictionary; // Keys are clips name, Values are the seconds where the clip will start
@@ -56,11 +56,11 @@ namespace Music // To change correctly
         // Main initializations 
 
         //Now Initialize the variable (the instance _universalAudioMonoBehaviour)
-        private static void Init(GameObject musicManagerGo)
+        public static void Init(GameObject musicManagerGo)
         {
             // If the instance not exists the first time we call the static class
             //Add this script to the object
-                _universalAudioMonoBehaviour ??= musicManagerGo.AddComponent<UniversalAudioMonoBehaviour>();
+                universalAudioMonoBehaviour ??= musicManagerGo.AddComponent<UniversalAudioMonoBehaviour>();
         }
 
         private static void GetAudioSources(GameObject musicManager)
@@ -100,12 +100,16 @@ namespace Music // To change correctly
             }
             else // If it exists, clean all the values to 0
             {
-                foreach (var clipName in _audioClipTimerDictionary.Keys)
+                List<string> keys = new List<string>(_audioClipTimerDictionary.Keys);
+                foreach(string key in keys)
                 {
-                    _audioClipTimerDictionary[clipName] = 0;
+                    InitDictionary(key);
                 }
+
             }
         }
+
+
 
         // Overload to clean only the track whose name is clipName
         private static void InitDictionary(string clipName)
@@ -130,7 +134,7 @@ namespace Music // To change correctly
         // Getter and Setter of the variables
         private static void SetTrueTimeOfFading()
         {
-            _timeOfFading = SceneManager.GetActiveScene().buildIndex == 4 ? 0 : 1;
+            _timeOfFading = SceneManager.GetActiveScene().name == "MainMenu" ? 0 : 1;
         }
 
         private static void SetRightVolumes()
@@ -219,7 +223,7 @@ namespace Music // To change correctly
         public static void PlayMusic(string songName, bool fromStart)
         {
             //Call the Coroutine
-            _universalAudioMonoBehaviour.StartCoroutine(FadeTrack(songName, fromStart));
+            universalAudioMonoBehaviour.StartCoroutine(FadeTrack(songName, fromStart));
         }
 
         public static void PlaySound(string clipName, Transform thisTransform)
@@ -309,7 +313,7 @@ namespace Music // To change correctly
 
         public static void PlayStealing(string robber, string robbed, Transform thisTransform)
         {
-            _universalAudioMonoBehaviour.StartCoroutine(Stealing(robber, robbed, thisTransform));
+            universalAudioMonoBehaviour.StartCoroutine(Stealing(robber, robbed, thisTransform));
         }
 
     }

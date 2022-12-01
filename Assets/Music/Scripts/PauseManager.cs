@@ -20,7 +20,7 @@ namespace Music
 
       private void Update()
       {
-         if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().buildIndex != 4 && SceneManager.GetActiveScene().buildIndex != 1)
+         if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "GameOverScreen")
          {
             canvasPauseMenu.SetActive(!canvasPauseMenu.activeInHierarchy);
             Pause();
@@ -56,22 +56,18 @@ namespace Music
 
       public void BackToMainMenu()
       {
-         Pause();
-         UniversalAudio.StopAllMusic();
-         
-         foreach (var o in FindObjectsOfType<GameObject>())
-         {
-            //if (o.transform.name.Equals("AudioManager"))
-            {
-               Destroy(o);
-            }
-         }
-         
-         // Go in File -> Build Settings -> Add Open Scenes. Here will be loaded the scene at the specified index
-         SceneManager.LoadScene("Music/MainMenu");
+            Pause();
+            UniversalAudio.StopAllMusic();
 
-         UniversalAudio.PlayMusic("Menu", true);
-         }
+            Destroy(GameObject.Find("LevelStageManagerObject"));
+            Destroy(GameObject.Find("DuckPlayer"));
+            Destroy(GameObject.Find("DuckTypeManager"));
+            Destroy(GameObject.Find("AudioManager"));
+
+            SceneManager.LoadScene("Music/MainMenu");
+
+            //UniversalAudio.PlayMusic("Menu", true);
+        }
 
       private static class ClassExtension
       {

@@ -24,6 +24,7 @@ public class RestartComponent : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            Destroy(GameObject.Find("AudioManager"));
             SceneManager.LoadScene("MainMenu");
         }
     }
