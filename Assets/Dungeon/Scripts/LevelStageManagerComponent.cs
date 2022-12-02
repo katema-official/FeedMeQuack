@@ -149,7 +149,7 @@ namespace LevelStageNamespace
                 else
                 {
                     Debug.Log("COMPLIMENTI, SEI MORTO DI FAME!");
-                    Destroy(this.gameObject);
+                    //Destroy(this.gameObject);
                     SceneManager.LoadScene("GameOverScreen");
                     return;
                 }

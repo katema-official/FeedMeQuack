@@ -9,7 +9,7 @@ public class RestartComponent : MonoBehaviour
     void Start()
     {
         //DISTRUGGI IL GIOCATORE E IL LEVEL STAGE MANAGER
-        Destroy(GameObject.Find("LevelStageManager"));
+        Destroy(GameObject.Find("LevelStageManagerObject"));
         Destroy(GameObject.Find("DuckPlayer"));
         Destroy(GameObject.Find("DuckTypeManager"));
         Music.Assets.Scripts.UniversalAudio.PlaySound("GameOver", transform);
@@ -24,6 +24,7 @@ public class RestartComponent : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            Destroy(GameObject.Find("MusicManagerGameobject"));
             SceneManager.LoadScene("MainMenu");
         }
     }

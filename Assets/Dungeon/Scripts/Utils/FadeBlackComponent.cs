@@ -6,8 +6,8 @@ public class FadeBlackComponent : MonoBehaviour
 {
 
     private SpriteRenderer _sprite;
-    [SerializeField] private float _timeBetweenAlphas;
-    [SerializeField] private float _alphaAmountPerUnitOfTime;
+
+    [SerializeField] private float _fadeOutDuration = 0.3f;
 
     private LevelStageNamespace.LevelStageManagerComponent _levelStageManager;
 
@@ -56,12 +56,14 @@ public class FadeBlackComponent : MonoBehaviour
     private IEnumerator fadeToBlackAndGoToLakeCoroutine()
     {
         Color c;
-        while(_sprite.color.a < 1)
+
+        for (float i = 0; i < _fadeOutDuration; i += Time.deltaTime)
         {
+            float normalizedTime = i / _fadeOutDuration;
             c = _sprite.color;
-            c.a += _alphaAmountPerUnitOfTime;
+            c.a = Mathf.Lerp(0f, 1f, normalizedTime);
             _sprite.color = c;
-            yield return new WaitForSeconds(_timeBetweenAlphas);
+            yield return null;
         }
         _levelStageManager.EnterLake();
 
@@ -71,14 +73,15 @@ public class FadeBlackComponent : MonoBehaviour
     private IEnumerator fadeFromBlackCoroutine()
     {
         Color c;
-        while (_sprite.color.a > 0)
-        {
-            c = _sprite.color;
-            c.a -= _alphaAmountPerUnitOfTime;
-            _sprite.color = c;
-            yield return new WaitForSeconds(_timeBetweenAlphas);
-        }
 
+        for (float i = 0; i < _fadeOutDuration; i += Time.deltaTime)
+        {
+            float normalizedTime = i / _fadeOutDuration;
+            c = _sprite.color;
+            c.a = Mathf.Lerp(1f, 0f, normalizedTime);
+            _sprite.color = c;
+            yield return null;
+        }
         yield return null;
     }
 
@@ -86,14 +89,15 @@ public class FadeBlackComponent : MonoBehaviour
     private IEnumerator fadeToBlackAndGoToShopCoroutine()
     {
         Color c;
-        while (_sprite.color.a < 1)
-        {
-            c = _sprite.color;
-            c.a += _alphaAmountPerUnitOfTime;
-            _sprite.color = c;
-            yield return new WaitForSeconds(_timeBetweenAlphas);
-        }
 
+        for (float i = 0; i < _fadeOutDuration; i += Time.deltaTime)
+        {
+            float normalizedTime = i / _fadeOutDuration;
+            c = _sprite.color;
+            c.a = Mathf.Lerp(0f, 1f, normalizedTime);
+            _sprite.color = c;
+            yield return null;
+        }
         _levelStageManager.EnterShop();
 
         yield return null;
