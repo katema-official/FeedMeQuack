@@ -29,15 +29,29 @@ namespace QTEStealNamespace
         [SerializeField] private Sprite _leftSprite;
         [SerializeField] private Sprite _rightSprite;
 
-        private Dictionary<EnumsQTESteal.KeysToPress, Sprite> _dictEnumKeySprite;
-        private Dictionary<EnumsQTESteal.KeysToPress, List<KeyCode>> _dictEnumKeyActualKey;
+
+        private delegate float GetAxisInput(string axis);
+
+
+        //private Dictionary<EnumsQTESteal.KeysToPress, Sprite> _dictEnumKeySprite;
+        //private Dictionary<EnumsQTESteal.KeysToPress, GetAxisInput> _dictEnumKeyActualKey2;
+        //private Dictionary<EnumsQTESteal.KeysToPress, List<KeyCode>> _dictEnumKeyActualKey;
+        private Dictionary<EnumsQTESteal.KeysToPress, ButtonInfo> _dictEnumKeyDataKey;
 
         private bool _completedSuccessFeedback = false;
         private bool _completedFailureFeedback = false;
 
 
+        struct ButtonInfo
+        {
+            public Sprite Sprite;
+            public string Axis;
+            public float Coefficient;
 
-        
+        }
+
+        private GetAxisInput GetAxisMethod = Input.GetAxisRaw;
+        private float _tresholdButtonPressed = 0.75f;   //for controller
 
 
         public void Awake()
@@ -49,19 +63,58 @@ namespace QTEStealNamespace
                                                                 0);
 
             //can't make them appear in the inspector, so I'll just initialize them here
-            _dictEnumKeySprite = new Dictionary<EnumsQTESteal.KeysToPress, Sprite>() {
+            /*_dictEnumKeySprite = new Dictionary<EnumsQTESteal.KeysToPress, Sprite>() {
                 { EnumsQTESteal.KeysToPress.Up, _upSprite },
                 { EnumsQTESteal.KeysToPress.Down, _downSprite },
                 { EnumsQTESteal.KeysToPress.Left, _leftSprite },
                 { EnumsQTESteal.KeysToPress.Right, _rightSprite },
-            };
+            };*/
 
-            _dictEnumKeyActualKey = new Dictionary<EnumsQTESteal.KeysToPress, List<KeyCode>>() { 
+            //float x = Input.GetAxisRaw("Horizontal"); //-1 sx, 1 dx
+            //float y = Input.GetAxisRaw("Vertical");   //-1 down, 1 up
+
+            /*_dictEnumKeyActualKey = new Dictionary<EnumsQTESteal.KeysToPress, List<KeyCode>>() { 
                 { EnumsQTESteal.KeysToPress.Up, new List<KeyCode>(){KeyCode.W, KeyCode.UpArrow} },
                 { EnumsQTESteal.KeysToPress.Down, new List<KeyCode>(){KeyCode.S, KeyCode.DownArrow} },
                 { EnumsQTESteal.KeysToPress.Left, new List<KeyCode>(){KeyCode.A, KeyCode.LeftArrow} },
                 { EnumsQTESteal.KeysToPress.Right, new List<KeyCode>(){KeyCode.D, KeyCode.RightArrow} },
+            };*/
+
+            /*_dictEnumKeyActualKey2 = new Dictionary<EnumsQTESteal.KeysToPress, GetAxisInput>() {
+                { EnumsQTESteal.KeysToPress.Up, ver },
+                { EnumsQTESteal.KeysToPress.Down, ver },
+                { EnumsQTESteal.KeysToPress.Left, hor },
+                { EnumsQTESteal.KeysToPress.Right, hor },
+            };*/
+
+            ButtonInfo upInfo;
+            upInfo.Sprite = _upSprite;
+            upInfo.Axis = "Vertical";
+            upInfo.Coefficient = 1f;
+
+            ButtonInfo downInfo;
+            downInfo.Sprite = _downSprite;
+            downInfo.Axis = "Vertical";
+            downInfo.Coefficient = -1f;
+
+            ButtonInfo rightInfo;
+            rightInfo.Sprite = _rightSprite;
+            rightInfo.Axis = "Horizontal";
+            rightInfo.Coefficient = 1f;
+
+            ButtonInfo leftInfo;
+            leftInfo.Sprite = _leftSprite;
+            leftInfo.Axis = "Horizontal";
+            leftInfo.Coefficient = -1f;
+
+            _dictEnumKeyDataKey = new Dictionary<EnumsQTESteal.KeysToPress, ButtonInfo>()
+            {
+                { EnumsQTESteal.KeysToPress.Up, upInfo },
+                { EnumsQTESteal.KeysToPress.Down, downInfo},
+                { EnumsQTESteal.KeysToPress.Left, leftInfo},
+                { EnumsQTESteal.KeysToPress.Right, rightInfo},
             };
+
 
             _state = EnumsQTESteal.QTEButtonState.BeforePress;
         }
@@ -85,7 +138,8 @@ namespace QTEStealNamespace
                 transform.Find("Sprite").GetComponent<CircleCollider2D>().radius *= tolerance;
             }
 
-            _sprite = _dictEnumKeySprite[_keyToPressEnum];
+            //_sprite = _dictEnumKeySprite[_keyToPressEnum];
+            _sprite = _dictEnumKeyDataKey[_keyToPressEnum].Sprite;
             transform.Find("Sprite").GetComponent<SpriteRenderer>().sprite = _sprite;
 
         }
@@ -103,6 +157,8 @@ namespace QTEStealNamespace
 
 
 
+        private bool _chanceTaken = false;
+
         // Update is called once per frame
         void Update()
         {
@@ -114,25 +170,36 @@ namespace QTEStealNamespace
                     break;
                 case EnumsQTESteal.QTEButtonState.InPressing:
 
-                    if (Input.anyKeyDown)
+                    if (!_chanceTaken)
                     {
-                        bool correct = false;
-                        
-                        for (int i = 0; i < _dictEnumKeyActualKey[_keyToPressEnum].Count; i++)
+                        if (Input.anyKeyDown || Mathf.Abs(GetAxisMethod("Horizontal")) > _tresholdButtonPressed || Mathf.Abs(GetAxisMethod("Vertical")) > _tresholdButtonPressed)
                         {
-                            if (Input.GetKeyDown(_dictEnumKeyActualKey[_keyToPressEnum][i]))
+                            bool correct = false;
+
+                            if ((GetAxisMethod(_dictEnumKeyDataKey[_keyToPressEnum].Axis) * _dictEnumKeyDataKey[_keyToPressEnum].Coefficient)
+                                >= _tresholdButtonPressed)
                             {
                                 correct = true;
                             }
-                        }
 
-                        if (correct)
-                        {
-                            ChangeState(EnumsQTESteal.QTEButtonState.Success);
-                        }
-                        else
-                        {
-                            ChangeState(EnumsQTESteal.QTEButtonState.Failure);
+                            _chanceTaken = true;
+
+                            /*for (int i = 0; i < _dictEnumKeyActualKey[_keyToPressEnum].Count; i++)
+                            {
+                                if (Input.GetKeyDown(_dictEnumKeyActualKey[_keyToPressEnum][i]))
+                                {
+                                    correct = true;
+                                }
+                            }*/
+
+                            if (correct)
+                            {
+                                ChangeState(EnumsQTESteal.QTEButtonState.Success);
+                            }
+                            else
+                            {
+                                ChangeState(EnumsQTESteal.QTEButtonState.Failure);
+                            }
                         }
                     }
                     break;
