@@ -771,10 +771,15 @@ namespace LevelStageNamespace {
             int bpForPlayer = (int) Mathf.Floor((float) disputedBreadBP * fraction);
             int bpForEnemy = (int)Mathf.Ceil((float) disputedBreadBP * (1f - fraction));
 
-            //Debug.Log("CORRECT: " + correct + ", TOTAL: " + total);
+            int playerMouthSize = _playerReference.GetComponent<Player.PlayerEatSkill>().GetMouthSize();
 
-            //Debug.Log("INITIAL BP = " + disputedBreadBP);
-            //Debug.Log("BREAD POINTS FOR PLAYER: " + bpForPlayer + ", BREAD POINTS FOR ENEMY: " + bpForEnemy);
+            if(bpForPlayer > playerMouthSize)
+            {
+                //if the player is so good that is about to steal to the other duck more bread than the one it can take,
+                //let's make it steal all the bread that can stay in its mouth
+                bpForPlayer = playerMouthSize;
+                bpForEnemy = disputedBreadBP - bpForPlayer;
+            }
 
             GameObject breadInMouthForPlayer = null;
             GameObject breadInMouthForEnemy = null;
