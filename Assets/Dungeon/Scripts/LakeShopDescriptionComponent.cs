@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 
 namespace LevelStageNamespace
@@ -33,7 +34,7 @@ namespace LevelStageNamespace
             RaycastHit2D hit4 = Physics2D.Raycast(new Vector2(point.x, point.y), new Vector2(-1, 0), range, LayerMask.GetMask("WaterLayer"));
 
 
-            if (hit1 && hit2 && hit3 && hit4)
+            if (hit1.collider && hit2.collider && hit3.collider && hit4.collider)
             {
                 //Debug.Log("INSIDE");
                 return true;
@@ -48,7 +49,7 @@ namespace LevelStageNamespace
         //Method used to get the bounds of the terrain
         public Bounds GetTerrainBounds()
         {
-            return _terrain.GetComponent<SpriteRenderer>().bounds;
+            return _terrain.GetComponent<TilemapRenderer>().bounds;
 
             /*
             GameObject terrain = transform.Find("Terrain").gameObject;

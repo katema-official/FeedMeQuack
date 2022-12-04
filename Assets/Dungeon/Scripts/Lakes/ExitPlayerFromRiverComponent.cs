@@ -14,19 +14,19 @@ namespace LevelStageNamespace {
             if (collider.gameObject.tag == "Player")
             {    //TODO: Change the name when you have the player
 
-                if (transform.parent.name == "North")
+                if (transform.parent.name == "RiverNorth")
                 {
                     _levelStageManager.ExitLake(EnumsDungeon.CompassDirection.North);
                 }
-                if (transform.parent.name == "South")
+                if (transform.parent.name == "RiverSouth")
                 {
                     _levelStageManager.ExitLake(EnumsDungeon.CompassDirection.South);
                 }
-                if (transform.parent.name == "West")
+                if (transform.parent.name == "RiverWest")
                 {
                     _levelStageManager.ExitLake(EnumsDungeon.CompassDirection.West);
                 }
-                if (transform.parent.name == "East")
+                if (transform.parent.name == "RiverEast")
                 {
                     _levelStageManager.ExitLake(EnumsDungeon.CompassDirection.East);
                 }
