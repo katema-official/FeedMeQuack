@@ -19,6 +19,7 @@ namespace Player
 
         private PlayerDuckDescriptionSO _description = null;
         private List<PlayerSkill> _skills;
+        private Animator _animator;
 
         public Transform GetMouthTransform()
         {
@@ -47,6 +48,12 @@ namespace Player
         {
             return (int) _breadPoints;
         }
+
+        public Animator GetAnimator()
+        {
+            return _animator;
+        }
+
         public void NotifyStageCompleted(int points)
         {
             _digestedBreadPoints += (_breadPoints - points);
@@ -121,6 +128,9 @@ namespace Player
                 var skill = SkillUtility.CreateSkillFromDescription(s,gameObject);
                 _skills.Add(skill);
             }
+
+
+            _animator= GetComponent<Animator>();
         }
 
         // Start is called before the first frame update
@@ -132,6 +142,30 @@ namespace Player
         // Update is called once per frame
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (transform.parent.Find("UI/ExitMenu").gameObject.activeSelf)
+                {
+                    #if UNITY_EDITOR
+                                        // Application.Quit() does not work in the editor so
+                                        // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
+                                        UnityEditor.EditorApplication.isPlaying = false;
+                    #else
+                             Application.Quit();
+                    #endif
+                }
+
+                transform.parent.Find("UI/ExitMenu").gameObject.SetActive(true);
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                if (transform.parent.Find("UI/ExitMenu").gameObject.activeSelf)
+                {
+                    transform.parent.Find("UI/ExitMenu").gameObject.SetActive(false);
+                }
+            }
+
         }
 
         private void FixedUpdate()

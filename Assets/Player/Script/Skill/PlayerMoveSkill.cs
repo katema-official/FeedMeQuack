@@ -11,7 +11,6 @@ namespace Player
         [SerializeField] private float _speed = 0.0f;
         //------------------------------------------
 
-
         private PlayerController _controller = null;
         private PlayerMoveSkillDescriptionSO _moveDesc = null;
         private Camera _camera = null;
@@ -31,8 +30,6 @@ namespace Player
 
         private bool _enableInput = true;
 
-
-
         public override void SetDescription(PlayerSkillDescriptionSO desc)
         {
             _description = desc;
@@ -41,11 +38,11 @@ namespace Player
             _speed = _moveDesc.Speed;
         }
 
-        public void EnableInput(bool enable)
+        public void EnableInput(bool enable, bool resetVelocity = false)
         {
             _enableInput = enable;
            
-            if (!enable)
+            if (resetVelocity)
                 _rigidBody.velocity = new Vector2(0, 0);
         }
 
@@ -57,92 +54,148 @@ namespace Player
         {
             return _rotationMovement;
         }
-        //public void SetOverrideSpeed(float overrideSpeed)
-        //{
-        //    _overrideSpeed = overrideSpeed;
-        //}
+        public void SetRotation(float angle)
+        {
+            _rotationMovement = angle;
 
+
+            //up
+            if (angle >= 0 && angle < 22.5)
+            {
+                _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
+            }
+            //up-left
+            else if (angle >= 22.5f && angle < 77.5f)
+            {
+                _controller.GetAnimator().SetFloat("Blend", 0.2857143f);
+            }
+            //left
+            else if (angle >= 77.5f && angle < 112.5)
+            {
+                _controller.GetAnimator().SetFloat("Blend", 0.4285714f);
+            }
+            //down-left
+            else if (angle >= 112.5 && angle < 157.5)
+            {
+                _controller.GetAnimator().SetFloat("Blend", 0.5714286f);
+            }
+            //down
+            else if (angle >= 157.5 && angle < 180)
+            {
+                _controller.GetAnimator().SetFloat("Blend", 0.7142857f);
+            }
+
+
+
+            //down
+            else if (angle >= -180 && angle < -157.5)
+            {
+                _controller.GetAnimator().SetFloat("Blend", 0.7142857f);
+            }
+            //down-right
+            else if (angle >= -157.5 && angle < -112.5)
+            {
+                _controller.GetAnimator().SetFloat("Blend", 0.8571429f);
+            }
+            //right
+            else if (angle >= -112.5 && angle < -77.5f)
+            {
+                _controller.GetAnimator().SetFloat("Blend", 1f);
+            }
+            //up-right
+            else if (angle >= -77.5f && angle < -22.5f)
+            {
+                _controller.GetAnimator().SetFloat("Blend", 0);
+            }
+            //up
+            else if (angle >= -22.5 && angle < 0)
+            {
+                _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
+            }
+        }
 
         public void Move(float speed, bool moveForward = false)
         {
-            if (_moveForward || moveForward)
+            // if (_moveForward || moveForward)
             //{
-               // var ax = new Vector3();
-               // if (_enableInput)
-               // {
-               //     _finalDir = _forwardAxis;//_forwardAxis + _rightwardAxis;
-                //    _finalDir.Normalize();
+            // var ax = new Vector3();
+            // if (_enableInput)
+            // {
+            //     _finalDir = _forwardAxis;//_forwardAxis + _rightwardAxis;
+            //    _finalDir.Normalize();
 
-                  //  var x = (_forwardAxis.x >= 0) ? Mathf.Ceil(_forwardAxis.x) : Mathf.Floor(_forwardAxis.x);
-                 //   var y = (_forwardAxis.y >= 0) ? Mathf.Ceil(_forwardAxis.y) : Mathf.Floor(_forwardAxis.y);
+            //  var x = (_forwardAxis.x >= 0) ? Mathf.Ceil(_forwardAxis.x) : Mathf.Floor(_forwardAxis.x);
+            //   var y = (_forwardAxis.y >= 0) ? Mathf.Ceil(_forwardAxis.y) : Mathf.Floor(_forwardAxis.y);
 
-                 //   ax = new Vector3(x,y, 0);
-                 //   ax.Normalize();
-               // }
-
-              
-               // float angle = Mathf.Atan2(-_finalDir.x, _finalDir.y) * Mathf.Rad2Deg;
-                // float angleInt = Mathf.Atan2(-ax.x, ax.y) * Mathf.Rad2Deg;
+            //   ax = new Vector3(x,y, 0);
+            //   ax.Normalize();
+            // }
 
 
-
-                ////up
-                //if (angle >= 0 && angle < 22.5)
-                //{
-                //    angle = 0; 
-                //}
-                ////up-left
-                //else if (angle >= 22.5f && angle < 77.5f)
-                //{
-                //    angle = 45;
-                //}
-                ////left
-                //else if (angle >= 77.5f && angle < 112.5)
-                //{
-                //    angle = 90;
-                //}
-                ////down-left
-                //else if (angle >= 112.5 && angle < 157.5)
-                //{
-                //    angle = 135;
-                //}
-                ////down
-                //else if (angle >= 157.5 && angle < 180)
-                //{
-                //    angle = 180;
-                //}
+            // float angle = Mathf.Atan2(-_finalDir.x, _finalDir.y) * Mathf.Rad2Deg;
+            // float angleInt = Mathf.Atan2(-ax.x, ax.y) * Mathf.Rad2Deg;
 
 
 
-                ////down
-                //else if (angle >= -180 && angle < -157.5)
-                //{
-                //    angle = -180;
-                //}
-                ////down-right
-                //else if (angle >= -157.5 && angle < -112.5)
-                //{
-                //    angle = -135;
-                //}
-                ////right
-                //else if (angle >= -112.5 && angle < -77.5f)
-                //{
-                //    angle = -90;
-                //}
-                ////up-right
-                //else if (angle >= -77.5f && angle < -22.5f )
-                //{
-                //    angle = -45;
-                //}
-                ////up
-                //else if (angle >=  -22.5 && angle < 0)
-                //{
-                //    angle = 0;
-                //}
+            ////up
+            //if (angle >= 0 && angle < 22.5)
+            //{
+            //    angle = 0;
+            //}
+            ////up-left
+            //else if (angle >= 22.5f && angle < 77.5f)
+            //{
+            //    angle = 45;
+            //}
+            ////left
+            //else if (angle >= 77.5f && angle < 112.5)
+            //{
+            //    angle = 90;
+            //}
+            ////down-left
+            //else if (angle >= 112.5 && angle < 157.5)
+            //{
+            //    angle = 135;
+            //}
+            ////down
+            //else if (angle >= 157.5 && angle < 180)
+            //{
+            //    angle = 180;
+            //}
 
 
 
-               // _rotationMovement = angle;
+            ////down
+            //else if (angle >= -180 && angle < -157.5)
+            //{
+            //    angle = -180;
+            //}
+            ////down-right
+            //else if (angle >= -157.5 && angle < -112.5)
+            //{
+            //    angle = -135;
+            //}
+            ////right
+            //else if (angle >= -112.5 && angle < -77.5f)
+            //{
+            //    angle = -90;
+            //}
+            ////up-right
+            //else if (angle >= -77.5f && angle < -22.5f)
+            //{
+            //    angle = -45;
+            //}
+            ////up
+            //else if (angle >= -22.5 && angle < 0)
+            //{
+            //    angle = 0;
+            //}
+
+
+
+            // _rotationMovement = angle;
+
+            if (_moveForward || moveForward)
             { 
                 if (_enableInput)
                 {
@@ -153,12 +206,69 @@ namespace Player
                 float angle = Mathf.Atan2(-_finalDir.x, _finalDir.y) * Mathf.Rad2Deg;
                 _rotationMovement = angle;
 
+
+                //up
+                if (angle >= 0 && angle < 22.5)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
+                }
+                //up-left
+                else if (angle >= 22.5f && angle < 77.5f)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.2857143f);
+                }
+                //left
+                else if (angle >= 77.5f && angle < 112.5)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.4285714f);
+                }
+                //down-left
+                else if (angle >= 112.5 && angle < 157.5)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.5714286f);
+                }
+                //down
+                else if (angle >= 157.5 && angle < 180)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.7142857f);
+                }
+
+
+
+                //down
+                else if (angle >= -180 && angle < -157.5)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.7142857f);
+                }
+                //down-right
+                else if (angle >= -157.5 && angle < -112.5)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.8571429f);
+                }
+                //right
+                else if (angle >= -112.5 && angle < -77.5f)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 1f);
+                }
+                //up-right
+                else if (angle >= -77.5f && angle < -22.5f)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0);
+                }
+                //up
+                else if (angle >= -22.5 && angle < 0)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
+                }
+
+
+
                 _force = speed * 1.5f;
                 _rigidBody.AddForce(_finalDir * _force, ForceMode2D.Force);
                 _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity, speed); 
             }
 
-            _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
+           // _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
 
            // MoveCamera();
            
@@ -198,9 +308,63 @@ namespace Player
 
                 float angle = Mathf.Atan2(-_finalDir.x, _finalDir.y) * Mathf.Rad2Deg;
                 _rotationMovement = angle;
+
+                //up
+                if (angle >= 0 && angle < 22.5)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
+                }
+                //up-left
+                else if (angle >= 22.5f && angle < 77.5f)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.2857143f);
+                }
+                //left
+                else if (angle >= 77.5f && angle < 112.5)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.4285714f);
+                }
+                //down-left
+                else if (angle >= 112.5 && angle < 157.5)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.5714286f);
+                }
+                //down
+                else if (angle >= 157.5 && angle < 180)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.7142857f);
+                }
+
+
+
+                //down
+                else if (angle >= -180 && angle < -157.5)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.7142857f);
+                }
+                //down-right
+                else if (angle >= -157.5 && angle < -112.5)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.8571429f);
+                }
+                //right
+                else if (angle >= -112.5 && angle < -77.5f)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 1f);
+                }
+                //up-right
+                else if (angle >= -77.5f && angle < -22.5f)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0);
+                }
+                //up
+                else if (angle >= -22.5 && angle < 0)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
+                }
             }
 
-            _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
+           // _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
 
            // MoveCamera();
         }
@@ -210,13 +374,15 @@ namespace Player
             _rigidBody = GetComponent<Rigidbody2D>();
             _controller = GetComponent<PlayerController>();
             _camera = transform.parent.GetComponentInChildren<Camera>();
+            
 
             var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
         }
             // Start is called before the first frame update
         void Start()
         {
-        
+            _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
+            MoveCamera();
         }
 
         // Update is called once per frame
@@ -224,17 +390,8 @@ namespace Player
         {
             if (!_enableInput) return;
 
-            //if (_controller.GetState() != PlayerState.Normal &&
-            //    _controller.GetState() != PlayerState.Eating) return;
-
-
-            // PlayerUtility.GetMovementAxis(ref _moveForward, ref _forwardAxis, ref _rightwardAxis);
-
-
-
             _moveForward = false;
             _forwardAxis = new Vector3(0, 0);
-           // _rightwardAxis = new Vector3(0, 0);
 
             var h = Input.GetAxisRaw("Horizontal");
             var v = Input.GetAxisRaw("Vertical");
@@ -243,49 +400,15 @@ namespace Player
 
             if (h!=0 || v!=0)
                 _moveForward = true;
-
-
-
-
-
-           // Debug.Log("H dir:" + h);
-          //  Debug.Log("V dir:" + v);
-
-
-
-            //if (Input.GetKey(KeyCode.W))
-            //{
-            //    _forwardAxis = new Vector3(0, 1);
-            //    _moveForward = true;
-            //}
-            //if (Input.GetKey(KeyCode.A))
-            //{
-            //    _rightwardAxis = new Vector3(-1, 0);
-            //    _moveForward = true;
-            //}
-            //if (Input.GetKey(KeyCode.S))
-            //{
-            //    _forwardAxis = new Vector3(0, -1);
-            //    _moveForward = true;
-            //}
-            //if (Input.GetKey(KeyCode.D))
-            //{
-            //    _rightwardAxis = new Vector3(1, 0);
-            //    _moveForward = true;
-            //}
         }
 
 
         private void FixedUpdate()
         {
             MoveCamera();
-
             if (_controller.GetState() != PlayerState.Normal) return;
 
-            //PlayerUtility.Move(_speed, _forwardAxis, _rightwardAxis, _rigidBody, _moveForward, ref _rotationMovement);
             Move(_speed/*, _moveForward*/);
-
-
         }
     }
 }

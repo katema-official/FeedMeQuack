@@ -71,7 +71,7 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetButtonDown("SpitButton") && _eatSkill.GetCatchedBread() && _spitCoolDownElapsedSeconds <= 0)
+            if (Input.GetButtonDown("SpitButton") && _eatSkill.GetCaughtBread() && _spitCoolDownElapsedSeconds <= 0)
             {
                 _controller.ChangeState(PlayerState.Spitting);
 
@@ -85,13 +85,13 @@ namespace Player
                 CheckData();
             }
 
-            if ((Input.GetButtonUp("SpitButton") && _eatSkill.GetCatchedBread() && _spitCoolDownElapsedSeconds <= 0) ||
+            if ((Input.GetButtonUp("SpitButton") && _eatSkill.GetCaughtBread() && _spitCoolDownElapsedSeconds <= 0) ||
                 (_spitPower >= _maxPower))
             {
                 _canSpit = true;
             }
 
-            if (_canSpit && !_eatSkill.GetCatchedBread())
+            if (_canSpit && !_eatSkill.GetCaughtBread())
             {
                 _controller.ChangeState(PlayerState.Normal);
 
@@ -118,10 +118,10 @@ namespace Player
             
 
 
-            if (_controller.GetState() == PlayerState.Spitting && _eatSkill.GetCatchedBread() && !_canSpit && _spitCoolDownElapsedSeconds <= 0)
+            if (_controller.GetState() == PlayerState.Spitting && _eatSkill.GetCaughtBread() && !_canSpit && _spitCoolDownElapsedSeconds <= 0)
             {
                 _moveSkill.Rotate();
-                _eatSkill.GetCatchedBread().Move(_controller.GetMouthTransform().position);
+                _eatSkill.GetCaughtBread().Move(_controller.GetMouthTransform().position);
                 _spitArrow.transform.position = _controller.GetPosition();
                 _spitArrow.transform.rotation = (Quaternion.AngleAxis(_moveSkill.GetAngle(), Vector3.forward));
 
@@ -141,11 +141,11 @@ namespace Player
             }
 
 
-            if (_controller.GetState() == PlayerState.Spitting && _eatSkill.GetCatchedBread() && _canSpit)
+            if (_controller.GetState() == PlayerState.Spitting && _eatSkill.GetCaughtBread() && _canSpit)
             {
                 Vector3 startPos = _controller.GetPosition();
                 Vector3 endPos = _controller.GetPosition() + _moveSkill.GetDirection() * (_maxRange * (_spitPower / _maxPower));
-                _breadManager.ThrowBread(_eatSkill.GetCatchedBread(), startPos, endPos);
+                _breadManager.ThrowBread(_eatSkill.GetCaughtBread(), startPos, endPos);
 
                 _eatSkill.ReleaseBread();
                 _spitPower = 0;
