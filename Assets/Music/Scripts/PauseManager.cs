@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -16,7 +14,6 @@ namespace Music
       public AudioMixerSnapshot paused;
       public AudioMixerSnapshot unpaused;
       public GameObject canvasPauseMenu;
-      [SerializeField] private int timesLoadedMainMenu;
 
       private void Update()
       {
@@ -62,28 +59,11 @@ namespace Music
             Destroy(GameObject.Find("LevelStageManagerObject"));
             Destroy(GameObject.Find("DuckPlayer"));
             Destroy(GameObject.Find("DuckTypeManager"));
-            Destroy(GameObject.Find("AudioManager"));
-
+            
             SceneManager.LoadScene("Music/MainMenu");
-
-            //UniversalAudio.PlayMusic("Menu", true);
+         
         }
-
-      private static class ClassExtension
-      {
-         public static List<GameObject> GetAllChildren(GameObject go)
-         {
-            List<GameObject> list = new List<GameObject>();
-            for (int i = 0; i < go.transform.childCount; i++)
-            {
-               list.Add(go.transform.GetChild(i).gameObject);
-            }
-
-            return list;
-         }
-      }
       
-
       public void BackToGame()
       {
          Pause();

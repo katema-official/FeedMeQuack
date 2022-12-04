@@ -13,13 +13,12 @@ namespace Music // To change correctly
     // and StopAllMusic()
     public static class UniversalAudio
     {
-        //[RequireComponent(typeof(AudioSource))] // We're dealing with AudioSource. It's better to specify it 
-        public class UniversalAudioMonoBehaviour : MonoBehaviour // To give MonoBehaviour to a static class
+        private class UniversalAudioMonoBehaviour : MonoBehaviour // To give MonoBehaviour to a static class
         {
         }
-
-        public static UniversalAudioMonoBehaviour
-            universalAudioMonoBehaviour; // Variable reference for the class to use instance at the occurrence
+        
+        private static UniversalAudioMonoBehaviour
+            _universalAudioMonoBehaviour; // Variable reference for the class to use instance at the occurrence
 
         private static Dictionary<string, float>
             _audioClipTimerDictionary; // Keys are clips name, Values are the seconds where the clip will start
@@ -47,8 +46,8 @@ namespace Music // To change correctly
         private const string
             PathFromSourcesForSound = "SFX/"; // Inside folder "Resources", if there is a relative path, write it here
 
-        private static float _minTimeBetweenQuackSteal = 0.3f;
-        private static float _maxTimeBetweenQuackSteal = 1f;
+        private const float MinTimeBetweenQuackSteal = 0.3f;
+        private const float MaxTimeBetweenQuackSteal = 1f;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -56,11 +55,11 @@ namespace Music // To change correctly
         // Main initializations 
 
         //Now Initialize the variable (the instance _universalAudioMonoBehaviour)
-        public static void Init(GameObject musicManagerGo)
+        private static void Init(GameObject musicManagerGo)
         {
             // If the instance not exists the first time we call the static class
             //Add this script to the object
-                universalAudioMonoBehaviour ??= musicManagerGo.AddComponent<UniversalAudioMonoBehaviour>();
+            _universalAudioMonoBehaviour ??= musicManagerGo.AddComponent<UniversalAudioMonoBehaviour>();
         }
 
         private static void GetAudioSources(GameObject musicManager)
@@ -100,17 +99,14 @@ namespace Music // To change correctly
             }
             else // If it exists, clean all the values to 0
             {
-                List<string> keys = new List<string>(_audioClipTimerDictionary.Keys);
-                foreach(string key in keys)
+                var keys = new List<string>(_audioClipTimerDictionary.Keys);
+                foreach(var key in keys)
                 {
                     InitDictionary(key);
                 }
-
             }
         }
-
-
-
+        
         // Overload to clean only the track whose name is clipName
         private static void InitDictionary(string clipName)
         {
@@ -118,12 +114,12 @@ namespace Music // To change correctly
         }
 
         //Now, a simple function to initialize in one shot all the main stuff
-        public static void InitAllCoroutine(GameObject musicManagerGo)
+        public static void InitAll(GameObject musicManagerGo)
         {
             // Call the initializers 
             Init(musicManagerGo);
-            GetAudioSources(musicManagerGo);
             InitDictionary();
+            GetAudioSources(musicManagerGo);
             SetTrueTimeOfFading();
             SetRightVolumes();
         }
@@ -132,6 +128,7 @@ namespace Music // To change correctly
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Getter and Setter of the variables
+        
         private static void SetTrueTimeOfFading()
         {
             _timeOfFading = SceneManager.GetActiveScene().name == "MainMenu" ? 0 : 1;
@@ -161,8 +158,7 @@ namespace Music // To change correctly
 
             if (!fromStart) // If the track has to resume from the point of interruption
             {
-                if (_audioSource1.isPlaying &&
-                    _audioSource2 != null) // If the first AudioSource is playing something...
+                if (_audioSource1.isPlaying) // If the first AudioSource is playing something...
                 {
                     // It's the same of (AudioClip)Resources.Load(pathFromSourcesForMusic + clipName, typeof(AudioClip));
                     _audioSource2.clip = Resources.Load<AudioClip>(PathFromSourcesForMusic + clipName);
@@ -190,7 +186,30 @@ namespace Music // To change correctly
                     _audioClipTimerDictionary[_audioSource1.clip.name] = _audioSource1.time;
                     _audioSource1.Stop();
                 }
-                else // If it's the second AudioSource that's playing, do as above but swapped
+                else if (_audioSource2.isPlaying)
+                {
+                    // If it's the second AudioSource that's playing, do as above but swapped
+                    {
+                        _audioSource1.clip = Resources.Load<AudioClip>(PathFromSourcesForMusic + clipName);
+                        _audioSource1.time = _audioClipTimerDictionary[clipName];
+                        _audioSource1.Play();
+                        while (timeElapsed < _timeOfFading)
+                        {
+                            _audioSource1.volume =
+                                Mathf.Lerp(_startFadeInVolume, _finalFadeInVolume, timeElapsed / _timeOfFading);
+                            _audioSource2.volume = Mathf.Lerp(_startFadeOutVolume, _finalFadeOutVolume,
+                                timeElapsed / _timeOfFading);
+                            timeElapsed += Time.deltaTime;
+                            yield return null;
+                        }
+
+                        _audioSource1.volume = _finalFadeInVolume;
+                        _audioSource2.volume = _finalFadeOutVolume;
+                        _audioClipTimerDictionary[_audioSource2.clip.name] = _audioSource2.time;
+                        _audioSource2.Stop();
+                    }
+                }
+                else
                 {
                     _audioSource1.clip = Resources.Load<AudioClip>(PathFromSourcesForMusic + clipName);
                     _audioSource1.time = _audioClipTimerDictionary[clipName];
@@ -199,16 +218,11 @@ namespace Music // To change correctly
                     {
                         _audioSource1.volume =
                             Mathf.Lerp(_startFadeInVolume, _finalFadeInVolume, timeElapsed / _timeOfFading);
-                        _audioSource2.volume = Mathf.Lerp(_startFadeOutVolume, _finalFadeOutVolume,
-                            timeElapsed / _timeOfFading);
                         timeElapsed += Time.deltaTime;
                         yield return null;
                     }
 
                     _audioSource1.volume = _finalFadeInVolume;
-                    _audioSource2.volume = _finalFadeOutVolume;
-                    _audioClipTimerDictionary[_audioSource2.clip.name] = _audioSource2.time;
-                    _audioSource2.Stop();
                 }
             }
             else // If we want that the music has to start from the beginning
@@ -223,7 +237,7 @@ namespace Music // To change correctly
         public static void PlayMusic(string songName, bool fromStart)
         {
             //Call the Coroutine
-            universalAudioMonoBehaviour.StartCoroutine(FadeTrack(songName, fromStart));
+            _universalAudioMonoBehaviour.StartCoroutine(FadeTrack(songName, fromStart));
         }
 
         public static void PlaySound(string clipName, Transform thisTransform)
@@ -241,16 +255,15 @@ namespace Music // To change correctly
 
         public static void StopAllMusic() // To stop all the AudioSources
         {
-            var allAudioSources = (AudioSource[])Object.FindObjectsOfType(typeof(AudioSource)); // casting as Object.FindObjectsOfType(typeof(AudioSource)) as AudioSource[] is much faster
+            var allAudioSources = Object.FindObjectsOfType(typeof(AudioSource)) as AudioSource[];//(AudioSource[])Object.FindObjectsOfType(typeof(AudioSource)); // casting as Object.FindObjectsOfType(typeof(AudioSource)) as AudioSource[] is much faster
 
             if (allAudioSources != null)
             {
-                foreach (AudioSource audioS in allAudioSources)
+                foreach (var audioS in allAudioSources)
                 {
                     audioS.Stop();
                 }
             }
-
         }
 
         private static void UniversalPlayClipAtPoint
@@ -262,7 +275,7 @@ namespace Music // To change correctly
             var audioMixer = Resources.Load(audioMixerPath) as AudioMixer;
             if (audioMixer != null)
             {
-                AudioMixerGroup[] musicGroups = audioMixer.FindMatchingGroups("SoundMaster");
+                var musicGroups = audioMixer.FindMatchingGroups("SoundMaster");
                 audioSource.outputAudioMixerGroup = musicGroups[0];
             }
 
@@ -293,7 +306,7 @@ namespace Music // To change correctly
 
             var numberRobbed = random.NextInt(0, MusicManagerComponent.stringAndNumberDictionary[robbed]);
 
-            yield return new WaitForSecondsRealtime(random.NextFloat(_minTimeBetweenQuackSteal, _maxTimeBetweenQuackSteal));
+            yield return new WaitForSeconds(random.NextFloat(MinTimeBetweenQuackSteal, MaxTimeBetweenQuackSteal));
 
             switch (numberRobbed)
             {
@@ -308,12 +321,12 @@ namespace Music // To change correctly
                     break;
             }
 
-            yield return new WaitForSeconds(random.NextFloat(_minTimeBetweenQuackSteal, _maxTimeBetweenQuackSteal));
+            yield return new WaitForSeconds(random.NextFloat(MinTimeBetweenQuackSteal, MaxTimeBetweenQuackSteal));
         }
 
         public static void PlayStealing(string robber, string robbed, Transform thisTransform)
         {
-            universalAudioMonoBehaviour.StartCoroutine(Stealing(robber, robbed, thisTransform));
+            _universalAudioMonoBehaviour.StartCoroutine(Stealing(robber, robbed, thisTransform));
         }
 
     }
