@@ -75,7 +75,7 @@ namespace Player
 
                 if (_controller.GetState() == PlayerState.Stealing)
                 {
-                    _moveSkill.EnableInput(false);
+                    _moveSkill.EnableInput(false, true);
                     _enemyToSteal = _locatedEnemy;
                   
                     //find the point between ducks

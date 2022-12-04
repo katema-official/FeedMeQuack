@@ -38,11 +38,11 @@ namespace Player
             _speed = _moveDesc.Speed;
         }
 
-        public void EnableInput(bool enable)
+        public void EnableInput(bool enable, bool resetVelocity = false)
         {
             _enableInput = enable;
            
-            if (!enable)
+            if (resetVelocity)
                 _rigidBody.velocity = new Vector2(0, 0);
         }
 
@@ -323,6 +323,7 @@ namespace Player
         void Start()
         {
             _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
+            MoveCamera();
         }
 
         // Update is called once per frame
