@@ -96,7 +96,8 @@ namespace Player
                         var pos = middlePos;
                         pos.x += distance;
                         _controller.gameObject.transform.position = pos;
-                        _controller.gameObject.transform.rotation = Quaternion.AngleAxis(90.0f,new Vector3(0,0,1));
+                        //_controller.gameObject.transform.rotation = Quaternion.AngleAxis(90.0f,new Vector3(0,0,1));
+                        _moveSkill.SetRotation(90.0f);
                         playerPos = pos;
                         //enemy on the left
                         pos = middlePos;
@@ -111,7 +112,8 @@ namespace Player
                         var pos = middlePos;
                         pos.x -= distance;
                         _controller.gameObject.transform.position = pos;
-                        _controller.gameObject.transform.rotation = Quaternion.AngleAxis(-90.0f, new Vector3(0, 0, 1));
+                        //_controller.gameObject.transform.rotation = Quaternion.AngleAxis(-90.0f, new Vector3(0, 0, 1));
+                        _moveSkill.SetRotation(-90.0f);
                         playerPos = pos;
                         //enemy on the right
                         pos = middlePos;

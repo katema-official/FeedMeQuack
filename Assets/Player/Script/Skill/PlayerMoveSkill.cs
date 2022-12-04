@@ -54,6 +54,65 @@ namespace Player
         {
             return _rotationMovement;
         }
+        public void SetRotation(float angle)
+        {
+            _rotationMovement = angle;
+
+
+            //up
+            if (angle >= 0 && angle < 22.5)
+            {
+                _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
+            }
+            //up-left
+            else if (angle >= 22.5f && angle < 77.5f)
+            {
+                _controller.GetAnimator().SetFloat("Blend", 0.2857143f);
+            }
+            //left
+            else if (angle >= 77.5f && angle < 112.5)
+            {
+                _controller.GetAnimator().SetFloat("Blend", 0.4285714f);
+            }
+            //down-left
+            else if (angle >= 112.5 && angle < 157.5)
+            {
+                _controller.GetAnimator().SetFloat("Blend", 0.5714286f);
+            }
+            //down
+            else if (angle >= 157.5 && angle < 180)
+            {
+                _controller.GetAnimator().SetFloat("Blend", 0.7142857f);
+            }
+
+
+
+            //down
+            else if (angle >= -180 && angle < -157.5)
+            {
+                _controller.GetAnimator().SetFloat("Blend", 0.7142857f);
+            }
+            //down-right
+            else if (angle >= -157.5 && angle < -112.5)
+            {
+                _controller.GetAnimator().SetFloat("Blend", 0.8571429f);
+            }
+            //right
+            else if (angle >= -112.5 && angle < -77.5f)
+            {
+                _controller.GetAnimator().SetFloat("Blend", 1f);
+            }
+            //up-right
+            else if (angle >= -77.5f && angle < -22.5f)
+            {
+                _controller.GetAnimator().SetFloat("Blend", 0);
+            }
+            //up
+            else if (angle >= -22.5 && angle < 0)
+            {
+                _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
+            }
+        }
 
         public void Move(float speed, bool moveForward = false)
         {
