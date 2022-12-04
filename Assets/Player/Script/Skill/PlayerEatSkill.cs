@@ -196,5 +196,15 @@ namespace Player
                 _locatedBread = FindClosestBread();
             }
         }
+
+
+
+
+
+
+        public int GetMouthSize()
+        {
+            return _mouthSize;
+        }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace LevelStageNamespace {
     public class LakeDescriptionComponent : LakeShopDescriptionComponent
@@ -141,19 +142,22 @@ namespace LevelStageNamespace {
             {
                 //otherwise, we first of all set the correct position of the player
                 SpawnPlayer = _lakeDescriptionForThisLake.PlayerSpawnDirection;
+                Debug.Log("LakeDescrComp, riga 145: " + SpawnPlayer);
+                string riversString = "Water/WaterBorder/Rivers";
                 switch (SpawnPlayer)
                 {
                     case EnumsDungeon.CompassDirection.North:
-                        _playerObject.transform.position = transform.Find("Water/Rivers/North").transform.position + new Vector3(0, -OffsetYPlayer, 0);
+                        _playerObject.transform.position = transform.Find(riversString + "/RiverNorth/Position").transform.position + new Vector3(0, -OffsetYPlayer, 0);
                         break;
                     case EnumsDungeon.CompassDirection.South:
-                        _playerObject.transform.position = transform.Find("Water/Rivers/South").transform.position + new Vector3(0, OffsetYPlayer, 0);
+                        _playerObject.transform.position = transform.Find(riversString + "/RiverSouth/Position").transform.position + new Vector3(0, OffsetYPlayer, 0);
                         break;
                     case EnumsDungeon.CompassDirection.West:
-                        _playerObject.transform.position = transform.Find("Water/Rivers/West").transform.position + new Vector3(OffsetXPlayer, 0, 0);
+                        Debug.Log("posizione di spawn: " + transform.Find(riversString + "/RiverWest/Position").transform.position + new Vector3(OffsetXPlayer, 0, 0));
+                        _playerObject.transform.position = transform.Find(riversString + "/RiverWest/Position").transform.position + new Vector3(OffsetXPlayer, 0, 0);
                         break;
                     case EnumsDungeon.CompassDirection.East:
-                        _playerObject.transform.position = transform.Find("Water/Rivers/East").transform.position + new Vector3(-OffsetXPlayer, 0, 0);
+                        _playerObject.transform.position = transform.Find(riversString + "/RiverEast/Position").transform.position + new Vector3(-OffsetXPlayer, 0, 0);
                         break;
                 }
 
@@ -199,57 +203,96 @@ namespace LevelStageNamespace {
 
         private void ManageRiversOfthisLake()
         {
-            _northRiver = transform.Find("Water/Rivers/North").gameObject;
-            _southRiver = transform.Find("Water/Rivers/South").gameObject;
-            _westRiver = transform.Find("Water/Rivers/West").gameObject;
-            _eastRiver = transform.Find("Water/Rivers/East").gameObject;
-            _yScaleOfRiver = _westRiver.transform.Find("Sprite").localScale.y;
-            _xScaleOfRiver = _northRiver.transform.Find("Sprite").localScale.x;
+            string riversString = "Water/WaterBorder/Rivers";
+            _northRiver = transform.Find(riversString + "/RiverNorth").gameObject;
+            _southRiver = transform.Find(riversString + "/RiverSouth").gameObject;
+            _westRiver = transform.Find(riversString + "/RiverWest").gameObject;
+            _eastRiver = transform.Find(riversString + "/RiverEast").gameObject;
             if (_lakeDescriptionForThisLake.HasNorthRiver == false)
             {
-                //if the north lake is not present, we obscure its sprite, and deactivate the collider
-                var t = _northRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
-                _northRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(0, t.y, t.z);
+                //if the north lake is not present, we obscure it and activate the collider for that part of the lake
+                _northRiver.transform.Find("0").gameObject.SetActive(true);
+                _northRiver.transform.Find("CloseCollider").gameObject.SetActive(true);
+                _northRiver.transform.Find("1").gameObject.SetActive(false);
+                _northRiver.transform.Find("2").gameObject.SetActive(false);
+                _northRiver.transform.Find("3").gameObject.SetActive(false);
                 _northRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
-                _northRiver.transform.Find("Collider").gameObject.SetActive(false);
+                _northRiver.transform.Find("TriggerExitedCollider").gameObject.SetActive(false);
             }
             else
             {
-                //otherwise, we leave the sprite as it is (we do the same for the other rivers)
-                if(_lakeDescriptionForThisLake.IsFinalRoom && _lakeDescriptionForThisLake.ExitStageDirection == EnumsDungeon.CompassDirection.North) SetRiverAsFinal(_northRiver);
+                //otherwise, we leave the sprite open and the colliders for entering and exiting working (we do the same for the other rivers)
+                _northRiver.transform.Find("0").gameObject.SetActive(false);
+                _northRiver.transform.Find("CloseCollider").gameObject.SetActive(false);
+                _northRiver.transform.Find("1").gameObject.SetActive(false);
+                _northRiver.transform.Find("2").gameObject.SetActive(false);
+                _northRiver.transform.Find("3").gameObject.SetActive(true);
+                _northRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(true);
+                _northRiver.transform.Find("TriggerExitedCollider").gameObject.SetActive(true);
+                if (_lakeDescriptionForThisLake.IsFinalRoom && _lakeDescriptionForThisLake.ExitStageDirection == EnumsDungeon.CompassDirection.North) SetRiverAsFinal(_northRiver);
 
             }
             if (_lakeDescriptionForThisLake.HasSouthRiver == false)
             {
-                var t = _southRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
-                _southRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(0, t.y, t.z);
+                _southRiver.transform.Find("0").gameObject.SetActive(true);
+                _southRiver.transform.Find("CloseCollider").gameObject.SetActive(true);
+                _southRiver.transform.Find("1").gameObject.SetActive(false);
+                _southRiver.transform.Find("2").gameObject.SetActive(false);
+                _southRiver.transform.Find("3").gameObject.SetActive(false);
                 _southRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
-                _southRiver.transform.Find("Collider").gameObject.SetActive(false);
+                _southRiver.transform.Find("TriggerExitedCollider").gameObject.SetActive(false);
             }
             else
             {
+                _southRiver.transform.Find("0").gameObject.SetActive(false);
+                _southRiver.transform.Find("CloseCollider").gameObject.SetActive(false);
+                _southRiver.transform.Find("1").gameObject.SetActive(false);
+                _southRiver.transform.Find("2").gameObject.SetActive(false);
+                _southRiver.transform.Find("3").gameObject.SetActive(true);
+                _southRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(true);
+                _southRiver.transform.Find("TriggerExitedCollider").gameObject.SetActive(true);
                 if (_lakeDescriptionForThisLake.IsFinalRoom && _lakeDescriptionForThisLake.ExitStageDirection == EnumsDungeon.CompassDirection.South) SetRiverAsFinal(_southRiver);
             }
             if (_lakeDescriptionForThisLake.HasWestRiver == false)
             {
-                var t = _westRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
-                _westRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(t.x, 0, t.z);
+                _westRiver.transform.Find("0").gameObject.SetActive(true);
+                _westRiver.transform.Find("CloseCollider").gameObject.SetActive(true);
+                _westRiver.transform.Find("1").gameObject.SetActive(false);
+                _westRiver.transform.Find("2").gameObject.SetActive(false);
+                _westRiver.transform.Find("3").gameObject.SetActive(false);
                 _westRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
-                _westRiver.transform.Find("Collider").gameObject.SetActive(false);
+                _westRiver.transform.Find("TriggerExitedCollider").gameObject.SetActive(false);
             }
             else
             {
+                _westRiver.transform.Find("0").gameObject.SetActive(false);
+                _westRiver.transform.Find("CloseCollider").gameObject.SetActive(false);
+                _westRiver.transform.Find("1").gameObject.SetActive(false);
+                _westRiver.transform.Find("2").gameObject.SetActive(false);
+                _westRiver.transform.Find("3").gameObject.SetActive(true);
+                _westRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(true);
+                _westRiver.transform.Find("TriggerExitedCollider").gameObject.SetActive(true);
                 if (_lakeDescriptionForThisLake.IsFinalRoom && _lakeDescriptionForThisLake.ExitStageDirection == EnumsDungeon.CompassDirection.West) SetRiverAsFinal(_westRiver);
             }
             if (_lakeDescriptionForThisLake.HasEastRiver == false)
             {
-                var t = _eastRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale;
-                _eastRiver.transform.Find("Sprite").gameObject.GetComponent<Transform>().localScale = new Vector3(t.x, 0, t.z);
+                _eastRiver.transform.Find("0").gameObject.SetActive(true);
+                _eastRiver.transform.Find("CloseCollider").gameObject.SetActive(true);
+                _eastRiver.transform.Find("1").gameObject.SetActive(false);
+                _eastRiver.transform.Find("2").gameObject.SetActive(false);
+                _eastRiver.transform.Find("3").gameObject.SetActive(false);
                 _eastRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(false);
-                _eastRiver.transform.Find("Collider").gameObject.SetActive(false);
+                _eastRiver.transform.Find("TriggerExitedCollider").gameObject.SetActive(false);
             }
             else
             {
+                _eastRiver.transform.Find("0").gameObject.SetActive(false);
+                _eastRiver.transform.Find("CloseCollider").gameObject.SetActive(false);
+                _eastRiver.transform.Find("1").gameObject.SetActive(false);
+                _eastRiver.transform.Find("2").gameObject.SetActive(false);
+                _eastRiver.transform.Find("3").gameObject.SetActive(true);
+                _eastRiver.transform.Find("TriggerEnteredCollider").gameObject.SetActive(true);
+                _eastRiver.transform.Find("TriggerExitedCollider").gameObject.SetActive(true);
                 if (_lakeDescriptionForThisLake.IsFinalRoom && _lakeDescriptionForThisLake.ExitStageDirection == EnumsDungeon.CompassDirection.East) SetRiverAsFinal(_eastRiver);
             }
         }
@@ -261,72 +304,71 @@ namespace LevelStageNamespace {
         {
             if(_lakeDescriptionForThisLake.HasNorthRiver == true)
             {
-                _northRiver.transform.Find("Collider").gameObject.SetActive(false);
-                StartCoroutine(CloseLakeCoroutine(_northRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.North));
+                _northRiver.transform.Find("CloseCollider").gameObject.SetActive(true);
+                StartCoroutine(CloseLakeCoroutine(_northRiver, EnumsDungeon.CompassDirection.North));
             }
             if (_lakeDescriptionForThisLake.HasSouthRiver == true)
             {
-                _southRiver.transform.Find("Collider").gameObject.SetActive(false);
-                StartCoroutine(CloseLakeCoroutine(_southRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.South));
+                _southRiver.transform.Find("CloseCollider").gameObject.SetActive(true);
+                StartCoroutine(CloseLakeCoroutine(_southRiver, EnumsDungeon.CompassDirection.South));
             }
             if (_lakeDescriptionForThisLake.HasWestRiver == true)
             {
-                _westRiver.transform.Find("Collider").gameObject.SetActive(false);
-                StartCoroutine(CloseLakeCoroutine(_westRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.West));
+                _westRiver.transform.Find("CloseCollider").gameObject.SetActive(true);
+                StartCoroutine(CloseLakeCoroutine(_westRiver, EnumsDungeon.CompassDirection.West));
             }
             if (_lakeDescriptionForThisLake.HasEastRiver == true)
             {
-                _eastRiver.transform.Find("Collider").gameObject.SetActive(false);
-                StartCoroutine(CloseLakeCoroutine(_eastRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.East));
+                _eastRiver.transform.Find("CloseCollider").gameObject.SetActive(true);
+                StartCoroutine(CloseLakeCoroutine(_eastRiver, EnumsDungeon.CompassDirection.East));
             }
         }
 
-        private IEnumerator CloseLakeCoroutine(Transform river, EnumsDungeon.CompassDirection direction)
+        private IEnumerator CloseLakeCoroutine(GameObject river, EnumsDungeon.CompassDirection direction)
         {
             //TODO: for this moment, I'll just stick the values here, because otherwise I would have to manage too many variables in this monobehaviour,
             //and I also don't know if I want exactly this kind of animation.
 
-            float closingTime = .5f;
-
-            Vector3 start = river.localScale;
-            Vector3 end = Vector3.zero;
+            float closingTime = 1f;
+            float numberOfStatesF = 3f;  //we currently have only 3 states for the rivers
+            int numberOfStatesI = 3;
 
             switch (direction)
             {
                 case EnumsDungeon.CompassDirection.North:
-                    end = new Vector3(0, river.localScale.y, river.localScale.z);
-                    for(float i = 0; i < closingTime; i += Time.deltaTime)
+                    for(int i = numberOfStatesI; i > 0; i--)
                     {
-                        river.localScale = Vector3.Lerp(start, end, i/closingTime);
-                        yield return null;
+                        _northRiver.transform.Find(i.ToString()).gameObject.SetActive(false);
+                        _northRiver.transform.Find((i-1).ToString()).gameObject.SetActive(true);
+                        Debug.Log("AAA AAA AAA");
+                        yield return new WaitForSeconds(closingTime / numberOfStatesF);
                     }
                     break;
                 case EnumsDungeon.CompassDirection.South:
-                    end = new Vector3(0, river.localScale.y, river.localScale.z);
-                    for (float i = 0; i < closingTime; i += Time.deltaTime)
+                    for (int i = numberOfStatesI; i > 0; i--)
                     {
-                        river.localScale = Vector3.Lerp(start, end, i / closingTime);
-                        yield return null;
+                        _southRiver.transform.Find(i.ToString()).gameObject.SetActive(false);
+                        _southRiver.transform.Find((i - 1).ToString()).gameObject.SetActive(true);
+                        yield return new WaitForSeconds(closingTime / numberOfStatesF);
                     }
                     break;
                 case EnumsDungeon.CompassDirection.West:
-                    end = new Vector3(river.localScale.x, 0, river.localScale.z);
-                    for (float i = 0; i < closingTime; i += Time.deltaTime)
+                    for (int i = numberOfStatesI; i > 0; i--)
                     {
-                        river.localScale = Vector3.Lerp(start, end, i / closingTime);
-                        yield return null;
+                        _westRiver.transform.Find(i.ToString()).gameObject.SetActive(false);
+                        _westRiver.transform.Find((i - 1).ToString()).gameObject.SetActive(true);
+                        yield return new WaitForSeconds(closingTime / numberOfStatesF);
                     }
                     break;
                 case EnumsDungeon.CompassDirection.East:
-                    end = new Vector3(river.localScale.x, 0, river.localScale.z);
-                    for (float i = 0; i < closingTime; i += Time.deltaTime)
+                    for (int i = numberOfStatesI; i > 0; i--)
                     {
-                        river.localScale = Vector3.Lerp(start, end, i / closingTime);
-                        yield return null;
+                        _eastRiver.transform.Find(i.ToString()).gameObject.SetActive(false);
+                        _eastRiver.transform.Find((i - 1).ToString()).gameObject.SetActive(true);
+                        yield return new WaitForSeconds(closingTime / numberOfStatesF);
                     }
                     break;
             }
-            river.localScale = end;
             yield return null;
         }
 
@@ -336,80 +378,70 @@ namespace LevelStageNamespace {
         {
             if (_lakeDescriptionForThisLake.HasNorthRiver == true)
             {
-                _northRiver.transform.Find("Collider").gameObject.SetActive(true);
-                StartCoroutine(OpenLakeCoroutine(_northRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.North));
+                _northRiver.transform.Find("CloseCollider").gameObject.SetActive(false);
+                StartCoroutine(OpenLakeCoroutine(_northRiver, EnumsDungeon.CompassDirection.North));
             }
             if (_lakeDescriptionForThisLake.HasSouthRiver == true)
             {
-                _southRiver.transform.Find("Collider").gameObject.SetActive(true);
-                StartCoroutine(OpenLakeCoroutine(_southRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.South));
+                _southRiver.transform.Find("CloseCollider").gameObject.SetActive(false);
+                StartCoroutine(OpenLakeCoroutine(_southRiver, EnumsDungeon.CompassDirection.South));
             }
             if (_lakeDescriptionForThisLake.HasWestRiver == true)
             {
-                _westRiver.transform.Find("Collider").gameObject.SetActive(true);
-                StartCoroutine(OpenLakeCoroutine(_westRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.West));
+                _westRiver.transform.Find("CloseCollider").gameObject.SetActive(false);
+                StartCoroutine(OpenLakeCoroutine(_westRiver, EnumsDungeon.CompassDirection.West));
             }
             if (_lakeDescriptionForThisLake.HasEastRiver == true)
             {
-                _eastRiver.transform.Find("Collider").gameObject.SetActive(true);
-                StartCoroutine(OpenLakeCoroutine(_eastRiver.transform.Find("Sprite"), EnumsDungeon.CompassDirection.East));
+                _eastRiver.transform.Find("CloseCollider").gameObject.SetActive(false);
+                StartCoroutine(OpenLakeCoroutine(_eastRiver, EnumsDungeon.CompassDirection.East));
             }
         }
 
-        private IEnumerator OpenLakeCoroutine(Transform river, EnumsDungeon.CompassDirection direction)
+        private IEnumerator OpenLakeCoroutine(GameObject river, EnumsDungeon.CompassDirection direction)
         {
             //TODO: for this moment, I'll just stick the values here, because otherwise I would have to manage too many variables in this monobehaviour,
             //and I also don't know if I want exactly this kind of animation.
 
-            float openingTime = .5f;
-
-            Vector3 start = river.localScale;
-            Vector3 end = Vector3.zero;
+            float closingTime = 1f;
+            float numberOfStatesF = 3f;  //we currently have only 3 states for the rivers
+            int numberOfStatesI = 3;
 
             switch (direction)
             {
                 case EnumsDungeon.CompassDirection.North:
-
-                    end = new Vector3(_xScaleOfRiver, river.localScale.y, river.localScale.z);
-                    for (float i = 0; i < openingTime; i += Time.deltaTime)
+                    for (int i = 0; i < numberOfStatesI; i++)
                     {
-                        river.localScale = Vector3.Lerp(start, end, i / openingTime);
-                        yield return null;
+                        _northRiver.transform.Find(i.ToString()).gameObject.SetActive(false);
+                        _northRiver.transform.Find((i + 1).ToString()).gameObject.SetActive(true);
+                        yield return new WaitForSeconds(closingTime / numberOfStatesF);
                     }
-
                     break;
                 case EnumsDungeon.CompassDirection.South:
-
-                    end = new Vector3(_xScaleOfRiver, river.localScale.y, river.localScale.z);
-                    for (float i = 0; i < openingTime; i += Time.deltaTime)
+                    for (int i = 0; i < numberOfStatesI; i++)
                     {
-                        river.localScale = Vector3.Lerp(start, end, i / openingTime);
-                        yield return null;
+                        _southRiver.transform.Find(i.ToString()).gameObject.SetActive(false);
+                        _southRiver.transform.Find((i + 1).ToString()).gameObject.SetActive(true);
+                        yield return new WaitForSeconds(closingTime / numberOfStatesF);
                     }
-
                     break;
                 case EnumsDungeon.CompassDirection.West:
-
-                    end = new Vector3(river.localScale.x, _yScaleOfRiver, river.localScale.z);
-                    for (float i = 0; i < openingTime; i += Time.deltaTime)
+                    for (int i = 0; i < numberOfStatesI; i++)
                     {
-                        river.localScale = Vector3.Lerp(start, end, i / openingTime);
-                        yield return null;
+                        _westRiver.transform.Find(i.ToString()).gameObject.SetActive(false);
+                        _westRiver.transform.Find((i + 1).ToString()).gameObject.SetActive(true);
+                        yield return new WaitForSeconds(closingTime / numberOfStatesF);
                     }
-
                     break;
                 case EnumsDungeon.CompassDirection.East:
-
-                    end = new Vector3(river.localScale.x, _yScaleOfRiver, river.localScale.z);
-                    for (float i = 0; i < openingTime; i += Time.deltaTime)
+                    for (int i = 0; i < numberOfStatesI; i++)
                     {
-                        river.localScale = Vector3.Lerp(start, end, i / openingTime);
-                        yield return null;
+                        _eastRiver.transform.Find(i.ToString()).gameObject.SetActive(false);
+                        _eastRiver.transform.Find((i + 1).ToString()).gameObject.SetActive(true);
+                        yield return new WaitForSeconds(closingTime / numberOfStatesF);
                     }
-
                     break;
             }
-            river.localScale = end;
             yield return null;
         }
 
@@ -417,8 +449,7 @@ namespace LevelStageNamespace {
 
         private void SetRiverAsFinal(GameObject river)
         {
-            SpriteRenderer spr = river.transform.Find("Sprite").GetComponent<SpriteRenderer>();
-            spr.color = new Color(0, 149, 224, 255);
+            river.transform.Find("Props").gameObject.SetActive(true);
         }
 
 
@@ -640,10 +671,13 @@ namespace LevelStageNamespace {
         //a piece of bread is thrown
         public (float, float) GeneratePointOutsideLake()
         {
-            float widthTerrain = _terrain.transform.localScale.x;
-            float heightTerrain = _terrain.transform.localScale.y;
-            float xCenterTerrain = _terrain.transform.position.x;
-            float yCenterTerrain = _terrain.transform.position.y;
+
+            Bounds terrainBounds = GetTerrainBounds();
+
+            float widthTerrain = terrainBounds.extents.x * 2;
+            float heightTerrain = terrainBounds.extents.y * 2;
+            float xCenterTerrain = terrainBounds.center.x;
+            float yCenterTerrain = terrainBounds.center.y;
             int left_right___or___above_below = Random.Range(0, 2);
             float x = Random.Range(0 - OffsetXTerrain, widthTerrain + OffsetXTerrain + 1);
             float y = Random.Range(0 - OffsetYTerrain, heightTerrain + OffsetYTerrain + 1);
@@ -685,6 +719,23 @@ namespace LevelStageNamespace {
         public (float, float) GeneratePointInsideLake()
         {
 
+            Bounds waterCenterBounds = _lake.transform.Find("WaterCenter").GetComponent<TilemapRenderer>().bounds;
+
+            float x = Random.Range(waterCenterBounds.min.x, waterCenterBounds.max.x);
+            float y = Random.Range(waterCenterBounds.min.y, waterCenterBounds.max.y);
+
+            Debug.Log("LakeDescComp, bounds min x e max x = " + waterCenterBounds.min.x + ", " + waterCenterBounds.max.x);
+            Debug.Log("LakeDescComp, bounds min y e max y = " + waterCenterBounds.min.y + ", " + waterCenterBounds.max.y);
+
+            while(!Contains(new Vector3(x, y, 0)))
+            {
+                x = Random.Range(waterCenterBounds.min.x, waterCenterBounds.max.x);
+                y = Random.Range(waterCenterBounds.min.y, waterCenterBounds.max.y);
+                Debug.Log("WHILE IN LAKEDESCRIPTIONCOMPONENT, RIGA CIRCA 724");
+            }
+
+
+            /*
             float widthLake = _lake.transform.Find("WaterCenter").localScale.x;
             float heightLake = _lake.transform.Find("WaterCenter").localScale.y;
             float xCenterLake = _lake.transform.Find("WaterCenter").position.x;
@@ -707,7 +758,7 @@ namespace LevelStageNamespace {
                 {
                     generatedEnd = true;
                 }
-            }
+            }*/
 
             return (x, y);
 
@@ -771,10 +822,15 @@ namespace LevelStageNamespace {
             int bpForPlayer = (int) Mathf.Floor((float) disputedBreadBP * fraction);
             int bpForEnemy = (int)Mathf.Ceil((float) disputedBreadBP * (1f - fraction));
 
-            //Debug.Log("CORRECT: " + correct + ", TOTAL: " + total);
+            int playerMouthSize = _playerReference.GetComponent<Player.PlayerEatSkill>().GetMouthSize();
 
-            //Debug.Log("INITIAL BP = " + disputedBreadBP);
-            //Debug.Log("BREAD POINTS FOR PLAYER: " + bpForPlayer + ", BREAD POINTS FOR ENEMY: " + bpForEnemy);
+            if(bpForPlayer > playerMouthSize)
+            {
+                //if the player is so good that is about to steal to the other duck more bread than the one it can take,
+                //let's make it steal all the bread that can stay in its mouth
+                bpForPlayer = playerMouthSize;
+                bpForEnemy = disputedBreadBP - bpForPlayer;
+            }
 
             GameObject breadInMouthForPlayer = null;
             GameObject breadInMouthForEnemy = null;
@@ -814,7 +870,6 @@ namespace LevelStageNamespace {
             //call here a function on the player passing to him:
             //-as first argument, the piece of bread that the player stole
             //-as second, the piece of bread still in the enemy's mouth
-            Debug.Log("LO STO CHIAMANDO");
             _playerReference.GetComponent<Player.PlayerStealSkill>().NotifyFinishedQTE(
                 breadInMouthForPlayer, 
                 breadInMouthForEnemy
