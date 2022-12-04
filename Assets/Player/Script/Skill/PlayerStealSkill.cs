@@ -13,9 +13,6 @@ namespace Player
         //-------------------------------------
         [SerializeField] private float _stealCoolDownElapsedSeconds = 0.0f;
 
-
-
-
         private PlayerController _controller = null;
         private PlayerMoveSkill _moveSkill = null;
         private PlayerEatSkill _eatSkill = null;
@@ -71,14 +68,14 @@ namespace Player
 
             if (Input.GetButtonDown("StealButton") && 
                 _locatedEnemy && _locatedEnemy.IsEating() &&
-                _controller.GetState() == PlayerState.Normal &&
+                !_enemyToSteal &&
                 _stealCoolDownElapsedSeconds <= 0)
             {
                 _controller.ChangeState(PlayerState.Stealing);
 
                 if (_controller.GetState() == PlayerState.Stealing)
                 {
-                    _moveSkill.EnableInput(false);
+                    _moveSkill.EnableInput(false, true);
                     _enemyToSteal = _locatedEnemy;
                   
                     //find the point between ducks
@@ -99,7 +96,8 @@ namespace Player
                         var pos = middlePos;
                         pos.x += distance;
                         _controller.gameObject.transform.position = pos;
-                        _controller.gameObject.transform.rotation = Quaternion.AngleAxis(90.0f,new Vector3(0,0,1));
+                        //_controller.gameObject.transform.rotation = Quaternion.AngleAxis(90.0f,new Vector3(0,0,1));
+                        _moveSkill.SetRotation(90.0f);
                         playerPos = pos;
                         //enemy on the left
                         pos = middlePos;
@@ -114,7 +112,8 @@ namespace Player
                         var pos = middlePos;
                         pos.x -= distance;
                         _controller.gameObject.transform.position = pos;
-                        _controller.gameObject.transform.rotation = Quaternion.AngleAxis(-90.0f, new Vector3(0, 0, 1));
+                        //_controller.gameObject.transform.rotation = Quaternion.AngleAxis(-90.0f, new Vector3(0, 0, 1));
+                        _moveSkill.SetRotation(-90.0f);
                         playerPos = pos;
                         //enemy on the right
                         pos = middlePos;
@@ -126,33 +125,14 @@ namespace Player
                     //this function should allow the enemy to pass to passive steal state and to displace it in the correct position/direction
                     // enemyDir: 0 left | 1 right
                     BreadNamespace.BreadInMouthComponent breadContended = _enemyToSteal.StartGettingRobbed(enemyFinalPos);//and also enemyDir for the sprite
-                    Debug.Log("POINTS OF BREAD STOLE = " + breadContended.GetBreadPoints());
                     //let's active the Quick Time Event.
                     LevelStageNamespace.LakeDescriptionComponent lakeDescriptionComponent = (LevelStageNamespace.LakeDescriptionComponent)_controller.GetLake();
                     if (lakeDescriptionComponent)
                     {
                         lakeDescriptionComponent.PlayerStartStealFromEnemy(_controller.gameObject, breadContended.gameObject, playerPos.x, playerPos.y + 3f);
-                    }
-                    else
-                    {
-                        Debug.Log("stealing not possible: lakeDescriptionComponent is null (PlayerStealSkill)");
-                    }
-
-                        
+                    }                   
                 }
             }
-
-            /*if (Input.GetButtonUp("StealButton") && _locatedEnemy && _stealCoolDownElapsedSeconds <= 0 && _controller.GetState() == PlayerState.Stealing)
-            {
-                _controller.ChangeState(PlayerState.Normal);
-
-                if (_controller.GetState() == PlayerState.Normal)
-                {
-                    _moveSkill.EnableInput(true);
-                    _stealCoolDownElapsedSeconds = _coolDown;
-                }
-            }*/
-
 
             //===================================================================================================
             //===================================================================================================
@@ -176,7 +156,6 @@ namespace Player
         {
             if (_controller.GetState() == PlayerState.Stealing && _enemyToSteal && _stealCoolDownElapsedSeconds <= 0)
             {
-                Debug.Log("ENTRATO");
                 if (breadForEnemy == null)
                 {
                     _enemyToSteal.AssignBreadAfterRobbery(null);
@@ -188,23 +167,14 @@ namespace Player
                 
                 if (breadForPlayer == null)
                 {
-                    Debug.Log("OH NON HAI VINTO UN BEL NIENTE");
-                    _eatSkill.SetCatchedBread(null);
+                    _eatSkill.SetCaughtBread(null);
                 }
                 else
                 {
-                    Debug.Log("OH HAI VINTO UN PEZZO DI PANE");
-                    _eatSkill.SetCatchedBread(breadForPlayer.GetComponent<BreadNamespace.BreadInMouthComponent>());  // this function allows the player to change from steal to eat or normal state and provides the resulting bread.
+                    _eatSkill.SetCaughtBread(breadForPlayer.GetComponent<BreadNamespace.BreadInMouthComponent>());  // this function allows the player to change from steal to eat or normal state and provides the resulting bread.
                 }
                     
                 _stealCoolDownElapsedSeconds = _coolDown;
-
-                //   _controller.ChangeState(PlayerState.Normal);
-
-                //   if (_controller.GetState() == PlayerState.Normal)
-                //   {
-                //       _moveSkill.EnableInput(true);
-                //   }
             }
             _enemyToSteal = null;
         }

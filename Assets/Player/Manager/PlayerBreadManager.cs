@@ -17,5 +17,9 @@ namespace Player
                 startPos.x,startPos.y,
                  endPos.x, endPos.y,10,30);
         }
+        public void ReleaseBread(BreadNamespace.BreadInMouthComponent bread)
+        {
+            Destroy(bread.gameObject);
+        }
     }
 }
