@@ -142,6 +142,30 @@ namespace Player
         // Update is called once per frame
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (transform.parent.Find("UI/ExitMenu").gameObject.activeSelf)
+                {
+                    #if UNITY_EDITOR
+                                        // Application.Quit() does not work in the editor so
+                                        // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
+                                        UnityEditor.EditorApplication.isPlaying = false;
+                    #else
+                             Application.Quit();
+                    #endif
+                }
+
+                transform.parent.Find("UI/ExitMenu").gameObject.SetActive(true);
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                if (transform.parent.Find("UI/ExitMenu").gameObject.activeSelf)
+                {
+                    transform.parent.Find("UI/ExitMenu").gameObject.SetActive(false);
+                }
+            }
+
         }
 
         private void FixedUpdate()
