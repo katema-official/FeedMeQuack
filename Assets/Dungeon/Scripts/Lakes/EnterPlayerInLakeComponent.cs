@@ -44,12 +44,12 @@ namespace LevelStageNamespace
         void Start()
         {
             _enterCollidersList = new List<GameObject>();
-            _lakeDescriptionComponent = transform.parent.parent.parent.parent.gameObject.GetComponent<LakeDescriptionComponent>();
+            _lakeDescriptionComponent = GameObject.Find("WholeLake").GetComponent<LakeDescriptionComponent>();//transform.parent.parent.parent.parent.gameObject.GetComponent<LakeDescriptionComponent>();
             _levelStageManagerComponent = GameObject.Find("LevelStageManagerObject").GetComponent<LevelStageManagerComponent>();
-            _enterCollidersList.Add(_lakeDescriptionComponent.transform.Find("Water/Rivers/North/TriggerEnteredCollider").gameObject);           
-            _enterCollidersList.Add(_lakeDescriptionComponent.transform.Find("Water/Rivers/South/TriggerEnteredCollider").gameObject);
-            _enterCollidersList.Add(_lakeDescriptionComponent.transform.Find("Water/Rivers/West/TriggerEnteredCollider").gameObject);       
-            _enterCollidersList.Add(_lakeDescriptionComponent.transform.Find("Water/Rivers/East/TriggerEnteredCollider").gameObject);
+            _enterCollidersList.Add(_lakeDescriptionComponent.transform.Find("Water/WaterBorder/Rivers/RiverNorth/TriggerEnteredCollider").gameObject);           
+            _enterCollidersList.Add(_lakeDescriptionComponent.transform.Find("Water/WaterBorder/Rivers/RiverSouth/TriggerEnteredCollider").gameObject);
+            _enterCollidersList.Add(_lakeDescriptionComponent.transform.Find("Water/WaterBorder/Rivers/RiverWest/TriggerEnteredCollider").gameObject);       
+            _enterCollidersList.Add(_lakeDescriptionComponent.transform.Find("Water/WaterBorder/Rivers/RiverEast/TriggerEnteredCollider").gameObject);
 
         }
 

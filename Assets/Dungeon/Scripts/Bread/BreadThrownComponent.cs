@@ -216,11 +216,9 @@ namespace BreadNamespace
             {
                 _sleep = true;
 
-                Debug.Log("QQQ 1");
                 //the breadThrown object can be destroyed, and the actual bread can be instantiated
                 GameObject b = Instantiate(BreadToSpawnPrefab, _shadow.transform.position, Quaternion.identity);
                 b.GetComponent<BreadInWaterComponent>().InitializeBread(_dimension, _breadPoints);
-                Debug.Log("QQQ END OF BREAD THROWN!");
                 Destroy(this.gameObject);
             }
 

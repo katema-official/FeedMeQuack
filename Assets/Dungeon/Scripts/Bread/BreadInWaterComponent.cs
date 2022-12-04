@@ -62,7 +62,6 @@ namespace BreadNamespace
             //if the piece of bread was spawned outside the lake, it must be destroyed
             if(_lakeDescriptionComponent.Contains(transform.position) == false)
             {
-                Debug.Log("QQQ START FADE OUT");
                 _lakeDescriptionComponent.NotifyBreadEaten();
                 StartCoroutine(FadeOutOutsideLake());
             }
