@@ -315,13 +315,14 @@ namespace Player
             _rigidBody = GetComponent<Rigidbody2D>();
             _controller = GetComponent<PlayerController>();
             _camera = transform.parent.GetComponentInChildren<Camera>();
+            
 
             var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
         }
             // Start is called before the first frame update
         void Start()
         {
-        
+            _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
         }
 
         // Update is called once per frame
