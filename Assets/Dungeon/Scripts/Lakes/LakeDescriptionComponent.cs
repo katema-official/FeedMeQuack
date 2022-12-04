@@ -118,7 +118,6 @@ namespace LevelStageNamespace {
         protected override void Awake()
         {
             base.Awake();
-            Debug.Log("LAKE AWAKENED");
             _levelStageManager = GameObject.Find("LevelStageManagerObject").GetComponent<LevelStageManagerComponent>();
             _lakeDescriptionForThisLake = _levelStageManager.GetLakeDescriptionSO();
             ManageRiversOfthisLake();
@@ -142,7 +141,6 @@ namespace LevelStageNamespace {
             {
                 //otherwise, we first of all set the correct position of the player
                 SpawnPlayer = _lakeDescriptionForThisLake.PlayerSpawnDirection;
-                Debug.Log("LakeDescrComp, riga 145: " + SpawnPlayer);
                 string riversString = "Water/WaterBorder/Rivers";
                 switch (SpawnPlayer)
                 {
@@ -153,7 +151,6 @@ namespace LevelStageNamespace {
                         _playerObject.transform.position = transform.Find(riversString + "/RiverSouth/Position").transform.position + new Vector3(0, OffsetYPlayer, 0);
                         break;
                     case EnumsDungeon.CompassDirection.West:
-                        Debug.Log("posizione di spawn: " + transform.Find(riversString + "/RiverWest/Position").transform.position + new Vector3(OffsetXPlayer, 0, 0));
                         _playerObject.transform.position = transform.Find(riversString + "/RiverWest/Position").transform.position + new Vector3(OffsetXPlayer, 0, 0);
                         break;
                     case EnumsDungeon.CompassDirection.East:
@@ -340,7 +337,6 @@ namespace LevelStageNamespace {
                     {
                         _northRiver.transform.Find(i.ToString()).gameObject.SetActive(false);
                         _northRiver.transform.Find((i-1).ToString()).gameObject.SetActive(true);
-                        Debug.Log("AAA AAA AAA");
                         yield return new WaitForSeconds(closingTime / numberOfStatesF);
                     }
                     break;
@@ -724,14 +720,11 @@ namespace LevelStageNamespace {
             float x = Random.Range(waterCenterBounds.min.x, waterCenterBounds.max.x);
             float y = Random.Range(waterCenterBounds.min.y, waterCenterBounds.max.y);
 
-            Debug.Log("LakeDescComp, bounds min x e max x = " + waterCenterBounds.min.x + ", " + waterCenterBounds.max.x);
-            Debug.Log("LakeDescComp, bounds min y e max y = " + waterCenterBounds.min.y + ", " + waterCenterBounds.max.y);
-
             while(!Contains(new Vector3(x, y, 0)))
             {
                 x = Random.Range(waterCenterBounds.min.x, waterCenterBounds.max.x);
                 y = Random.Range(waterCenterBounds.min.y, waterCenterBounds.max.y);
-                Debug.Log("WHILE IN LAKEDESCRIPTIONCOMPONENT, RIGA CIRCA 724");
+                //Debug.Log("WHILE IN LAKEDESCRIPTIONCOMPONENT, RIGA CIRCA 724");
             }
 
 

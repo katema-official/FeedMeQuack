@@ -65,6 +65,7 @@ public class FadeBlackComponent : MonoBehaviour
             _sprite.color = c;
             yield return null;
         }
+        c.a = 1f;
         _levelStageManager.EnterLake();
 
         yield return null;
@@ -82,6 +83,7 @@ public class FadeBlackComponent : MonoBehaviour
             _sprite.color = c;
             yield return null;
         }
+        c.a = 0f;
         yield return null;
     }
 
@@ -98,6 +100,7 @@ public class FadeBlackComponent : MonoBehaviour
             _sprite.color = c;
             yield return null;
         }
+        c.a = 1f;
         _levelStageManager.EnterShop();
 
         yield return null;
