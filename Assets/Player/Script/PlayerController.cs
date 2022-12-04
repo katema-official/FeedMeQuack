@@ -19,6 +19,7 @@ namespace Player
 
         private PlayerDuckDescriptionSO _description = null;
         private List<PlayerSkill> _skills;
+        private Animator _animator;
 
         public Transform GetMouthTransform()
         {
@@ -47,6 +48,12 @@ namespace Player
         {
             return (int) _breadPoints;
         }
+
+        public Animator GetAnimator()
+        {
+            return _animator;
+        }
+
         public void NotifyStageCompleted(int points)
         {
             _digestedBreadPoints += (_breadPoints - points);
@@ -121,6 +128,9 @@ namespace Player
                 var skill = SkillUtility.CreateSkillFromDescription(s,gameObject);
                 _skills.Add(skill);
             }
+
+
+            _animator= GetComponent<Animator>();
         }
 
         // Start is called before the first frame update

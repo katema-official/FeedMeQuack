@@ -81,7 +81,7 @@ namespace Player
             ////up
             //if (angle >= 0 && angle < 22.5)
             //{
-            //    angle = 0; 
+            //    angle = 0;
             //}
             ////up-left
             //else if (angle >= 22.5f && angle < 77.5f)
@@ -122,12 +122,12 @@ namespace Player
             //    angle = -90;
             //}
             ////up-right
-            //else if (angle >= -77.5f && angle < -22.5f )
+            //else if (angle >= -77.5f && angle < -22.5f)
             //{
             //    angle = -45;
             //}
             ////up
-            //else if (angle >=  -22.5 && angle < 0)
+            //else if (angle >= -22.5 && angle < 0)
             //{
             //    angle = 0;
             //}
@@ -147,12 +147,69 @@ namespace Player
                 float angle = Mathf.Atan2(-_finalDir.x, _finalDir.y) * Mathf.Rad2Deg;
                 _rotationMovement = angle;
 
+
+                //up
+                if (angle >= 0 && angle < 22.5)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
+                }
+                //up-left
+                else if (angle >= 22.5f && angle < 77.5f)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.2857143f);
+                }
+                //left
+                else if (angle >= 77.5f && angle < 112.5)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.4285714f);
+                }
+                //down-left
+                else if (angle >= 112.5 && angle < 157.5)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.5714286f);
+                }
+                //down
+                else if (angle >= 157.5 && angle < 180)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.7142857f);
+                }
+
+
+
+                //down
+                else if (angle >= -180 && angle < -157.5)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.7142857f);
+                }
+                //down-right
+                else if (angle >= -157.5 && angle < -112.5)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.8571429f);
+                }
+                //right
+                else if (angle >= -112.5 && angle < -77.5f)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 1f);
+                }
+                //up-right
+                else if (angle >= -77.5f && angle < -22.5f)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0);
+                }
+                //up
+                else if (angle >= -22.5 && angle < 0)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
+                }
+
+
+
                 _force = speed * 1.5f;
                 _rigidBody.AddForce(_finalDir * _force, ForceMode2D.Force);
                 _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity, speed); 
             }
 
-            _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
+           // _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
 
            // MoveCamera();
            
@@ -192,9 +249,63 @@ namespace Player
 
                 float angle = Mathf.Atan2(-_finalDir.x, _finalDir.y) * Mathf.Rad2Deg;
                 _rotationMovement = angle;
+
+                //up
+                if (angle >= 0 && angle < 22.5)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
+                }
+                //up-left
+                else if (angle >= 22.5f && angle < 77.5f)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.2857143f);
+                }
+                //left
+                else if (angle >= 77.5f && angle < 112.5)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.4285714f);
+                }
+                //down-left
+                else if (angle >= 112.5 && angle < 157.5)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.5714286f);
+                }
+                //down
+                else if (angle >= 157.5 && angle < 180)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.7142857f);
+                }
+
+
+
+                //down
+                else if (angle >= -180 && angle < -157.5)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.7142857f);
+                }
+                //down-right
+                else if (angle >= -157.5 && angle < -112.5)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.8571429f);
+                }
+                //right
+                else if (angle >= -112.5 && angle < -77.5f)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 1f);
+                }
+                //up-right
+                else if (angle >= -77.5f && angle < -22.5f)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0);
+                }
+                //up
+                else if (angle >= -22.5 && angle < 0)
+                {
+                    _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
+                }
             }
 
-            _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
+           // _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
 
            // MoveCamera();
         }
