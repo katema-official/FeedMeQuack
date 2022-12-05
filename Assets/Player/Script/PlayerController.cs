@@ -81,8 +81,7 @@ namespace Player
             else if (_state == PlayerState.Eating)
             {
                 if (newState == PlayerState.Spitting ||
-                    newState == PlayerState.Normal ||
-                    newState == PlayerState.Stealing)
+                    newState == PlayerState.Normal)
                 {
                     _state = newState;
                 }

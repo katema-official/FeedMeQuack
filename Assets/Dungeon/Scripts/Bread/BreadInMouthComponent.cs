@@ -66,6 +66,7 @@ namespace BreadNamespace
                 if (_isLastPiece)
                 {
                     _lakeDescriptionComponent.NotifyBreadEaten();
+
                 }
                 Destroy(this.gameObject);
                 return (_breadPoints, true);

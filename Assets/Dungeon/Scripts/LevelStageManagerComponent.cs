@@ -201,7 +201,6 @@ namespace LevelStageNamespace
 
         public void EnterLake()
         {
-            Debug.Log("EnterLake in LevelStageManagerComponent: Ma cos");
             //third: go to the right lake
             switch (GetLakeDescriptionSO().Dimension)
             {
