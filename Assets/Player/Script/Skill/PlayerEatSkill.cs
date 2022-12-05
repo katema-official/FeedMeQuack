@@ -28,6 +28,9 @@ namespace Player
 
         private bool _hasBreadBeenFullyEaten = false;
 
+        private IEnumerator _eatCoroutine;
+        private bool _mustStopEating = false;
+
         public override void SetDescription(PlayerSkillDescriptionSO desc)
         {
             _description = desc;
@@ -126,6 +129,8 @@ namespace Player
         {
         }
 
+
+
         // Update is called once per frame
         void Update()
         {
@@ -143,7 +148,9 @@ namespace Player
                
                     //take a piece of the located bread, or the entire located bread based on mouth size
                     _caughtBread = locatedBread.GenerateNewBreadInMouth(_mouthSize).GetComponent<BreadNamespace.BreadInMouthComponent>();
-                    StartCoroutine(EatCoroutine());
+                    _eatCoroutine = EatCoroutine();
+                    _mustStopEating = false;
+                    StartCoroutine(_eatCoroutine);
                 }
             }
 
@@ -193,18 +200,27 @@ namespace Player
         IEnumerator EatCoroutine()
         {
             int a;
+            _mustStopEating = false;
 
-            while (!_hasBreadBeenFullyEaten)
+            while (!_hasBreadBeenFullyEaten && !_mustStopEating)
             {
                 yield return new WaitForSeconds(1);
-                (a, _hasBreadBeenFullyEaten) = _caughtBread.SubtractBreadPoints(1);//eat a point each chewingRate seconds
-               // Debug.Log("Bread eaten before");
-                _controller.AddBreadPoints(1);
+                if (!_mustStopEating)
+                {
+                    (a, _hasBreadBeenFullyEaten) = _caughtBread.SubtractBreadPoints(1);//eat a point each chewingRate seconds
+                    // Debug.Log("Bread eaten before");
+                    _controller.AddBreadPoints(1);
+                }
             }
-          //  Debug.Log("Bread eaten after");
+            //Debug.Log("Bread eaten after");
             yield break;
         }
 
+        public void StopEating()
+        {
+            _mustStopEating = true;
+            StopCoroutine(_eatCoroutine);
+        }
 
 
         private void OnTriggerEnter2D(Collider2D collision)

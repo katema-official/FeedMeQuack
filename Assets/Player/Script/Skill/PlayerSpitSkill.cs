@@ -77,6 +77,9 @@ namespace Player
 
                 if (_controller.GetState() == PlayerState.Spitting)
                 {
+                    //also interrupt the eating coroutine
+                    _eatSkill.StopEating();
+
                     _moveSkill.EnableInput(true);
                     _spitArrow.SetActive(true);
                     _spitProgressBar.gameObject.SetActive(true);
