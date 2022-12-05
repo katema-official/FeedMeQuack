@@ -196,14 +196,37 @@ namespace Player
             // _rotationMovement = angle;
 
             if (_moveForward || moveForward)
-            { 
+            {
                 if (_enableInput)
                 {
                     _finalDir = _forwardAxis;// _forwardAxis + _rightwardAxis;
-                    _finalDir.Normalize(); 
-                } 
+                    _finalDir.Normalize();
+                }
 
                 float angle = Mathf.Atan2(-_finalDir.x, _finalDir.y) * Mathf.Rad2Deg;
+
+                //bool slowDown = false;
+
+                //if (Mathf.Abs(angle + _rotationMovement) > 180.0f)
+                //{
+                //    slowDown = true;
+                //    Debug.Log("slow down");
+                //}
+
+
+                //var a = (angle > 0 && angle <= 180.0f) ? angle : angle + 360.0f;
+                //var r = (_rotationMovement > 0 && _rotationMovement <= 180.0f) ? _rotationMovement : _rotationMovement + 360.0f;
+
+
+                //if (Mathf.Abs(a - r) > 180.0f)
+                //{
+                //    slowDown = true;
+                //    Debug.Log("slow down");
+                //}
+
+
+
+
                 _rotationMovement = angle;
 
 
@@ -262,16 +285,27 @@ namespace Player
                 }
 
 
-
+                //if (slowDown)
+                //    _force = speed * 10.8f;
+                //else
                 _force = speed * 1.5f;
+
+
+
+
                 _rigidBody.AddForce(_finalDir * _force, ForceMode2D.Force);
-                _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity, speed); 
+                _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity, speed);
             }
+            else
+            {
+               // _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity * 0.9f, speed);
+            }
+        
 
-           // _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
+            // _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
 
-           // MoveCamera();
-           
+            // MoveCamera();
+
         }
 
         private void MoveCamera()

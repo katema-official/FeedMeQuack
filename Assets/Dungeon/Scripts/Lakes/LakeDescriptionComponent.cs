@@ -98,9 +98,9 @@ namespace LevelStageNamespace {
 
         public Dictionary<EnumsDungeon.BreadType, int> BreadToSpawnMap;
 
-        private int _totalNumberOfBreadPiecesToSpawn;       //can be obtained scanning BreadToSpawnMap
-        private int _totalNumberOfBreadPiecesToBeEaten;     //it's _totalNumberOfBreadPiecesToSpawn initially, but can get bigger if a new piece of bread is spawned because of stealing, for example
-        private int _totalNumberOfBreadPiecesEaten;         //counts how many pieces of bread have been eaten in this lake
+        [SerializeField] private int _totalNumberOfBreadPiecesToSpawn;       //can be obtained scanning BreadToSpawnMap
+        [SerializeField] private int _totalNumberOfBreadPiecesToBeEaten;     //it's _totalNumberOfBreadPiecesToSpawn initially, but can get bigger if a new piece of bread is spawned because of stealing, for example
+        [SerializeField] private int _totalNumberOfBreadPiecesEaten;         //counts how many pieces of bread have been eaten in this lake
 
         private List<float> _arrayBreadSpawnTime;                       //position i: says that the i-th bread will spawn elem[i] time after the time the i-1 th element spawned
         private List<EnumsDungeon.BreadType> _arrayBreadSpawnType;      //position i: says what kind of bread needs to be spawned as i-th bread for this lake
@@ -785,7 +785,7 @@ namespace LevelStageNamespace {
         //########################################################################################################################################################
         //########################################################################################################################################################
 
-        private GameObject _disputedBread;
+        private GameObject _disputedBread = null;
         private GameObject _playerReference;
 
         //function that the player can call when it tries to steal bread from another duck. It requires as argument the piece of bread that the player
@@ -813,7 +813,7 @@ namespace LevelStageNamespace {
             float fraction = (float)(correct) / (float)(total);
 
             int bpForPlayer = (int) Mathf.Floor((float) disputedBreadBP * fraction);
-            int bpForEnemy = (int)Mathf.Ceil((float) disputedBreadBP * (1f - fraction));
+            int bpForEnemy = (int)Mathf.Ceil((float)disputedBreadBP * (1f - fraction));
 
             int playerMouthSize = _playerReference.GetComponent<Player.PlayerEatSkill>().GetMouthSize();
 
@@ -859,6 +859,7 @@ namespace LevelStageNamespace {
 
 
             Destroy(_disputedBread);
+            _disputedBread = null;
 
             //call here a function on the player passing to him:
             //-as first argument, the piece of bread that the player stole
