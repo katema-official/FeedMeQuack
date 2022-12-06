@@ -33,7 +33,18 @@ namespace Player
         }
         public override void applyPowerUp(PlayerSkillAttribute attrib, float value)
         {
-
+            if (attrib == PlayerSkillAttribute.DashSkill_CoolDown)
+            {
+                _coolDown += value;
+            }
+            else if (attrib == PlayerSkillAttribute.DashSkill_MaxDuration)
+            {
+                _maxDuration += value;
+            }
+            else if (attrib == PlayerSkillAttribute.DashSkill_MaxSpeed)
+            {
+                _maxSpeed += (int)value;
+            }
 
         }
         private void CheckData()
