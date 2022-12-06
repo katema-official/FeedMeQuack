@@ -157,8 +157,17 @@ namespace Player
                 }
                 else if (_locatedPowerUp)
                 {
+                    int spentDBP = 0;
+                    List<PlayerSkillAttribute> listAttribs = null;
+                    List<float> listValues = null;
 
+                    //call here buyPowerUp
+
+                    _controller.applyPowerUp(spentDBP, listAttribs, listValues);
+                    _locatedPowerUp = null;
                 }
+            }
+
 
 
             if (_controller.GetState() == PlayerState.Eating && _hasBreadBeenFullyEaten)
