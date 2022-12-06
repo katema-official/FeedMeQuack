@@ -410,8 +410,6 @@ namespace Player
             }
         }
 
-
-
         private void Awake()
         {
             _rigidBody = GetComponent<Rigidbody2D>();

@@ -44,7 +44,7 @@ namespace Player
         {
             if (attrib == PlayerSkillAttribute.SpitSkill_ChargeSpeed)
             {
-                _coolDown += value;
+                _chargeSpeed += value;
             }
             else if (attrib == PlayerSkillAttribute.SpitSkill_CoolDown)
             {

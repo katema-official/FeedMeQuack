@@ -137,34 +137,39 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetButtonDown("EatButton") && !_caughtBread /*&& _locatedBread*/)
+            if (Input.GetButtonDown("EatButton") /*&& _locatedBread*/)
             {
-                var locatedBread = FindClosestBread();
-
-                if (locatedBread)
-                { 
-                    _controller.ChangeState(PlayerState.Eating);
-
-                    if (_controller.GetState() == PlayerState.Eating)
-                        _moveSkill.EnableInput(true);
-
-               
-                    //take a piece of the located bread, or the entire located bread based on mouth size
-                    _caughtBread = locatedBread.GenerateNewBreadInMouth(_mouthSize).GetComponent<BreadNamespace.BreadInMouthComponent>();
-                    _eatCoroutine = EatCoroutine();
-                    _mustStopEating = false;
-                    StartCoroutine(_eatCoroutine);
-                }
-                else if (_locatedPowerUp)
+                if (_locatedPowerUp)
                 {
-                    int spentDBP = 0;
-                    List<PlayerSkillAttribute> listAttribs = null;
-                    List<float> listValues = null;
+                    int spentDBP = 4;
+                    List<PlayerSkillAttribute> listAttribs = new List<PlayerSkillAttribute>{ PlayerSkillAttribute.SpitSkill_MaxPower, PlayerSkillAttribute.SpitSkill_MaxRange };
+                    List<float> listValues = new List<float> { 10,20 };
 
                     //call here buyPowerUp
 
                     _controller.applyPowerUp(spentDBP, listAttribs, listValues);
                     _locatedPowerUp = null;
+                    return;
+                }
+
+                if (!_caughtBread)
+                { 
+                    var locatedBread = FindClosestBread();
+
+                    if (locatedBread)
+                    { 
+                        _controller.ChangeState(PlayerState.Eating);
+
+                        if (_controller.GetState() == PlayerState.Eating)
+                            _moveSkill.EnableInput(true);
+
+               
+                        //take a piece of the located bread, or the entire located bread based on mouth size
+                        _caughtBread = locatedBread.GenerateNewBreadInMouth(_mouthSize).GetComponent<BreadNamespace.BreadInMouthComponent>();
+                        _eatCoroutine = EatCoroutine();
+                        _mustStopEating = false;
+                        StartCoroutine(_eatCoroutine);
+                    }
                 }
             }
 
