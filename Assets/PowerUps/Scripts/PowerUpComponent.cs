@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Player;
+using TMPro;
 
 namespace PowerUpsNamespace
 {
@@ -14,14 +15,14 @@ namespace PowerUpsNamespace
 
         private GameObject _spriteGameobject;
         private GameObject _textsGameobject;
-        private TextMesh _nameTextMesh;
-        private TextMesh _descriptionTextMesh;
-        private TextMesh _costTextMesh;
+        private TextMeshPro _nameTextMesh;
+        private TextMeshPro _descriptionTextMesh;
+        private TextMeshPro _costTextMesh;
 
         private List<PlayerSkillAttribute> _powerUpKinds;
         private List<float> _amountForPowerUpKind;
 
-        private TextMesh _feedbackBought;
+        private TextMeshPro _feedbackBought;
         private List<string> _feedbackMessages = new List<string>() { "Sold!", "Got it", "That's goooood", "Now it's mine"};
 
 
@@ -29,25 +30,30 @@ namespace PowerUpsNamespace
         //variable used simply to perform the destroy animation without problems
         private bool _bought = false;
 
-        // Start is called before the first frame update
-        void Start()
+        private void Awake()
         {
             _powerUpKinds = new List<PlayerSkillAttribute>();
             _amountForPowerUpKind = new List<float>();
             _spriteGameobject = transform.Find("Sprite").gameObject;
             _textsGameobject = transform.Find("Texts").gameObject;
-            _nameTextMesh = _textsGameobject.transform.Find("Name").gameObject.GetComponent<TextMesh>();
-            _descriptionTextMesh = _textsGameobject.transform.Find("Description").gameObject.GetComponent<TextMesh>();
-            _costTextMesh = _textsGameobject.transform.Find("Cost").gameObject.GetComponent<TextMesh>();
-            
-            _feedbackBought = transform.Find("Texts/FeedbackBought").gameObject.GetComponent<TextMesh>();
+            _nameTextMesh = _textsGameobject.transform.Find("Name").gameObject.GetComponent<TextMeshPro>();
+            _descriptionTextMesh = _textsGameobject.transform.Find("Description").gameObject.GetComponent<TextMeshPro>();
+            _costTextMesh = _textsGameobject.transform.Find("Cost").gameObject.GetComponent<TextMeshPro>();
+
+            _feedbackBought = _textsGameobject.transform.Find("FeedbackBought").gameObject.GetComponent<TextMeshPro>();
             _feedbackBought.gameObject.SetActive(false);
-            UpdateTexts();
+        }
+
+        // Start is called before the first frame update
+        void Start()
+        {
+            
         }
 
 
         private void UpdateTexts()
         {
+            Debug.Log("_name = " + _name + ", _description = " + _description);
             _nameTextMesh.text = _name;
             _descriptionTextMesh.text = _description;
             _costTextMesh.text = "Cost: " + _costDigestedbreadPoints;
@@ -65,6 +71,12 @@ namespace PowerUpsNamespace
             {
                 BuyPowerUp(23);
             }*/
+        }
+
+
+        public void Initialize(PowerUpSO powerUpSO)
+        {
+            this.Initialize(powerUpSO.Name, powerUpSO.Description, powerUpSO.Cost, powerUpSO.PowerUpKinds, powerUpSO.amountForPowerUpKind);
         }
 
         public void Initialize(string name, string description, int cost, List<PlayerSkillAttribute> powerUpKinds, List<float> amountForPowerUpKind)
