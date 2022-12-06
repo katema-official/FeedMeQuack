@@ -185,8 +185,18 @@ namespace Player
 
         public override void applyPowerUp(PlayerSkillAttribute attrib, float value)
         {
-
-
+            if (attrib == PlayerSkillAttribute.EatSkill_ChewingRate)
+            {
+                _chewingRate += value;
+            }
+            else if (attrib == PlayerSkillAttribute.EatSkill_EatingSpeed)
+            {
+                _eatingSpeed += value;
+            }
+            else if(attrib == PlayerSkillAttribute.EatSkill_MouthSize)
+            {
+                _mouthSize += (int)value;
+            }
         }
 
 
