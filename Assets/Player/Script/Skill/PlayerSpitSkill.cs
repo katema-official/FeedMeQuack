@@ -42,8 +42,22 @@ namespace Player
         }
         public override void applyPowerUp(PlayerSkillAttribute attrib, float value)
         {
-
-
+            if (attrib == PlayerSkillAttribute.SpitSkill_ChargeSpeed)
+            {
+                _coolDown += value;
+            }
+            else if (attrib == PlayerSkillAttribute.SpitSkill_CoolDown)
+            {
+                _coolDown += value;
+            }
+            else if (attrib == PlayerSkillAttribute.SpitSkill_MaxPower)
+            {
+                _maxPower += value;
+            }
+            else if (attrib == PlayerSkillAttribute.SpitSkill_MaxRange)
+            {
+                _maxRange += value;
+            }
         }
         private void CheckData()
         {
