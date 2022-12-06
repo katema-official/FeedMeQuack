@@ -36,8 +36,10 @@ namespace Player
         }
         public override void applyPowerUp(PlayerSkillAttribute attrib, float value)
         {
-
-
+            if (attrib == PlayerSkillAttribute.StealSkill_CoolDown)
+            {
+                _coolDown += value;
+            }
         }
         public Enemies.EnemyFSM FindClosestEnemy()
         {
