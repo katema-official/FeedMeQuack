@@ -40,7 +40,11 @@ namespace Player
             _coolDown = _spitDesc.CoolDown;
             _chargeSpeed = _spitDesc.ChargeSpeed;
         }
+        public override void applyPowerUp(PlayerSkillAttribute attrib, float value)
+        {
 
+
+        }
         private void CheckData()
         {
             if (_controller.GetState() != PlayerState.Spitting)

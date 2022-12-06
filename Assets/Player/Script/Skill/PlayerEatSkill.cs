@@ -183,6 +183,13 @@ namespace Player
             }
         }
 
+        public override void applyPowerUp(PlayerSkillAttribute attrib, float value)
+        {
+
+
+        }
+
+
         private void FixedUpdate()
         {
             if (_controller.GetState() == PlayerState.Eating && _caughtBread)

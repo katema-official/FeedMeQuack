@@ -31,7 +31,11 @@ namespace Player
             _maxDuration = _dashDesc.MaxDuration;
             _coolDown = _dashDesc.CoolDown;
         }
+        public override void applyPowerUp(PlayerSkillAttribute attrib, float value)
+        {
 
+
+        }
         private void CheckData()
         {
             if (_controller.GetState() == PlayerState.Dashing)
