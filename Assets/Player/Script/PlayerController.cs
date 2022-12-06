@@ -65,49 +65,32 @@ namespace Player
             _digestedBreadPoints -= spentDBP;
 
 
-            foreach(var a in listSkillAttribs)
+            for(var i=0; i< listSkillAttribs.Count; i++)
             {
-                if (a == PlayerSkillAttribute.MoveSkill_Speed)
-                {
-                    //Moveskill
-                    var s = _getPlayerSkillByName("MoveSkill");
+                var a = listSkillAttribs[i];
+                var v = listValues[i];
+                var skillName = "";
 
-                }
+                if (a == PlayerSkillAttribute.MoveSkill_Speed)
+                    skillName ="MoveSkill";
                 else if (a == PlayerSkillAttribute.EatSkill_EatingSpeed ||
                     a == PlayerSkillAttribute.EatSkill_ChewingRate ||
                    a == PlayerSkillAttribute.EatSkill_MouthSize)
-                {
-                    //Moveskill
-                    var s = _getPlayerSkillByName("EatSkill");
-
-
-                }
+                    skillName = "EatSkill";
                 else if (a == PlayerSkillAttribute.DashSkill_CoolDown ||
                    a == PlayerSkillAttribute.DashSkill_MaxDuration ||
                   a == PlayerSkillAttribute.DashSkill_MaxSpeed)
-                {
-                    //Moveskill
-                    var s = _getPlayerSkillByName("DashSkill");
-
-
-                }
+                    skillName = "DashSkill";
                 else if (a == PlayerSkillAttribute.SpitSkill_ChargeSpeed ||
                     a == PlayerSkillAttribute.SpitSkill_CoolDown ||
                    a == PlayerSkillAttribute.SpitSkill_MaxPower ||
-                    a == PlayerSkillAttribute.SpitSkill_MaxRange)
-                {
-                    //Moveskill
-                    var s = _getPlayerSkillByName("SpitSkill");
+                    a == PlayerSkillAttribute.SpitSkill_MaxRange) 
+                    skillName = "SpitSkill";
+                else if (a == PlayerSkillAttribute.StealSkill_CoolDown) 
+                    skillName = "StealSkill";
 
-
-                }
-                else if (a == PlayerSkillAttribute.StealSkill_CoolDown)
-                {
-                    var s = _getPlayerSkillByName("StealSkill");
-
-
-
-                }
+                var s = _getPlayerSkillByName(skillName);
+                if (s) s.applyPowerUp(a, v);
             }
 
         }
