@@ -60,6 +60,57 @@ namespace Player
             _breadPoints = 0;
         }
 
+        public void applyPowerUp(int spentDBP,List<PlayerSkillAttribute> listSkillAttribs, List<float> listValues)
+        {
+            _digestedBreadPoints -= spentDBP;
+
+
+            foreach(var a in listSkillAttribs)
+            {
+                if (a == PlayerSkillAttribute.MoveSkill_Speed)
+                {
+                    //Moveskill
+                    var s = _getPlayerSkillByName("MoveSkill");
+
+                }
+                else if (a == PlayerSkillAttribute.EatSkill_EatingSpeed ||
+                    a == PlayerSkillAttribute.EatSkill_ChewingRate ||
+                   a == PlayerSkillAttribute.EatSkill_MouthSize)
+                {
+                    //Moveskill
+                    var s = _getPlayerSkillByName("EatSkill");
+
+
+                }
+                else if (a == PlayerSkillAttribute.DashSkill_CoolDown ||
+                   a == PlayerSkillAttribute.DashSkill_MaxDuration ||
+                  a == PlayerSkillAttribute.DashSkill_MaxSpeed)
+                {
+                    //Moveskill
+                    var s = _getPlayerSkillByName("DashSkill");
+
+
+                }
+                else if (a == PlayerSkillAttribute.SpitSkill_ChargeSpeed ||
+                    a == PlayerSkillAttribute.SpitSkill_CoolDown ||
+                   a == PlayerSkillAttribute.SpitSkill_MaxPower ||
+                    a == PlayerSkillAttribute.SpitSkill_MaxRange)
+                {
+                    //Moveskill
+                    var s = _getPlayerSkillByName("SpitSkill");
+
+
+                }
+                else if (a == PlayerSkillAttribute.StealSkill_CoolDown)
+                {
+                    var s = _getPlayerSkillByName("StealSkill");
+
+
+
+                }
+            }
+
+        }
         public void ChangeState(PlayerState newState)
         {
             if (_state == PlayerState.Normal)
@@ -101,6 +152,18 @@ namespace Player
                     _state = newState;
                 }
             }
+        }
+
+
+        private PlayerSkill _getPlayerSkillByName(string name)
+        {
+            foreach (var s in _skills)
+            {
+                if (s.GetDescription().Type.Name == name)
+                    return s;
+            }
+
+            return null;
         }
 
         private void Awake()

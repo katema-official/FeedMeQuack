@@ -26,6 +26,9 @@ namespace Player
         private HashSet<BreadNamespace.BreadInWaterComponent> _locatedBreads;
 
 
+        [SerializeField] private BreadNamespace.BreadInWaterComponent _locatedPowerUp = null;
+
+
         private bool _hasBreadBeenFullyEaten = false;
 
         private IEnumerator _eatCoroutine;
@@ -152,7 +155,10 @@ namespace Player
                     _mustStopEating = false;
                     StartCoroutine(_eatCoroutine);
                 }
-            }
+                else if (_locatedPowerUp)
+                {
+
+                }
 
 
             if (_controller.GetState() == PlayerState.Eating && _hasBreadBeenFullyEaten)
@@ -225,6 +231,13 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            var powerup = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
+            if (powerup)
+            {
+                _locatedPowerUp = powerup;
+            }
+
+
             //var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
             //if (breadController)
             //{
@@ -235,6 +248,9 @@ namespace Player
 
         private void OnTriggerExit2D(Collider2D collision)
         {
+            _locatedPowerUp = null;
+
+
             //var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
 
             //if (breadController)
