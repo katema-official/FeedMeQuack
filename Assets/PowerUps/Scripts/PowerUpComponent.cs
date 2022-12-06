@@ -18,7 +18,7 @@ namespace PowerUpsNamespace
         private TextMesh _descriptionTextMesh;
         private TextMesh _costTextMesh;
 
-        private List<prova> _powerUpKinds;
+        private List<PlayerSkillAttribute> _powerUpKinds;
         private List<float> _amountForPowerUpKind;
 
         private TextMesh _feedbackBought;
@@ -32,7 +32,7 @@ namespace PowerUpsNamespace
         // Start is called before the first frame update
         void Start()
         {
-            _powerUpKinds = new List<prova>();
+            _powerUpKinds = new List<PlayerSkillAttribute>();
             _amountForPowerUpKind = new List<float>();
             _spriteGameobject = transform.Find("Sprite").gameObject;
             _textsGameobject = transform.Find("Texts").gameObject;
@@ -67,7 +67,7 @@ namespace PowerUpsNamespace
             }*/
         }
 
-        public void Initialize(string name, string description, int cost, List<prova> powerUpKinds, List<float> amountForPowerUpKind)
+        public void Initialize(string name, string description, int cost, List<PlayerSkillAttribute> powerUpKinds, List<float> amountForPowerUpKind)
         {
             _costDigestedbreadPoints = cost;
             _name = name;
@@ -77,15 +77,29 @@ namespace PowerUpsNamespace
             UpdateTexts();
         }
 
-        public enum prova
+        //TODO: rimuovi e usa quella di Ivan
+        public enum PlayerSkillAttribute
         {
-            speedPU,
-            aaa,
-            bbb,
-            ccc
+            MoveSkill_Speed,
+
+            EatSkill_EatingSpeed,
+            EatSkill_ChewingRate,
+            EatSkill_MouthSize,
+
+
+            DashSkill_MaxSpeed,
+            DashSkill_MaxDuration,
+            DashSkill_CoolDown,
+
+            SpitSkill_MaxPower,
+            SpitSkill_MaxRange,
+            SpitSkill_CoolDown,
+            SpitSkill_ChargeSpeed,
+
+            StealSkill_CoolDown,
         }
 
-        public (int, List<prova>, List<float>) BuyPowerUp(int digestedBPPlayer)
+        public (int, List<PlayerSkillAttribute>, List<float>) BuyPowerUp(int digestedBPPlayer)
         {
             if (_bought) return (0, null, null);
             //if the player doesn't have enough digested bread points, it can't buy this upgrade
