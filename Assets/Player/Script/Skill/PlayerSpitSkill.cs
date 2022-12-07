@@ -40,7 +40,25 @@ namespace Player
             _coolDown = _spitDesc.CoolDown;
             _chargeSpeed = _spitDesc.ChargeSpeed;
         }
-
+        public override void applyPowerUp(PlayerSkillAttribute attrib, float value)
+        {
+            if (attrib == PlayerSkillAttribute.SpitSkill_ChargeSpeed)
+            {
+                _chargeSpeed += value;
+            }
+            else if (attrib == PlayerSkillAttribute.SpitSkill_CoolDown)
+            {
+                _coolDown += value;
+            }
+            else if (attrib == PlayerSkillAttribute.SpitSkill_MaxPower)
+            {
+                _maxPower += value;
+            }
+            else if (attrib == PlayerSkillAttribute.SpitSkill_MaxRange)
+            {
+                _maxRange += value;
+            }
+        }
         private void CheckData()
         {
             if (_controller.GetState() != PlayerState.Spitting)

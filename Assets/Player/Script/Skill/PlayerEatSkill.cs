@@ -26,6 +26,9 @@ namespace Player
         private HashSet<BreadNamespace.BreadInWaterComponent> _locatedBreads;
 
 
+        [SerializeField] private BreadNamespace.BreadInWaterComponent _locatedPowerUp = null;
+
+
         private bool _hasBreadBeenFullyEaten = false;
 
         private IEnumerator _eatCoroutine;
@@ -134,25 +137,42 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetButtonDown("EatButton") && !_caughtBread /*&& _locatedBread*/)
+            if (Input.GetButtonDown("EatButton") /*&& _locatedBread*/)
             {
-                var locatedBread = FindClosestBread();
+                if (_locatedPowerUp)
+                {
+                    int spentDBP = 4;
+                    List<PlayerSkillAttribute> listAttribs = new List<PlayerSkillAttribute>{ PlayerSkillAttribute.SpitSkill_MaxPower, PlayerSkillAttribute.SpitSkill_MaxRange };
+                    List<float> listValues = new List<float> { 10,20 };
 
-                if (locatedBread)
+                    //call here buyPowerUp
+
+                    _controller.applyPowerUp(spentDBP, listAttribs, listValues);
+                    _locatedPowerUp = null;
+                    return;
+                }
+
+                if (!_caughtBread)
                 { 
-                    _controller.ChangeState(PlayerState.Eating);
+                    var locatedBread = FindClosestBread();
 
-                    if (_controller.GetState() == PlayerState.Eating)
-                        _moveSkill.EnableInput(true);
+                    if (locatedBread)
+                    { 
+                        _controller.ChangeState(PlayerState.Eating);
+
+                        if (_controller.GetState() == PlayerState.Eating)
+                            _moveSkill.EnableInput(true);
 
                
-                    //take a piece of the located bread, or the entire located bread based on mouth size
-                    _caughtBread = locatedBread.GenerateNewBreadInMouth(_mouthSize).GetComponent<BreadNamespace.BreadInMouthComponent>();
-                    _eatCoroutine = EatCoroutine();
-                    _mustStopEating = false;
-                    StartCoroutine(_eatCoroutine);
+                        //take a piece of the located bread, or the entire located bread based on mouth size
+                        _caughtBread = locatedBread.GenerateNewBreadInMouth(_mouthSize).GetComponent<BreadNamespace.BreadInMouthComponent>();
+                        _eatCoroutine = EatCoroutine();
+                        _mustStopEating = false;
+                        StartCoroutine(_eatCoroutine);
+                    }
                 }
             }
+
 
 
             if (_controller.GetState() == PlayerState.Eating && _hasBreadBeenFullyEaten)
@@ -167,6 +187,23 @@ namespace Player
                 //}
             }
         }
+
+        public override void applyPowerUp(PlayerSkillAttribute attrib, float value)
+        {
+            if (attrib == PlayerSkillAttribute.EatSkill_ChewingRate)
+            {
+                _chewingRate += value;
+            }
+            else if (attrib == PlayerSkillAttribute.EatSkill_EatingSpeed)
+            {
+                _eatingSpeed += value;
+            }
+            else if(attrib == PlayerSkillAttribute.EatSkill_MouthSize)
+            {
+                _mouthSize += (int)value;
+            }
+        }
+
 
         private void FixedUpdate()
         {
@@ -225,6 +262,13 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            var powerup = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
+            if (powerup)
+            {
+                _locatedPowerUp = powerup;
+            }
+
+
             //var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
             //if (breadController)
             //{
@@ -235,6 +279,9 @@ namespace Player
 
         private void OnTriggerExit2D(Collider2D collision)
         {
+            _locatedPowerUp = null;
+
+
             //var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
 
             //if (breadController)

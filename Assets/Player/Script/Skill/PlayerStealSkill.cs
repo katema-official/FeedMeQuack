@@ -34,7 +34,13 @@ namespace Player
             _coolDown = _stealDesc.CoolDown;
 
         }
-
+        public override void applyPowerUp(PlayerSkillAttribute attrib, float value)
+        {
+            if (attrib == PlayerSkillAttribute.StealSkill_CoolDown)
+            {
+                _coolDown += value;
+            }
+        }
         public Enemies.EnemyFSM FindClosestEnemy()
         {
             float _minDistance = 10000000;

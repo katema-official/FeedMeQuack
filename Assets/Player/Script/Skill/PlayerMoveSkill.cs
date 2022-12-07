@@ -402,6 +402,13 @@ namespace Player
 
            // MoveCamera();
         }
+        public override void applyPowerUp(PlayerSkillAttribute attrib, float value) 
+        {
+            if (attrib == PlayerSkillAttribute.MoveSkill_Speed)
+            {
+                _speed += value;
+            }
+        }
 
         private void Awake()
         {

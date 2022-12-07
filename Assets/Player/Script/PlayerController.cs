@@ -60,6 +60,40 @@ namespace Player
             _breadPoints = 0;
         }
 
+        public void applyPowerUp(int spentDBP,List<PlayerSkillAttribute> listSkillAttribs, List<float> listValues)
+        {
+            _digestedBreadPoints -= spentDBP;
+
+
+            for(var i=0; i< listSkillAttribs.Count; i++)
+            {
+                var a = listSkillAttribs[i];
+                var v = listValues[i];
+                var skillName = "";
+
+                if (a == PlayerSkillAttribute.MoveSkill_Speed)
+                    skillName ="MoveSkill";
+                else if (a == PlayerSkillAttribute.EatSkill_EatingSpeed ||
+                    a == PlayerSkillAttribute.EatSkill_ChewingRate ||
+                   a == PlayerSkillAttribute.EatSkill_MouthSize)
+                    skillName = "EatSkill";
+                else if (a == PlayerSkillAttribute.DashSkill_CoolDown ||
+                   a == PlayerSkillAttribute.DashSkill_MaxDuration ||
+                  a == PlayerSkillAttribute.DashSkill_MaxSpeed)
+                    skillName = "DashSkill";
+                else if (a == PlayerSkillAttribute.SpitSkill_ChargeSpeed ||
+                    a == PlayerSkillAttribute.SpitSkill_CoolDown ||
+                   a == PlayerSkillAttribute.SpitSkill_MaxPower ||
+                    a == PlayerSkillAttribute.SpitSkill_MaxRange) 
+                    skillName = "SpitSkill";
+                else if (a == PlayerSkillAttribute.StealSkill_CoolDown) 
+                    skillName = "StealSkill";
+
+                var s = _getPlayerSkillByName(skillName);
+                if (s) s.applyPowerUp(a, v);
+            }
+
+        }
         public void ChangeState(PlayerState newState)
         {
             if (_state == PlayerState.Normal)
@@ -101,6 +135,18 @@ namespace Player
                     _state = newState;
                 }
             }
+        }
+
+
+        private PlayerSkill _getPlayerSkillByName(string name)
+        {
+            foreach (var s in _skills)
+            {
+                if (s.GetDescription().Type.Name == name)
+                    return s;
+            }
+
+            return null;
         }
 
         private void Awake()
