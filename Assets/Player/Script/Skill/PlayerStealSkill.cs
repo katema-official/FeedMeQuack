@@ -75,6 +75,7 @@ namespace Player
             if (Input.GetButtonDown("StealButton") && 
                 _locatedEnemy && _locatedEnemy.IsEating() &&
                 !_enemyToSteal &&
+
                 _stealCoolDownElapsedSeconds <= 0)
             {
                 _controller.ChangeState(PlayerState.Stealing);
@@ -104,6 +105,7 @@ namespace Player
                         _controller.gameObject.transform.position = pos;
                         //_controller.gameObject.transform.rotation = Quaternion.AngleAxis(90.0f,new Vector3(0,0,1));
                         _moveSkill.SetRotation(90.0f);
+
                         playerPos = pos;
                         //enemy on the left
                         pos = middlePos;
@@ -131,6 +133,7 @@ namespace Player
                     //this function should allow the enemy to pass to passive steal state and to displace it in the correct position/direction
                     // enemyDir: 0 left | 1 right
                     BreadNamespace.BreadInMouthComponent breadContended = _enemyToSteal.StartGettingRobbed(enemyFinalPos);//and also enemyDir for the sprite
+
                     //let's active the Quick Time Event.
                     LevelStageNamespace.LakeDescriptionComponent lakeDescriptionComponent = (LevelStageNamespace.LakeDescriptionComponent)_controller.GetLake();
                     if (lakeDescriptionComponent)

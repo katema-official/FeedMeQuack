@@ -91,11 +91,6 @@ namespace LevelStageNamespace {
 
         [SerializeField] private GameObject QTEMinigamePrefab;
 
-
-
-
-        //[SerializeField] public EnumsDungeon.LakeDimension Dimension;
-
         public Dictionary<EnumsDungeon.BreadType, int> BreadToSpawnMap;
 
         [SerializeField] private int _totalNumberOfBreadPiecesToSpawn;       //can be obtained scanning BreadToSpawnMap
@@ -530,9 +525,9 @@ namespace LevelStageNamespace {
                 _levelStageManager.SetLakeAsCleared();
 
                 //MUSIC: since all bread has been eaten, this lake goes back to "normal" music
-                Music.Assets.Scripts.UniversalAudio.PlayMusic("Swimming", false);
+                Music.UniversalAudio.PlayMusic("Swimming", false);
                 //SFX: the lake has been cleared
-                Music.Assets.Scripts.UniversalAudio.PlaySound("LakeClear", transform);
+                Music.UniversalAudio.PlaySound("LakeClear", transform);
 
             }
         }
@@ -786,6 +781,7 @@ namespace LevelStageNamespace {
         //########################################################################################################################################################
 
         private GameObject _disputedBread = null;
+
         private GameObject _playerReference;
 
         //function that the player can call when it tries to steal bread from another duck. It requires as argument the piece of bread that the player
@@ -813,6 +809,7 @@ namespace LevelStageNamespace {
             float fraction = (float)(correct) / (float)(total);
 
             int bpForPlayer = (int) Mathf.Floor((float) disputedBreadBP * fraction);
+
             int bpForEnemy = (int)Mathf.Ceil((float)disputedBreadBP * (1f - fraction));
 
             int playerMouthSize = _playerReference.GetComponent<Player.PlayerEatSkill>().GetMouthSize();
@@ -860,6 +857,7 @@ namespace LevelStageNamespace {
 
             Destroy(_disputedBread);
             _disputedBread = null;
+
 
             //call here a function on the player passing to him:
             //-as first argument, the piece of bread that the player stole

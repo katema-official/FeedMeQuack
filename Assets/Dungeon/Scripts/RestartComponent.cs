@@ -12,7 +12,7 @@ public class RestartComponent : MonoBehaviour
         Destroy(GameObject.Find("LevelStageManagerObject"));
         Destroy(GameObject.Find("DuckPlayer"));
         Destroy(GameObject.Find("DuckTypeManager"));
-        Music.Assets.Scripts.UniversalAudio.PlaySound("GameOver", transform);
+        Music.UniversalAudio.PlaySound("GameOver", transform);
     }
 
     // Update is called once per frame
@@ -24,7 +24,7 @@ public class RestartComponent : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Destroy(GameObject.Find("MusicManagerGameobject"));
+            Destroy(GameObject.Find("AudioManager"));
             SceneManager.LoadScene("MainMenu");
         }
     }

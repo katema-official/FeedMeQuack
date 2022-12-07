@@ -54,6 +54,7 @@ namespace QTEStealNamespace
         private float _tresholdButtonPressed = 0.75f;   //for controller
 
 
+
         public void Awake()
         {
             _spriteChild = transform.Find("Sprite").gameObject;
@@ -64,6 +65,7 @@ namespace QTEStealNamespace
 
             //can't make them appear in the inspector, so I'll just initialize them here
             /*_dictEnumKeySprite = new Dictionary<EnumsQTESteal.KeysToPress, Sprite>() {
+
                 { EnumsQTESteal.KeysToPress.Up, _upSprite },
                 { EnumsQTESteal.KeysToPress.Down, _downSprite },
                 { EnumsQTESteal.KeysToPress.Left, _leftSprite },
@@ -74,6 +76,7 @@ namespace QTEStealNamespace
             //float y = Input.GetAxisRaw("Vertical");   //-1 down, 1 up
 
             /*_dictEnumKeyActualKey = new Dictionary<EnumsQTESteal.KeysToPress, List<KeyCode>>() { 
+
                 { EnumsQTESteal.KeysToPress.Up, new List<KeyCode>(){KeyCode.W, KeyCode.UpArrow} },
                 { EnumsQTESteal.KeysToPress.Down, new List<KeyCode>(){KeyCode.S, KeyCode.DownArrow} },
                 { EnumsQTESteal.KeysToPress.Left, new List<KeyCode>(){KeyCode.A, KeyCode.LeftArrow} },
@@ -115,7 +118,6 @@ namespace QTEStealNamespace
                 { EnumsQTESteal.KeysToPress.Right, rightInfo},
             };
 
-
             _state = EnumsQTESteal.QTEButtonState.BeforePress;
         }
 
@@ -140,6 +142,7 @@ namespace QTEStealNamespace
 
             //_sprite = _dictEnumKeySprite[_keyToPressEnum];
             _sprite = _dictEnumKeyDataKey[_keyToPressEnum].Sprite;
+
             transform.Find("Sprite").GetComponent<SpriteRenderer>().sprite = _sprite;
 
         }
@@ -154,8 +157,6 @@ namespace QTEStealNamespace
             _spriteChild = transform.Find("Sprite").gameObject;
 
         }
-
-
 
         private bool _chanceTaken = false;
 

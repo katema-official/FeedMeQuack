@@ -116,7 +116,7 @@ namespace LevelStageNamespace
                 SceneManager.LoadScene("LakeSmall");
 
                 //MUSIC: Reproduce calm music when entering new stage
-                Music.Assets.Scripts.UniversalAudio.PlayMusic("Swimming", false);
+                Music.UniversalAudio.PlayMusic("Swimming", false);
             }
             else
             {

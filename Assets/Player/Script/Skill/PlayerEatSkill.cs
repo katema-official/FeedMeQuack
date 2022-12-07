@@ -28,6 +28,8 @@ namespace Player
 
         [SerializeField] private PowerUpsNamespace.PowerUpComponent _locatedPowerUp = null;
 
+        private HashSet<BreadNamespace.BreadInWaterComponent> _locatedBreads;
+
 
         private bool _hasBreadBeenFullyEaten = false;
 
@@ -99,6 +101,7 @@ namespace Player
             {
                 _caughtBread = null;
                 _controller.ChangeState(PlayerState.Normal);
+
                 if (_controller.GetState() == PlayerState.Normal)
                     _moveSkill.EnableInput(true);
                 _hasBreadBeenFullyEaten = false;
@@ -127,6 +130,10 @@ namespace Player
             var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
         }
 
+
+        
+
+
         // Start is called before the first frame update
         void Start()
         {
@@ -138,6 +145,7 @@ namespace Player
         void Update()
         {
             if (Input.GetButtonDown("EatButton") /*&& _locatedBread*/)
+
             {
                 if (_locatedPowerUp)
                 {
@@ -262,7 +270,6 @@ namespace Player
             StopCoroutine(_eatCoroutine);
         }
 
-
         private void OnTriggerEnter2D(Collider2D collision)
         {
             var powerup = collision.gameObject.transform.parent.gameObject.GetComponent<PowerUpsNamespace.PowerUpComponent>();
@@ -278,12 +285,12 @@ namespace Player
             //    _locatedBreads.Add(breadController);
             //    _locatedBread = FindClosestBread();
             //}
+
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
             _locatedPowerUp = null;
-
 
             //var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
 

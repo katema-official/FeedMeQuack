@@ -90,6 +90,7 @@ namespace Player
         void Update()
         {
             if (Input.GetButtonDown("SpitButton") && _eatSkill.GetCaughtBread() && _spitCoolDownElapsedSeconds <= 0)
+
             {
                 _controller.ChangeState(PlayerState.Spitting);
 
@@ -107,6 +108,7 @@ namespace Player
             }
 
             if ((Input.GetButtonUp("SpitButton") && _eatSkill.GetCaughtBread() && _spitCoolDownElapsedSeconds <= 0) ||
+
                 (_spitPower >= _maxPower))
             {
                 _canSpit = true;
@@ -136,13 +138,11 @@ namespace Player
         void FixedUpdate()
         {
             
-            
-
-
             if (_controller.GetState() == PlayerState.Spitting && _eatSkill.GetCaughtBread() && !_canSpit && _spitCoolDownElapsedSeconds <= 0)
             {
                 _moveSkill.Rotate();
                 _eatSkill.GetCaughtBread().Move(_controller.GetMouthTransform().position);
+
                 _spitArrow.transform.position = _controller.GetPosition();
                 _spitArrow.transform.rotation = (Quaternion.AngleAxis(_moveSkill.GetAngle(), Vector3.forward));
 
@@ -167,6 +167,7 @@ namespace Player
                 Vector3 startPos = _controller.GetPosition();
                 Vector3 endPos = _controller.GetPosition() + _moveSkill.GetDirection() * (_maxRange * (_spitPower / _maxPower));
                 _breadManager.ThrowBread(_eatSkill.GetCaughtBread(), startPos, endPos);
+
 
                 _eatSkill.ReleaseBread();
                 _spitPower = 0;

@@ -65,6 +65,7 @@ namespace QTEStealNamespace
                 GameObject buttonGO = Instantiate(_buttonPrefab);
                 EnumsQTESteal.KeysToPress keyChosen = (EnumsQTESteal.KeysToPress)Random.Range(0, System.Enum.GetValues(typeof(EnumsQTESteal.KeysToPress)).Length);
                 buttonGO.GetComponent<QTEButtonManagerComponent>().Initialize(this, keyChosen, 0.6f);
+
                 buttonGO.transform.position = currentPositionOfPoint;
                 buttonGO.GetComponent<QTEButtonManagerComponent>().SetVelocity(-_buttonSpeed, 0f);
 

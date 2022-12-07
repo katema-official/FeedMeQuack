@@ -3,14 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - FoodThrown
-  - FoodInWater
-  - FoodInMouth
-  - Bread
-  - Water
-  - DuckMouth
-  - QuickTimeEventManager
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -18,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - WaterLayer
+  - 
   - 
   - 
   - 

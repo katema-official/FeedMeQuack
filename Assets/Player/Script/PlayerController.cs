@@ -138,7 +138,6 @@ namespace Player
             }
         }
 
-
         private PlayerSkill _getPlayerSkillByName(string name)
         {
             foreach (var s in _skills)
@@ -221,6 +220,7 @@ namespace Player
         public int GetDigestedBreadPoints()
         {
             return (int) _digestedBreadPoints;
+
         }
     }
 }
