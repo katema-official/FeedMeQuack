@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Feedback/SimplePrototypeSkeleton/Scenes/MainMenu.unity
-    guid: b365cbf0c497747cf8d75cb80d305e1e
+    path: Assets/Music/MainMenu.unity
+    guid: 5e58bd8f10d99994ebd9b457dc108ee5
   - enabled: 1
     path: Assets/Dungeon/Scenes/LakeSmall.unity
     guid: 37ef3562e6d7f3e44a80c898151ff78f
