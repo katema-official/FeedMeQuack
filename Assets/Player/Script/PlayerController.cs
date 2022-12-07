@@ -138,7 +138,6 @@ namespace Player
             }
         }
 
-
         private PlayerSkill _getPlayerSkillByName(string name)
         {
             foreach (var s in _skills)
@@ -188,7 +187,7 @@ namespace Player
         // Update is called once per frame
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            /*if (Input.GetKeyDown(KeyCode.Escape))
             {
                 if (transform.parent.Find("UI/ExitMenu").gameObject.activeSelf)
                 {
@@ -210,7 +209,7 @@ namespace Player
                 {
                     transform.parent.Find("UI/ExitMenu").gameObject.SetActive(false);
                 }
-            }
+            }*/
 
         }
 
@@ -221,6 +220,7 @@ namespace Player
         public int GetDigestedBreadPoints()
         {
             return (int) _digestedBreadPoints;
+
         }
     }
 }

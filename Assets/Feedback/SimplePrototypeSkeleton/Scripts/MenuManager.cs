@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 
@@ -11,7 +7,7 @@ public class MenuManager : Singleton<MenuManager>
 
 
 
-    public enum Menu
+    private enum Menu
     {
         Main,
         Levels,
@@ -62,20 +58,9 @@ public class MenuManager : Singleton<MenuManager>
     void Start()
     {
         SetMenu(Menu.Main);
-        StartCoroutine(StartMusicCoroutine());
     }
 
-    //How much did it cost?
-    //Everything.
-    IEnumerator StartMusicCoroutine()
-    {
-        yield return new WaitForSeconds(0.01f);
-        Music.Assets.Scripts.UniversalAudio.PlayMusic("Menu", false);
-        yield return null;
-    }
-
-
-        private void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {

@@ -33,7 +33,7 @@ namespace LevelStageNamespace
                 _lakeDescriptionComponent.StartThrowingAllTheBread();
 
                 //MUSIC: since this is a new "combat" room, reproduce combat music
-                Music.Assets.Scripts.UniversalAudio.PlayMusic("Combat", true);
+                Music.UniversalAudio.PlayMusic("Combat", true);
             }
         }
 

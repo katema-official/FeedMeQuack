@@ -86,7 +86,6 @@ namespace Player
             }
 
 
-
             //down
             else if (angle >= -180 && angle < -157.5)
             {
@@ -205,6 +204,7 @@ namespace Player
 
                 float angle = Mathf.Atan2(-_finalDir.x, _finalDir.y) * Mathf.Rad2Deg;
 
+
                 //bool slowDown = false;
 
                 //if (Mathf.Abs(angle + _rotationMovement) > 180.0f)
@@ -223,8 +223,6 @@ namespace Player
                 //    slowDown = true;
                 //    Debug.Log("slow down");
                 //}
-
-
 
 
                 _rotationMovement = angle;
@@ -299,6 +297,7 @@ namespace Player
             else
             {
                // _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity * 0.9f, speed);
+
             }
         
 
@@ -450,6 +449,8 @@ namespace Player
             if (_controller.GetState() != PlayerState.Normal) return;
 
             Move(_speed/*, _moveForward*/);
+
+
         }
     }
 }
