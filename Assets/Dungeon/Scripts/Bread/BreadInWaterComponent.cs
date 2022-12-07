@@ -51,14 +51,6 @@ namespace BreadNamespace
                     break;
             }
 
-            Sprite sprite = GetComponent<SpriteRenderer>().sprite;
-            Vector2 spriteSize = sprite.rect.size;                      //to remove
-            float xPixelSprite = 100f;                                  //to remove
-            float yPixelSprite = 100f;                                  //to remove
-            float amountToDivideX = spriteSize.x / xPixelSprite;        //to remove
-            float amountToDivideY = spriteSize.y / yPixelSprite;        //to remove
-            transform.localScale = new Vector3(transform.localScale.x / amountToDivideX, transform.localScale.y / amountToDivideY, 0);      //to remove
-
             //if the piece of bread was spawned outside the lake, it must be destroyed
             if(_lakeDescriptionComponent.Contains(transform.position) == false)
             {
