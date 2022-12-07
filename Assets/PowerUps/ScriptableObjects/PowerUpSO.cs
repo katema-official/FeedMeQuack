@@ -14,7 +14,7 @@ namespace PowerUpsNamespace
         public int Cost;
 
         //TODO: change with ivan enum
-        public List<PowerUpComponent.PlayerSkillAttribute> PowerUpKinds;
+        public List<Player.PlayerSkillAttribute> PowerUpKinds;
         public List<float> amountForPowerUpKind;
 
 

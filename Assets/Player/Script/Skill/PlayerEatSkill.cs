@@ -26,7 +26,7 @@ namespace Player
         private HashSet<BreadNamespace.BreadInWaterComponent> _locatedBreads;
 
 
-        [SerializeField] private BreadNamespace.BreadInWaterComponent _locatedPowerUp = null;
+        [SerializeField] private PowerUpsNamespace.PowerUpComponent _locatedPowerUp = null;
 
 
         private bool _hasBreadBeenFullyEaten = false;
@@ -146,9 +146,12 @@ namespace Player
                     List<float> listValues = new List<float> { 10,20 };
 
                     //call here buyPowerUp
+                    (spentDBP, listAttribs, listValues) = _locatedPowerUp.BuyPowerUp(_controller.GetDigestedBreadPoints());
+
+
 
                     _controller.applyPowerUp(spentDBP, listAttribs, listValues);
-                    _locatedPowerUp = null;
+                    if(spentDBP > 0) _locatedPowerUp = null;
                     return;
                 }
 
@@ -262,7 +265,7 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            var powerup = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
+            var powerup = collision.gameObject.transform.parent.gameObject.GetComponent<PowerUpsNamespace.PowerUpComponent>();
             if (powerup)
             {
                 _locatedPowerUp = powerup;

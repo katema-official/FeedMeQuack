@@ -62,8 +62,9 @@ namespace Player
 
         public void applyPowerUp(int spentDBP,List<PlayerSkillAttribute> listSkillAttribs, List<float> listValues)
         {
+            if (spentDBP == 0) return;
             _digestedBreadPoints -= spentDBP;
-
+            
 
             for(var i=0; i< listSkillAttribs.Count; i++)
             {

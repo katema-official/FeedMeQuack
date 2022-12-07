@@ -89,28 +89,6 @@ namespace PowerUpsNamespace
             UpdateTexts();
         }
 
-        //TODO: rimuovi e usa quella di Ivan
-        public enum PlayerSkillAttribute
-        {
-            MoveSkill_Speed,
-
-            EatSkill_EatingSpeed,
-            EatSkill_ChewingRate,
-            EatSkill_MouthSize,
-
-
-            DashSkill_MaxSpeed,
-            DashSkill_MaxDuration,
-            DashSkill_CoolDown,
-
-            SpitSkill_MaxPower,
-            SpitSkill_MaxRange,
-            SpitSkill_CoolDown,
-            SpitSkill_ChargeSpeed,
-
-            StealSkill_CoolDown,
-        }
-
         public (int, List<PlayerSkillAttribute>, List<float>) BuyPowerUp(int digestedBPPlayer)
         {
             if (_bought) return (0, null, null);
