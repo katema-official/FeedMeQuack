@@ -73,7 +73,7 @@ public class FadeBlackComponent : MonoBehaviour
 
     private IEnumerator fadeFromBlackCoroutine()
     {
-        Color c;
+        Color c = new Color();
 
         for (float i = 0; i < _fadeOutDuration; i += Time.deltaTime)
         {
@@ -84,6 +84,8 @@ public class FadeBlackComponent : MonoBehaviour
             yield return null;
         }
         c.a = 0f;
+        _sprite.color = c;
+        Destroy(this.gameObject);
         yield return null;
     }
 

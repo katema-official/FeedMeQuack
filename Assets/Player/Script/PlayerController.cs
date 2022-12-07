@@ -170,5 +170,10 @@ namespace Player
         private void FixedUpdate()
         {
         }
+
+        public int GetDigestedBreadPoints()
+        {
+            return (int) _digestedBreadPoints;
+        }
     }
 }
