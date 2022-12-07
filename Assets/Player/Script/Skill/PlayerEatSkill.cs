@@ -28,7 +28,6 @@ namespace Player
 
         [SerializeField] private PowerUpsNamespace.PowerUpComponent _locatedPowerUp = null;
 
-        private HashSet<BreadNamespace.BreadInWaterComponent> _locatedBreads;
 
 
         private bool _hasBreadBeenFullyEaten = false;
