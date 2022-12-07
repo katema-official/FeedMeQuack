@@ -282,6 +282,11 @@ namespace LevelStageNamespace
             _currentStageMap[_xOfCurrentLake, _yOfCurrentLake].IsLakeCleared = true;
         }
 
+        public bool IsCurrentLakeCleared()
+        {
+            return _currentStageMap[_xOfCurrentLake, _yOfCurrentLake].IsLakeCleared;
+        }
+
         public BreadSpawnSO GetBreadSpawnSO()
         {
             return GetStage(GetLevel(_currentLevel), _currentStage).ListBreadSpawnSO[(int) GetLakeDescriptionSO().Dimension];

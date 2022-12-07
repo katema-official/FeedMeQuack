@@ -436,6 +436,82 @@ namespace LevelStageNamespace {
             yield return null;
         }
 
+
+
+
+        //I NEED to solve this bug, and I will do whatever it takes
+        private IEnumerator BruteForceOpenRivers()
+        {
+            int breadID = 0;
+            GameObject chosenBreadToInvestigate = null;
+            int breadPoints = 0;
+
+            while(_levelStageManager.IsCurrentLakeCleared() == false)
+            {
+                Debug.Log("Emergence: START WAITING 3 SECONDS");
+                yield return new WaitForSeconds(3f);
+                GameObject[] breadsThrown = GameObject.FindGameObjectsWithTag("FoodThrown");
+                if(breadsThrown.Length > 0)
+                {
+                }
+                else
+                {
+                    GameObject[] breadsInWater = GameObject.FindGameObjectsWithTag("FoodInWater");
+                    if(breadsInWater.Length > 0)
+                    {
+                    }
+                    else
+                    {
+                        //we only have breadInMouth. If there is any, let's take one of them.
+                        GameObject[] breadsInMouth = GameObject.FindGameObjectsWithTag("FoodInMouth");
+                        if(breadsInMouth.Length > 0)
+                        {
+
+                            if (breadID == 0)
+                            {
+                                chosenBreadToInvestigate = breadsInMouth[0];
+                                breadID = chosenBreadToInvestigate.GetInstanceID();
+                                breadPoints = chosenBreadToInvestigate.GetComponent<BreadNamespace.BreadInMouthComponent>().GetBreadPoints();
+                            }
+                            else
+                            {
+                                bool found = false;
+                                for (int i = 0; i < breadsInMouth.Length; i++)
+                                {
+                                    if(breadsInMouth[i].GetInstanceID() == breadID)
+                                    {
+                                        found = true;
+                                        if (breadsInMouth[i].GetComponent<BreadNamespace.BreadInMouthComponent>().GetBreadPoints() == breadPoints)
+                                        {
+                                            //there is a piece of bread (in mouth) that in three seconds wasn't eaten by a bit. Right now, this cannot happen.
+                                            //So, open the rivers
+                                            CompleteLake();
+                                            Debug.Log("Emergence: EMERGENCE PROCEDURE ACTIVATED");
+                                        }
+                                    }
+                                }
+                                if(!found && breadsInMouth.Length > 0)
+                                {
+                                    chosenBreadToInvestigate = breadsInMouth[0];
+                                    breadID = chosenBreadToInvestigate.GetInstanceID();
+                                    breadPoints = chosenBreadToInvestigate.GetComponent<BreadNamespace.BreadInMouthComponent>().GetBreadPoints();
+                                }
+                                else
+                                {
+                                    breadID = 0;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+            Debug.Log("Emergence: EXIT");
+            yield return null;
+        }
+
+
+
         //###################################################### RIVER TO NEXT STAGE MANAGEMENT ######################################################
 
         private void SetRiverAsFinal(GameObject river)
@@ -508,6 +584,7 @@ namespace LevelStageNamespace {
                 yield return new WaitForSeconds(_arrayBreadSpawnTime[i]);
             }
 
+            StartCoroutine(BruteForceOpenRivers());
 
             yield return null;
         }
@@ -519,17 +596,22 @@ namespace LevelStageNamespace {
             _totalNumberOfBreadPiecesEaten += 1;
             if(_totalNumberOfBreadPiecesEaten == _totalNumberOfBreadPiecesToBeEaten)
             {
-                //CALL A FUNCTION THAT ENDS THE LAKE
-                Debug.Log("ALL BREAD EATEN; OPEN THE GATES!");
-                OpenLakesWithAnimation();
-                _levelStageManager.SetLakeAsCleared();
-
-                //MUSIC: since all bread has been eaten, this lake goes back to "normal" music
-                Music.UniversalAudio.PlayMusic("Swimming", false);
-                //SFX: the lake has been cleared
-                Music.UniversalAudio.PlaySound("LakeClear", transform);
-
+                CompleteLake();
             }
+        }
+
+        //function to call whenever the lake has been completed (all bread has been eaten)
+        private void CompleteLake()
+        {
+            //CALL A FUNCTION THAT ENDS THE LAKE
+            Debug.Log("ALL BREAD EATEN; OPEN THE GATES!");
+            OpenLakesWithAnimation();
+            _levelStageManager.SetLakeAsCleared();
+
+            //MUSIC: since all bread has been eaten, this lake goes back to "normal" music
+            Music.UniversalAudio.PlayMusic("Swimming", false);
+            //SFX: the lake has been cleared
+            Music.UniversalAudio.PlaySound("LakeClear", transform);
         }
 
         //function used to notify that a new piece of bread has been, somehow, generated (somehow = e.g. spawned because of a stealing action)

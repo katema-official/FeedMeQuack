@@ -251,7 +251,7 @@ namespace Player
 
             while (!_hasBreadBeenFullyEaten && !_mustStopEating)
             {
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(_chewingRate);
                 if (!_mustStopEating)
                 {
                     (a, _hasBreadBeenFullyEaten) = _caughtBread.SubtractBreadPoints(1);//eat a point each chewingRate seconds

@@ -590,6 +590,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3682032781303664380, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
+      propertyPath: m_Text
+      value: 'FeedMe, Quack! it''s a game developed by a team of 4 people for the
+        course Videogame Design and Development @PoliMi. The internal team sees Alessio
+        L.G. as Team Leader and main brain of the game, Marco D. for the AI, Ivan
+        V. for Player''s Control, Lorenzo V. for Audio Implementation. For this prototype,
+        the extarnal team sees the collaboration with Francesco Colotti as Music
+        Composer for the Overworld theme. Some musics and sounds are from the following
+        links:
+
+        https://assetstore.unity.com/packages/audio/sound-fx/animals/farm-animal-sounds-179750
+
+        https://potion-audio.itch.io/children-game-music
+
+        https://assetstore.unity.com/packages/audio/ambient/bright-ambience-180048
+
+        https://assetstore.unity.com/packages/audio/sound-fx/watery-interface-sound-effects-pack-229351?locale=zh-CN
+
+
+        Press
+        Esc'
+      objectReference: {fileID: 0}
     - target: {fileID: 3682032781303908852, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
