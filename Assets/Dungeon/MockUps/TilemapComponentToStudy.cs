@@ -173,4 +173,10 @@ public class TilemapComponentToStudy : MonoBehaviour
         Debug.DrawRay(point, new Vector3(1, 0, 0) * range, Color.red, 10f, false);
         Debug.DrawRay(point, new Vector3(-1, 0, 0) * range, Color.red, 10f, false);
     }
+
+
+    public static void hello()
+    {
+        Debug.Log("Hello");
+    }
 }
