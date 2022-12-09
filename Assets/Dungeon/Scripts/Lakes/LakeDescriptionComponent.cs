@@ -8,7 +8,7 @@ namespace LevelStageNamespace {
     {
         //component that specifies the nature of a lake
 
-        private LevelStageManagerComponent _levelStageManager;
+        
         private GameObject _playerObject;
 
         private LakeDescriptionSO _lakeDescriptionForThisLake;
@@ -43,8 +43,6 @@ namespace LevelStageNamespace {
         //original x scale of the north and south river
         private float _xScaleOfRiver;
 
-        private GameObject _lake;
-        //private GameObject _terrain;
 
 
         //########################################################################################################################################################
@@ -113,12 +111,10 @@ namespace LevelStageNamespace {
         protected override void Awake()
         {
             base.Awake();
-            _levelStageManager = GameObject.Find("LevelStageManagerObject").GetComponent<LevelStageManagerComponent>();
             _lakeDescriptionForThisLake = _levelStageManager.GetLakeDescriptionSO();
             ManageRiversOfthisLake();
             _breadSpawnForThisLake = _levelStageManager.GetBreadSpawnSO();
-            _lake = transform.Find("Water").gameObject;
-            //_terrain = transform.Find("Terrain").gameObject;
+            
 
             //first of all, a fade in effect
             _levelStageManager.FadeIn();
@@ -176,7 +172,8 @@ namespace LevelStageNamespace {
 
                 //then, we can place in the map the enemies. Their position needs to be inside the lake, and
                 //not too close to the player
-                GenerateEnemies();
+                
+                //GenerateEnemies();
 
                 //the setup of the lake is done. Now we wait until the player enters in the actual lake from the river. To do so, he will need
                 //to pass through the TriggerEnteredCollider of the river in which he is.
@@ -184,7 +181,7 @@ namespace LevelStageNamespace {
             }
 
             //generate all the obstacles
-            GameObject.Find("Obstacles").transform.GetChild(0).gameObject.GetComponent<ObstaclesLakeComponent>().
+            _obstacles.GetComponent<ObstaclesLakeComponent>().
                 SetObstacles(_lakeDescriptionForThisLake.ObstaclesDescription.Item1, _lakeDescriptionForThisLake.ObstaclesDescription.Item2);
 
         }
@@ -796,7 +793,7 @@ namespace LevelStageNamespace {
         public (float, float) GeneratePointInsideLake()
         {
 
-            Bounds waterCenterBounds = _lake.transform.Find("WaterCenter").GetComponent<TilemapRenderer>().bounds;
+            Bounds waterCenterBounds = _water.transform.Find("WaterCenter").GetComponent<TilemapRenderer>().bounds;
 
             float x = Random.Range(waterCenterBounds.min.x, waterCenterBounds.max.x);
             float y = Random.Range(waterCenterBounds.min.y, waterCenterBounds.max.y);

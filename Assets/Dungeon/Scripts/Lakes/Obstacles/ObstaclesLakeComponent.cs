@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace LevelStageNamespace
 {
@@ -52,6 +53,38 @@ namespace LevelStageNamespace
                 DisableGameobjectRecursively(child.gameObject);
             }
             go.SetActive(false);
+        }
+
+
+
+        //method to retrieve the list of all active Obs (useful to study their tilemaps)
+        public List<Tilemap> GetAllActiveObs(int setIndex, List<(int, int)> quadrants_obstacles)
+        {
+            if(setIndex < 0 || quadrants_obstacles == null)
+            {
+                return new List<Tilemap>();
+            }
+
+            string obstacleSetSTRING = "ObstacleSet" + setIndex;
+            GameObject obstacleSetGO = transform.Find(obstacleSetSTRING).gameObject;
+
+            GameObject quadrant;
+            GameObject obs;
+
+            List<Tilemap> ret = new List<Tilemap>();
+
+            foreach ((int, int) quadrant_obs in quadrants_obstacles)
+            {
+                string quadrantSTRING = "Quadrant" + quadrant_obs.Item1;
+                string obsSTRING = "Obs" + quadrant_obs.Item2;
+
+                quadrant = obstacleSetGO.transform.Find(quadrantSTRING).gameObject;
+                obs = quadrant.transform.Find(obsSTRING).gameObject;
+
+                ret.Add(obs.GetComponent<Tilemap>());
+            }
+
+            return ret;
         }
     }
 }

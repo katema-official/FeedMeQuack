@@ -10,9 +10,7 @@ namespace LevelStageNamespace
         // Start is called before the first frame update
         void Start()
         {
-            //(int setIndex, List<(int, int)> quadrants_obstacles) = GenerateObstaclesDescription();
-            //TO REMOOOOOOOVE
-            //SetObstacles(setIndex, quadrants_obstacles);
+
         }
 
         // Update is called once per frame

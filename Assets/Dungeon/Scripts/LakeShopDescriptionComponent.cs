@@ -9,13 +9,56 @@ namespace LevelStageNamespace
     public class LakeShopDescriptionComponent : MonoBehaviour
     {
 
+        protected LevelStageManagerComponent _levelStageManager;
+
         protected GameObject _terrain;
+        protected GameObject _obstacles = null;
+        protected GameObject _water;
 
         //per Ivan
 
         //function used to check if a certain point is inside the lake
         public bool Contains(Vector3 point)
         {
+            //to check if a point is inside the lake, we use the tilemaps.
+            //A point is considered inside the lake if it is in water and not on the terrain (terrain = both the bounding terrain of the lake and the obstacles)
+            Tilemap terrainTilemap = _terrain.GetComponent<Tilemap>();
+            Vector3Int localPoint = terrainTilemap.WorldToCell(point);
+
+            Tilemap waterCenterTilemap = _water.transform.Find("WaterCenter").GetComponent<Tilemap>();
+            if (!waterCenterTilemap.HasTile(localPoint))
+            {
+                Debug.Log("point not inside watercenter");
+                return false;
+            }
+
+
+            if (terrainTilemap.HasTile(localPoint))
+            {
+                Debug.Log("point in terrain");
+                return false;
+            }
+
+            //if there are no obstacles, the only check that needed to be done was against the external terrain
+            if (_obstacles)
+            {
+                (int, List<(int, int)>) obstacles = _levelStageManager.GetLakeDescriptionSO().ObstaclesDescription;
+                List<Tilemap> tilemapsObstacles = _obstacles.GetComponent<ObstaclesLakeComponent>().GetAllActiveObs(obstacles.Item1, obstacles.Item2);
+                foreach(Tilemap t in tilemapsObstacles)
+                {
+                    if(t.HasTile(localPoint)){
+                        Debug.Log("Point in obstacle");
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+
+
+
+
+
             float range = 10000f;
 
             Ray rayNorth = new Ray(point, new Vector3(0, 1, 0));
@@ -74,7 +117,11 @@ namespace LevelStageNamespace
         // Start is called before the first frame update
         protected virtual void Awake()
         {
+            _levelStageManager = GameObject.Find("LevelStageManagerObject").GetComponent<LevelStageManagerComponent>();
+
             _terrain = transform.Find("Terrain").gameObject;
+            _obstacles = GameObject.Find("Obstacles")?.transform.GetChild(0).gameObject;
+            _water = transform.Find("Water").gameObject;
         }
 
         

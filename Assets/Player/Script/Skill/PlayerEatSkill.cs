@@ -65,11 +65,11 @@ namespace Player
 
             GameObject[] breads = GameObject.FindGameObjectsWithTag("FoodInWater");
             float minDistance = 10000000;
-            BreadNamespace.BreadInWaterComponent bread = null; 
+            BreadNamespace.BreadInWaterComponent bread = null;
             for (int i = 0; i < breads.Length; i++)
             {
                 var dist = Vector3.Distance(breads[i].transform.position, _controller.gameObject.transform.position);
-                if (dist <= 3f)
+                if (dist <= breads[i].GetComponent<CircleCollider2D>().radius)
                 {
                     if (dist <= minDistance)
                     {
@@ -271,11 +271,37 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            var powerup = collision.gameObject.transform.parent.gameObject.GetComponent<PowerUpsNamespace.PowerUpComponent>();
+            //do this only if this is really a powerup
+            /*GameObject obj1, obj2;
+            Transform tra2;
+            if((obj1 = collision.gameObject) != null)
+            {
+                if((tra2 = obj1.transform.parent) != null)
+                {
+                    obj2 = tra2.gameObject;
+                    var powerup = obj2.GetComponent<PowerUpsNamespace.PowerUpComponent>();
+                    if (powerup)
+                    {
+                        _locatedPowerUp = powerup;
+                    }
+                }
+
+            }*/
+
+            PowerUpsNamespace.PowerUpComponent powerup = null;
+            powerup = ((collision.gameObject)?.transform.parent)?.gameObject.GetComponent<PowerUpsNamespace.PowerUpComponent>();
             if (powerup)
             {
                 _locatedPowerUp = powerup;
             }
+
+
+
+
+
+
+            //var powerup = collision.gameObject.transform.parent.gameObject.GetComponent<PowerUpsNamespace.PowerUpComponent>();
+            
 
 
             //var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
