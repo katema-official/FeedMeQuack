@@ -173,6 +173,7 @@ namespace LevelStageNamespace {
                 //then, we can place in the map the enemies. Their position needs to be inside the lake, and
                 //not too close to the player
                 
+                //TODO: for when there will be new enemies...
                 //GenerateEnemies();
 
                 //the setup of the lake is done. Now we wait until the player enters in the actual lake from the river. To do so, he will need
@@ -736,7 +737,7 @@ namespace LevelStageNamespace {
 
         //########################################################################################################################################################
         //########################################################################################################################################################
-        //################################################################# POINTS GENERATION ###################################################################
+        //################################################### POINTS GENERATION AND GENERAL POINT MANAGEMENT #####################################################
         //########################################################################################################################################################
         //########################################################################################################################################################
 
@@ -853,6 +854,67 @@ namespace LevelStageNamespace {
                 }
             }
             return (x, y);
+        }
+
+
+        //can be considered as a less strict version of the Contains() method used in the LakeShopDescriptionComponent.
+        //HANDLE WITH CARE: this function exists because, at this very moment, it's impossible to have the bread fall exactly in the point that we decided
+        //it should have fallen in the lake. In fact, it falls a bit offsetted (is it even a word?) wrt the originally planned point. SO, if somehow the minimum
+        //distance that there must be between a duck and a breadInWater changes (even more if the change is a shrinking of this distance), it is not guaranteed
+        //anymore that this function gives a value that makes the game work.
+        public bool IsBreadInWaterInLake(Vector3 point, float breadInWaterRadius)
+        {
+            //simple case
+            if (base.Contains(point)) return true;
+
+            //if the Contains returned false, it means that the piece of bread is on some kind of terrain.
+            //Let's give to this bread another chance: maybe it's just a bit outside of the (properly said) lake, but it's
+            //still reachable from other ducks.
+            //We do this check by considering the adjacent positions wrt this point (above, below, to the left, to the right) 
+
+            Vector2 point2d = new Vector2(point.x, point.y);
+            float range = breadInWaterRadius/2f;
+
+            Ray rayNorth = new Ray(point, new Vector3(0, 1, 0));
+            Ray raySouth = new Ray(point, new Vector3(0, -1, 0));
+            Ray rayWest = new Ray(point, new Vector3(1, 0, 0));
+            Ray rayEast = new Ray(point, new Vector3(-1, 0, 0));
+
+            Ray rayNorthEast = new Ray(point, new Vector3(1, 1, 0));
+            Ray raySouthEast = new Ray(point, new Vector3(1, -1, 0));
+            Ray rayNorthWest = new Ray(point, new Vector3(-1, 1, 0));
+            Ray raySouthWest = new Ray(point, new Vector3(-1, -1, 0));
+
+            Debug.DrawRay(point, new Vector3(0, 1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(0, -1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(1, 0, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(-1, 0, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(1, 1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(1, -1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(-1, 1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(-1, -1, 0) * range, Color.red, 10f, false);
+
+            RaycastHit2D hit1 = Physics2D.Raycast(point2d, new Vector2(0, 1), range, LayerMask.GetMask("TerrainLayer"));
+            RaycastHit2D hit2 = Physics2D.Raycast(point2d, new Vector2(0, -1), range, LayerMask.GetMask("TerrainLayer"));
+            RaycastHit2D hit3 = Physics2D.Raycast(point2d, new Vector2(1, 0), range, LayerMask.GetMask("TerrainLayer"));
+            RaycastHit2D hit4 = Physics2D.Raycast(point2d, new Vector2(-1, 0), range, LayerMask.GetMask("TerrainLayer"));
+            RaycastHit2D hit5 = Physics2D.Raycast(point2d, new Vector2(1, 1), range, LayerMask.GetMask("TerrainLayer"));
+            RaycastHit2D hit6 = Physics2D.Raycast(point2d, new Vector2(1, -1), range, LayerMask.GetMask("TerrainLayer"));
+            RaycastHit2D hit7 = Physics2D.Raycast(point2d, new Vector2(-1, 1), range, LayerMask.GetMask("TerrainLayer"));
+            RaycastHit2D hit8 = Physics2D.Raycast(point2d, new Vector2(-1, -1), range, LayerMask.GetMask("TerrainLayer"));
+
+
+            if (hit1.collider || hit2.collider || hit3.collider || hit4.collider ||
+                hit5.collider || hit6.collider || hit7.collider || hit8.collider)
+            {
+                Debug.Log("INSIDE");
+                return true;
+            }
+            else
+            {
+                Debug.Log("OUTSIDE");
+                return false;
+            }
         }
 
 

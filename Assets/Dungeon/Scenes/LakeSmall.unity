@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 26968008}
   - component: {fileID: 26968007}
   - component: {fileID: 26968012}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WaterBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -57,7 +57,7 @@ namespace LevelStageNamespace
 
 
 
-
+            /*
 
             float range = 10000f;
 
@@ -86,7 +86,7 @@ namespace LevelStageNamespace
             {
                 //Debug.Log("OUTSIDE");
                 return false;
-            }
+            }*/
         }
 
         //Method used to get the bounds of the terrain
