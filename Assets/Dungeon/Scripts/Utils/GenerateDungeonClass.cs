@@ -311,6 +311,8 @@ namespace LevelStageNamespace
 
             ret.PlayerSpawnDirection = EnumsDungeon.CompassDirection.North; //will be changed at runtime
 
+            ret.ObstaclesDescription = (-1, null); //I don't want obstacles in the very first room
+
             return ret;
         }
 
@@ -329,6 +331,22 @@ namespace LevelStageNamespace
 
             ret.PlayerSpawnDirection = EnumsDungeon.CompassDirection.North; //will be changed at runtime
 
+            //we generate obstacles for the current lake depending on its dimension (TODO: change medium and large)
+            switch (ret.Dimension){
+                case EnumsDungeon.LakeDimension.Small:
+                    ret.ObstaclesDescription = ObstaclesLakeSmallComponent.GenerateObstaclesDescription();
+                    break;
+                case EnumsDungeon.LakeDimension.Medium:
+                    ret.ObstaclesDescription = ObstaclesLakeSmallComponent.GenerateObstaclesDescription();
+                    break;
+                case EnumsDungeon.LakeDimension.Large:
+                    ret.ObstaclesDescription = ObstaclesLakeSmallComponent.GenerateObstaclesDescription();
+                    break;
+
+                default:
+                    break;
+
+            }
             return ret;
         }
 

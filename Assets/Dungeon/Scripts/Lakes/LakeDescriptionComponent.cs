@@ -183,6 +183,10 @@ namespace LevelStageNamespace {
 
             }
 
+            //generate all the obstacles
+            GameObject.Find("Obstacles").transform.GetChild(0).gameObject.GetComponent<ObstaclesLakeComponent>().
+                SetObstacles(_lakeDescriptionForThisLake.ObstaclesDescription.Item1, _lakeDescriptionForThisLake.ObstaclesDescription.Item2);
+
         }
 
 

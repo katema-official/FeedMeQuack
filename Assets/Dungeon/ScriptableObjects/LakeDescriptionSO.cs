@@ -29,7 +29,9 @@ namespace LevelStageNamespace
         public EnumsDungeon.CompassDirection PlayerSpawnDirection;
 
 
-
+        //after over a month of work, I decided to make lakes more complex. Each kind of lake where there is "combat" will have some obstacles,
+        //described by a prefab and a method. Which actual obstacles belong to a lake, depends on this information
+        public (int, List<(int, int)>) ObstaclesDescription;
 
 
 
