@@ -280,7 +280,7 @@ namespace Music // To change correctly
             }
 
             audioSource.clip = clip;
-            audioSource.spatialBlend = 1;
+            audioSource.spatialBlend = 0;
             audioSource.volume = MusicManagerComponent.GetSoundVolume();
             audioSource.Play();
             Object.Destroy(gameObject, clip.length *
