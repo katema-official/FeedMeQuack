@@ -154,10 +154,23 @@ namespace GraphLakeNamespace {
             {
                 foreach(GEdge edge in graph.getConnections(node))
                 {
-                    Vector3 start = FromNodeToPosition(edge.from);
-                    Vector3 end = FromNodeToPosition(edge.to);
-                    Debug.DrawRay(start, end-start , Color.yellow, 5f, false);
+                    DrawRayPointToPoint(edge);
                 }
+            }
+        }
+
+        private void DrawRayPointToPoint(GEdge edge)
+        {
+            Vector3 start = FromNodeToPosition(edge.from);
+            Vector3 end = FromNodeToPosition(edge.to);
+            Debug.DrawRay(start, end - start, Color.yellow, 5f, false);
+        }
+
+        private void DrawPath(List<Vector3> path)
+        {
+            for(int i = 0; i < path.Count - 1; i++)
+            {
+                Debug.DrawRay(path[i], path[i+1] - path[i], Color.red, 5f, false);
             }
         }
 
@@ -168,6 +181,133 @@ namespace GraphLakeNamespace {
             Vector3 offsetVector = new Vector3(_offsetX, _offsetY);
             return _myTilemap.CellToWorld(new Vector3Int((int)node.x, (int)node.y, 0)) + offsetVector;
         }
+
+
+
+
+
+        public List<Vector3> GetPathFromPointToPoint(Vector3 start, Vector3 end, CircleCollider2D circleCollider)
+        {
+            //to get the corresponding points on the graph, I find the closest points in the graph
+            float minStartDistance = 100000f;
+            float minEndDistance = 100000f;
+            GNode nodeStart = null;
+            GNode nodeEnd = null;
+            foreach(GNode node in _lakeGraph.getNodes())
+            {
+                Vector3 translatedNode = FromNodeToPosition(node);
+                float dStart = _lakeGraph.distance(start.x, start.y, translatedNode.x, translatedNode.y);
+                if (nodeStart == null || dStart <= minStartDistance)
+                {
+                    nodeStart = node;
+                    minStartDistance = dStart;
+                }
+
+                float dEnd = _lakeGraph.distance(end.x, end.y, translatedNode.x, translatedNode.y);
+                if (nodeEnd == null || dEnd <= minEndDistance)
+                {
+                    nodeEnd = node;
+                    minEndDistance = dEnd;
+                }
+            }
+
+            //after we have found the starting node and the final node, we can find out the path from the first to the second
+            GEdge[] path = AStarSolver.Solve(_lakeGraph, nodeStart, nodeEnd, AStarSolver.myHeuristics[(int)AStarSolver.Heuristics.Euclidean]);
+
+            if(path == null) { return null; }
+
+            List<Vector3> allPoints = new List<Vector3>() { start };
+            foreach(GEdge edge in path)
+            {
+                allPoints.Add(FromNodeToPosition(edge.from));
+            }
+            allPoints.Add(FromNodeToPosition(path[path.Length - 1].to));
+            allPoints.Add(end);
+
+            /*foreach (GEdge e in path)
+            {
+                DrawRayPointToPoint(e);
+            }
+            DrawPath(allPoints);
+            */
+
+            //then, we need to smooth the path based on the collider of the entity that wants to move in that direction
+            List<Vector3> necessaryPoints = new List<Vector3>() { start };
+            Vector3 currentPoint = start;
+            Vector3 nextPoint;
+            for(int i = 1; i < allPoints.Count; i++)
+            {
+                nextPoint = allPoints[i];
+
+                float radius = circleCollider.radius;
+
+                //set up the CircleCast for the next point
+                Vector2 direction = new Vector2(nextPoint.x, nextPoint.y) - new Vector2(currentPoint.x, currentPoint.y);
+                float distance = _lakeGraph.distance(nextPoint.x, nextPoint.y, currentPoint.x, currentPoint.y);
+                RaycastHit2D hit = Physics2D.CircleCast(currentPoint, radius, direction, distance, LayerMask.GetMask("TerrainLayer"));
+
+                if(hit.collider != null)
+                {
+                    Debug.Log("TROVATO OSTACOLO");
+                    necessaryPoints.Add(allPoints[i - 1]);
+                    currentPoint = allPoints[i-1];
+
+                    //do I see the final destination? If so, we can finish before
+                    distance = _lakeGraph.distance(end.x, end.y, currentPoint.x, currentPoint.y);
+                    hit = Physics2D.CircleCast(currentPoint, radius, direction, distance, LayerMask.GetMask("TerrainLayer"));
+                    if (hit.collider == null) break;
+                }
+            }
+            necessaryPoints.Add(end);
+            foreach(Vector3 p in necessaryPoints)
+            {
+                Debug.Log(p);
+            }
+
+            return necessaryPoints;
+
+
+
+
+
+        }
+
+
+
+
+
+        
+        public Vector3 SSSstart;
+        public Vector3 SSSend;
+
+        public Vector3 trueStart;
+        public Vector3 trueEnd;
+        
+
+
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                GEdge[] path = AStarSolver.Solve(_lakeGraph, _lakeGraph.getNodeAtCoordinates(SSSstart.x, SSSstart.y), _lakeGraph.getNodeAtCoordinates(SSSend.x, SSSend.y), AStarSolver.myHeuristics[(int)AStarSolver.Heuristics.Euclidean]);
+                foreach (GEdge e in path)
+                {
+                    DrawRayPointToPoint(e);
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                trueStart = SSSstart * 3 + new Vector3(_offsetX, _offsetY, 0);
+                trueEnd = SSSend * 3 + new Vector3(_offsetX, _offsetY, 0);
+                List<Vector3> p = GetPathFromPointToPoint(trueStart, trueEnd, GetComponent<CircleCollider2D>());
+                Debug.Log("DONE");
+                DrawPath(p);
+            }
+
+        }
+
+
 
 
     }
