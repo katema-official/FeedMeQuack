@@ -28,14 +28,14 @@ namespace LevelStageNamespace
             Tilemap waterCenterTilemap = _water.transform.Find("WaterCenter").GetComponent<Tilemap>();
             if (!waterCenterTilemap.HasTile(localPoint))
             {
-                Debug.Log("point not inside watercenter");
+                //Debug.Log("point not inside watercenter");
                 return false;
             }
 
 
             if (terrainTilemap.HasTile(localPoint))
             {
-                Debug.Log("point in terrain");
+                //Debug.Log("point in terrain");
                 return false;
             }
 
@@ -47,7 +47,7 @@ namespace LevelStageNamespace
                 foreach(Tilemap t in tilemapsObstacles)
                 {
                     if(t.HasTile(localPoint)){
-                        Debug.Log("Point in obstacle");
+                        //Debug.Log("Point in obstacle");
                         return false;
                     }
                 }

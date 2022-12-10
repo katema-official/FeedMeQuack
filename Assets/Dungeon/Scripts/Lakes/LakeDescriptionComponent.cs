@@ -870,10 +870,32 @@ namespace LevelStageNamespace {
             //if the Contains returned false, it means that the piece of bread is on some kind of terrain.
             //Let's give to this bread another chance: maybe it's just a bit outside of the (properly said) lake, but it's
             //still reachable from other ducks.
-            //We do this check by considering the adjacent positions wrt this point (above, below, to the left, to the right) 
+            //We do this check by considering the adjacent positions wrt this point (above, below, to the left, to the right, and also the diagonal ones) 
+
+            float range = (2f*breadInWaterRadius) / 3f;
+
+            /*Debug.DrawRay(point, new Vector3(0, 1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(0, -1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(1, 0, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(-1, 0, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(1, 1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(1, -1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(-1, 1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(-1, -1, 0) * range, Color.red, 10f, false);
+            */
 
             Vector2 point2d = new Vector2(point.x, point.y);
-            float range = breadInWaterRadius/2f;
+            
+            if (Contains(point + new Vector3(range, 0, 0)) || Contains(point + new Vector3(-range, 0, 0)) ||
+                Contains(point + new Vector3(0, -range, 0)) || Contains(point + new Vector3(0, -range, 0)) ||
+                Contains(point + new Vector3(range, range, 0)) || Contains(point + new Vector3(-range, range, 0)) ||
+                Contains(point + new Vector3(range, -range, 0)) || Contains(point + new Vector3(-range, -range, 0)))
+                    {
+                        return true;
+                    }
+            return false;
+
+            /*
 
             Ray rayNorth = new Ray(point, new Vector3(0, 1, 0));
             Ray raySouth = new Ray(point, new Vector3(0, -1, 0));
@@ -915,6 +937,7 @@ namespace LevelStageNamespace {
                 Debug.Log("OUTSIDE");
                 return false;
             }
+            */
         }
 
 
