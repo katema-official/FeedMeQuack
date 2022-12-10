@@ -75,7 +75,7 @@ namespace GraphLakeNamespace
 		}
 
 
-		private float distance(float x1, float y1, float x2, float y2)
+		public float distance(float x1, float y1, float x2, float y2)
 		{
 			return (Mathf.Sqrt(Mathf.Pow(Mathf.Abs(x1 - x2), 2) + Mathf.Pow(Mathf.Abs(y1 - y2), 2)));
 		}
