@@ -119,10 +119,7 @@ namespace GraphLakeNamespace {
                     }
                 }
             }
-
-            DrawGraph(_lakeGraph);
-
-
+            //DrawGraph(_lakeGraph);
 
         }
 
@@ -214,7 +211,7 @@ namespace GraphLakeNamespace {
             //after we have found the starting node and the final node, we can find out the path from the first to the second
             GEdge[] path = AStarSolver.Solve(_lakeGraph, nodeStart, nodeEnd, AStarSolver.myHeuristics[(int)AStarSolver.Heuristics.Euclidean]);
 
-            if(path == null) { return null; }
+            if(path == null) { return new List<Vector3>() { end }; }    //just go to the end, which is extremely near to you
 
             List<Vector3> allPoints = new List<Vector3>() { start };
             foreach(GEdge edge in path)
@@ -224,15 +221,10 @@ namespace GraphLakeNamespace {
             allPoints.Add(FromNodeToPosition(path[path.Length - 1].to));
             allPoints.Add(end);
 
-            /*foreach (GEdge e in path)
-            {
-                DrawRayPointToPoint(e);
-            }
-            DrawPath(allPoints);
-            */
 
             //then, we need to smooth the path based on the collider of the entity that wants to move in that direction
-            List<Vector3> necessaryPoints = new List<Vector3>() { start };
+            List<Vector3> necessaryPoints = new List<Vector3>(); //{ start };   //the starting point shouldn't be necessary: the caller is already there,
+            //so in the list of points it needs to traverse (that's what this function returns) there shouldn't be the start
             Vector3 currentPoint = start;
             Vector3 nextPoint;
             for(int i = 1; i < allPoints.Count; i++)
@@ -248,7 +240,7 @@ namespace GraphLakeNamespace {
 
                 if(hit.collider != null)
                 {
-                    Debug.Log("TROVATO OSTACOLO");
+                    //Debug.Log("TROVATO OSTACOLO");
                     necessaryPoints.Add(allPoints[i - 1]);
                     currentPoint = allPoints[i-1];
 
@@ -259,16 +251,8 @@ namespace GraphLakeNamespace {
                 }
             }
             necessaryPoints.Add(end);
-            foreach(Vector3 p in necessaryPoints)
-            {
-                Debug.Log(p);
-            }
 
             return necessaryPoints;
-
-
-
-
 
         }
 
@@ -276,7 +260,7 @@ namespace GraphLakeNamespace {
 
 
 
-        
+        /*
         public Vector3 SSSstart;
         public Vector3 SSSend;
 
@@ -298,8 +282,8 @@ namespace GraphLakeNamespace {
 
             if (Input.GetKeyDown(KeyCode.G))
             {
-                trueStart = SSSstart * 3 + new Vector3(_offsetX, _offsetY, 0);
-                trueEnd = SSSend * 3 + new Vector3(_offsetX, _offsetY, 0);
+                //trueStart = SSSstart * 3 + new Vector3(_offsetX, _offsetY, 0);
+                //trueEnd = SSSend * 3 + new Vector3(_offsetX, _offsetY, 0);
                 List<Vector3> p = GetPathFromPointToPoint(trueStart, trueEnd, GetComponent<CircleCollider2D>());
                 Debug.Log("DONE");
                 DrawPath(p);
@@ -307,7 +291,7 @@ namespace GraphLakeNamespace {
 
         }
 
-
+        */
 
 
     }
