@@ -8,6 +8,19 @@ public class PlayerStatusView : MonoBehaviour
     private Image _icon = null;
     private TextMeshProUGUI _label = null;
 
+    public void SetIcon(Sprite icon)
+    {
+        _icon.sprite = icon;
+    }
+    public void SetText(string text)
+    {
+        _label.text = text;
+    }
+    public void SetPosition(Vector2 pos)
+    {
+        GetComponent<RectTransform>().anchoredPosition = pos;
+    }
+
     void Awake()
     {
         _icon = transform.Find("StatusIcon").GetComponent<Image>();
