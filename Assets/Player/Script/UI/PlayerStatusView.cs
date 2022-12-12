@@ -21,6 +21,10 @@ public class PlayerStatusView : MonoBehaviour
         GetComponent<RectTransform>().anchoredPosition = pos;
     }
 
+    public void SetVisible(bool visible)
+    {
+        gameObject.SetActive(visible);
+    }
     void Awake()
     {
         _icon = transform.Find("StatusIcon").GetComponent<Image>();
