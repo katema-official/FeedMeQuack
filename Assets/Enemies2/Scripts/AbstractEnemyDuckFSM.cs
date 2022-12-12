@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BreadNamespace;
+using FSMNamespace;
 
 
 namespace DuckEnemies
@@ -15,12 +16,13 @@ namespace DuckEnemies
         //First, we define a set of variables whose value can be set by the developer. Then we define other variables/data structures
         //that will be used at runtime
 
-        //####################################### SPEED, ACCELERATION, DECELERATION AND STEER #######################################
+        //####################################### ROAMING AND SEEKING (SPEED, ACCELERATION, DECELERATION, STEER...) #######################################
 
         [SerializeField] protected float _speedRoaming;                        //max speed, acceleration, deceleration and steer 
         [SerializeField] protected float _accelerationRoaming;                 //at which the duck moves when roaming
         [SerializeField] protected float _decelerationRoaming;
         [SerializeField] protected float _steerRoaming;
+        [SerializeField] protected float _chillingTime;
 
         [SerializeField] protected float _speedFoodSeeking;                        //max speed, acceleration, deceleration and steer
         [SerializeField] protected float _accelerationFoodSeeking;                 //at which the duck moves when going after a piece 
@@ -77,6 +79,13 @@ namespace DuckEnemies
 
         protected EnemyDuckFSMEnumState.State _state;
 
+        protected FSM _fsm;
+        protected float _reactionTimeFSM = 0.1f;
+
+
+        //the other components of this gameobject (we can't have all the code in one place!)
+        protected RoamingComponent _roamingComponent;
+
 
 
         void Awake()
@@ -88,11 +97,92 @@ namespace DuckEnemies
             _breadInMouthBeingEaten = null;
             _state = EnemyDuckFSMEnumState.State.HubState;
 
+            _roamingComponent = GetComponent<RoamingComponent>();
+            _roamingComponent.Initialize(_speedRoaming, _accelerationRoaming, _decelerationRoaming, _steerRoaming, _chillingTime);
 
 
+
+            //Initialization of the FSM
+
+            //FIRST: define each state with its actions: enter action, stay actions and exit actions
+            FSMState hubState = new FSMState();
+            hubState.enterActions.Add(EnterHubState_CleanVariables);
+
+            FSMState chilling = new FSMState();
+            chilling.enterActions.Add(_roamingComponent.EnterChilling_ChooseChillingTime);
+            chilling.exitActions.Add(_roamingComponent.ExitChilling);
+
+            FSMState roaming = new FSMState();
+
+
+
+
+            //SECOND: define the transition between states
+
+            //actually, this is the last transition for hubState. If it isn't possible to go in any other state, go in this
+            FSMTransition hubState_to_chilling = new FSMTransition(GoToChill);
+            hubState.AddTransition(hubState_to_chilling, chilling);
+
+            FSMTransition chilling_to_hubState = new FSMTransition(_roamingComponent.GetChillEnded);
+            chilling.AddTransition(chilling_to_hubState, roaming);
+
+
+
+
+            _fsm = new FSM(hubState);
+            StartCoroutine(RunFSM());
 
 
         }
+
+
+
+
+
+
+
+        //############################################################# ACTIONS #############################################################
+
+        //Enter method for HubState. It's used to be sure that every variable is in the state it should be
+        protected void EnterHubState_CleanVariables()
+        {
+            _breadInWaterObjectiveGO = null;
+            _breadInMouthBeingEaten = null;
+        }
+
+
+
+        //############################################################# TRANSITIONS #############################################################
+
+        protected bool GoToChill()
+        {
+            return true;
+        }
+
+
+
+
+
+
+
+
+
+        
+        protected IEnumerator RunFSM()
+        {
+            while (true)
+            {
+                _fsm.Update();
+                yield return new WaitForSeconds(_reactionTimeFSM);
+            }
+        }
+
+
+
+
+
+
+
 
 
         // Start is called before the first frame update
