@@ -248,6 +248,7 @@ namespace Player
         {
             int a;
             _mustStopEating = false;
+            _controller.GetUICanvas().GetStatusView().SetVisible(true);
 
             while (!_hasBreadBeenFullyEaten && !_mustStopEating)
             {
@@ -259,6 +260,9 @@ namespace Player
                     _controller.AddBreadPoints(1);
                 }
             }
+
+            _controller.GetUICanvas().GetStatusView().SetVisible(false);
+
             //Debug.Log("Bread eaten after");
             yield break;
         }

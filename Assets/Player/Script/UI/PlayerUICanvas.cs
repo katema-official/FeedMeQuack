@@ -9,7 +9,7 @@ namespace Player
     {
         private PlayerStatusView _statusView = null;
 
-        private PlayerStatusView GetStatusView()
+        public PlayerStatusView GetStatusView()
         {
             return _statusView;
         }
