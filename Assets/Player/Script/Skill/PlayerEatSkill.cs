@@ -247,20 +247,24 @@ namespace Player
         IEnumerator EatCoroutine()
         {
             int a;
+            
             _mustStopEating = false;
             _controller.GetUICanvas().GetStatusView().SetVisible(true);
 
             while (!_hasBreadBeenFullyEaten && !_mustStopEating)
             {
+                _controller.GetUICanvas().GetStatusView().SetText("" + _caughtBread.GetBreadPoints());
                 yield return new WaitForSeconds(_chewingRate);
                 if (!_mustStopEating)
                 {
                     (a, _hasBreadBeenFullyEaten) = _caughtBread.SubtractBreadPoints(1);//eat a point each chewingRate seconds
                     // Debug.Log("Bread eaten before");
                     _controller.AddBreadPoints(1);
+                   
+
                 }
             }
-
+            _controller.GetUICanvas().GetStatusView().SetText("" + _caughtBread.GetBreadPoints());
             _controller.GetUICanvas().GetStatusView().SetVisible(false);
 
             //Debug.Log("Bread eaten after");
