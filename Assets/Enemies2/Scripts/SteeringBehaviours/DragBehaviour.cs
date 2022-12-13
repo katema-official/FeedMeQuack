@@ -8,8 +8,8 @@ namespace SteeringBehaviourNamespace
 	{
 
 		// how long does it take to stop moving by dragging
-		public float linearDrag = 5f;
-		public float angularDrag = 3f;
+		public float linearDrag = 0f;
+		public float angularDrag = 0f;
 
 		public override Vector3 GetAcceleration(MovementStatus status)
 		{

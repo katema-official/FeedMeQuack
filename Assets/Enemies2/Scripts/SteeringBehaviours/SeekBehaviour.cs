@@ -7,22 +7,23 @@ namespace SteeringBehaviourNamespace
 	public class SeekBehaviour : MovementBehaviour
 	{
 
-		public Transform Destination;
+		public Vector3 Destination;
+		public bool IsDestinationValid = false;
 
-		public float Acceleration = 3f;
-		public float Steer = 30f;
-		public float Deceleration = 20f;
+		public float Acceleration = 0f;
+		public float Steer = 0f;
+		public float Deceleration = 0f;
 
-		public float BrakeAt = 5f;
-		public float StopAt = 0.01f;
+		public float BrakeAt = 0f;
+		public float StopAt = 0f;
 
 		public override Vector3 GetAcceleration(MovementStatus status)
 		{
 
 
-			if (Destination != null)
+			if (IsDestinationValid)
 			{
-				Vector3 toDestination = (Destination.position - transform.position);
+				Vector3 toDestination = (Destination - transform.position);
 
 				if (toDestination.magnitude > StopAt)
 				{

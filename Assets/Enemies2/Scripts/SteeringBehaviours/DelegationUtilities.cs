@@ -67,7 +67,8 @@ namespace SteeringBehaviourNamespace
 				body.MovePosition(body.position + new Vector2(status.movementDirection.x, status.movementDirection.y) * tangentDelta);
 			}
 			//body.MoveRotation(body.rotation * Quaternion.Euler(0f, 0f, rotationDelta));
-			body.MoveRotation(Quaternion.AngleAxis(rotationDelta, Vector3.forward));
+			//body.MoveRotation(Quaternion.AngleAxis(rotationDelta, Vector3.forward));
+			body.MoveRotation(body.rotation + rotationDelta);
 		}
 	}
 

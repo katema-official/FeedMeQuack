@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Mallard
   m_EditorClassIdentifier: 
   SpeedRoaming: 10
-  AccelerationRoaming: 3
-  DecelerationRoaming: 3
-  SteerRoaming: 10
+  AccelerationRoaming: 10
+  DecelerationRoaming: 10
+  SteerRoaming: 80
   ChillingTime: 3
   DesiredRoamingDistance: 21
   SpeedFoodSeeking: 20
-  AccelerationFoodSeeking: 10
-  DecelerationFoodSeeking: 10
-  SteerFoodSeeking: 20
+  AccelerationFoodSeeking: 20
+  DecelerationFoodSeeking: 20
+  SteerFoodSeeking: 80
   Circle1BreadRadius: 7
   Circle2BreadRadius: 12
   Circle3BreadRadius: 16
