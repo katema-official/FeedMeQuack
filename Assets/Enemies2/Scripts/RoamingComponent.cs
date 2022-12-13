@@ -4,6 +4,7 @@ using UnityEngine;
 using GraphLakeNamespace;
 using System.Linq;
 using LevelStageNamespace;
+using SteeringBehaviourNamespace;
 
 namespace DuckEnemies
 {
@@ -19,6 +20,10 @@ namespace DuckEnemies
         private LakeShopDescriptionComponent _lakeShopDescriptionComponent;
         private TileGraphComponent _tileGraphComponent;
 
+        private DDelegatedSteering _dDelegatedSteering;
+        private SeekBehaviour _seekBehaviour;
+        private DragBehaviour _dragBehaviour;
+
 
         //this component takes car of the states:
         //CHILLING
@@ -30,6 +35,7 @@ namespace DuckEnemies
         private float _currentChillingTime;
         private bool _chillEnded = false;
 
+        private List<Vector3> _pathRoaming;
 
         private enum DirectionsRoaming
         {
@@ -53,6 +59,9 @@ namespace DuckEnemies
             _desiredRoamingDistance = desiredRoamingDistance;
             _lakeShopDescriptionComponent = GameObject.Find("WholeLake").GetComponent<LakeShopDescriptionComponent>();
             _tileGraphComponent = GameObject.Find("TileGraphLake").GetComponent<TileGraphComponent>();
+            _dDelegatedSteering = GetComponent<DDelegatedSteering>();
+            _seekBehaviour = GetComponent<SeekBehaviour>();
+            _dragBehaviour = GetComponent<DragBehaviour>();
         }
 
 
@@ -88,20 +97,85 @@ namespace DuckEnemies
 
 
 
+
+
         //enter method for Roaming: choose a path to follow
         public void EnterRoaming_ChooseRandomPath()
         {
             //to choose a path, we do something not-so-simple: we want each time to make the duck go in a different direction
+
             //FIRST: I get the directions in which I can move
             List<DirectionsRoaming> directionPreferences = GetDirectionPreferences();
+
             //SECOND: I choose a point in which I want to move, preferring the ones in the first directions of the list
             Vector3 dest = GetRoamingGoal(directionPreferences);
-            List<Vector3> pathRoaming = _tileGraphComponent.GetPathFromPointToPoint(transform.position, dest, GetComponent<CircleCollider2D>()); 
+            _pathRoaming = _tileGraphComponent.GetPathFromPointToPoint(transform.position, dest, GetComponent<CircleCollider2D>());
+            _indexCurrentDestination = -1;
+            _currentDestination = _pathRoaming[0];
+            _updatedDestination = true;
+
+            //THIRD: I have to follow this path. The path will be followed starting from here, and it will be updated in the stay action
+            _seekBehaviour.Destination.position = _currentDestination;
+
+            //THIRD AND A HALF: I should also set the brakeAt and stopAt of the seekComponent depending on the fact that this is the final
+            //destination or not AND depending on the fact that I will get close to it at full speed or not.
+            //For the moment, I simply set them to 0
+            _seekBehaviour.BrakeAt = 0f;
+            _seekBehaviour.StopAt = 0f;
 
 
-            //per domani: come scegli dove andare? a caso dentro un cerchio? o qualcosa di un po' più complesso?
-            //e come fai a essere sicuro che a una certa distanza troverai una casella libera? Perché se ne scegli una completamente a caso,
-            //può fare schifo e potresti muoverti di poco.
+
+        }
+
+        //enter method for Roaming: set speed and such for the seek component
+        public void EnterRoaming_SetSteeringBehaviour()
+        {
+            _dDelegatedSteering.maxLinearSpeed = _speedRoaming;
+            _seekBehaviour.Acceleration = _accelerationRoaming;
+            _seekBehaviour.Deceleration = _decelerationRoaming;
+            _seekBehaviour.Steer = _steerRoaming;
+
+        }
+
+
+        private int _indexCurrentDestination = -1;
+        private Vector3 _currentDestination;
+        private float _tresholdDestinationReached = 1.5f;   //when the enemy duck and the currentDestination have a distance <= this value,
+                                                            //the current destination is considered reached
+        private bool _updatedDestination = true;
+        private void StayRoaming_UpdateDestination()
+        {
+            //To avoid repeating the same operations over and over, we proceed like this:
+            //If the last destination set was reached, we compute the new one.
+            //Otherwise, we don't do anything: all the values useful for the movement are already set
+            //We assume, to be general, that we have to start by setting the destination
+            if(_updatedDestination == false && Vector3.Distance(transform.position, _currentDestination) <= _tresholdDestinationReached)
+            {
+                _updatedDestination = true;
+            }
+
+            //read "_updatedDestination = true" as: "Hey, there is a new destination to reach, so, do all the necessary stuff to reach it!"
+            if (_updatedDestination == true)
+            {
+                _indexCurrentDestination++;
+                _currentDestination = _pathRoaming[_indexCurrentDestination];
+
+                //each time this stay action gets called, we update the current destination (or not, it depends)
+                if (_indexCurrentDestination == _pathRoaming.Count - 1)
+                {
+                    //if this is the last destination, we have to re-set the brakeAt distance and the stopAtDistance.
+                    //We start by doing this the easy way: just set the brakeAt distance to the "braking distance"
+                    _seekBehaviour.BrakeAt = Mathf.Pow(_dDelegatedSteering.GetMovementStatus().linearSpeed, 2) / (2 * _seekBehaviour.Deceleration);
+                    _seekBehaviour.StopAt = 0.1f;
+
+                }
+                
+
+                _seekBehaviour.Destination.position = _currentDestination;
+                _updatedDestination = false;
+
+            }
+
         }
 
 
@@ -117,6 +191,9 @@ namespace DuckEnemies
 
 
         //############################################################# UTILITIES #############################################################
+
+
+
         private List<DirectionsRoaming> GetDirectionPreferences()
         {
             List<DirectionsRoaming> l;

@@ -160,6 +160,7 @@ namespace DuckEnemies
 
             FSMState roaming = new FSMState();
             roaming.enterActions.Add(_roamingComponent.EnterRoaming_ChooseRandomPath);
+            roaming.enterActions.Add(_roamingComponent.EnterRoaming_SetSteeringBehaviour);
 
 
 
