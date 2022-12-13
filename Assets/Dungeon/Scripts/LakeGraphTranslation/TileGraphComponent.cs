@@ -265,6 +265,18 @@ namespace GraphLakeNamespace {
 
 
 
+
+        public float GetOffsetX()
+        {
+            return _offsetX;
+        }
+
+        public float GetOffsetY()
+        {
+            return _offsetY;
+        }
+
+
         /*
         public Vector3 SSSstart;
         public Vector3 SSSend;

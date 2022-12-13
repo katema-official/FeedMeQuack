@@ -175,7 +175,8 @@ namespace DuckEnemies
             FSMTransition chilling_to_roaming = new FSMTransition(_roamingComponent.GetChillEnded, new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Roaming });
             chilling.AddTransition(chilling_to_roaming, roaming);
 
-
+            FSMTransition roaming_to_hubState = new FSMTransition(_roamingComponent.DestinationReached, new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
+            roaming.AddTransition(roaming_to_hubState, hubState);
 
 
             _fsm = new FSM(hubState);

@@ -37,6 +37,8 @@ namespace DuckEnemies
 
         private List<Vector3> _pathRoaming;
 
+        private bool _destinationRoamingReached = false;    //used to go from roaming to hubState
+
         private enum DirectionsRoaming
         {
             Up,
@@ -62,7 +64,8 @@ namespace DuckEnemies
             _dDelegatedSteering = GetComponent<DDelegatedSteering>();
             _seekBehaviour = GetComponent<SeekBehaviour>();
             _dragBehaviour = GetComponent<DragBehaviour>();
-            GetComponent<Rigidbody2D>().WakeUp();
+            //GetComponent<Rigidbody2D>().WakeUp();
+            _destinationRoamingReached = false;
         }
 
 
@@ -127,8 +130,9 @@ namespace DuckEnemies
             _seekBehaviour.IsDestinationValid = true;
 
             Vector2 currentPosition = new Vector2(transform.position.x, transform.position.y);
-            float degrees = Vector2.SignedAngle(Vector2.right - currentPosition, 
-                new Vector2(_currentDestination.x, _currentDestination.y) - currentPosition);
+            float degrees = Vector2.SignedAngle(currentPosition + Vector2.right, 
+                currentPosition + new Vector2(_currentDestination.x, _currentDestination.y));
+            Debug.Log("Degrees = " + degrees);
             GetComponent<Rigidbody2D>().SetRotation(degrees);
 
         }
@@ -141,11 +145,14 @@ namespace DuckEnemies
             _seekBehaviour.Deceleration = _decelerationRoaming;
             _seekBehaviour.Steer = _steerRoaming;
 
-            _seekBehaviour.StopAt = 0.1f;
-            _seekBehaviour.BrakeAt = Mathf.Pow(_speedRoaming, 2) / (2 * _decelerationRoaming);
+            _seekBehaviour.StopAt = _tileGraphComponent.GetOffsetX()/2; //assuming that x and y have the same offset
+            _seekBehaviour.BrakeAt = Mathf.Pow(_speedRoaming, 2) / (2 * _decelerationRoaming) + _seekBehaviour.StopAt;
 
             _dragBehaviour.linearDrag = 5f;
             _dragBehaviour.angularDrag = 3f;
+
+            Debug.Log("STANDING HERE");
+            _destinationRoamingReached = false;
 
         }
 
@@ -184,6 +191,7 @@ namespace DuckEnemies
                     if (Vector3.Distance(transform.position, _currentDestination) <= _seekBehaviour.StopAt)
                     {
                         _seekBehaviour.IsDestinationValid = false;
+                        _destinationRoamingReached = true;
                         Debug.Log("AAA 2");
                     }
                     Debug.Log("AAA 1");
@@ -219,7 +227,11 @@ namespace DuckEnemies
             return _chillEnded;
         }
 
-
+        public bool DestinationReached() 
+        {
+            Debug.Log("will return " + _destinationRoamingReached);
+            return _destinationRoamingReached;
+        }
 
 
 
