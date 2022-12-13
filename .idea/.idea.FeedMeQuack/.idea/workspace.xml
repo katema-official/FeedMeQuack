@@ -2,21 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="099dc64e-a604-4b85-85cc-6be12a6baf46" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/HUD.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Scripts.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/HUDManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/HUDManager.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/MapManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/MapManager.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/UIGameObject.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/UIGameObject.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/firstCommit.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/firstCommit.txt.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/HUD/prefabs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/HUD/prefabs/Square.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/HUD/prefabs/Square.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/HUD/prefabs/squarePrefab.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/HUD/prefabs/squarePrefab.prefab.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Dungeon/Scenes/StartRunLoading.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dungeon/Scenes/StartRunLoading.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Dungeon/Tilesets/Grasslands/SpriteAtlasGrasslands.spriteatlas" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dungeon/Tilesets/Grasslands/SpriteAtlasGrasslands.spriteatlas" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/firstCommit.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/MapManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/MapManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -67,7 +60,7 @@
     </configuration>
     <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
-      <option name="listenPortForConnections" value="false" />
+      <option name="listenPortForConnections" value="true" />
       <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
@@ -96,6 +89,7 @@
       <workItem from="1670603922288" duration="105000" />
       <workItem from="1670783255948" duration="7378000" />
       <workItem from="1670876340799" duration="1361000" />
+      <workItem from="1670936757744" duration="5997000" />
     </task>
     <servers />
   </component>
