@@ -67,6 +67,8 @@ namespace DuckEnemies
 
 
 
+        [SerializeField] protected EnemyDuckSO _myEnemyDuckDescription;
+
 
 
         //these sets save up the bread that was refused. Each bread gameobject is recorded as it InstanceID (GetInstanceID())
@@ -120,11 +122,11 @@ namespace DuckEnemies
             //SECOND: define the transition between states
 
             //actually, this is the last transition for hubState. If it isn't possible to go in any other state, go in this
-            FSMTransition hubState_to_chilling = new FSMTransition(GoToChill);
+            FSMTransition hubState_to_chilling = new FSMTransition(GoToChill, new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Chilling });
             hubState.AddTransition(hubState_to_chilling, chilling);
 
-            FSMTransition chilling_to_hubState = new FSMTransition(_roamingComponent.GetChillEnded);
-            chilling.AddTransition(chilling_to_hubState, roaming);
+            FSMTransition chilling_to_roaming = new FSMTransition(_roamingComponent.GetChillEnded, new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Roaming });
+            chilling.AddTransition(chilling_to_roaming, roaming);
 
 
 
@@ -167,13 +169,24 @@ namespace DuckEnemies
 
 
 
-        
+        //#######################################################################################################################################
+        //########################################### METHODS USED JUST TO UPDATE THE _STATE VARIABLE ###########################################
+        //#######################################################################################################################################
+        //E invece no perché ho imparato a usare le lambda HAHAHAHA
+
+
+
+
+
+
+
         protected IEnumerator RunFSM()
         {
             while (true)
             {
                 _fsm.Update();
                 yield return new WaitForSeconds(_reactionTimeFSM);
+                Debug.Log("_state = " + _state);
             }
         }
 

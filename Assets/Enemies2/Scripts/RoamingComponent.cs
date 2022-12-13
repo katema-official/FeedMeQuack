@@ -51,8 +51,9 @@ namespace DuckEnemies
         //enter method for Chilling: choose a chilling time
         public void EnterChilling_ChooseChillingTime()
         {
+            Debug.Log("Chilling time = " + _chillingTime);
             _currentChillingTime = _chillingTime * Random.Range(_minRollModifier, _maxRollModifier);
-
+            StartCoroutine(ChillCoroutine());
         }
 
         private IEnumerator ChillCoroutine()
