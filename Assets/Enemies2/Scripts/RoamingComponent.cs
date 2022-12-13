@@ -116,7 +116,8 @@ namespace DuckEnemies
             _updatedDestination = true;
 
             //THIRD: I have to follow this path. The path will be followed starting from here, and it will be updated in the stay action
-            _seekBehaviour.Destination = _currentDestination;
+            _seekBehaviour.CurrentDestination = _currentDestination;
+            _seekBehaviour.FinalDestination = _pathRoaming[_pathRoaming.Count - 1];
 
             //THIRD AND A HALF: I should also set the brakeAt and stopAt of the seekComponent depending on the fact that this is the final
             //destination or not AND depending on the fact that I will get close to it at full speed or not.
@@ -140,6 +141,9 @@ namespace DuckEnemies
             _seekBehaviour.Deceleration = _decelerationRoaming;
             _seekBehaviour.Steer = _steerRoaming;
 
+            _seekBehaviour.StopAt = 0.1f;
+            _seekBehaviour.BrakeAt = Mathf.Pow(_speedRoaming, 2) / (2 * _decelerationRoaming);
+
             _dragBehaviour.linearDrag = 5f;
             _dragBehaviour.angularDrag = 3f;
 
@@ -148,16 +152,18 @@ namespace DuckEnemies
 
         private int _indexCurrentDestination = -1;
         private Vector3 _currentDestination;
-        private float _tresholdDestinationReached = 1.5f;   //when the enemy duck and the currentDestination have a distance <= this value,
+        private float _tresholdCurrentDestinationReached = 1.5f;   //when the enemy duck and the currentDestination have a distance <= this value,
                                                             //the current destination is considered reached
         private bool _updatedDestination = true;
+
+
         public void StayRoaming_UpdateDestination()
         {
             //To avoid repeating the same operations over and over, we proceed like this:
             //If the last destination set was reached, we compute the new one.
             //Otherwise, we don't do anything: all the values useful for the movement are already set
             //We assume, to be general, that we have to start by setting the destination
-            if(_updatedDestination == false && Vector3.Distance(transform.position, _currentDestination) <= _tresholdDestinationReached)
+            if(_updatedDestination == false && Vector3.Distance(transform.position, _currentDestination) <= _tresholdCurrentDestinationReached)
             {
                 _updatedDestination = true;
             }
@@ -165,37 +171,38 @@ namespace DuckEnemies
             //read "_updatedDestination = true" as: "Hey, there is a new destination to reach, so, do all the necessary stuff to reach it!"
             if (_updatedDestination == true)
             {
-                _indexCurrentDestination++;
-                
 
-                //if the next destination is not the last
-                if(_indexCurrentDestination < _pathRoaming.Count - 1)
-                {
-                    _currentDestination = _pathRoaming[_indexCurrentDestination];
-                    _seekBehaviour.Destination = _currentDestination;
-                    _updatedDestination = false;
-                }
+                //if the next destination is the last
 
-                //each time this stay action gets called, we update the current destination (or not, it depends)
+                //we have to make sure that, once our duck gets near the destination, it doesn't keep going.
+                //If at a certain point the duck gets further from the destination, stop it.
+                //CE L'HO! USA LE TILES!!!
                 if (_indexCurrentDestination == _pathRoaming.Count - 1)
                 {
                     _currentDestination = _pathRoaming[_indexCurrentDestination];
-                    //if this is the last destination, we have to re-set the brakeAt distance and the stopAtDistance.
-                    //We start by doing this the easy way: just set the brakeAt distance to the "braking distance"
-                    _seekBehaviour.BrakeAt = Mathf.Pow(_dDelegatedSteering.GetMovementStatus().linearSpeed, 2) / (2 * _seekBehaviour.Deceleration) + 0.5f;  //a correction term
-                    _seekBehaviour.StopAt = 0.1f;
-                    _seekBehaviour.Destination = _currentDestination;
-                    _updatedDestination = false;
+                    _seekBehaviour.CurrentDestination = _currentDestination;
+                    if (Vector3.Distance(transform.position, _currentDestination) <= _seekBehaviour.StopAt)
+                    {
+                        _seekBehaviour.IsDestinationValid = false;
+                        Debug.Log("AAA 2");
+                    }
+                    Debug.Log("AAA 1");
                 }
-
-                //if the last destination has been reached (change state)
-                if (_indexCurrentDestination > _pathRoaming.Count - 1)
+                else
                 {
-                    _seekBehaviour.IsDestinationValid = false;
+                    _indexCurrentDestination++;
+                    //if the next destination is not the last
+                    if (_indexCurrentDestination < _pathRoaming.Count - 1)
+                    {
+                        _currentDestination = _pathRoaming[_indexCurrentDestination];
+                        _seekBehaviour.CurrentDestination = _currentDestination;
+                        _updatedDestination = false;
+                    }
 
-
-                    
                 }
+
+
+
                 
 
                 

@@ -7,7 +7,8 @@ namespace SteeringBehaviourNamespace
 	public class SeekBehaviour : MovementBehaviour
 	{
 
-		public Vector3 Destination;
+		public Vector3 CurrentDestination;
+		public Vector3 FinalDestination;
 		public bool IsDestinationValid = false;
 
 		public float Acceleration = 0f;
@@ -23,13 +24,14 @@ namespace SteeringBehaviourNamespace
 
 			if (IsDestinationValid)
 			{
-				Vector3 toDestination = (Destination - transform.position);
+				Vector3 toDestinationCurrent = (CurrentDestination - transform.position);
+				Vector3 toDestinationFinal = (FinalDestination - transform.position);
 
-				if (toDestination.magnitude > StopAt)
+				if (toDestinationCurrent.magnitude > StopAt || toDestinationCurrent.magnitude <= StopAt)
 				{
-					Vector3 tangentComponent = Vector3.Project(toDestination.normalized, status.movementDirection);
-					Vector3 normalComponent = (toDestination.normalized - tangentComponent);
-					return (tangentComponent * (toDestination.magnitude > BrakeAt ? Acceleration : -Deceleration)) + (normalComponent * Steer);
+					Vector3 tangentComponent = Vector3.Project(toDestinationCurrent.normalized, status.movementDirection);
+					Vector3 normalComponent = (toDestinationCurrent.normalized - tangentComponent);
+					return (tangentComponent * (toDestinationFinal.magnitude > BrakeAt ? Acceleration : -Deceleration)) + (normalComponent * Steer);
 				}
 				else
 				{

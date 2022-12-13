@@ -13,7 +13,7 @@ namespace SteeringBehaviourNamespace
 
 		public override Vector3 GetAcceleration(MovementStatus status)
 		{
-			//return Vector3.zero;
+			return Vector3.zero;
 
 			Vector3 res = -(status.movementDirection.normalized * status.linearSpeed / linearDrag)
 				   - ((Quaternion.Euler(0f, 90f, 0f) * status.movementDirection.normalized) * status.angularSpeed / angularDrag);

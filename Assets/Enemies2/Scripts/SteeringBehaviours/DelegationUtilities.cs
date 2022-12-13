@@ -61,11 +61,11 @@ namespace SteeringBehaviourNamespace
 			//if (dist <= body.gameObject.GetComponent<SeekBehaviour>().stopAt) return;
 			//body.gameObject.GetComponent<SeekBehaviour>().brakeAt = Mathf.Pow(status.linearSpeed, 2) / (2*body.gameObject.GetComponent<SeekBehaviour>().brake);
 
-			if (Mathf.Abs(status.linearSpeed) >= 0.1f)
-			{
+			//if (Mathf.Abs(status.linearSpeed) >= 0.1f)
+			//{
 
 				body.MovePosition(body.position + new Vector2(status.movementDirection.x, status.movementDirection.y) * tangentDelta);
-			}
+			//}
 			//body.MoveRotation(body.rotation * Quaternion.Euler(0f, 0f, rotationDelta));
 			//body.MoveRotation(Quaternion.AngleAxis(rotationDelta, Vector3.forward));
 			body.MoveRotation(body.rotation + rotationDelta);
