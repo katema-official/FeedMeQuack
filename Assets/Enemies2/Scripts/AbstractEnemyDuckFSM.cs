@@ -23,6 +23,7 @@ namespace DuckEnemies
         [SerializeField] protected float _decelerationRoaming;
         [SerializeField] protected float _steerRoaming;
         [SerializeField] protected float _chillingTime;
+        [SerializeField] protected float _desiredRoamingDistance;
 
         [SerializeField] protected float _speedFoodSeeking;                        //max speed, acceleration, deceleration and steer
         [SerializeField] protected float _accelerationFoodSeeking;                 //at which the duck moves when going after a piece 
@@ -92,6 +93,7 @@ namespace DuckEnemies
 
         void Awake()
         {
+            //Initialization of internal data structures and variables
             _refusedBreadsCircle1 = new HashSet<int>();
             _refusedBreadsCircle2 = new HashSet<int>();
             _refusedBreadsCircle3 = new HashSet<int>();
@@ -99,10 +101,52 @@ namespace DuckEnemies
             _breadInMouthBeingEaten = null;
             _state = EnemyDuckFSMEnumState.State.HubState;
 
+
+            _speedRoaming = _myEnemyDuckDescription.SpeedRoaming;
+            _accelerationRoaming = _myEnemyDuckDescription.AccelerationRoaming;
+            _decelerationRoaming = _myEnemyDuckDescription.DecelerationRoaming;
+            _steerRoaming = _myEnemyDuckDescription.SteerRoaming;
+            _chillingTime = _myEnemyDuckDescription.ChillingTime;
+            _desiredRoamingDistance = _myEnemyDuckDescription.DesiredRoamingDistance;
+
+            _speedFoodSeeking = _myEnemyDuckDescription.SpeedFoodSeeking;
+            _accelerationFoodSeeking = _myEnemyDuckDescription.AccelerationFoodSeeking;
+            _decelerationFoodSeeking = _myEnemyDuckDescription.DecelerationFoodSeeking;
+            _steerFoodSeeking = _myEnemyDuckDescription.DecelerationFoodSeeking;
+
+            _circle1BreadRadius = _myEnemyDuckDescription.Circle1BreadRadius;
+            _circle2BreadRadius = _myEnemyDuckDescription.Circle2BreadRadius;
+            _circle3BreadRadius = _myEnemyDuckDescription.Circle3BreadRadius;
+            _circle1BreadProbability = _myEnemyDuckDescription.Circle1BreadProbability;
+            _circle2BreadProbability = _myEnemyDuckDescription.Circle2BreadProbability;
+            _circle3BreadProbability = _myEnemyDuckDescription.Circle3BreadProbability;
+
+            _circle1PlayerRadius = _myEnemyDuckDescription.Circle1PlayerRadius;
+            _circle2PlayerRadius = _myEnemyDuckDescription.Circle2PlayerRadius;
+            _circle3PlayerRadius = _myEnemyDuckDescription.Circle3PlayerRadius;
+            _circle1PlayerProbability = _myEnemyDuckDescription.Circle1PlayerProbability;
+            _circle2PlayerProbability = _myEnemyDuckDescription.Circle2PlayerProbability;
+            _circle3PlayerProbability = _myEnemyDuckDescription.Circle3PlayerProbability;
+
+            _dashTriggerProbability = _myEnemyDuckDescription.DashTriggerProbability;
+            _stealTriggerProbability = _myEnemyDuckDescription.StealTriggerProbability;
+
+            _speedDash = _myEnemyDuckDescription.SpeedDash;
+            _accelerationDash = _myEnemyDuckDescription.AccelerationDash;
+            _decelerationDash = _myEnemyDuckDescription.DecelerationDash;
+            _steerDash = _myEnemyDuckDescription.SteerDash;
+
+            _speedChasing = _myEnemyDuckDescription.SpeedChasing;
+            _accelerationChasing = _myEnemyDuckDescription.AccelerationChasing;
+            _decelerationChasing = _myEnemyDuckDescription.DecelerationChasing;
+            _steerChasing = _myEnemyDuckDescription.SteerChasing;
+
+            _mouthSize = _myEnemyDuckDescription.MouthSize;
+            _chewingRate = _myEnemyDuckDescription.ChewingRate;
+
+
             _roamingComponent = GetComponent<RoamingComponent>();
-            _roamingComponent.Initialize(_speedRoaming, _accelerationRoaming, _decelerationRoaming, _steerRoaming, _chillingTime);
-
-
+            _roamingComponent.Initialize(_speedRoaming, _accelerationRoaming, _decelerationRoaming, _steerRoaming, _chillingTime, _desiredRoamingDistance);
 
             //Initialization of the FSM
 
