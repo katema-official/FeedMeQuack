@@ -223,7 +223,7 @@ namespace GraphLakeNamespace {
 
 
             //then, we need to smooth the path based on the collider of the entity that wants to move in that direction
-            List<Vector3> necessaryPoints = new List<Vector3>(); //{ start };   //the starting point shouldn't be necessary: the caller is already there,
+            List<Vector3> necessaryPoints = new List<Vector3>(){ start };   //the starting point shouldn't be necessary: the caller is already there, but for debug reasons we put it anyway (will be ignored in any case)
             //so in the list of points it needs to traverse (that's what this function returns) there shouldn't be the start
             Vector3 currentPoint = start;
             Vector3 nextPoint;
@@ -251,6 +251,8 @@ namespace GraphLakeNamespace {
                 }
             }
             necessaryPoints.Add(end);
+
+            DrawPath(necessaryPoints);
 
             return necessaryPoints;
 

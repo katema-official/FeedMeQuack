@@ -95,8 +95,8 @@ namespace DuckEnemies
             //FIRST: I get the directions in which I can move
             List<DirectionsRoaming> directionPreferences = GetDirectionPreferences();
             //SECOND: I choose a point in which I want to move, preferring the ones in the first directions of the list
-
-
+            Vector3 dest = GetRoamingGoal(directionPreferences);
+            List<Vector3> pathRoaming = _tileGraphComponent.GetPathFromPointToPoint(transform.position, dest, GetComponent<CircleCollider2D>()); 
 
 
             //per domani: come scegli dove andare? a caso dentro un cerchio? o qualcosa di un po' più complesso?

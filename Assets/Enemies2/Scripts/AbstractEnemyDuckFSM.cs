@@ -159,6 +159,7 @@ namespace DuckEnemies
             chilling.exitActions.Add(_roamingComponent.ExitChilling);
 
             FSMState roaming = new FSMState();
+            roaming.enterActions.Add(_roamingComponent.EnterRoaming_ChooseRandomPath);
 
 
 
