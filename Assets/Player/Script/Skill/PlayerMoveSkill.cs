@@ -293,6 +293,7 @@ namespace Player
 
                 _rigidBody.AddForce(_finalDir * _force, ForceMode2D.Force);
                 _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity, speed);
+
             }
             else
             {
@@ -446,6 +447,12 @@ namespace Player
         private void FixedUpdate()
         {
             MoveCamera();
+            var screenPos = _camera.WorldToScreenPoint(_rigidBody.position);
+            Debug.Log("screen: " + screenPos);
+            screenPos.y += 80;
+            screenPos.x -= 20;
+            _controller.GetUICanvas().GetStatusView().SetPosition(screenPos);
+
             if (_controller.GetState() != PlayerState.Normal) return;
 
             Move(_speed/*, _moveForward*/);
