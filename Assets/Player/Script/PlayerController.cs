@@ -20,6 +20,7 @@ namespace Player
 
         private PlayerUICanvas _uiCanvas = null;
 
+
         private PlayerDuckDescriptionSO _description = null;
         private List<PlayerSkill> _skills;
         private Animator _animator;

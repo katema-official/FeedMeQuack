@@ -251,6 +251,8 @@ namespace Player
             _mustStopEating = false;
             _controller.GetUICanvas().GetStatusView().SetVisible(true);
 
+            Music.UniversalAudio.PlaySound("Duck 01", _controller.transform);
+
             while (!_hasBreadBeenFullyEaten && !_mustStopEating)
             {
                 _controller.GetUICanvas().GetStatusView().SetText("" + _caughtBread.GetBreadPoints());
