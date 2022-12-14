@@ -22,6 +22,7 @@ namespace DuckEnemies
         private TileGraphComponent _tileGraphComponent;
 
         private MovementSeekComponent _movementSeekComponent;
+        private Animator _animator;
 
 
         //this component takes car of the states:
@@ -62,6 +63,7 @@ namespace DuckEnemies
             _lakeShopDescriptionComponent = GameObject.Find("WholeLake").GetComponent<LakeShopDescriptionComponent>();
             _tileGraphComponent = GameObject.Find("TileGraphLake").GetComponent<TileGraphComponent>();
             _movementSeekComponent = GetComponent<MovementSeekComponent>();
+            _animator = transform.Find("Sprite").GetComponent<Animator>();
             _destinationRoamingReached = false;
         }
 

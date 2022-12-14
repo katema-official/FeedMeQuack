@@ -235,7 +235,8 @@ namespace GraphLakeNamespace {
 
                 //set up the CircleCast for the next point
                 Vector2 direction = new Vector2(nextPoint.x, nextPoint.y) - new Vector2(currentPoint.x, currentPoint.y);
-                float distance = _lakeGraph.distance(nextPoint.x, nextPoint.y, currentPoint.x, currentPoint.y);
+                direction.Normalize();
+                float distance = Vector2.Distance(new Vector2(nextPoint.x, nextPoint.y), new Vector2(currentPoint.x, currentPoint.y));
                 RaycastHit2D hit = Physics2D.CircleCast(currentPoint, radius, direction, distance, LayerMask.GetMask("TerrainLayer"));
 
                 if(hit.collider != null)
@@ -245,7 +246,9 @@ namespace GraphLakeNamespace {
                     currentPoint = allPoints[i-1];
 
                     //do I see the final destination? If so, we can finish before
-                    distance = _lakeGraph.distance(end.x, end.y, currentPoint.x, currentPoint.y);
+                    direction = new Vector2(end.x, end.y) - new Vector2(currentPoint.x, currentPoint.y);
+                    direction.Normalize();
+                    distance = Vector2.Distance(new Vector2(end.x, end.y), new Vector2(currentPoint.x, currentPoint.y));
                     hit = Physics2D.CircleCast(currentPoint, radius, direction, distance, LayerMask.GetMask("TerrainLayer"));
                     if (hit.collider == null) break;
                 }
