@@ -20,9 +20,7 @@ namespace DuckEnemies
         private LakeShopDescriptionComponent _lakeShopDescriptionComponent;
         private TileGraphComponent _tileGraphComponent;
 
-        private DDelegatedSteering _dDelegatedSteering;
-        private SeekBehaviour _seekBehaviour;
-        private DragBehaviour _dragBehaviour;
+        private MovementSeekComponent _movementSeekComponent;
 
 
         //this component takes car of the states:
@@ -61,9 +59,7 @@ namespace DuckEnemies
             _desiredRoamingDistance = desiredRoamingDistance;
             _lakeShopDescriptionComponent = GameObject.Find("WholeLake").GetComponent<LakeShopDescriptionComponent>();
             _tileGraphComponent = GameObject.Find("TileGraphLake").GetComponent<TileGraphComponent>();
-            _dDelegatedSteering = GetComponent<DDelegatedSteering>();
-            _seekBehaviour = GetComponent<SeekBehaviour>();
-            _dragBehaviour = GetComponent<DragBehaviour>();
+            _movementSeekComponent = GetComponent<MovementSeekComponent>();
             //GetComponent<Rigidbody2D>().WakeUp();
             _destinationRoamingReached = false;
         }
@@ -114,58 +110,77 @@ namespace DuckEnemies
             //SECOND: I choose a point in which I want to move, preferring the ones in the first directions of the list
             Vector3 dest = GetRoamingGoal(directionPreferences);
             _pathRoaming = _tileGraphComponent.GetPathFromPointToPoint(transform.position, dest, GetComponent<CircleCollider2D>());
-            _indexCurrentDestination = -1;
+            _indexCurrentDestination = 0;
             _currentDestination = _pathRoaming[0];
-            _updatedDestination = true;
+            //_updatedDestination = false;
 
             //THIRD: I have to follow this path. The path will be followed starting from here, and it will be updated in the stay action
-            _seekBehaviour.CurrentDestination = _currentDestination;
-            _seekBehaviour.FinalDestination = _pathRoaming[_pathRoaming.Count - 1];
+            _movementSeekComponent.CurrentDestination = _currentDestination;
+            _movementSeekComponent.FinalDestination = _pathRoaming[_pathRoaming.Count - 1];
 
             //THIRD AND A HALF: I should also set the brakeAt and stopAt of the seekComponent depending on the fact that this is the final
             //destination or not AND depending on the fact that I will get close to it at full speed or not.
             //For the moment, I simply set them to 0
-            _seekBehaviour.BrakeAt = 0f;
-            _seekBehaviour.StopAt = 0f;
-            _seekBehaviour.IsDestinationValid = true;
+            
 
-            Vector2 currentPosition = new Vector2(transform.position.x, transform.position.y);
-            float degrees = Vector2.SignedAngle(currentPosition + Vector2.right, 
-                currentPosition + new Vector2(_currentDestination.x, _currentDestination.y));
-            Debug.Log("Degrees = " + degrees);
-            GetComponent<Rigidbody2D>().SetRotation(degrees);
 
         }
 
         //enter method for Roaming: set speed and such for the seek component
         public void EnterRoaming_SetSteeringBehaviour()
         {
-            _dDelegatedSteering.maxLinearSpeed = _speedRoaming;
-            _seekBehaviour.Acceleration = _accelerationRoaming;
-            _seekBehaviour.Deceleration = _decelerationRoaming;
-            _seekBehaviour.Steer = _steerRoaming;
+            _movementSeekComponent.MaxSpeed = _speedRoaming;
+            //_movementSeekComponent.MaxSteer will be set when the first destination is reached
+            _movementSeekComponent.Acceleration = _accelerationRoaming;
+            _movementSeekComponent.Deceleration = _decelerationRoaming;
 
-            _seekBehaviour.StopAt = _tileGraphComponent.GetOffsetX()/2; //assuming that x and y have the same offset
-            _seekBehaviour.BrakeAt = Mathf.Pow(_speedRoaming, 2) / (2 * _decelerationRoaming) + _seekBehaviour.StopAt;
+            _movementSeekComponent.BrakeAt = 5f;
+            _movementSeekComponent.StopAt = 3f;     //_tileGraphComponent.GetOffsetX()/2;                 //assuming that x and y have the same offset
 
-            _dragBehaviour.linearDrag = 5f;
-            _dragBehaviour.angularDrag = 3f;
+            _movementSeekComponent.SetInitialSteer();
 
-            Debug.Log("STANDING HERE");
+            _movementSeekComponent.StartMoving();// IsDestinationValid = true;
+
             _destinationRoamingReached = false;
 
         }
 
 
-        private int _indexCurrentDestination = -1;
+        private int _indexCurrentDestination = 0;
         private Vector3 _currentDestination;
         private float _tresholdCurrentDestinationReached = 1.5f;   //when the enemy duck and the currentDestination have a distance <= this value,
-                                                            //the current destination is considered reached
-        private bool _updatedDestination = true;
+                                                                   //the current destination is considered reached
+        //private bool _updatedDestination = true;
 
 
         public void StayRoaming_UpdateDestination()
         {
+            if(_indexCurrentDestination == _pathRoaming.Count - 1)
+            {
+                //when the distance between me and the final destination is lower than StopAt, i stop accelerating in that direction
+                if(Vector2.Distance(transform.position, _currentDestination) <= _movementSeekComponent.StopAt)
+                {
+                    //_movementSeekComponent.IsDestinationValid = false;
+                    _destinationRoamingReached = true;
+                }
+                return;
+            }
+
+
+            if(Vector2.Distance(transform.position, _currentDestination) <= _tresholdCurrentDestinationReached)
+            {
+                _indexCurrentDestination += 1;
+                _currentDestination = _pathRoaming[_indexCurrentDestination];
+                _movementSeekComponent.CurrentDestination = _currentDestination;
+
+                //the very moment we reach the first destination, we set the steering to its maximum value
+                _movementSeekComponent.MaxSteer = _steerRoaming;
+            }
+
+            return;
+
+            /*
+
             //To avoid repeating the same operations over and over, we proceed like this:
             //If the last destination set was reached, we compute the new one.
             //Otherwise, we don't do anything: all the values useful for the movement are already set
@@ -210,12 +225,12 @@ namespace DuckEnemies
                 }
 
 
-
+            
                 
 
                 
 
-            }
+            }*/
 
         }
 
@@ -229,7 +244,6 @@ namespace DuckEnemies
 
         public bool DestinationReached() 
         {
-            Debug.Log("will return " + _destinationRoamingReached);
             return _destinationRoamingReached;
         }
 

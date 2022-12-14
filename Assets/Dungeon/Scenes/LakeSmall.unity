@@ -3375,8 +3375,6 @@ GameObject:
   - component: {fileID: 139741127}
   - component: {fileID: 139741132}
   - component: {fileID: 139741131}
-  - component: {fileID: 139741135}
-  - component: {fileID: 139741134}
   - component: {fileID: 139741133}
   m_Layer: 0
   m_Name: RIghtPointingArrow
@@ -3524,14 +3522,14 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &139741132
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3557,44 +3555,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 139741126}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc369ed99be4e64429a62da641e21148, type: 3}
+  m_Script: {fileID: 11500000, guid: 23806d12d137f0b44bdfe3e86ea876fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minLinearSpeed: 0
-  maxLinearSpeed: 5
-  maxAngularSpeed: 5
---- !u!114 &139741134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 139741126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a76c3e8e95d98b4e8432bdbd41e2a45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  linearDrag: 5
-  angularDrag: 3
---- !u!114 &139741135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 139741126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 614e5cc60cc304346bac1b15c7d0c110, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Destination: {fileID: 0}
-  Acceleration: 3
-  Steer: 30
-  Deceleration: 20
-  BrakeAt: 5
-  StopAt: 0.01
+  FinalDestination: {x: 0, y: 0}
+  CurrentDestination: {x: 0, y: 0}
+  IsDestinationValid: 0
+  MaxSpeed: 0
+  Acceleration: 0
+  StopAt: 0
 --- !u!1 &166821737
 GameObject:
   m_ObjectHideFlags: 0
