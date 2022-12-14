@@ -18,6 +18,7 @@ MonoBehaviour:
   SteerRoaming: 10
   ChillingTime: 3
   DesiredRoamingDistance: 21
+  StopAtRoaming: 3
   SpeedFoodSeeking: 20
   AccelerationFoodSeeking: 20
   DecelerationFoodSeeking: 20

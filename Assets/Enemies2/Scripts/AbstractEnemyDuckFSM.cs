@@ -24,6 +24,7 @@ namespace DuckEnemies
         [SerializeField] protected float _steerRoaming;
         [SerializeField] protected float _chillingTime;
         [SerializeField] protected float _desiredRoamingDistance;
+        [SerializeField] protected float _stopAtRoaming;
 
         [SerializeField] protected float _speedFoodSeeking;                        //max speed, acceleration, deceleration and steer
         [SerializeField] protected float _accelerationFoodSeeking;                 //at which the duck moves when going after a piece 
@@ -108,6 +109,7 @@ namespace DuckEnemies
             _steerRoaming = _myEnemyDuckDescription.SteerRoaming;
             _chillingTime = _myEnemyDuckDescription.ChillingTime;
             _desiredRoamingDistance = _myEnemyDuckDescription.DesiredRoamingDistance;
+            _stopAtRoaming = _myEnemyDuckDescription.StopAtRoaming;
 
             _speedFoodSeeking = _myEnemyDuckDescription.SpeedFoodSeeking;
             _accelerationFoodSeeking = _myEnemyDuckDescription.AccelerationFoodSeeking;
@@ -146,7 +148,7 @@ namespace DuckEnemies
 
 
             _roamingComponent = GetComponent<RoamingComponent>();
-            _roamingComponent.Initialize(_speedRoaming, _accelerationRoaming, _decelerationRoaming, _steerRoaming, _chillingTime, _desiredRoamingDistance);
+            _roamingComponent.Initialize(_speedRoaming, _accelerationRoaming, _decelerationRoaming, _steerRoaming, _chillingTime, _desiredRoamingDistance, _stopAtRoaming);
 
             //Initialization of the FSM
 

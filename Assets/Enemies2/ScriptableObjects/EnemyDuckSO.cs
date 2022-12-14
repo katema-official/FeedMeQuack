@@ -14,6 +14,7 @@ namespace DuckEnemies
         public float SteerRoaming;
         public float ChillingTime;
         public float DesiredRoamingDistance;
+        public float StopAtRoaming;
 
         public float SpeedFoodSeeking;
         public float AccelerationFoodSeeking;

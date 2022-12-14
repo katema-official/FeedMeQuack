@@ -15,6 +15,7 @@ namespace DuckEnemies
         private float _accelerationRoaming;                 //at which the duck moves when roaming
         private float _decelerationRoaming;
         private float _steerRoaming;
+        private float _stopAtRoaming;
         private float _chillingTime;
 
         private LakeShopDescriptionComponent _lakeShopDescriptionComponent;
@@ -49,7 +50,7 @@ namespace DuckEnemies
         private float _desiredRoamingDistance;
 
         public void Initialize(float speedRoaming, float accelerationRoaming, float decelerationRoaming, float steerRoaming, 
-            float chillingTime, float desiredRoamingDistance)
+            float chillingTime, float desiredRoamingDistance, float roamingStopAt)
         {
             _speedRoaming = speedRoaming;
             _accelerationRoaming = accelerationRoaming;
@@ -57,10 +58,10 @@ namespace DuckEnemies
             _steerRoaming = steerRoaming;
             _chillingTime = chillingTime;
             _desiredRoamingDistance = desiredRoamingDistance;
+            _stopAtRoaming = roamingStopAt;
             _lakeShopDescriptionComponent = GameObject.Find("WholeLake").GetComponent<LakeShopDescriptionComponent>();
             _tileGraphComponent = GameObject.Find("TileGraphLake").GetComponent<TileGraphComponent>();
             _movementSeekComponent = GetComponent<MovementSeekComponent>();
-            //GetComponent<Rigidbody2D>().WakeUp();
             _destinationRoamingReached = false;
         }
 
@@ -112,15 +113,11 @@ namespace DuckEnemies
             _pathRoaming = _tileGraphComponent.GetPathFromPointToPoint(transform.position, dest, GetComponent<CircleCollider2D>());
             _indexCurrentDestination = 0;
             _currentDestination = _pathRoaming[0];
-            //_updatedDestination = false;
 
             //THIRD: I have to follow this path. The path will be followed starting from here, and it will be updated in the stay action
             _movementSeekComponent.CurrentDestination = _currentDestination;
             _movementSeekComponent.FinalDestination = _pathRoaming[_pathRoaming.Count - 1];
 
-            //THIRD AND A HALF: I should also set the brakeAt and stopAt of the seekComponent depending on the fact that this is the final
-            //destination or not AND depending on the fact that I will get close to it at full speed or not.
-            //For the moment, I simply set them to 0
             
 
 
@@ -134,8 +131,7 @@ namespace DuckEnemies
             _movementSeekComponent.Acceleration = _accelerationRoaming;
             _movementSeekComponent.Deceleration = _decelerationRoaming;
 
-            _movementSeekComponent.BrakeAt = 5f;
-            _movementSeekComponent.StopAt = 3f;     //_tileGraphComponent.GetOffsetX()/2;                 //assuming that x and y have the same offset
+            _movementSeekComponent.StopAt = _stopAtRoaming;
 
             _movementSeekComponent.SetInitialSteer();
 
@@ -176,61 +172,7 @@ namespace DuckEnemies
                 //the very moment we reach the first destination, we set the steering to its maximum value
                 _movementSeekComponent.MaxSteer = _steerRoaming;
             }
-
             return;
-
-            /*
-
-            //To avoid repeating the same operations over and over, we proceed like this:
-            //If the last destination set was reached, we compute the new one.
-            //Otherwise, we don't do anything: all the values useful for the movement are already set
-            //We assume, to be general, that we have to start by setting the destination
-            if(_updatedDestination == false && Vector3.Distance(transform.position, _currentDestination) <= _tresholdCurrentDestinationReached)
-            {
-                _updatedDestination = true;
-            }
-
-            //read "_updatedDestination = true" as: "Hey, there is a new destination to reach, so, do all the necessary stuff to reach it!"
-            if (_updatedDestination == true)
-            {
-
-                //if the next destination is the last
-
-                //we have to make sure that, once our duck gets near the destination, it doesn't keep going.
-                //If at a certain point the duck gets further from the destination, stop it.
-                //CE L'HO! USA LE TILES!!!
-                if (_indexCurrentDestination == _pathRoaming.Count - 1)
-                {
-                    _currentDestination = _pathRoaming[_indexCurrentDestination];
-                    _seekBehaviour.CurrentDestination = _currentDestination;
-                    if (Vector3.Distance(transform.position, _currentDestination) <= _seekBehaviour.StopAt)
-                    {
-                        _seekBehaviour.IsDestinationValid = false;
-                        _destinationRoamingReached = true;
-                        Debug.Log("AAA 2");
-                    }
-                    Debug.Log("AAA 1");
-                }
-                else
-                {
-                    _indexCurrentDestination++;
-                    //if the next destination is not the last
-                    if (_indexCurrentDestination < _pathRoaming.Count - 1)
-                    {
-                        _currentDestination = _pathRoaming[_indexCurrentDestination];
-                        _seekBehaviour.CurrentDestination = _currentDestination;
-                        _updatedDestination = false;
-                    }
-
-                }
-
-
-            
-                
-
-                
-
-            }*/
 
         }
 
@@ -269,24 +211,28 @@ namespace DuckEnemies
                     l_left_right = l_left_right.OrderBy(x => Random.Range(0f, 1f)).Take(2).ToList<DirectionsRoaming>();
                     l.AddRange(l_left_right);
                     l.Add(DirectionsRoaming.Down);
+                    l.Add(DirectionsRoaming.Up);
                     break;
                 case DirectionsRoaming.Down:
                     l = new List<DirectionsRoaming>();
                     l_left_right = l_left_right.OrderBy(x => Random.Range(0f, 1f)).Take(2).ToList<DirectionsRoaming>();
                     l.AddRange(l_left_right);
                     l.Add(DirectionsRoaming.Up);
+                    l.Add(DirectionsRoaming.Down);
                     break;
                 case DirectionsRoaming.Left:
                     l = new List<DirectionsRoaming>();
                     l_up_down = l_up_down.OrderBy(x => Random.Range(0f, 1f)).Take(2).ToList<DirectionsRoaming>();
                     l.AddRange(l_up_down);
                     l.Add(DirectionsRoaming.Right);
+                    l.Add(DirectionsRoaming.Left);
                     break;
                 case DirectionsRoaming.Right:
                     l = new List<DirectionsRoaming>();
                     l_up_down = l_up_down.OrderBy(x => Random.Range(0f, 1f)).Take(2).ToList<DirectionsRoaming>();
                     l.AddRange(l_up_down);
                     l.Add(DirectionsRoaming.Left);
+                    l.Add(DirectionsRoaming.Right);
                     break;
                 default:
                     l = null;
