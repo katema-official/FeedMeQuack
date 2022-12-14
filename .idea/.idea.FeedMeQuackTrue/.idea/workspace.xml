@@ -3,14 +3,24 @@
   <component name="ChangeListManager">
     <list default="true" id="0808f2d5-72ad-4799-babc-2a377af7996b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuackTrue/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuackTrue/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Feedback/SimplePrototypeSkeleton/Scripts/MenuManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Feedback/SimplePrototypeSkeleton/Scripts/MenuManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Music/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/MainMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Prefabs/AudioManager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Prefabs/AudioManager.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Prefabs/MainMenuCanvas.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Prefabs/MainMenuCanvas.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Materials/Coot.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Materials/Coot.jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/SFX/Bought.wav" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Resources/SFX/Bought.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/SFX/BreadInWater.wav" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Resources/SFX/BreadInWater.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/SFX/CannotBuy.wav" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Resources/SFX/CannotBuy.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/SFX/Flying.wav" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Resources/SFX/Flying.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/SFX/LakeClear.wav" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Resources/SFX/LakeClear.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/SFX/SpitBreakSound.wav" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Resources/SFX/SpitBreakSound.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/SFX/SpittingSoundUp.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/Songs/Combat.wav" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Resources/Songs/Combat.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/Songs/Swimming.wav" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Resources/Songs/Swimming.wav" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/MusicManagerComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Scripts/MusicManagerComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/PauseManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Scripts/PauseManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/UniversalAudio.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Scripts/UniversalAudio.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Player/Prefab/DuckPlayer.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Player/Prefab/DuckPlayer.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
@@ -20,10 +30,10 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/../../../FeedMeQuackTrue/Assets/Enemies/Scripts/EnemyFSM.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../../../FeedMeQuackTrue/Assets/Player/Script/Skill/PlayerEatSkill.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../../../FeedMeQuackTrue/Assets/Player/Script/Skill/PlayerStealSkill.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Music/Scripts/AnimalSoundController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Music/Scripts/DisclaimerController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Music/Scripts/QuitButton.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Music/Scripts/SpitBarSoundController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Music/Assets/Scripts/MusicManagerComponent.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -87,6 +97,8 @@
       <workItem from="1669849081236" duration="378000" />
       <workItem from="1669894170236" duration="14061000" />
       <workItem from="1670139795258" duration="4131000" />
+      <workItem from="1670665680263" duration="17881000" />
+      <workItem from="1670748144132" duration="47646000" />
     </task>
     <servers />
   </component>
