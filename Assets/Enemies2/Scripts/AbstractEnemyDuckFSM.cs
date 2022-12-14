@@ -73,12 +73,7 @@ namespace DuckEnemies
 
 
 
-        //these sets save up the bread that was refused. Each bread gameobject is recorded as it InstanceID (GetInstanceID())
-        protected HashSet<int> _refusedBreadsCircle1;
-        protected HashSet<int> _refusedBreadsCircle2;
-        protected HashSet<int> _refusedBreadsCircle3;
-
-        protected GameObject _breadInWaterObjectiveGO;
+        //TO MOVE
         protected BreadInMouthComponent _breadInMouthBeingEaten;
 
         protected EnemyDuckFSMEnumState.State _state;
@@ -89,16 +84,14 @@ namespace DuckEnemies
 
         //the other components of this gameobject (we can't have all the code in one place!)
         protected RoamingComponent _roamingComponent;
+        protected IdentifyFoodComponent _identifyFoodComponent;
 
 
 
         void Awake()
         {
             //Initialization of internal data structures and variables
-            _refusedBreadsCircle1 = new HashSet<int>();
-            _refusedBreadsCircle2 = new HashSet<int>();
-            _refusedBreadsCircle3 = new HashSet<int>();
-            _breadInWaterObjectiveGO = null;
+            //TO MOVE
             _breadInMouthBeingEaten = null;
             _state = EnemyDuckFSMEnumState.State.HubState;
 
@@ -149,6 +142,9 @@ namespace DuckEnemies
 
             _roamingComponent = GetComponent<RoamingComponent>();
             _roamingComponent.Initialize(_speedRoaming, _accelerationRoaming, _decelerationRoaming, _steerRoaming, _chillingTime, _desiredRoamingDistance, _stopAtRoaming);
+            _identifyFoodComponent = GetComponent<IdentifyFoodComponent>();
+            _identifyFoodComponent.Initialize(_circle1BreadRadius, _circle2BreadRadius, _circle3BreadRadius,
+                _circle1BreadProbability, _circle2BreadProbability, _circle3BreadProbability);
 
             //Initialization of the FSM
 
