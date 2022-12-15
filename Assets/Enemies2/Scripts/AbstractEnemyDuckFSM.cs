@@ -143,8 +143,9 @@ namespace DuckEnemies
             _roamingComponent = GetComponent<RoamingComponent>();
             _roamingComponent.Initialize(_speedRoaming, _accelerationRoaming, _decelerationRoaming, _steerRoaming, _chillingTime, _desiredRoamingDistance, _stopAtRoaming);
             _identifyFoodComponent = GetComponent<IdentifyFoodComponent>();
-            _identifyFoodComponent.Initialize(_circle1BreadRadius, _circle2BreadRadius, _circle3BreadRadius,
-                _circle1BreadProbability, _circle2BreadProbability, _circle3BreadProbability);
+            _identifyFoodComponent.Initialize(_circle1BreadRadius, _circle2BreadRadius, _circle3BreadRadius, _circle1BreadProbability, _circle2BreadProbability, _circle3BreadProbability);
+
+
 
             //Initialization of the FSM
 
