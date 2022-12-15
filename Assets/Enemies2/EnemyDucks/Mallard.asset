@@ -23,14 +23,14 @@ MonoBehaviour:
   AccelerationFoodSeeking: 20
   DecelerationFoodSeeking: 20
   SteerFoodSeeking: 80
-  Circle1BreadRadius: 7
-  Circle2BreadRadius: 12
+  Circle1BreadRadius: 10
+  Circle2BreadRadius: 13
   Circle3BreadRadius: 16
   Circle1BreadProbability: 1
   Circle2BreadProbability: 0.7
   Circle3BreadProbability: 0.4
-  Circle1PlayerRadius: 7
-  Circle2PlayerRadius: 12
+  Circle1PlayerRadius: 10
+  Circle2PlayerRadius: 13
   Circle3PlayerRadius: 16
   Circle1PlayerProbability: 1
   Circle2PlayerProbability: 0.7

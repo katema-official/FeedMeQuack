@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5752818651182031547}
   - component: {fileID: 9199695255296371306}
+  - component: {fileID: 7589914270819933481}
   m_Layer: 0
   m_Name: BreadCollider2
   m_TagString: Untagged
@@ -48,6 +49,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 10
+--- !u!114 &7589914270819933481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410060959356094263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb09e4d64b844248b29ffa26f1da40e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 2
 --- !u!1 &1758801312685362596
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,10 +72,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1758801312685362600}
   - component: {fileID: 1758801312685362602}
-  - component: {fileID: 1758801312685362597}
   - component: {fileID: 1758801312685362606}
   - component: {fileID: 1758801312685362601}
   - component: {fileID: 1758801312685362607}
+  - component: {fileID: 1758801312685362597}
   - component: {fileID: 8399497446229206262}
   m_Layer: 0
   m_Name: EnemyMallard
@@ -137,18 +151,6 @@ MonoBehaviour:
   _mouthSize: 0
   _chewingRate: 0
   _myEnemyDuckDescription: {fileID: 11400000, guid: aa9b6961286ad034dbc9bb4a0ded93c1, type: 2}
---- !u!114 &1758801312685362597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1758801312685362596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3c71fac8ce19694bbfa5b0faec778d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &1758801312685362606
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -208,6 +210,18 @@ MonoBehaviour:
   Deceleration: 0
   StopAt: 0
   _initialSteer: 3
+--- !u!114 &1758801312685362597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758801312685362596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3c71fac8ce19694bbfa5b0faec778d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8399497446229206262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,6 +349,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1810251744743779629}
   - component: {fileID: 3082132160318803605}
+  - component: {fileID: 7691587044160769360}
   m_Layer: 0
   m_Name: BreadCollider3
   m_TagString: Untagged
@@ -373,6 +388,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 15
+--- !u!114 &7691587044160769360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5337025527318624307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb09e4d64b844248b29ffa26f1da40e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 3
 --- !u!1 &5590090883701427654
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,6 +411,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3525119631585101411}
   - component: {fileID: 1572621774556376618}
+  - component: {fileID: 3366117125588145404}
   m_Layer: 0
   m_Name: BreadCollider1
   m_TagString: Untagged
@@ -421,3 +450,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 5
+--- !u!114 &3366117125588145404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5590090883701427654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb09e4d64b844248b29ffa26f1da40e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 1
