@@ -11,8 +11,9 @@ namespace DuckEnemies
             HubState,           //state where the duck decides what's the new most important action to do.
             Chilling,           //where the duck stays still for some moments
             Roaming,            //the duck moves to a random point
+            FoodSeen,          //the duck has seen some bread. It's an intermediate state that will decide what to do after seeing a bread
             Dashing,            //the duck is dashing directly towards the bread
-            BreadSeeking,       //the duck is going after the bread following a path
+            FoodSeeking,       //the duck is going after the bread following a path
             Bite,               //after dashing/breadSeeking, this state is used to check if the bread is still there
             Eating,             //the duck eats the bread
             StealingPassive,    //the duck is getting robbed by the player

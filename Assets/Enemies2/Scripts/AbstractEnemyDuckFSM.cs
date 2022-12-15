@@ -30,15 +30,16 @@ namespace DuckEnemies
         [SerializeField] protected float _accelerationFoodSeeking;                 //at which the duck moves when going after a piece 
         [SerializeField] protected float _decelerationFoodSeeking;                 //of bread
         [SerializeField] protected float _steerFoodSeeking;
+        [SerializeField] protected float _stopAtFoodSeeking;
 
         //####################################### CIRCLES THAT DEFINE WHAT THE DUCK SEES #######################################
 
-        [SerializeField] protected float _circle1BreadRadius;                  //the radius of the three circles that define if a enemy
-        [SerializeField] protected float _circle2BreadRadius;                  //duck saw a piece of bread
-        [SerializeField] protected float _circle3BreadRadius;
-        [SerializeField] [Range(0.0f, 1.0f)] protected float _circle1BreadProbability;  //probabilities that a duck sees a piece of bread
-        [SerializeField] [Range(0.0f, 1.0f)] protected float _circle2BreadProbability;  //when it spawns inside a particular circle
-        [SerializeField] [Range(0.0f, 1.0f)] protected float _circle3BreadProbability;
+        [SerializeField] protected float _circle1FoodRadius;                  //the radius of the three circles that define if a enemy
+        [SerializeField] protected float _circle2FoodRadius;                  //duck saw a piece of bread
+        [SerializeField] protected float _circle3FoodRadius;
+        [SerializeField] [Range(0.0f, 1.0f)] protected float _circle1FoodProbability;  //probabilities that a duck sees a piece of bread
+        [SerializeField] [Range(0.0f, 1.0f)] protected float _circle2FoodProbability;  //when it spawns inside a particular circle
+        [SerializeField] [Range(0.0f, 1.0f)] protected float _circle3FoodProbability;
 
         [SerializeField] protected float _circle1PlayerRadius;                  //the radius of the three circles that define if a enemy
         [SerializeField] protected float _circle2PlayerRadius;                  //duck saw the player eating a piece of bread
@@ -79,12 +80,14 @@ namespace DuckEnemies
         protected EnemyDuckFSMEnumState.State _state;
 
         protected FSM _fsm;
-        protected float _reactionTimeFSM = 0.1f;
+        protected float _reactionTimeFSM = 0.01f;
 
 
         //the other components of this gameobject (we can't have all the code in one place!)
         protected RoamingComponent _roamingComponent;
         protected IdentifyFoodComponent _identifyFoodComponent;
+        protected FoodSeekingComponent _foodSeekingComponent;
+        protected DashingComponent _dashingComponent;
 
 
 
@@ -108,13 +111,14 @@ namespace DuckEnemies
             _accelerationFoodSeeking = _myEnemyDuckDescription.AccelerationFoodSeeking;
             _decelerationFoodSeeking = _myEnemyDuckDescription.DecelerationFoodSeeking;
             _steerFoodSeeking = _myEnemyDuckDescription.DecelerationFoodSeeking;
+            _stopAtFoodSeeking = _myEnemyDuckDescription.StopAtFoodSeeking;
 
-            _circle1BreadRadius = _myEnemyDuckDescription.Circle1BreadRadius;
-            _circle2BreadRadius = _myEnemyDuckDescription.Circle2BreadRadius;
-            _circle3BreadRadius = _myEnemyDuckDescription.Circle3BreadRadius;
-            _circle1BreadProbability = _myEnemyDuckDescription.Circle1BreadProbability;
-            _circle2BreadProbability = _myEnemyDuckDescription.Circle2BreadProbability;
-            _circle3BreadProbability = _myEnemyDuckDescription.Circle3BreadProbability;
+            _circle1FoodRadius = _myEnemyDuckDescription.Circle1FoodRadius;
+            _circle2FoodRadius = _myEnemyDuckDescription.Circle2FoodRadius;
+            _circle3FoodRadius = _myEnemyDuckDescription.Circle3FoodRadius;
+            _circle1FoodProbability = _myEnemyDuckDescription.Circle1FoodProbability;
+            _circle2FoodProbability = _myEnemyDuckDescription.Circle2FoodProbability;
+            _circle3FoodProbability = _myEnemyDuckDescription.Circle3FoodProbability;
 
             _circle1PlayerRadius = _myEnemyDuckDescription.Circle1PlayerRadius;
             _circle2PlayerRadius = _myEnemyDuckDescription.Circle2PlayerRadius;
@@ -143,8 +147,11 @@ namespace DuckEnemies
             _roamingComponent = GetComponent<RoamingComponent>();
             _roamingComponent.Initialize(_speedRoaming, _accelerationRoaming, _decelerationRoaming, _steerRoaming, _chillingTime, _desiredRoamingDistance, _stopAtRoaming);
             _identifyFoodComponent = GetComponent<IdentifyFoodComponent>();
-            _identifyFoodComponent.Initialize(_circle1BreadRadius, _circle2BreadRadius, _circle3BreadRadius, _circle1BreadProbability, _circle2BreadProbability, _circle3BreadProbability);
-
+            _identifyFoodComponent.Initialize(_circle1FoodRadius, _circle2FoodRadius, _circle3FoodRadius, _circle1FoodProbability, _circle2FoodProbability, _circle3FoodProbability);
+            _foodSeekingComponent = GetComponent<FoodSeekingComponent>();
+            _foodSeekingComponent.Initialize(_speedFoodSeeking, _accelerationFoodSeeking, _decelerationFoodSeeking, _steerFoodSeeking, _stopAtFoodSeeking);
+            _dashingComponent = GetComponent<DashingComponent>();
+            _dashingComponent.Initialize(_dashTriggerProbability);
 
 
             //Initialization of the FSM
@@ -162,20 +169,59 @@ namespace DuckEnemies
             roaming.enterActions.Add(_roamingComponent.EnterRoaming_SetSteeringBehaviour);
             roaming.stayActions.Add(_roamingComponent.StayRoaming_UpdateDestination);
 
+            FSMState foodSeen = new FSMState();
+            //Idk rn if there will be actions to perform when a piece of bread has been identified
+
+            FSMState dashing = new FSMState();
+            //Here I'll define the actions to perform when I'll have the dashing for real
+
+            FSMState foodSeeking = new FSMState();
+            foodSeeking.enterActions.Add(_foodSeekingComponent.EnterFoodSeeking_FindPath);
+            foodSeeking.enterActions.Add(_foodSeekingComponent.EnterFoodSeeking_SetSteeringBehaviour);
+            foodSeeking.stayActions.Add(_foodSeekingComponent.StayFoodSeeking_UpdateDestination);
+            foodSeeking.exitActions.Add(_foodSeekingComponent.ExitFoodSeeking_DeletePath);
 
 
 
             //SECOND: define the transition between states
+            FSMTransition chilling_to_roaming = new FSMTransition(_roamingComponent.GetChillEnded, new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Roaming });
+
+
+            FSMTransition roaming_to_hubState = new FSMTransition(_roamingComponent.DestinationReachedRoaming, new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
+            
+
+            FSMTransition x_to_foodSeen = new FSMTransition(_identifyFoodComponent.IsThereAnObjectiveFood, new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.FoodSeen });
+            
+
+            FSMTransition foodSeen_to_dashing = new FSMTransition(_dashingComponent.WantsToDashTowardsObjectiveFood, new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Dashing });
+            FSMTransition foodSeen_to_foodSeeking = new FSMTransition(_identifyFoodComponent.IsThereAnObjectiveFood, new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.FoodSeeking });
+
+
+            FSMTransition foodSeeking_to_hubState = new FSMTransition(() => !_identifyFoodComponent.IsThereAnObjectiveFood(), new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
+
+
+
 
             //actually, this is the last transition for hubState. If it isn't possible to go in any other state, go in this
             FSMTransition hubState_to_chilling = new FSMTransition(GoToChill, new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Chilling });
+            
+
+            hubState.AddTransition(x_to_foodSeen, foodSeen);
+            //chasing transition
             hubState.AddTransition(hubState_to_chilling, chilling);
 
-            FSMTransition chilling_to_roaming = new FSMTransition(_roamingComponent.GetChillEnded, new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Roaming });
+            chilling.AddTransition(x_to_foodSeen, foodSeen);
             chilling.AddTransition(chilling_to_roaming, roaming);
 
-            FSMTransition roaming_to_hubState = new FSMTransition(_roamingComponent.DestinationReached, new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
+            roaming.AddTransition(x_to_foodSeen, foodSeen);
+            //chasing transition
             roaming.AddTransition(roaming_to_hubState, hubState);
+
+            foodSeen.AddTransition(foodSeen_to_dashing, dashing);
+            foodSeen.AddTransition(foodSeen_to_foodSeeking, foodSeeking);
+
+            foodSeeking.AddTransition(foodSeeking_to_hubState, hubState);
+
 
 
             _fsm = new FSM(hubState);

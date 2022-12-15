@@ -81,13 +81,14 @@ namespace DuckEnemies
         //enter method for Chilling: choose a chilling time
         public void EnterChilling_ChooseChillingTime()
         {
-            Debug.Log("Chilling time = " + _chillingTime);
+            _chillEnded = false;
             _currentChillingTime = _chillingTime * Random.Range(_minRollModifier, _maxRollModifier);
             StartCoroutine(ChillCoroutine());
         }
 
         private IEnumerator ChillCoroutine()
         {
+            Debug.Log("Chilling time = " + _currentChillingTime);
             yield return new WaitForSeconds(_currentChillingTime);
             _chillEnded = true;
         }
@@ -146,8 +147,8 @@ namespace DuckEnemies
 
         private int _indexCurrentDestination = 0;
         private Vector3 _currentDestination;
-        private float _tresholdCurrentDestinationReached = 1.5f;   //when the enemy duck and the currentDestination have a distance <= this value,
-                                                                   //the current destination is considered reached
+        [SerializeField] private float _tresholdCurrentDestinationReached = 1.5f;   //when the enemy duck and the currentDestination (that is NOT the final one) have
+                                                                   //a distance <= this value, then the current destination is considered reached
 
 
         public void StayRoaming_UpdateDestination()
@@ -157,7 +158,6 @@ namespace DuckEnemies
                 //when the distance between me and the final destination is lower than StopAt, i stop accelerating in that direction
                 if(Vector2.Distance(transform.position, _currentDestination) <= _movementSeekComponent.StopAt)
                 {
-                    //_movementSeekComponent.IsDestinationValid = false;
                     _destinationRoamingReached = true;
                 }
                 return;
@@ -170,8 +170,8 @@ namespace DuckEnemies
                 _currentDestination = _pathRoaming[_indexCurrentDestination];
                 _movementSeekComponent.CurrentDestination = _currentDestination;
 
-                //the very moment we reach the first destination, we set the steering to its maximum value
-                _movementSeekComponent.MaxSteer = _steerRoaming;
+                //the very moment we reach the first destination, we set the steering to its maximum value (TODO: should not be necessary anymore, delete this)
+                //_movementSeekComponent.MaxSteer = _steerRoaming;
             }
             return;
 
@@ -185,7 +185,7 @@ namespace DuckEnemies
             return _chillEnded;
         }
 
-        public bool DestinationReached() 
+        public bool DestinationReachedRoaming() 
         {
             return _destinationRoamingReached;
         }

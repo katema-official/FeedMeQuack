@@ -20,15 +20,16 @@ namespace DuckEnemies
         public float AccelerationFoodSeeking;
         public float DecelerationFoodSeeking;
         public float SteerFoodSeeking;
+        public float StopAtFoodSeeking;
 
 
         [Header("What the duck sees")]
-        public float Circle1BreadRadius;
-        public float Circle2BreadRadius;
-        public float Circle3BreadRadius;
-        [Range(0.0f, 1.0f)] public float Circle1BreadProbability;
-        [Range(0.0f, 1.0f)] public float Circle2BreadProbability;
-        [Range(0.0f, 1.0f)] public float Circle3BreadProbability;
+        public float Circle1FoodRadius;
+        public float Circle2FoodRadius;
+        public float Circle3FoodRadius;
+        [Range(0.0f, 1.0f)] public float Circle1FoodProbability;
+        [Range(0.0f, 1.0f)] public float Circle2FoodProbability;
+        [Range(0.0f, 1.0f)] public float Circle3FoodProbability;
 
         public float Circle1PlayerRadius;
         public float Circle2PlayerRadius;

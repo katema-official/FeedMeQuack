@@ -21,7 +21,7 @@ namespace DuckEnemies
         {
             if(collision.gameObject.tag == "FoodInWater")
             {
-                _identifyFoodComponent.NotifyBreadIdentified(collision.gameObject, ID);
+                _identifyFoodComponent.NotifyFoodIdentified(collision.gameObject, ID);
             }
         }
 

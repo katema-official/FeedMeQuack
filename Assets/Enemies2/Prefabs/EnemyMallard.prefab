@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9199695255296371306}
   - component: {fileID: 7589914270819933481}
   m_Layer: 0
-  m_Name: BreadCollider2
+  m_Name: FoodCollider2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,6 +77,8 @@ GameObject:
   - component: {fileID: 1758801312685362607}
   - component: {fileID: 1758801312685362597}
   - component: {fileID: 8399497446229206262}
+  - component: {fileID: 2449778241269063516}
+  - component: {fileID: 5071184019180501057}
   m_Layer: 0
   m_Name: EnemyMallard
   m_TagString: Untagged
@@ -126,12 +128,13 @@ MonoBehaviour:
   _accelerationFoodSeeking: 0
   _decelerationFoodSeeking: 0
   _steerFoodSeeking: 0
-  _circle1BreadRadius: 0
-  _circle2BreadRadius: 0
-  _circle3BreadRadius: 0
-  _circle1BreadProbability: 0
-  _circle2BreadProbability: 0
-  _circle3BreadProbability: 0
+  _stopAtFoodSeeking: 0
+  _circle1FoodRadius: 0
+  _circle2FoodRadius: 0
+  _circle3FoodRadius: 0
+  _circle1FoodProbability: 0
+  _circle2FoodProbability: 0
+  _circle3FoodProbability: 0
   _circle1PlayerRadius: 0
   _circle2PlayerRadius: 0
   _circle3PlayerRadius: 0
@@ -222,6 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c71fac8ce19694bbfa5b0faec778d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tresholdCurrentDestinationReached: 1.5
 --- !u!114 &8399497446229206262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,6 +238,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dc701595c059b546b7a324ecf2111b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2449778241269063516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758801312685362596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb632ccfa11268f428971dc3e8d0b90d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5071184019180501057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758801312685362596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1454ed7fc38a56c4692dc6a89b542884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tresholdCurrentDestinationReached: 1.5
 --- !u!1 &1758801313041092808
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,7 +380,7 @@ GameObject:
   - component: {fileID: 3082132160318803605}
   - component: {fileID: 7691587044160769360}
   m_Layer: 0
-  m_Name: BreadCollider3
+  m_Name: FoodCollider3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -413,7 +442,7 @@ GameObject:
   - component: {fileID: 1572621774556376618}
   - component: {fileID: 3366117125588145404}
   m_Layer: 0
-  m_Name: BreadCollider1
+  m_Name: FoodCollider1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

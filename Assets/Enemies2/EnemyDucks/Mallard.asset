@@ -19,16 +19,17 @@ MonoBehaviour:
   ChillingTime: 3
   DesiredRoamingDistance: 21
   StopAtRoaming: 3
-  SpeedFoodSeeking: 20
-  AccelerationFoodSeeking: 20
-  DecelerationFoodSeeking: 20
-  SteerFoodSeeking: 80
-  Circle1BreadRadius: 10
-  Circle2BreadRadius: 13
-  Circle3BreadRadius: 16
-  Circle1BreadProbability: 1
-  Circle2BreadProbability: 0.7
-  Circle3BreadProbability: 0.4
+  SpeedFoodSeeking: 12
+  AccelerationFoodSeeking: 10
+  DecelerationFoodSeeking: 40
+  SteerFoodSeeking: 10
+  StopAtFoodSeeking: 2
+  Circle1FoodRadius: 20
+  Circle2FoodRadius: 23
+  Circle3FoodRadius: 26
+  Circle1FoodProbability: 1
+  Circle2FoodProbability: 0.7
+  Circle3FoodProbability: 0.4
   Circle1PlayerRadius: 10
   Circle2PlayerRadius: 13
   Circle3PlayerRadius: 16

@@ -133,6 +133,13 @@ namespace SteeringBehaviourNamespace
             HasStartedDecelerating = false;
         }
 
+        //method to call when we don't want the duck to move anymore
+        public void StopMoving()
+        {
+            IsDestinationValid = false;
+            HasStartedDecelerating = false;
+        }
+
         private void Update()
         {
             SetRotation();

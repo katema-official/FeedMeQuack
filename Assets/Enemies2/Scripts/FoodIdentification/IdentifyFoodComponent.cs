@@ -8,40 +8,40 @@ namespace DuckEnemies
     public class IdentifyFoodComponent : MonoBehaviour
     {
 
-        private float _circle1BreadRadius;                  //the radius of the three circles that define if a enemy
-        private float _circle2BreadRadius;                  //duck saw a piece of bread
-        private float _circle3BreadRadius;
-        private float _circle1BreadProbability;  //probabilities that a duck sees a piece of bread
-        private float _circle2BreadProbability;  //when it spawns inside a particular circle
-        private float _circle3BreadProbability;
+        private float _circle1FoodRadius;                  //the radius of the three circles that define if a enemy
+        private float _circle2FoodRadius;                  //duck saw a piece of bread
+        private float _circle3FoodRadius;
+        private float _circle1FoodProbability;  //probabilities that a duck sees a piece of bread
+        private float _circle2FoodProbability;  //when it spawns inside a particular circle
+        private float _circle3FoodProbability;
 
         //these sets save up the bread that was refused. Each bread gameobject is recorded as it InstanceID (GetInstanceID())
-        protected HashSet<int> _refusedBreadsCircle1;
-        protected HashSet<int> _refusedBreadsCircle2;
-        protected HashSet<int> _refusedBreadsCircle3;
-        protected GameObject _breadInWaterObjectiveGO;
+        private HashSet<int> _refusedFoodCircle1;
+        private HashSet<int> _refusedFoodCircle2;
+        private HashSet<int> _refusedFoodCircle3;
+        [SerializeField] private GameObject _foodInWaterObjectiveGO;
 
-        FoodCircleComponent _foodCircleComponent1;
-        FoodCircleComponent _foodCircleComponent2;
-        FoodCircleComponent _foodCircleComponent3;
+        private FoodCircleComponent _foodCircleComponent1;
+        private FoodCircleComponent _foodCircleComponent2;
+        private FoodCircleComponent _foodCircleComponent3;
 
         public void Initialize(float radius1, float radius2, float radius3, float prob1, float prob2, float prob3)
         {
-            _circle1BreadRadius = radius1;
-            _circle2BreadRadius = radius2;
-            _circle3BreadRadius = radius3;
-            _circle1BreadProbability = prob1;
-            _circle2BreadProbability = prob2;
-            _circle3BreadProbability = prob3;
+            _circle1FoodRadius = radius1;
+            _circle2FoodRadius = radius2;
+            _circle3FoodRadius = radius3;
+            _circle1FoodProbability = prob1;
+            _circle2FoodProbability = prob2;
+            _circle3FoodProbability = prob3;
 
-            _refusedBreadsCircle1 = new HashSet<int>();
-            _refusedBreadsCircle2 = new HashSet<int>();
-            _refusedBreadsCircle3 = new HashSet<int>();
-            _breadInWaterObjectiveGO = null;
+            _refusedFoodCircle1 = new HashSet<int>();
+            _refusedFoodCircle2 = new HashSet<int>();
+            _refusedFoodCircle3 = new HashSet<int>();
+            _foodInWaterObjectiveGO = null;
 
-            _foodCircleComponent1.GetComponent<CircleCollider2D>().radius = _circle1BreadRadius;
-            _foodCircleComponent2.GetComponent<CircleCollider2D>().radius = _circle2BreadRadius;
-            _foodCircleComponent3.GetComponent<CircleCollider2D>().radius = _circle3BreadRadius;
+            _foodCircleComponent1.GetComponent<CircleCollider2D>().radius = _circle1FoodRadius;
+            _foodCircleComponent2.GetComponent<CircleCollider2D>().radius = _circle2FoodRadius;
+            _foodCircleComponent3.GetComponent<CircleCollider2D>().radius = _circle3FoodRadius;
         }
 
         //The idea of this whole component is:
@@ -54,61 +54,61 @@ namespace DuckEnemies
 
         void Awake()
         {
-            _foodCircleComponent1 = transform.Find("BreadCollider1").GetComponent<FoodCircleComponent>();
-            _foodCircleComponent2 = transform.Find("BreadCollider2").GetComponent<FoodCircleComponent>();
-            _foodCircleComponent3 = transform.Find("BreadCollider3").GetComponent<FoodCircleComponent>();
+            _foodCircleComponent1 = transform.Find("FoodCollider1").GetComponent<FoodCircleComponent>();
+            _foodCircleComponent2 = transform.Find("FoodCollider2").GetComponent<FoodCircleComponent>();
+            _foodCircleComponent3 = transform.Find("FoodCollider3").GetComponent<FoodCircleComponent>();
         }
 
 
         //Method used by the children circle colliders equipped with a FoodCircleComponent to notify this
         //component of the fact that a piece of bread has been identified
-        public void NotifyBreadIdentified(GameObject breadGO, int idCircle)
+        public void NotifyFoodIdentified(GameObject foodGO, int idCircle)
         {
             float r = Random.Range(0f, 1f);
             switch (idCircle){
                 case 1:
-                    if (_breadInWaterObjectiveGO == null && !_refusedBreadsCircle1.Contains(breadGO.GetInstanceID()))
+                    if (_foodInWaterObjectiveGO == null && !_refusedFoodCircle1.Contains(foodGO.GetInstanceID()))
                     {
-                        if (r < _circle1BreadProbability)
+                        if (r < _circle1FoodProbability)
                         {
-                            _breadInWaterObjectiveGO = breadGO;
+                            _foodInWaterObjectiveGO = foodGO;
                             Debug.Log("Circle 1 accepted");
                         }
                         else
                         {
-                            _refusedBreadsCircle1.Add(breadGO.GetInstanceID());
-                            _refusedBreadsCircle2.Add(breadGO.GetInstanceID());
-                            _refusedBreadsCircle3.Add(breadGO.GetInstanceID());
+                            _refusedFoodCircle1.Add(foodGO.GetInstanceID());
+                            _refusedFoodCircle2.Add(foodGO.GetInstanceID());
+                            _refusedFoodCircle3.Add(foodGO.GetInstanceID());
                         }
                     }
                     break;
                 case 2:
-                    if (_breadInWaterObjectiveGO == null && !_refusedBreadsCircle2.Contains(breadGO.GetInstanceID()))
+                    if (_foodInWaterObjectiveGO == null && !_refusedFoodCircle2.Contains(foodGO.GetInstanceID()))
                     {
-                        if (r < _circle2BreadProbability)
+                        if (r < _circle2FoodProbability)
                         {
-                            _breadInWaterObjectiveGO = breadGO;
+                            _foodInWaterObjectiveGO = foodGO;
                             Debug.Log("Circle 2 accepted");
                         }
                         else
                         {
-                            _refusedBreadsCircle2.Add(breadGO.GetInstanceID());
-                            _refusedBreadsCircle3.Add(breadGO.GetInstanceID());
+                            _refusedFoodCircle2.Add(foodGO.GetInstanceID());
+                            _refusedFoodCircle3.Add(foodGO.GetInstanceID());
                             Debug.Log("Circle 2 denyed");
                         }
                     }
                     break;
                 case 3:
-                    if (_breadInWaterObjectiveGO == null && !_refusedBreadsCircle3.Contains(breadGO.GetInstanceID()))
+                    if (_foodInWaterObjectiveGO == null && !_refusedFoodCircle3.Contains(foodGO.GetInstanceID()))
                     {
-                        if (r < _circle3BreadProbability)
+                        if (r < _circle3FoodProbability)
                         {
-                            _breadInWaterObjectiveGO = breadGO;
+                            _foodInWaterObjectiveGO = foodGO;
                             Debug.Log("Circle 3 accepted");
                         }
                         else
                         {
-                            _refusedBreadsCircle3.Add(breadGO.GetInstanceID());
+                            _refusedFoodCircle3.Add(foodGO.GetInstanceID());
                             Debug.Log("Circle 3 denyed");
                         }
                     }
@@ -119,33 +119,28 @@ namespace DuckEnemies
 
         }
 
-        public bool IsThereAnObjectiveBread()
+        public bool IsThereAnObjectiveFood()
         {
-            return _breadInWaterObjectiveGO != null;
+            return _foodInWaterObjectiveGO != null;
         }
 
         //function to call whenever we want to clean the data structures.
         //Basically, call this function when you want the duck do be aware again of every possible
         //BreadInWater that is in this lake.
-        public void ForgetAboutAllBreads()
+        public void ForgetAboutAllFood()
         {
-            _refusedBreadsCircle1.Clear();
-            _refusedBreadsCircle2.Clear();
-            _refusedBreadsCircle3.Clear();
-            _breadInWaterObjectiveGO = null;
+            _refusedFoodCircle1.Clear();
+            _refusedFoodCircle2.Clear();
+            _refusedFoodCircle3.Clear();
+            _foodInWaterObjectiveGO = null;
+        }
+
+        
+        public GameObject GetObjectiveFood()
+        {
+            return _foodInWaterObjectiveGO;
         }
 
 
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
     }
 }
