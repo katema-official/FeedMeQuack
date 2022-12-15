@@ -119,6 +119,22 @@ namespace DuckEnemies
 
         }
 
+        public bool IsThereAnObjectiveBread()
+        {
+            return _breadInWaterObjectiveGO != null;
+        }
+
+        //function to call whenever we want to clean the data structures.
+        //Basically, call this function when you want the duck do be aware again of every possible
+        //BreadInWater that is in this lake.
+        public void ForgetAboutAllBreads()
+        {
+            _refusedBreadsCircle1.Clear();
+            _refusedBreadsCircle2.Clear();
+            _refusedBreadsCircle3.Clear();
+            _breadInWaterObjectiveGO = null;
+        }
+
 
         // Start is called before the first frame update
         void Start()
