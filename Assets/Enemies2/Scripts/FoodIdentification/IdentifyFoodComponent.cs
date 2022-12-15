@@ -20,6 +20,7 @@ namespace DuckEnemies
         private HashSet<int> _refusedFoodCircle2;
         private HashSet<int> _refusedFoodCircle3;
         [SerializeField] private GameObject _foodInWaterObjectiveGO;
+        [SerializeField] private int _foodInWaterObjectiveID;
 
         private FoodCircleComponent _foodCircleComponent1;
         private FoodCircleComponent _foodCircleComponent2;
@@ -38,6 +39,7 @@ namespace DuckEnemies
             _refusedFoodCircle2 = new HashSet<int>();
             _refusedFoodCircle3 = new HashSet<int>();
             _foodInWaterObjectiveGO = null;
+            _foodInWaterObjectiveID = -1;
 
             _foodCircleComponent1.GetComponent<CircleCollider2D>().radius = _circle1FoodRadius;
             _foodCircleComponent2.GetComponent<CircleCollider2D>().radius = _circle2FoodRadius;
@@ -67,11 +69,12 @@ namespace DuckEnemies
             float r = Random.Range(0f, 1f);
             switch (idCircle){
                 case 1:
-                    if (_foodInWaterObjectiveGO == null && !_refusedFoodCircle1.Contains(foodGO.GetInstanceID()))
+                    if ((_foodInWaterObjectiveGO == null || _foodInWaterObjectiveGO.GetInstanceID() != _foodInWaterObjectiveID) && !_refusedFoodCircle1.Contains(foodGO.GetInstanceID()))
                     {
                         if (r < _circle1FoodProbability)
                         {
                             _foodInWaterObjectiveGO = foodGO;
+                            _foodInWaterObjectiveID = _foodInWaterObjectiveGO.GetInstanceID();
                             Debug.Log("Circle 1 accepted");
                         }
                         else
@@ -83,11 +86,12 @@ namespace DuckEnemies
                     }
                     break;
                 case 2:
-                    if (_foodInWaterObjectiveGO == null && !_refusedFoodCircle2.Contains(foodGO.GetInstanceID()))
+                    if ((_foodInWaterObjectiveGO == null || _foodInWaterObjectiveGO.GetInstanceID() != _foodInWaterObjectiveID) && !_refusedFoodCircle2.Contains(foodGO.GetInstanceID()))
                     {
                         if (r < _circle2FoodProbability)
                         {
                             _foodInWaterObjectiveGO = foodGO;
+                            _foodInWaterObjectiveID = _foodInWaterObjectiveGO.GetInstanceID();
                             Debug.Log("Circle 2 accepted");
                         }
                         else
@@ -99,11 +103,12 @@ namespace DuckEnemies
                     }
                     break;
                 case 3:
-                    if (_foodInWaterObjectiveGO == null && !_refusedFoodCircle3.Contains(foodGO.GetInstanceID()))
+                    if ((_foodInWaterObjectiveGO == null || _foodInWaterObjectiveGO.GetInstanceID() != _foodInWaterObjectiveID) && !_refusedFoodCircle3.Contains(foodGO.GetInstanceID()))
                     {
                         if (r < _circle3FoodProbability)
                         {
                             _foodInWaterObjectiveGO = foodGO;
+                            _foodInWaterObjectiveID = _foodInWaterObjectiveGO.GetInstanceID();
                             Debug.Log("Circle 3 accepted");
                         }
                         else
@@ -121,7 +126,7 @@ namespace DuckEnemies
 
         public bool IsThereAnObjectiveFood()
         {
-            return _foodInWaterObjectiveGO != null;
+            return (_foodInWaterObjectiveGO != null && _foodInWaterObjectiveGO.GetInstanceID() == _foodInWaterObjectiveID);
         }
 
         //function to call whenever we want to clean the data structures.
@@ -133,6 +138,7 @@ namespace DuckEnemies
             _refusedFoodCircle2.Clear();
             _refusedFoodCircle3.Clear();
             _foodInWaterObjectiveGO = null;
+            _foodInWaterObjectiveID = -1;
         }
 
         
