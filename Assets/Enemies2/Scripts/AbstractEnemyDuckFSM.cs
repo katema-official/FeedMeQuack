@@ -194,7 +194,6 @@ namespace DuckEnemies
         //Enter method for HubState. It's used to be sure that every variable is in the state it should be
         protected void EnterHubState_CleanVariables()
         {
-            _breadInWaterObjectiveGO = null;
             _breadInMouthBeingEaten = null;
         }
 

@@ -129,13 +129,13 @@ namespace DuckEnemies
         public void EnterRoaming_SetSteeringBehaviour()
         {
             _movementSeekComponent.MaxSpeed = _speedRoaming;
-            //_movementSeekComponent.MaxSteer will be set when the first destination is reached
+            _movementSeekComponent.MaxSteer = _steerRoaming;
             _movementSeekComponent.Acceleration = _accelerationRoaming;
             _movementSeekComponent.Deceleration = _decelerationRoaming;
 
             _movementSeekComponent.StopAt = _stopAtRoaming;
 
-            _movementSeekComponent.SetInitialSteer();
+            _movementSeekComponent.SetAcceleration_Increment();
 
             _movementSeekComponent.StartMoving();// IsDestinationValid = true;
 
@@ -148,7 +148,6 @@ namespace DuckEnemies
         private Vector3 _currentDestination;
         private float _tresholdCurrentDestinationReached = 1.5f;   //when the enemy duck and the currentDestination have a distance <= this value,
                                                                    //the current destination is considered reached
-        //private bool _updatedDestination = true;
 
 
         public void StayRoaming_UpdateDestination()

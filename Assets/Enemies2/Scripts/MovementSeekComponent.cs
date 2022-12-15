@@ -18,6 +18,7 @@ namespace SteeringBehaviourNamespace
         public float MaxSteer = 0.0f;
         public float Acceleration = 0.0f;
         public float Deceleration = 0.0f;
+        private float _currentAcceleration = 1.0f;
 
         public float StopAt = 0.0f;
 
@@ -25,7 +26,7 @@ namespace SteeringBehaviourNamespace
         private Rigidbody2D _rigidbody2D;
         private Animator _animator;
 
-        [SerializeField] private float _initialSteer = 3f;
+        [SerializeField] private float _initialSteer = 0f;
 
 
 
@@ -45,7 +46,7 @@ namespace SteeringBehaviourNamespace
                 float angle = Mathf.Atan2(-_directionToMoveNormalized.x, _directionToMoveNormalized.y) * Mathf.Rad2Deg;
                 _currentRotation = angle;
                 //then, I apply a force in that direction
-                float force = Acceleration * MaxSteer;
+                float force = _currentAcceleration * MaxSteer;
                 if (_rigidbody2D.velocity.magnitude <= MaxSpeed)
                 {
                     _rigidbody2D.AddForce(_directionToMoveNormalized * force, ForceMode2D.Force);
@@ -91,14 +92,39 @@ namespace SteeringBehaviourNamespace
             _animator = transform.Find("Sprite").GetComponent<Animator>();
             _currentRotation = Random.Range(-180f, 180f);
             Debug.Log("rotation = " + _currentRotation);
-            SetRotation();
-            
+            SetRotation();    
         }
 
-        public void SetInitialSteer()
+
+
+
+        //set the acceleration to max immediately
+        public void SetAcceleration_Max()
         {
-            MaxSteer = _initialSteer;
+            _currentAcceleration = Acceleration;
         }
+
+        //set the acceleration to a low value that increases over time
+        public void SetAcceleration_Increment()
+        {
+            _currentAcceleration = 1f;
+            StartCoroutine(BringCurrentAccelerationToMax());
+        }
+
+        private IEnumerator BringCurrentAccelerationToMax()
+        {
+            float waitTime = 0.2f;
+            float delta = 1f;
+            while(_currentAcceleration < Acceleration)
+            {
+                _currentAcceleration += delta;
+                yield return new WaitForSeconds(waitTime);
+            }
+            yield return null;
+        }
+
+
+
 
         //method to call when all the data necessary to go to a destination have been fixed
         public void StartMoving()
