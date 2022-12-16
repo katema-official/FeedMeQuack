@@ -64,8 +64,7 @@ namespace SteeringBehaviourNamespace
                 {
                     IsDestinationValid = false;
                     HasStartedDecelerating = true;
-                    _xComponentSpeed = _rigidbody2D.velocity.x;
-                    _yComponentSpeed = _rigidbody2D.velocity.y;
+                    SetCurrentVelocityComponents();
                     //Debug.Log("X AND Y AT THE END: " + _xComponentSpeed + ", " + _yComponentSpeed);
                 }
                 
@@ -82,7 +81,7 @@ namespace SteeringBehaviourNamespace
                     float forceBreak = Deceleration;
                     _rigidbody2D.AddForce(_directionToBrake * forceBreak, ForceMode2D.Force);
                     //Debug.LogFormat("SPEED X AND Y: {0} AND {1}", _rigidbody2D.velocity.x, _rigidbody2D.velocity.y);
-                    if(_rigidbody2D.velocity.x * _xComponentSpeed < 0 && _rigidbody2D.velocity.y * _yComponentSpeed < 0) //oppure se ti stai muovendo di pochissimo
+                    if(_rigidbody2D.velocity.x * _xComponentSpeed < 0 && _rigidbody2D.velocity.y * _yComponentSpeed < 0) //oppure se ti stai muovendo di pochissimo (non viene mai chiamato hahahaha lol kek)
                     {
                         //Debug.Log("STOP");  //non viene mai chiamato
                         HasStartedDecelerating = false;
@@ -94,6 +93,7 @@ namespace SteeringBehaviourNamespace
                 {
                     Debug.Log("BASTA");
                     HasStartedDecelerating = false;
+                    _rigidbody2D.velocity = new Vector2(0, 0);
                 }
                    
             }
@@ -152,9 +152,19 @@ namespace SteeringBehaviourNamespace
         {
             IsDestinationValid = false;
             HasStartedDecelerating = true;
+            SetCurrentVelocityComponents();
             //HasStartedDecelerating = false;   //I probably don't need this. If it was far from the destination, this is already false. If I want it to stop moving because
             //the destination was reached, I still want this duck to decelerate
         }
+
+        public void SetCurrentVelocityComponents()
+        {
+            _xComponentSpeed = _rigidbody2D.velocity.x;
+            _yComponentSpeed = _rigidbody2D.velocity.y;
+        }
+
+
+
 
         private void Update()
         {

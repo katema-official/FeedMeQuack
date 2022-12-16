@@ -15,8 +15,8 @@ namespace DuckEnemies
 
         private IdentifyFoodComponent _identifyFoodComponent;
 
-        private GameObject _myFoodInMouthGO = null;
-        private BreadInMouthComponent _myBreadInMouthComponent = null;
+        [SerializeField] private GameObject _myFoodInMouthGO = null;
+        [SerializeField] private BreadInMouthComponent _myBreadInMouthComponent = null;
 
         private int _mouthSize;
         private float _chewingRate;

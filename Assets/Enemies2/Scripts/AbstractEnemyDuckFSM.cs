@@ -107,7 +107,7 @@ namespace DuckEnemies
             _speedFoodSeeking = _myEnemyDuckDescription.SpeedFoodSeeking;
             _accelerationFoodSeeking = _myEnemyDuckDescription.AccelerationFoodSeeking;
             _decelerationFoodSeeking = _myEnemyDuckDescription.DecelerationFoodSeeking;
-            _steerFoodSeeking = _myEnemyDuckDescription.DecelerationFoodSeeking;
+            _steerFoodSeeking = _myEnemyDuckDescription.SteerFoodSeeking;
             _stopAtFoodSeeking = _myEnemyDuckDescription.StopAtFoodSeeking;
 
             _circle1FoodRadius = _myEnemyDuckDescription.Circle1FoodRadius;
@@ -186,6 +186,7 @@ namespace DuckEnemies
             FSMState bite = new FSMState();
             bite.enterActions.Add(_eatingComponent.EnterBite_CleanVariables);
             bite.enterActions.Add(_eatingComponent.EnterBite_BiteBreadInWater);
+            bite.exitActions.Add(_identifyFoodComponent.ForgetAboutAllFood);
 
             FSMState eating = new FSMState();
             eating.enterActions.Add(_eatingComponent.EnterEating_SetNotDisturbed);
