@@ -38,9 +38,15 @@ namespace SteeringBehaviourNamespace
         //where the duck actually moves
         private void FixedUpdate()
         {
-            //first of all, i retrieve the direction in which I need to move
-            _directionToMoveNormalized = (CurrentDestination - (new Vector2(transform.position.x, transform.position.y)));
-            _directionToMoveNormalized.Normalize();
+            if (IsDestinationValid || HasStartedDecelerating)
+            {
+                //_xComponentSpeed = _rigidbody2D.velocity.x;
+                //_yComponentSpeed = _rigidbody2D.velocity.y;
+
+                //first of all, i retrieve the direction in which I need to move
+                _directionToMoveNormalized = (CurrentDestination - (new Vector2(transform.position.x, transform.position.y)));
+                _directionToMoveNormalized.Normalize();
+            }
 
             if (IsDestinationValid)
             {
@@ -75,12 +81,13 @@ namespace SteeringBehaviourNamespace
 
                     float forceBreak = Deceleration; //* MaxSteer; // (_rigidbody2D.mass * Mathf.Pow(_rigidbody2D.velocity.magnitude,2)) / (2 * StopAt);
                     _rigidbody2D.AddForce(_directionToBrake * forceBreak, ForceMode2D.Force);
-                    //Debug.LogFormat("SPEED X AND Y: {0} AND {1}", _rigidbody2D.velocity.x, _rigidbody2D.velocity.y);
-                    if(_rigidbody2D.velocity.x * _xComponentSpeed < 0 && _rigidbody2D.velocity.y * _yComponentSpeed < 0)
+                    Debug.LogFormat("SPEED X AND Y: {0} AND {1}", _rigidbody2D.velocity.x, _rigidbody2D.velocity.y);
+                    if(_rigidbody2D.velocity.x * _xComponentSpeed < 0 && _rigidbody2D.velocity.y * _yComponentSpeed < 0) //oppure se ti stai muovendo di pochissimo
                     {
-                        _rigidbody2D.velocity = new Vector2(0, 0);
-                        //Debug.Log("STOP");
+                        Debug.Log("STOP");  //non viene mai chiamato
                         HasStartedDecelerating = false;
+                        _rigidbody2D.velocity = new Vector2(0, 0);
+                        
                     }
                 }
                    
@@ -139,6 +146,7 @@ namespace SteeringBehaviourNamespace
         public void StopMoving()
         {
             IsDestinationValid = false;
+            HasStartedDecelerating = true;
             //HasStartedDecelerating = false;   //I probably don't need this. If it was far from the destination, this is already false. If I want it to stop moving because
             //the destination was reached, I still want this duck to decelerate
         }

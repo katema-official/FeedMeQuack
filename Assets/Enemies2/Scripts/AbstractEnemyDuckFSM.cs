@@ -74,13 +74,11 @@ namespace DuckEnemies
 
 
 
-        //TO MOVE
-        protected BreadInMouthComponent _breadInMouthBeingEaten;
 
         protected EnemyDuckFSMEnumState.State _state;
 
         protected FSM _fsm;
-        protected float _reactionTimeFSM = 0.01f;
+        protected float _reactionTimeFSM = 0.05f;
 
 
         //the other components of this gameobject (we can't have all the code in one place!)
@@ -95,8 +93,6 @@ namespace DuckEnemies
         void Awake()
         {
             //Initialization of internal data structures and variables
-            //TO MOVE
-            _breadInMouthBeingEaten = null;
             _state = EnemyDuckFSMEnumState.State.HubState;
 
 
@@ -192,6 +188,13 @@ namespace DuckEnemies
             bite.enterActions.Add(_eatingComponent.EnterBite_BiteBreadInWater);
 
             FSMState eating = new FSMState();
+            eating.enterActions.Add(_eatingComponent.EnterEating_SetNotDisturbed);
+            eating.enterActions.Add(_eatingComponent.EnterEating_StartEating);
+
+            FSMState digesting = new FSMState();
+            digesting.enterActions.Add(_eatingComponent.EnterDigesting_ChooseDigestingTime);
+            digesting.exitActions.Add(_eatingComponent.ExitDigesting);
+            
 
 
 
@@ -231,6 +234,14 @@ namespace DuckEnemies
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Eating });
 
 
+            FSMTransition eating_to_digesting = new FSMTransition(_eatingComponent.DidIFinishEating,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Digesting });
+            //transition to stealingPassive
+
+
+            FSMTransition digesting_to_hubState = new FSMTransition(_eatingComponent.GetDigestingEnded,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
+
 
             //actually, this is the last transition for hubState. If it isn't possible to go in any other state, go in this
             FSMTransition hubState_to_chilling = new FSMTransition(GoToChill, 
@@ -259,6 +270,10 @@ namespace DuckEnemies
             bite.AddTransition(bite_to_eating, eating);
             bite.AddTransition(bite_to_hubState, hubState);
 
+            eating.AddTransition(eating_to_digesting, digesting);
+            //transition to stealingPassive
+
+            digesting.AddTransition(digesting_to_hubState, hubState);
 
 
             _fsm = new FSM(hubState);
@@ -278,7 +293,7 @@ namespace DuckEnemies
         //Enter method for HubState. It's used to be sure that every variable is in the state it should be
         protected void EnterHubState_CleanVariables()
         {
-            _breadInMouthBeingEaten = null;
+            //lol i moved everything away
         }
 
 
@@ -324,19 +339,5 @@ namespace DuckEnemies
 
 
 
-
-
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
     }
 }

@@ -17,7 +17,7 @@ namespace BreadNamespace
 
         [SerializeField] private GameObject BreadInMouthPrefab;
 
-        private int _breadPoints;
+        [SerializeField] private int _breadPoints;
 
         private LevelStageNamespace.LakeDescriptionComponent _lakeDescriptionComponent;
 

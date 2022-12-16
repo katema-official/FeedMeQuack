@@ -88,7 +88,6 @@ namespace DuckEnemies
 
         private IEnumerator ChillCoroutine()
         {
-            Debug.Log("Chilling time = " + _currentChillingTime);
             yield return new WaitForSeconds(_currentChillingTime);
             _chillEnded = true;
         }
