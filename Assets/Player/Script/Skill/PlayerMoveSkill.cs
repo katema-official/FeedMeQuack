@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 namespace Player
 {
     public class PlayerMoveSkill : PlayerSkill
@@ -20,6 +20,7 @@ namespace Player
         private Vector3 _rightwardAxis;
         private Vector3 _finalDir;
 
+        private bool _lockMovement = false;
 
         private bool _moveForward = false;
         private float _rotationMovement = 0.0f;
@@ -418,8 +419,18 @@ namespace Player
             
 
             var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
-            // Start is called before the first frame update
+
+        // called second
+        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            _lockMovement = true;
+        }
+
+
+
+        // Start is called before the first frame update
         void Start()
         {
             _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
@@ -431,11 +442,19 @@ namespace Player
         {
             if (!_enableInput) return;
 
-            _moveForward = false;
-            _forwardAxis = new Vector3(0, 0);
-
             var h = Input.GetAxisRaw("Horizontal");
             var v = Input.GetAxisRaw("Vertical");
+
+            if (_lockMovement)
+            {
+                if ((h == 0 && v == 0) && (_forwardAxis.x != 0 || _forwardAxis.y != 0))
+                    return;
+                else
+                    _lockMovement = false;
+            }  
+
+            _moveForward = false;
+           // _forwardAxis = new Vector3(0, 0);
 
             _forwardAxis = new Vector3(h,v);
 
