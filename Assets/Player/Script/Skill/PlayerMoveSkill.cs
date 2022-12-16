@@ -467,7 +467,7 @@ namespace Player
         {
             MoveCamera();
             var screenPos = _camera.WorldToScreenPoint(_rigidBody.position);
-            Debug.Log("screen: " + screenPos);
+            //Debug.Log("screen: " + screenPos);
             screenPos.y += 80;
             screenPos.x -= 20;
             _controller.GetUICanvas().GetStatusView().SetPosition(screenPos);

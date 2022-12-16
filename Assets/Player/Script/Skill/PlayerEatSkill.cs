@@ -158,7 +158,7 @@ namespace Player
 
 
                     _controller.applyPowerUp(spentDBP, listAttribs, listValues);
-                    if(spentDBP > 0) _locatedPowerUp = null;
+                  //  if(spentDBP > 0) _locatedPowerUp = null;
                     return;
                 }
 
@@ -299,7 +299,11 @@ namespace Player
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            _locatedPowerUp = null;
+            var powerup = collision.gameObject.transform.parent.gameObject.GetComponent<PowerUpsNamespace.PowerUpComponent>();
+            if (powerup)
+            {
+                _locatedPowerUp = null;
+            }
 
             //var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
 
