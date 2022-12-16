@@ -23,6 +23,8 @@ namespace DuckEnemies
         private bool _destinationFoodSeekingReached;
         private List<Vector3> _pathFoodSeeking;
 
+        private int _IDOfThisFood;
+
         public void Initialize(float speed, float acceleration, float deceleration, float steer, float stopAt)
         {
             _speedFoodSeeking = speed;
@@ -73,6 +75,11 @@ namespace DuckEnemies
             _destinationFoodSeekingReached = false;
         }
 
+        public void EnterFoodSeeking_SetFoodID()
+        {
+            _IDOfThisFood = _identifyFoodComponent.GetObjectiveFood().GetInstanceID();
+        }
+
         public void StayFoodSeeking_UpdateDestination()
         {
             if (_indexCurrentDestination == _pathFoodSeeking.Count - 1)
@@ -100,12 +107,24 @@ namespace DuckEnemies
             _movementSeekComponent.StopMoving();
         }
 
+        public void ExitFoodSeeking_ResetFoodID()
+        {
+            _IDOfThisFood = -1;
+        }
+
 
         //############################################################# TRANSITIONS #############################################################
 
         public bool DestinationReachedFoodSeeking()
         {
             return _destinationFoodSeekingReached;
+        }
+
+        //condition used to check whether the food this component was after is still there or has changed/is not the same
+        public bool HasFoodDisappeared()
+        {
+            Debug.Log("Food disappeared? " + (_identifyFoodComponent.GetObjectiveFood().GetInstanceID() != _IDOfThisFood));
+            return _identifyFoodComponent.GetObjectiveFood().GetInstanceID() != _IDOfThisFood;
         }
 
     }

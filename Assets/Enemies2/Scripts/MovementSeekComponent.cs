@@ -7,7 +7,9 @@ namespace SteeringBehaviourNamespace
     public class MovementSeekComponent : MonoBehaviour
     {
         //this component takes care of moving the enemy duck towards a specific destination, moving along
-        //a certain number of intermediate destinations
+        //a certain number of intermediate destinations. Basically it shouldn't be used alone, but should be
+        //exploited by other components (that possibly represent/take care of specific states of the enemy FSM)
+        //to move the enemy duck around (see Roaming, FoodSeeking...)
         public Vector2 FinalDestination;
         public Vector2 CurrentDestination;
         public bool IsDestinationValid = false;
@@ -137,7 +139,8 @@ namespace SteeringBehaviourNamespace
         public void StopMoving()
         {
             IsDestinationValid = false;
-            HasStartedDecelerating = false;
+            //HasStartedDecelerating = false;   //I probably don't need this. If it was far from the destination, this is already false. If I want it to stop moving because
+            //the destination was reached, I still want this duck to decelerate
         }
 
         private void Update()

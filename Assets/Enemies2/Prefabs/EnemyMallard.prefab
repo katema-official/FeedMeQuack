@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 8399497446229206262}
   - component: {fileID: 2449778241269063516}
   - component: {fileID: 5071184019180501057}
+  - component: {fileID: 4450470051131763287}
   m_Layer: 0
   m_Name: EnemyMallard
   m_TagString: Untagged
@@ -238,6 +239,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dc701595c059b546b7a324ecf2111b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _foodInWaterObjectiveGO: {fileID: 0}
+  _foodInWaterObjectiveID: 0
 --- !u!114 &2449778241269063516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +266,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tresholdCurrentDestinationReached: 1.5
+--- !u!114 &4450470051131763287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758801312685362596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ac148d3220aa1341ab06272b555fcbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1758801313041092808
 GameObject:
   m_ObjectHideFlags: 0

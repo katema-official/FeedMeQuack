@@ -19,8 +19,8 @@ MonoBehaviour:
   ChillingTime: 3
   DesiredRoamingDistance: 21
   StopAtRoaming: 3
-  SpeedFoodSeeking: 12
-  AccelerationFoodSeeking: 10
+  SpeedFoodSeeking: 13
+  AccelerationFoodSeeking: 2
   DecelerationFoodSeeking: 40
   SteerFoodSeeking: 10
   StopAtFoodSeeking: 2
@@ -48,3 +48,4 @@ MonoBehaviour:
   SteerChasing: 0
   MouthSize: 3
   ChewingRate: 1.5
+  DigestingTime: 2

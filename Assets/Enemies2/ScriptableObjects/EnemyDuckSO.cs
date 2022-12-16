@@ -55,6 +55,7 @@ namespace DuckEnemies
         [Header("Eating stuff")]
         public int MouthSize;
         public float ChewingRate;
+        public float DigestingTime;     //how many seconds a duck stays still after eating
 
 
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BreadNamespace;
+using LevelStageNamespace;
 
 namespace DuckEnemies
 {
@@ -25,6 +26,8 @@ namespace DuckEnemies
         private FoodCircleComponent _foodCircleComponent1;
         private FoodCircleComponent _foodCircleComponent2;
         private FoodCircleComponent _foodCircleComponent3;
+
+        private LakeDescriptionComponent _lakeDescriptionComponent;
 
         public void Initialize(float radius1, float radius2, float radius3, float prob1, float prob2, float prob3)
         {
@@ -59,6 +62,7 @@ namespace DuckEnemies
             _foodCircleComponent1 = transform.Find("FoodCollider1").GetComponent<FoodCircleComponent>();
             _foodCircleComponent2 = transform.Find("FoodCollider2").GetComponent<FoodCircleComponent>();
             _foodCircleComponent3 = transform.Find("FoodCollider3").GetComponent<FoodCircleComponent>();
+            _lakeDescriptionComponent = GameObject.Find("WholeLake").GetComponent<LakeDescriptionComponent>();
         }
 
 
@@ -66,6 +70,7 @@ namespace DuckEnemies
         //component of the fact that a piece of bread has been identified
         public void NotifyFoodIdentified(GameObject foodGO, int idCircle)
         {
+            if (_lakeDescriptionComponent.IsBreadInWaterInLake(foodGO.transform.position, foodGO.GetComponent<CircleCollider2D>().radius) == false) return;
             float r = Random.Range(0f, 1f);
             switch (idCircle){
                 case 1:

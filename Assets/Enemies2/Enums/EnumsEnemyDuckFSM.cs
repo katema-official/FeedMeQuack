@@ -16,6 +16,7 @@ namespace DuckEnemies
             FoodSeeking,       //the duck is going after the bread following a path
             Bite,               //after dashing/breadSeeking, this state is used to check if the bread is still there
             Eating,             //the duck eats the bread
+            Digesting,          //Like chilling, but done after eating
             StealingPassive,    //the duck is getting robbed by the player
             Chasing,            //the duck is chasing the player to steal bread from him
             TryStealActive,     //when the duck reaches the player, this state is used to check if it is possible to steal it or not

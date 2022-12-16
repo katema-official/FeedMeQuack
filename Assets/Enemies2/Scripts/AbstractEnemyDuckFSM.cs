@@ -67,7 +67,7 @@ namespace DuckEnemies
 
         [SerializeField] protected int _mouthSize;                             //how many BreadPoints this duck can have at once in its mouth
         [SerializeField] protected float _chewingRate;                         //measures in how many seconds (or fractions of seconds) a BreadPoint is consumed
-
+        [SerializeField] protected float _digestingTime;
 
 
         [SerializeField] protected EnemyDuckSO _myEnemyDuckDescription;
@@ -88,6 +88,7 @@ namespace DuckEnemies
         protected IdentifyFoodComponent _identifyFoodComponent;
         protected FoodSeekingComponent _foodSeekingComponent;
         protected DashingComponent _dashingComponent;
+        protected EatingComponent _eatingComponent;
 
 
 
@@ -142,6 +143,7 @@ namespace DuckEnemies
 
             _mouthSize = _myEnemyDuckDescription.MouthSize;
             _chewingRate = _myEnemyDuckDescription.ChewingRate;
+            _digestingTime = _myEnemyDuckDescription.DigestingTime;
 
 
             _roamingComponent = GetComponent<RoamingComponent>();
@@ -152,6 +154,8 @@ namespace DuckEnemies
             _foodSeekingComponent.Initialize(_speedFoodSeeking, _accelerationFoodSeeking, _decelerationFoodSeeking, _steerFoodSeeking, _stopAtFoodSeeking);
             _dashingComponent = GetComponent<DashingComponent>();
             _dashingComponent.Initialize(_dashTriggerProbability);
+            _eatingComponent = GetComponent<EatingComponent>();
+            _eatingComponent.Initialize(_mouthSize, _chewingRate, _digestingTime);
 
 
             //Initialization of the FSM
@@ -178,32 +182,59 @@ namespace DuckEnemies
             FSMState foodSeeking = new FSMState();
             foodSeeking.enterActions.Add(_foodSeekingComponent.EnterFoodSeeking_FindPath);
             foodSeeking.enterActions.Add(_foodSeekingComponent.EnterFoodSeeking_SetSteeringBehaviour);
+            foodSeeking.enterActions.Add(_foodSeekingComponent.EnterFoodSeeking_SetFoodID);
             foodSeeking.stayActions.Add(_foodSeekingComponent.StayFoodSeeking_UpdateDestination);
             foodSeeking.exitActions.Add(_foodSeekingComponent.ExitFoodSeeking_DeletePath);
+            foodSeeking.exitActions.Add(_foodSeekingComponent.ExitFoodSeeking_ResetFoodID);
+
+            FSMState bite = new FSMState();
+            bite.enterActions.Add(_eatingComponent.EnterBite_CleanVariables);
+            bite.enterActions.Add(_eatingComponent.EnterBite_BiteBreadInWater);
+
+            FSMState eating = new FSMState();
+
 
 
 
             //SECOND: define the transition between states
-            FSMTransition chilling_to_roaming = new FSMTransition(_roamingComponent.GetChillEnded, new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Roaming });
+            FSMTransition chilling_to_roaming = new FSMTransition(_roamingComponent.GetChillEnded, 
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Roaming });
 
 
-            FSMTransition roaming_to_hubState = new FSMTransition(_roamingComponent.DestinationReachedRoaming, new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
+            FSMTransition roaming_to_hubState = new FSMTransition(_roamingComponent.DestinationReachedRoaming, 
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
             
 
-            FSMTransition x_to_foodSeen = new FSMTransition(_identifyFoodComponent.IsThereAnObjectiveFood, new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.FoodSeen });
+            FSMTransition x_to_foodSeen = new FSMTransition(_identifyFoodComponent.IsThereAnObjectiveFood, 
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.FoodSeen });
             
 
-            FSMTransition foodSeen_to_dashing = new FSMTransition(_dashingComponent.WantsToDashTowardsObjectiveFood, new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Dashing });
-            FSMTransition foodSeen_to_foodSeeking = new FSMTransition(_identifyFoodComponent.IsThereAnObjectiveFood, new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.FoodSeeking });
+            FSMTransition foodSeen_to_dashing = new FSMTransition(_dashingComponent.WantsToDashTowardsObjectiveFood, 
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Dashing });
+            FSMTransition foodSeen_to_foodSeeking = new FSMTransition(_identifyFoodComponent.IsThereAnObjectiveFood, 
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.FoodSeeking });
 
 
-            FSMTransition foodSeeking_to_hubState = new FSMTransition(() => !_identifyFoodComponent.IsThereAnObjectiveFood(), new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
+            FSMTransition dashing_to_bite = new FSMTransition(_dashingComponent.IsDestinationReached,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Bite });
 
+
+            FSMTransition foodSeeking_to_hubState = new FSMTransition(() => !_identifyFoodComponent.IsThereAnObjectiveFood() || _foodSeekingComponent.HasFoodDisappeared(), //To check whether it's null or, if it's not, has changed (otherwise it wouldn't recompute the path)
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
+            FSMTransition foodSeeking_to_bite = new FSMTransition(_foodSeekingComponent.DestinationReachedFoodSeeking,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Bite });
+
+
+            FSMTransition bite_to_hubState = new FSMTransition(() => !_eatingComponent.CanBiteTheFood(),
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
+            FSMTransition bite_to_eating = new FSMTransition(_eatingComponent.CanBiteTheFood,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Eating });
 
 
 
             //actually, this is the last transition for hubState. If it isn't possible to go in any other state, go in this
-            FSMTransition hubState_to_chilling = new FSMTransition(GoToChill, new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Chilling });
+            FSMTransition hubState_to_chilling = new FSMTransition(GoToChill, 
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Chilling });
             
 
             hubState.AddTransition(x_to_foodSeen, foodSeen);
@@ -220,7 +251,13 @@ namespace DuckEnemies
             foodSeen.AddTransition(foodSeen_to_dashing, dashing);
             foodSeen.AddTransition(foodSeen_to_foodSeeking, foodSeeking);
 
+            dashing.AddTransition(dashing_to_bite, bite);
+
             foodSeeking.AddTransition(foodSeeking_to_hubState, hubState);
+            foodSeeking.AddTransition(foodSeeking_to_bite, bite);
+
+            bite.AddTransition(bite_to_eating, eating);
+            bite.AddTransition(bite_to_hubState, hubState);
 
 
 

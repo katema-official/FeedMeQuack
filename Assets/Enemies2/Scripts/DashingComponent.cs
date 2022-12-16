@@ -8,6 +8,7 @@ namespace DuckEnemies
     {
         private IdentifyFoodComponent _identifyFoodComponent;
         private float _dashTriggerProbability;
+        private bool _destinationReached;
 
 
 
@@ -15,8 +16,17 @@ namespace DuckEnemies
         public void Initialize(float dashTriggerProbability)
         {
             _dashTriggerProbability = dashTriggerProbability;
+            _destinationReached = false;
         }
 
+
+
+
+
+
+
+
+        //############################################################# TRANSITIONS #############################################################
 
         public bool WantsToDashTowardsObjectiveFood()
         {
@@ -24,6 +34,13 @@ namespace DuckEnemies
 
             return _identifyFoodComponent.IsThereAnObjectiveFood() && (Random.Range(0f, 1f) <= _dashTriggerProbability);
         }
+
+        //needs to be changed in the future
+        public bool IsDestinationReached()
+        {
+            return _destinationReached;
+        }
+
 
 
 
