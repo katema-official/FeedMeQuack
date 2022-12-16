@@ -18,12 +18,12 @@ namespace Player
         private PlayerEatSkill _eatSkill = null;
         private PlayerStealSkillDescriptionSO _stealDesc = null;
 
-        private HashSet<Enemies.EnemyFSM> _locatedEnemies;
-        private Enemies.EnemyFSM _locatedEnemy;
+        private HashSet<DuckEnemies.StealingComponent> _locatedEnemies;
+        private DuckEnemies.StealingComponent _locatedEnemy;
         private bool _canSteal = false;
 
         //variable for enemy to steal
-        private Enemies.EnemyFSM _enemyToSteal = null;
+        private DuckEnemies.StealingComponent _enemyToSteal = null;
 
 
         public override void SetDescription(PlayerSkillDescriptionSO desc)
@@ -41,10 +41,10 @@ namespace Player
                 _coolDown += value;
             }
         }
-        public Enemies.EnemyFSM FindClosestEnemy()
+        public DuckEnemies.StealingComponent FindClosestEnemy()
         {
             float _minDistance = 10000000;
-            Enemies.EnemyFSM res = null;
+            DuckEnemies.StealingComponent res = null;
             foreach (var b in _locatedEnemies)
             {
                 var dist = b.gameObject.transform.position - _controller.gameObject.transform.position;
@@ -61,7 +61,7 @@ namespace Player
             _controller = GetComponent<PlayerController>();
             _moveSkill = GetComponent<PlayerMoveSkill>();
             _eatSkill = GetComponent<PlayerEatSkill>();
-            _locatedEnemies = new HashSet<Enemies.EnemyFSM>();
+            _locatedEnemies = new HashSet<DuckEnemies.StealingComponent>();
         }
         // Start is called before the first frame update
         void Start()
@@ -197,7 +197,7 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            var enemyController = collision.gameObject.GetComponent<Enemies.EnemyFSM>();
+            var enemyController = collision.gameObject.GetComponent<DuckEnemies.StealingComponent>();
 
             if (enemyController)
             {
@@ -214,7 +214,7 @@ namespace Player
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            var enemyController = collision.gameObject.GetComponent<Enemies.EnemyFSM>();
+            var enemyController = collision.gameObject.GetComponent<DuckEnemies.StealingComponent>();
 
             if (enemyController)
             {

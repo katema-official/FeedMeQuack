@@ -87,6 +87,7 @@ namespace DuckEnemies
         protected FoodSeekingComponent _foodSeekingComponent;
         protected DashingComponent _dashingComponent;
         protected EatingComponent _eatingComponent;
+        protected StealingComponent _stealingComponent;
 
 
 
@@ -152,6 +153,7 @@ namespace DuckEnemies
             _dashingComponent.Initialize(_dashTriggerProbability);
             _eatingComponent = GetComponent<EatingComponent>();
             _eatingComponent.Initialize(_mouthSize, _chewingRate, _digestingTime);
+            _stealingComponent = GetComponent<StealingComponent>();
 
 
             //Initialization of the FSM
@@ -189,12 +191,17 @@ namespace DuckEnemies
             bite.exitActions.Add(_identifyFoodComponent.ForgetAboutAllFood);
 
             FSMState eating = new FSMState();
-            eating.enterActions.Add(_eatingComponent.EnterEating_SetNotDisturbed);
+            eating.enterActions.Add(_eatingComponent.EnterEating_ResetValues);
             eating.enterActions.Add(_eatingComponent.EnterEating_StartEating);
+            //eating.exitActions.Add(_eatingComponent.ExitEating_ResetValues);
 
             FSMState digesting = new FSMState();
             digesting.enterActions.Add(_eatingComponent.EnterDigesting_ChooseDigestingTime);
             digesting.exitActions.Add(_eatingComponent.ExitDigesting);
+
+            FSMState stealingPassive = new FSMState();
+            stealingPassive.enterActions.Add(_stealingComponent.EnterStealingPassive_ResetVariables);
+            stealingPassive.exitActions.Add(_stealingComponent.ExitStealingPassive_ResetVariables);
             
 
 
@@ -237,11 +244,17 @@ namespace DuckEnemies
 
             FSMTransition eating_to_digesting = new FSMTransition(_eatingComponent.DidIFinishEating,
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Digesting });
-            //transition to stealingPassive
+            FSMTransition eating_to_stealingPassive = new FSMTransition(_eatingComponent.WasIDisturbed,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.StealingPassive });
 
 
             FSMTransition digesting_to_hubState = new FSMTransition(_eatingComponent.GetDigestingEnded,
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
+
+            FSMTransition stealingPassive_to_hubstate = new FSMTransition(_stealingComponent.StealingPassive_WasAllFoodStolen,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
+            FSMTransition stealingPassive_to_eating = new FSMTransition(_stealingComponent.StealingPassive_DoIHaveSomeFoodLeft,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Eating });
 
 
             //actually, this is the last transition for hubState. If it isn't possible to go in any other state, go in this
@@ -272,9 +285,14 @@ namespace DuckEnemies
             bite.AddTransition(bite_to_hubState, hubState);
 
             eating.AddTransition(eating_to_digesting, digesting);
-            //transition to stealingPassive
+            eating.AddTransition(eating_to_stealingPassive, stealingPassive);
 
             digesting.AddTransition(digesting_to_hubState, hubState);
+
+            stealingPassive.AddTransition(stealingPassive_to_hubstate, hubState);
+            stealingPassive.AddTransition(stealingPassive_to_eating, eating);
+
+            
 
 
             _fsm = new FSM(hubState);

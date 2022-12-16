@@ -22,8 +22,8 @@ namespace DuckEnemies
         private float _chewingRate;
         private float _digestingTime;
 
-        private bool _notDisturbed;     //if false, it means that this duck is victim of a stealing action performed by the player
-        private bool _finishedEating;   //true = there are no more BP to eat, false = there are still BP to eat
+        private bool _notDisturbed = true;     //if false, it means that this duck is victim of a stealing action performed by the player
+        private bool _finishedEating = true;   //true = there are no more BP to eat, false = there are still BP to eat
 
         private float _minRollModifier = 0.8f;
         private float _maxRollModifier = 1.2f;
@@ -70,7 +70,7 @@ namespace DuckEnemies
 
         //EATING
         //(the bread to eat was already fixed in the Bite state!)
-        public void EnterEating_SetNotDisturbed()
+        public void EnterEating_ResetValues()
         {
             _notDisturbed = true;   //will tell to the duck if it can keep eating the food or not
             _finishedEating = false;
@@ -101,6 +101,12 @@ namespace DuckEnemies
                 }
             }
             yield return null;
+        }
+
+        public void ExitEating_ResetValues()
+        {
+            _notDisturbed = true;   //will tell to the duck if it can keep eating the food or not
+            _finishedEating = false;
         }
 
 
@@ -141,6 +147,11 @@ namespace DuckEnemies
             return _finishedEating;
         }
 
+        public bool WasIDisturbed()
+        {
+            return !_notDisturbed;
+        }
+
 
         //DIGESTING
         public bool GetDigestingEnded()
@@ -164,7 +175,26 @@ namespace DuckEnemies
         {
             _myFoodInMouthGO = foodGO;
             //In the future, I should check if this food is of kind "bread". But for now, the only food is indeed the bread.
-            _myBreadInMouthComponent = _myFoodInMouthGO.GetComponent<BreadInMouthComponent>();
+            if (foodGO != null)
+            {
+                _myBreadInMouthComponent = _myFoodInMouthGO.GetComponent<BreadInMouthComponent>();
+            }
+            else
+            {
+                _myBreadInMouthComponent = null;
+            }
+        }
+
+        //actually this method could be used both as an utility and a transition, I need to think about it
+        //(on a second thought: no, it's just an utility, because its opposite is actually a transition method)
+        public bool IsEating()
+        {
+            return !DidIFinishEating();
+        }
+
+        public BreadInMouthComponent GetBreadInMouthComponent()
+        {
+            return _myBreadInMouthComponent;
         }
 
     }

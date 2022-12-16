@@ -7,7 +7,7 @@ namespace DuckEnemies
     [CreateAssetMenu(fileName = "new EnemyDuck", menuName = "EnemyDuckSO")]
     public class EnemyDuckSO : ScriptableObject
     {
-        [Header("Roaming and FoodSeeking stuff")]
+        [Header("Roaming stuff")]
         public float SpeedRoaming;
         public float AccelerationRoaming;
         public float DecelerationRoaming;
@@ -16,6 +16,7 @@ namespace DuckEnemies
         public float DesiredRoamingDistance;
         public float StopAtRoaming;
 
+        [Header("FoodSeeking stuff")]
         public float SpeedFoodSeeking;
         public float AccelerationFoodSeeking;
         public float DecelerationFoodSeeking;
@@ -39,14 +40,15 @@ namespace DuckEnemies
         [Range(0.0f, 1.0f)] public float Circle3PlayerProbability;
 
 
-        [Header("Dash and Steal abilities")]
+        [Header("Dash ability")]
         [Range(0.0f, 1.0f)] public float DashTriggerProbability;
-        [Range(0.0f, 1.0f)] public float StealTriggerProbability;
         public float SpeedDash;
         public float AccelerationDash;
         public float DecelerationDash;
         public float SteerDash;
 
+        [Header("Steal ability")]
+        [Range(0.0f, 1.0f)] public float StealTriggerProbability;
         public float SpeedChasing;
         public float AccelerationChasing;
         public float DecelerationChasing;

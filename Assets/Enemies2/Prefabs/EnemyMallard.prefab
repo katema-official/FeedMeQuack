@@ -80,6 +80,7 @@ GameObject:
   - component: {fileID: 2449778241269063516}
   - component: {fileID: 5071184019180501057}
   - component: {fileID: 4450470051131763287}
+  - component: {fileID: 600086623845101832}
   m_Layer: 0
   m_Name: EnemyMallard
   m_TagString: Untagged
@@ -154,6 +155,7 @@ MonoBehaviour:
   _steerChasing: 0
   _mouthSize: 0
   _chewingRate: 0
+  _digestingTime: 0
   _myEnemyDuckDescription: {fileID: 11400000, guid: aa9b6961286ad034dbc9bb4a0ded93c1, type: 2}
 --- !u!58 &1758801312685362606
 CircleCollider2D:
@@ -276,6 +278,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ac148d3220aa1341ab06272b555fcbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _myFoodInMouthGO: {fileID: 0}
+  _myBreadInMouthComponent: {fileID: 0}
+--- !u!114 &600086623845101832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758801312685362596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d5489ec58c10f647a295d8e13a44e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1758801313041092808

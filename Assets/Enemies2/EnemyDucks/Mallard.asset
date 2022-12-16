@@ -20,16 +20,16 @@ MonoBehaviour:
   DesiredRoamingDistance: 21
   StopAtRoaming: 3
   SpeedFoodSeeking: 13
-  AccelerationFoodSeeking: 2
-  DecelerationFoodSeeking: 40
-  SteerFoodSeeking: 10
+  AccelerationFoodSeeking: 5
+  DecelerationFoodSeeking: 30
+  SteerFoodSeeking: 20
   StopAtFoodSeeking: 2
-  Circle1FoodRadius: 20
-  Circle2FoodRadius: 23
-  Circle3FoodRadius: 26
+  Circle1FoodRadius: 15
+  Circle2FoodRadius: 18
+  Circle3FoodRadius: 21
   Circle1FoodProbability: 1
-  Circle2FoodProbability: 0.7
-  Circle3FoodProbability: 0.4
+  Circle2FoodProbability: 0.5
+  Circle3FoodProbability: 0.25
   Circle1PlayerRadius: 10
   Circle2PlayerRadius: 13
   Circle3PlayerRadius: 16
@@ -37,11 +37,11 @@ MonoBehaviour:
   Circle2PlayerProbability: 0.7
   Circle3PlayerProbability: 0.4
   DashTriggerProbability: 0
-  StealTriggerProbability: 0
   SpeedDash: 0
   AccelerationDash: 0
   DecelerationDash: 0
   SteerDash: 0
+  StealTriggerProbability: 0
   SpeedChasing: 0
   AccelerationChasing: 0
   DecelerationChasing: 0
