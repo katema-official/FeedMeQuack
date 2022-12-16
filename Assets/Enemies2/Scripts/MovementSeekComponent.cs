@@ -79,16 +79,21 @@ namespace SteeringBehaviourNamespace
 
                     Vector2 _directionToBrake = -_rigidbody2D.velocity.normalized;  //_directionToMoveNormalized;
 
-                    float forceBreak = Deceleration; //* MaxSteer; // (_rigidbody2D.mass * Mathf.Pow(_rigidbody2D.velocity.magnitude,2)) / (2 * StopAt);
+                    float forceBreak = Deceleration;
                     _rigidbody2D.AddForce(_directionToBrake * forceBreak, ForceMode2D.Force);
-                    Debug.LogFormat("SPEED X AND Y: {0} AND {1}", _rigidbody2D.velocity.x, _rigidbody2D.velocity.y);
+                    //Debug.LogFormat("SPEED X AND Y: {0} AND {1}", _rigidbody2D.velocity.x, _rigidbody2D.velocity.y);
                     if(_rigidbody2D.velocity.x * _xComponentSpeed < 0 && _rigidbody2D.velocity.y * _yComponentSpeed < 0) //oppure se ti stai muovendo di pochissimo
                     {
-                        Debug.Log("STOP");  //non viene mai chiamato
+                        //Debug.Log("STOP");  //non viene mai chiamato
                         HasStartedDecelerating = false;
                         _rigidbody2D.velocity = new Vector2(0, 0);
                         
                     }
+                }
+                else
+                {
+                    Debug.Log("BASTA");
+                    HasStartedDecelerating = false;
                 }
                    
             }
