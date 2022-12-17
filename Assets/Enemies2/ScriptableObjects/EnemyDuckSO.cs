@@ -46,6 +46,7 @@ namespace DuckEnemies
         public float AccelerationDash;
         public float DecelerationDash;
         public float SteerDash;
+        public float DistanceToDash;    //minimum distance that there must be between the duck and the objective food in order for the duck to decide to dash
 
         [Header("Steal ability")]
         [Range(0.0f, 1.0f)] public float StealTriggerProbability;

@@ -57,6 +57,7 @@ namespace DuckEnemies
         [SerializeField] protected float _accelerationDash;                    //at which the duck moves when dashing
         [SerializeField] protected float _decelerationDash;
         [SerializeField] protected float _steerDash;
+        [SerializeField] protected float _distanceToDash;
 
         [SerializeField] protected float _speedChasing;                        //max speed, acceleration, deceleration and steer
         [SerializeField] protected float _accelerationChasing;                 //at which the duck moves when going after the player 
@@ -132,6 +133,7 @@ namespace DuckEnemies
             _accelerationDash = _myEnemyDuckDescription.AccelerationDash;
             _decelerationDash = _myEnemyDuckDescription.DecelerationDash;
             _steerDash = _myEnemyDuckDescription.SteerDash;
+            _distanceToDash = _myEnemyDuckDescription.DistanceToDash;
 
             _speedChasing = _myEnemyDuckDescription.SpeedChasing;
             _accelerationChasing = _myEnemyDuckDescription.AccelerationChasing;
@@ -150,10 +152,11 @@ namespace DuckEnemies
             _foodSeekingComponent = GetComponent<FoodSeekingComponent>();
             _foodSeekingComponent.Initialize(_speedFoodSeeking, _accelerationFoodSeeking, _decelerationFoodSeeking, _steerFoodSeeking, _stopAtFoodSeeking);
             _dashingComponent = GetComponent<DashingComponent>();
-            _dashingComponent.Initialize(_dashTriggerProbability);
+            _dashingComponent.Initialize(_dashTriggerProbability, _speedDash, _accelerationDash, _decelerationDash, _steerDash, _distanceToDash);
             _eatingComponent = GetComponent<EatingComponent>();
             _eatingComponent.Initialize(_mouthSize, _chewingRate, _digestingTime);
             _stealingComponent = GetComponent<StealingComponent>();
+            //No identify for the _stealingComponent (for now at least)
 
 
             //Initialization of the FSM
@@ -176,7 +179,9 @@ namespace DuckEnemies
             //Idk rn if there will be actions to perform when a piece of bread has been identified
 
             FSMState dashing = new FSMState();
-            //Here I'll define the actions to perform when I'll have the dashing for real
+            dashing.enterActions.Add(_dashingComponent.EnterDashing_SaveDestination);
+            dashing.enterActions.Add(_dashingComponent.EnterDashing_DisableCollisionsWithObstacles);
+            dashing.exitActions.Add(_dashingComponent.ExitDashing_EnableCollisionsWithObstacles);
 
             FSMState foodSeeking = new FSMState();
             foodSeeking.enterActions.Add(_foodSeekingComponent.EnterFoodSeeking_FindPath);

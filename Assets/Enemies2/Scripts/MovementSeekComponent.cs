@@ -157,6 +157,14 @@ namespace SteeringBehaviourNamespace
             //the destination was reached, I still want this duck to decelerate
         }
 
+        //It's a bit drastic, but can be useful every time we don't want this component to take care anymore of the movement of the duck (as for example in the Dashing)
+        public void CompletelyStopMoving()
+        {
+            IsDestinationValid = false;
+            HasStartedDecelerating = false;
+            _rigidbody2D.velocity = Vector2.zero;
+        }
+
         public void SetCurrentVelocityComponents()
         {
             _xComponentSpeed = _rigidbody2D.velocity.x;
@@ -237,6 +245,11 @@ namespace SteeringBehaviourNamespace
             {
                 _animator.SetFloat("Blend", 0.1428571f);
             }
+        }
+
+        public float GetRotation()
+        {
+            return _currentRotation;
         }
 
 
