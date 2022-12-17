@@ -18,6 +18,8 @@ namespace DuckEnemies
         private float _stopAtRoaming;
         private float _chillingTime;
 
+        private Vector3 _finalDestinationRoaming;
+
         private LakeShopDescriptionComponent _lakeShopDescriptionComponent;
         private TileGraphComponent _tileGraphComponent;
 
@@ -111,16 +113,14 @@ namespace DuckEnemies
             List<DirectionsRoaming> directionPreferences = GetDirectionPreferences();
 
             //SECOND: I choose a point in which I want to move, preferring the ones in the first directions of the list
-            Vector3 dest = GetRoamingGoal(directionPreferences);
-            _pathRoaming = _tileGraphComponent.GetPathFromPointToPoint(transform.position, dest, GetComponent<CircleCollider2D>());
+            _finalDestinationRoaming = GetRoamingGoal(directionPreferences);
+            _pathRoaming = _tileGraphComponent.GetPathFromPointToPoint(transform.position, _finalDestinationRoaming, GetComponent<CircleCollider2D>());
             _indexCurrentDestination = 0;
             _currentDestination = _pathRoaming[0];
 
             //THIRD: I have to follow this path. The path will be followed starting from here, and it will be updated in the stay action
-            _movementSeekComponent.CurrentDestination = _currentDestination;
-            _movementSeekComponent.FinalDestination = _pathRoaming[_pathRoaming.Count - 1];
+            _movementSeekComponent.SetCurrentAndFinalDestination(_currentDestination, _pathRoaming[_pathRoaming.Count - 1]);
 
-            
 
 
         }
@@ -140,6 +140,10 @@ namespace DuckEnemies
             _movementSeekComponent.StartMoving();// IsDestinationValid = true;
 
             _destinationRoamingReached = false;
+
+            //FOURTH: the duck might be disturbed during its traveling. If that happens, it can get stuck. To avoid this, we run a procedure that
+            //checks if the duck arrived at each intermediate (and final) destination in an expected time. If it didn't, we recompute the path.
+            _checkIfPathIsFollowedCoroutine = StartCoroutine(CheckIfPathIsFollowed());
 
         }
 
@@ -167,13 +171,19 @@ namespace DuckEnemies
             {
                 _indexCurrentDestination += 1;
                 _currentDestination = _pathRoaming[_indexCurrentDestination];
-                _movementSeekComponent.CurrentDestination = _currentDestination;
+                _movementSeekComponent.SetCurrentDestination(_currentDestination);
 
                 //the very moment we reach the first destination, we set the steering to its maximum value (TODO: should not be necessary anymore, delete this)
                 //_movementSeekComponent.MaxSteer = _steerRoaming;
             }
             return;
 
+        }
+
+        public void ExitRoaming_StopCoroutine()
+        {
+            StopCoroutine(_checkIfPathIsFollowedCoroutine);
+            _checkIfPathIsFollowedCoroutine = null;
         }
 
 
@@ -192,6 +202,48 @@ namespace DuckEnemies
 
 
         //############################################################# UTILITIES #############################################################
+
+        private Coroutine _checkIfPathIsFollowedCoroutine;
+        private Vector3 _currentDestinationToReach;
+        private IEnumerator CheckIfPathIsFollowed()
+        {
+            //the idea of this procedure is:
+            //I want to make sure that the duck reaches its destination. To be sure about that, I do the following:
+            //-Given its current destination, and assuming the duck moves at max speed (to be more fair we should take into account also acceleration, but for
+            //now we'll just stick with this simplyfying assumption), we can compute the expected time needed by the duck to reach the current destination.
+            //For this amount of time, we sleep.
+            //-Once we wake up, we check: did the duck reach that destination or not? (can be checked controlling if the current destination has changed or not)
+            //If yes, phew, we are happy, but we must repeat this kind of check for each current destination until the final one has been reached.
+            //If no, argh, the duck was disturbed somehow and may be stuck. In that case, we have to compute a new path from the current position to the final
+            //destination, and update all the data interested in the path.
+
+            while (!DestinationReachedRoaming()) {
+                _currentDestinationToReach = _currentDestination;
+                float expectedTime = (Vector2.Distance(transform.position, _currentDestinationToReach)) / _speedRoaming;
+                expectedTime *= 1.2f;       //we give a bit of tolerance, we don't want to be extremely precise
+                yield return new WaitForSeconds(expectedTime);
+
+                if (!DestinationReachedRoaming())
+                {
+                    if (_currentDestinationToReach == _currentDestination)
+                    {
+                        //the duck was disturbed
+                        _pathRoaming = _tileGraphComponent.GetPathFromPointToPoint(transform.position, _finalDestinationRoaming, GetComponent<CircleCollider2D>());
+                        _indexCurrentDestination = 0;
+                        _currentDestination = _pathRoaming[0];
+                        _movementSeekComponent.SetCurrentAndFinalDestination(_currentDestination, _pathRoaming[_pathRoaming.Count - 1]);
+                        //Debug.Log("RECOMPUTED");
+                    }
+                    else
+                    {
+                        //the duck was not disturbed
+                        //Debug.Log("NOT RECOMPUTED :)");
+                    }
+                }
+
+            }
+            yield return null;
+        }
 
 
 

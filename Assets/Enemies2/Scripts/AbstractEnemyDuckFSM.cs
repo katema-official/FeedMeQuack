@@ -91,7 +91,7 @@ namespace DuckEnemies
 
 
 
-        void Awake()
+        void Start()
         {
             //Initialization of internal data structures and variables
             _state = EnemyDuckFSMEnumState.State.HubState;
@@ -170,6 +170,7 @@ namespace DuckEnemies
             roaming.enterActions.Add(_roamingComponent.EnterRoaming_ChooseRandomPath);
             roaming.enterActions.Add(_roamingComponent.EnterRoaming_SetSteeringBehaviour);
             roaming.stayActions.Add(_roamingComponent.StayRoaming_UpdateDestination);
+            roaming.exitActions.Add(_roamingComponent.ExitRoaming_StopCoroutine);
 
             FSMState foodSeen = new FSMState();
             //Idk rn if there will be actions to perform when a piece of bread has been identified
@@ -184,6 +185,7 @@ namespace DuckEnemies
             foodSeeking.stayActions.Add(_foodSeekingComponent.StayFoodSeeking_UpdateDestination);
             foodSeeking.exitActions.Add(_foodSeekingComponent.ExitFoodSeeking_DeletePath);
             foodSeeking.exitActions.Add(_foodSeekingComponent.ExitFoodSeeking_ResetFoodID);
+            foodSeeking.exitActions.Add(_foodSeekingComponent.ExitFoodSeeking_StopCoroutine);
 
             FSMState bite = new FSMState();
             bite.enterActions.Add(_eatingComponent.EnterBite_CleanVariables);
@@ -224,6 +226,8 @@ namespace DuckEnemies
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Dashing });
             FSMTransition foodSeen_to_foodSeeking = new FSMTransition(_identifyFoodComponent.IsThereAnObjectiveFood, 
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.FoodSeeking });
+            FSMTransition foodSeen_to_hubState = new FSMTransition(() => !_identifyFoodComponent.IsThereAnObjectiveFood(),
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
 
 
             FSMTransition dashing_to_bite = new FSMTransition(_dashingComponent.IsDestinationReached,

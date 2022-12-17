@@ -16,6 +16,8 @@ namespace DuckEnemies
         private float _steerFoodSeeking;
         private float _stopAtFoodSeeking;
 
+        private Vector3 _finalDestinationFoodSeeking;
+
         private TileGraphComponent _tileGraphComponent;
         private MovementSeekComponent _movementSeekComponent;
         private IdentifyFoodComponent _identifyFoodComponent;
@@ -49,14 +51,12 @@ namespace DuckEnemies
         //when i get into the BreadSeeking state, I have to find the path that takes me from my current position to the actual bread
         public void EnterFoodSeeking_FindPath()
         {
-            Vector3 goal = _identifyFoodComponent.GetObjectiveFood().transform.position;
-            _pathFoodSeeking = _tileGraphComponent.GetPathFromPointToPoint(transform.position, goal, GetComponent<CircleCollider2D>());
-
+            Vector3 _finalDestinationFoodSeeking = _identifyFoodComponent.GetObjectiveFood().transform.position;
+            _pathFoodSeeking = _tileGraphComponent.GetPathFromPointToPoint(transform.position, _finalDestinationFoodSeeking, GetComponent<CircleCollider2D>());
             _indexCurrentDestination = 0;
             _currentDestination = _pathFoodSeeking[0];
 
-            _movementSeekComponent.CurrentDestination = _currentDestination;
-            _movementSeekComponent.FinalDestination = _pathFoodSeeking[_pathFoodSeeking.Count - 1];
+            _movementSeekComponent.SetCurrentAndFinalDestination(_currentDestination, _pathFoodSeeking[_pathFoodSeeking.Count - 1]);
         }
 
         public void EnterFoodSeeking_SetSteeringBehaviour()
@@ -73,6 +73,8 @@ namespace DuckEnemies
             _movementSeekComponent.StartMoving();
 
             _destinationFoodSeekingReached = false;
+
+            _checkIfPathIsFollowedCoroutine = StartCoroutine(CheckIfPathIsFollowed());
         }
 
         public void EnterFoodSeeking_SetFoodID()
@@ -97,7 +99,7 @@ namespace DuckEnemies
             {
                 _indexCurrentDestination += 1;
                 _currentDestination = _pathFoodSeeking[_indexCurrentDestination];
-                _movementSeekComponent.CurrentDestination = _currentDestination;
+                _movementSeekComponent.SetCurrentDestination(_currentDestination);
             }
             return;
         }
@@ -110,6 +112,12 @@ namespace DuckEnemies
         public void ExitFoodSeeking_ResetFoodID()
         {
             _IDOfThisFood = -1;
+        }
+
+        public void ExitFoodSeeking_StopCoroutine()
+        {
+            StopCoroutine(_checkIfPathIsFollowedCoroutine);
+            _checkIfPathIsFollowedCoroutine = null;
         }
 
 
@@ -125,6 +133,43 @@ namespace DuckEnemies
         {
             Debug.Log("Food disappeared? " + (_identifyFoodComponent.GetObjectiveFood().GetInstanceID() != _IDOfThisFood));
             return _identifyFoodComponent.GetObjectiveFood().GetInstanceID() != _IDOfThisFood;
+        }
+
+
+        //############################################################# UTILITIES #############################################################
+
+        private Coroutine _checkIfPathIsFollowedCoroutine;
+        private Vector3 _currentDestinationToReach;
+
+        private IEnumerator CheckIfPathIsFollowed()
+        {
+            while (!DestinationReachedFoodSeeking())
+            {
+                _currentDestinationToReach = _currentDestination;
+                float expectedTime = (Vector2.Distance(transform.position, _currentDestinationToReach)) / _speedFoodSeeking;
+                expectedTime *= 1.2f;
+                yield return new WaitForSeconds(expectedTime);
+
+                if (!DestinationReachedFoodSeeking())
+                {
+                    if (_currentDestinationToReach == _currentDestination)
+                    {
+                        //the duck was disturbed
+                        _pathFoodSeeking = _tileGraphComponent.GetPathFromPointToPoint(transform.position, _identifyFoodComponent.GetObjectiveFood().transform.position, GetComponent<CircleCollider2D>());
+                        _indexCurrentDestination = 0;
+                        _currentDestination = _pathFoodSeeking[0];
+                        _movementSeekComponent.SetCurrentAndFinalDestination(_currentDestination, _pathFoodSeeking[_pathFoodSeeking.Count - 1]);
+                        //Debug.Log("RECOMPUTED");
+                    }
+                    else
+                    {
+                        //the duck was not disturbed
+                        //Debug.Log("NOT RECOMPUTED :)");
+                    }
+                }
+
+            }
+            yield return null;
         }
 
     }

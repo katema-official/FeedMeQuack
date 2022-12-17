@@ -74,6 +74,7 @@ namespace DuckEnemies
             //_playerStartedStealingMe = true;
             _eatingComponent.Disturb();
             transform.position = pos;           //mmmmmmmmmmmmhhhhhh I don't like this so much but for now...
+            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             return _eatingComponent.GetBreadInMouthComponent();
         }
 

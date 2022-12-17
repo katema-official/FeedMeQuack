@@ -163,6 +163,16 @@ namespace SteeringBehaviourNamespace
             _yComponentSpeed = _rigidbody2D.velocity.y;
         }
 
+        public void SetCurrentAndFinalDestination(Vector3 current, Vector3 final)
+        {
+            CurrentDestination = current;
+            FinalDestination = final;
+        }
+
+        public void SetCurrentDestination(Vector3 current)
+        {
+            CurrentDestination = current;
+        }
 
 
 

@@ -21,8 +21,8 @@ namespace DuckEnemies
         private HashSet<int> _refusedFoodCircle2;
         private HashSet<int> _refusedFoodCircle3;
         private HashSet<GameObject> _identifiedFoods;
-        [SerializeField] private GameObject _foodInWaterObjectiveGO;
-        [SerializeField] private int _foodInWaterObjectiveID;
+        //[SerializeField] private GameObject _foodInWaterObjectiveGO;
+        //[SerializeField] private int _foodInWaterObjectiveID;
 
         private FoodCircleComponent _foodCircleComponent1;
         private FoodCircleComponent _foodCircleComponent2;
@@ -43,8 +43,8 @@ namespace DuckEnemies
             _refusedFoodCircle2 = new HashSet<int>();
             _refusedFoodCircle3 = new HashSet<int>();
             _identifiedFoods = new HashSet<GameObject>();
-            _foodInWaterObjectiveGO = null;
-            _foodInWaterObjectiveID = -1;
+            //_foodInWaterObjectiveGO = null;
+            //_foodInWaterObjectiveID = -1;
 
             _foodCircleComponent1.GetComponent<CircleCollider2D>().radius = _circle1FoodRadius;
             _foodCircleComponent2.GetComponent<CircleCollider2D>().radius = _circle2FoodRadius;
@@ -165,8 +165,8 @@ namespace DuckEnemies
             _refusedFoodCircle2.Clear();
             _refusedFoodCircle3.Clear();
             _identifiedFoods.Clear();
-            _foodInWaterObjectiveGO = null;
-            _foodInWaterObjectiveID = -1;
+            //_foodInWaterObjectiveGO = null;
+            //_foodInWaterObjectiveID = -1;
         }
 
         
@@ -178,7 +178,7 @@ namespace DuckEnemies
             {
                 if (foodGO != null)
                 {
-                    Debug.Log("foodGO identified = " + foodGO);
+                    //Debug.Log("foodGO identified = " + foodGO);
                     float currentDist = Vector2.Distance(transform.position, foodGO.transform.position);
                     if (currentDist < minDist)
                     {
@@ -188,14 +188,14 @@ namespace DuckEnemies
                 }
                 else
                 {
-                    Debug.Log("foodGO was null :(");
+                    //Debug.Log("foodGO was null :(");
                 }
 
             }
 
             return foodClosest;
 
-            return _foodInWaterObjectiveGO;
+            //return _foodInWaterObjectiveGO;
         }
 
 

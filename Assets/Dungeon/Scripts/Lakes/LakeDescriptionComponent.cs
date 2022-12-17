@@ -172,9 +172,7 @@ namespace LevelStageNamespace {
 
                 //then, we can place in the map the enemies. Their position needs to be inside the lake, and
                 //not too close to the player
-                
-                //TODO: for when there will be new enemies...
-                //GenerateEnemies();
+                GenerateEnemies();
 
                 //the setup of the lake is done. Now we wait until the player enters in the actual lake from the river. To do so, he will need
                 //to pass through the TriggerEnteredCollider of the river in which he is.
