@@ -20,6 +20,7 @@ namespace DuckEnemies
         private HashSet<int> _refusedFoodCircle1;
         private HashSet<int> _refusedFoodCircle2;
         private HashSet<int> _refusedFoodCircle3;
+        private HashSet<GameObject> _identifiedFoods;
         [SerializeField] private GameObject _foodInWaterObjectiveGO;
         [SerializeField] private int _foodInWaterObjectiveID;
 
@@ -41,6 +42,7 @@ namespace DuckEnemies
             _refusedFoodCircle1 = new HashSet<int>();
             _refusedFoodCircle2 = new HashSet<int>();
             _refusedFoodCircle3 = new HashSet<int>();
+            _identifiedFoods = new HashSet<GameObject>();
             _foodInWaterObjectiveGO = null;
             _foodInWaterObjectiveID = -1;
 
@@ -74,12 +76,14 @@ namespace DuckEnemies
             float r = Random.Range(0f, 1f);
             switch (idCircle){
                 case 1:
-                    if ((_foodInWaterObjectiveGO == null || _foodInWaterObjectiveGO.GetInstanceID() != _foodInWaterObjectiveID) && !_refusedFoodCircle1.Contains(foodGO.GetInstanceID()))
+                    if(_identifiedFoods.Contains(foodGO) == false && !_refusedFoodCircle1.Contains(foodGO.GetInstanceID()))
+                    //if ((_foodInWaterObjectiveGO == null || _foodInWaterObjectiveGO.GetInstanceID() != _foodInWaterObjectiveID) && !_refusedFoodCircle1.Contains(foodGO.GetInstanceID()))
                     {
                         if (r < _circle1FoodProbability)
                         {
-                            _foodInWaterObjectiveGO = foodGO;
-                            _foodInWaterObjectiveID = _foodInWaterObjectiveGO.GetInstanceID();
+                            //_foodInWaterObjectiveGO = foodGO;
+                            //_foodInWaterObjectiveID = _foodInWaterObjectiveGO.GetInstanceID();
+                            SaveIdentifiedFood(foodGO);
                             Debug.Log("Circle 1 accepted");
                         }
                         else
@@ -91,12 +95,14 @@ namespace DuckEnemies
                     }
                     break;
                 case 2:
-                    if ((_foodInWaterObjectiveGO == null || _foodInWaterObjectiveGO.GetInstanceID() != _foodInWaterObjectiveID) && !_refusedFoodCircle2.Contains(foodGO.GetInstanceID()))
+                    if(_identifiedFoods.Contains(foodGO) == false && !_refusedFoodCircle2.Contains(foodGO.GetInstanceID()))
+                    //if ((_foodInWaterObjectiveGO == null || _foodInWaterObjectiveGO.GetInstanceID() != _foodInWaterObjectiveID) && !_refusedFoodCircle2.Contains(foodGO.GetInstanceID()))
                     {
                         if (r < _circle2FoodProbability)
                         {
-                            _foodInWaterObjectiveGO = foodGO;
-                            _foodInWaterObjectiveID = _foodInWaterObjectiveGO.GetInstanceID();
+                            //_foodInWaterObjectiveGO = foodGO;
+                            //_foodInWaterObjectiveID = _foodInWaterObjectiveGO.GetInstanceID();
+                            SaveIdentifiedFood(foodGO);
                             Debug.Log("Circle 2 accepted");
                         }
                         else
@@ -108,12 +114,14 @@ namespace DuckEnemies
                     }
                     break;
                 case 3:
-                    if ((_foodInWaterObjectiveGO == null || _foodInWaterObjectiveGO.GetInstanceID() != _foodInWaterObjectiveID) && !_refusedFoodCircle3.Contains(foodGO.GetInstanceID()))
+                    if (_identifiedFoods.Contains(foodGO) == false && !_refusedFoodCircle3.Contains(foodGO.GetInstanceID()))
+                    //if ((_foodInWaterObjectiveGO == null || _foodInWaterObjectiveGO.GetInstanceID() != _foodInWaterObjectiveID) && !_refusedFoodCircle3.Contains(foodGO.GetInstanceID()))
                     {
                         if (r < _circle3FoodProbability)
                         {
-                            _foodInWaterObjectiveGO = foodGO;
-                            _foodInWaterObjectiveID = _foodInWaterObjectiveGO.GetInstanceID();
+                            //_foodInWaterObjectiveGO = foodGO;
+                            //_foodInWaterObjectiveID = _foodInWaterObjectiveGO.GetInstanceID();
+                            SaveIdentifiedFood(foodGO);
                             Debug.Log("Circle 3 accepted");
                         }
                         else
@@ -129,9 +137,23 @@ namespace DuckEnemies
 
         }
 
+
+        private void SaveIdentifiedFood(GameObject foodGO)
+        {
+            _identifiedFoods.Add(foodGO);
+        }
+
+
         public bool IsThereAnObjectiveFood()
         {
-            return (_foodInWaterObjectiveGO != null && _foodInWaterObjectiveGO.GetInstanceID() == _foodInWaterObjectiveID);
+            _identifiedFoods.RemoveWhere(x => x == null);
+            if(_identifiedFoods.Count == 0)
+            {
+                return false;
+            }
+            return true;
+
+            //return (_foodInWaterObjectiveGO != null && _foodInWaterObjectiveGO.GetInstanceID() == _foodInWaterObjectiveID);
         }
 
         //function to call whenever we want to clean the data structures.
@@ -142,6 +164,7 @@ namespace DuckEnemies
             _refusedFoodCircle1.Clear();
             _refusedFoodCircle2.Clear();
             _refusedFoodCircle3.Clear();
+            _identifiedFoods.Clear();
             _foodInWaterObjectiveGO = null;
             _foodInWaterObjectiveID = -1;
         }
@@ -149,6 +172,29 @@ namespace DuckEnemies
         
         public GameObject GetObjectiveFood()
         {
+            float minDist = 10000f;
+            GameObject foodClosest = null;
+            foreach(GameObject foodGO in _identifiedFoods)
+            {
+                if (foodGO != null)
+                {
+                    Debug.Log("foodGO identified = " + foodGO);
+                    float currentDist = Vector2.Distance(transform.position, foodGO.transform.position);
+                    if (currentDist < minDist)
+                    {
+                        minDist = currentDist;
+                        foodClosest = foodGO;
+                    }
+                }
+                else
+                {
+                    Debug.Log("foodGO was null :(");
+                }
+
+            }
+
+            return foodClosest;
+
             return _foodInWaterObjectiveGO;
         }
 
