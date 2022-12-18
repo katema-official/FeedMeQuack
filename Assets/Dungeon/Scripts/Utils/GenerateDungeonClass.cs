@@ -339,7 +339,7 @@ namespace LevelStageNamespace
                     ret.ObstaclesDescription = ObstaclesLakeSmallComponent.GenerateObstaclesDescription();
                     break;
                 case EnumsDungeon.LakeDimension.Medium:
-                    ret.ObstaclesDescription = ObstaclesLakeSmallComponent.GenerateObstaclesDescription();
+                    ret.ObstaclesDescription = ObstaclesLakeMediumComponent.GenerateObstaclesDescription();
                     break;
                 case EnumsDungeon.LakeDimension.Large:
                     ret.ObstaclesDescription = ObstaclesLakeSmallComponent.GenerateObstaclesDescription();

@@ -208,7 +208,7 @@ namespace LevelStageNamespace
                     SceneManager.LoadScene("LakeSmall");
                     break;
                 case EnumsDungeon.LakeDimension.Medium:
-                    SceneManager.LoadScene("LakeSmall");    //TODO: LakeMedium
+                    SceneManager.LoadScene("LakeMedium");    //TODO: LakeMedium
                     break;
                 case EnumsDungeon.LakeDimension.Large:
                     SceneManager.LoadScene("LakeSmall");    //TODO: LakeLarge
