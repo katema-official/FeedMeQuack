@@ -7,93 +7,85 @@ namespace Music
     [RequireComponent(typeof(AudioSource))]
     public class SpitBarSoundController : MonoBehaviour
     {
+        /* With methods SetIsInSpittingState(bool isNewState) we can stop Spit(float maxTime, AudioSource audioSource) call */
+        
         private AudioSource _audioSource;
         private bool _isInSpittingState;
-        private const float PitchToNormalizeTime = 1.5f;// Will be Resources.Load<AudioClip>("SFX/SpittingSoundUp").length / GetSpitBarTimeForCharging() 
 
         // Start is called before the first frame update
         private void Start()
         {
             _audioSource = gameObject.GetComponent<AudioSource>();
-            _audioSource.clip = Resources.Load<AudioClip>("SFX/SpittingSoundUp");
-            _audioSource.volume =
-                MusicManagerComponent
-                    .GetSoundVolume();
-            _audioSource.pitch = PitchToNormalizeTime;
-            var mixer = Resources.Load("Mixers/GameAudioMixer") as AudioMixer;
-            if ( mixer != null)
-            {
-                _audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SoundMaster")[0];
-            }
         }
-
-// Update is called once per frame
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                SetIsInSpittingState(true);
-            }
-            
-            if (Input.GetKeyUp(KeyCode.Space))
-            {
-                SetIsInSpittingState(false);
-            }
-            Spit();
-        }
-
+        
         public void SetIsInSpittingState(bool isNewState)
         {
             _isInSpittingState = isNewState;
         }
 
-        private bool GetIsInSpittingState()
+        public bool GetIsInSpittingState()
         {
             return _isInSpittingState;
         }
 
-        private void Spit()
+        public void Spit(float maxTime, AudioSource audioSource)
         {
-            StartCoroutine(CheckSpitSoundClipState());
+            _audioSource = audioSource;
+            _audioSource.clip = Resources.Load<AudioClip>("SFX/SpittingSoundUp");
+            _audioSource.volume =
+                MusicManagerComponent
+                    .GetSoundVolume();
+            var mixer = Resources.Load("Mixers/GameAudioMixer") as AudioMixer;
+            _audioSource.pitch = Resources.Load<AudioClip>("SFX/SpittingSoundUp").length / maxTime;
+            if ( mixer != null)
+            {
+                _audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SoundMaster")[0];
+            }
+            SetIsInSpittingState(true);
+            _audioSource.Play();
+            StartCoroutine(CheckSpitSoundClipState(maxTime));
         }
 
-        private IEnumerator CheckSpitSoundClipState()
+        private IEnumerator CheckSpitSoundClipState(float maxTime)
         {
-            if (GetIsInSpittingState())
+            //if (GetIsInSpittingState())
+            //{
+            /*if (!_audioSource.isPlaying)
             {
-                if (!_audioSource.isPlaying)
-                {
-                    _audioSource.clip = Resources.Load<AudioClip>("SFX/SpittingSoundUp");
-                    _audioSource.Play();
-                }
+                _audioSource.clip = Resources.Load<AudioClip>("SFX/SpittingSoundUp");*/
 
-                if (_audioSource.time >= _audioSource.clip.length - 0.07 &&
-                    _audioSource.clip.Equals(Resources.Load<AudioClip>("SFX/SpittingSoundUp")))
+            //}
+            while (GetIsInSpittingState())
+            {
+
+                if (_audioSource.time >= _audioSource.clip.length - 0.07)
+                    //_audioSource.clip.Equals(Resources.Load<AudioClip>("SFX/SpittingSoundUp")))
                 {
                     _audioSource.Stop();
-                    _audioSource.clip = Resources.Load<AudioClip>("SFX/SpittingSoundDown");
-                    _audioSource.Play();
+                    SetIsInSpittingState(false);
+                    UniversalAudio.PlaySound("SpitBreakSound", transform);
                     yield return null;
+                    //_audioSource.clip = Resources.Load<AudioClip>("SFX/SpittingSoundDown");
                 }
-                else if (_audioSource.time >= _audioSource.clip.length - 0.07 &&
+
+                yield return null;
+                /*else if (_audioSource.time >= _audioSource.clip.length - 0.07 &&
                          _audioSource.clip.Equals(Resources.Load<AudioClip>("SFX/SpittingSoundDown")))
                 {
                     _audioSource.Stop();
                     _audioSource.clip = Resources.Load<AudioClip>("SFX/SpittingSoundUp");
                     _audioSource.Play();
                     yield return null;
-                }
-                
-            }
-            else if (!GetIsInSpittingState() && _audioSource.isPlaying)
-            {
-                _audioSource.Stop();
-                UniversalAudio.PlaySound("SpitBreakSound", transform);
-                yield break;
+                }*/
+
             }
 
+            _audioSource.Stop();
+            UniversalAudio.PlaySound("SpitBreakSound", transform);
             yield return null;
+            //}
+            //yield return null;
         }
-        
+
     }
 }
