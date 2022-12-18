@@ -180,7 +180,12 @@ namespace Music // To change correctly
                 {
                     // It's the same of (AudioClip)Resources.Load(pathFromSourcesForMusic + clipName, typeof(AudioClip));
                     _audioSource2.clip = Resources.Load<AudioClip>(PathFromSourcesForMusic + clipName);
-
+                    
+                    if (_audioSource1.clip.Equals(_audioSource2.clip))
+                    {
+                        yield break;
+                    }
+                    
                     _audioSource2.time =
                         _audioClipTimerDictionary[clipName]; // (The incoming track starts from the value
                     // displayed in _audioClipTimerDictionary)
@@ -209,6 +214,12 @@ namespace Music // To change correctly
                     // If it's the second AudioSource that's playing, do as above but swapped
                     {
                         _audioSource1.clip = Resources.Load<AudioClip>(PathFromSourcesForMusic + clipName);
+                        
+                        if (_audioSource1.clip.Equals(_audioSource2.clip))
+                        {
+                            yield break;
+                        }
+                        
                         _audioSource1.time = _audioClipTimerDictionary[clipName];
                         _audioSource1.Play();
                         while (timeElapsed < _timeOfFading)

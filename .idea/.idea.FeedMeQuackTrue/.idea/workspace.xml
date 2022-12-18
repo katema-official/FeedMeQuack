@@ -3,17 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0808f2d5-72ad-4799-babc-2a377af7996b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuackTrue/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuackTrue/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/SFX/CrunchingEnemy.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/SFX/CrunchingEnemy.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/SFX/CrunchingPlayer.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/SFX/CrunchingPlayer.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/Songs/Tutorial.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/Songs/Tutorial.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/AnimalSoundController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Scripts/AnimalSoundController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/SpitBarSoundController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Scripts/SpitBarSoundController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/UniversalAudio.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Scripts/UniversalAudio.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Player/Prefab/DuckPlayer.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Player/Prefab/DuckPlayer.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +83,7 @@
       <workItem from="1670665680263" duration="17881000" />
       <workItem from="1670748144132" duration="47646000" />
       <workItem from="1671005031010" duration="11790000" />
-      <workItem from="1671356184818" duration="5697000" />
+      <workItem from="1671356184818" duration="7048000" />
     </task>
     <servers />
   </component>
