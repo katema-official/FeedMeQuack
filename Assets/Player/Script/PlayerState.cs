@@ -10,7 +10,9 @@ namespace Player
         Eating,
         Dashing,
         Stealing,
-        Spitting
+        Spitting,
+        Carring,
+        GettingRobbed
     }
 
 }
