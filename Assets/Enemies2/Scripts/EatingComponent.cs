@@ -189,7 +189,7 @@ namespace DuckEnemies
         //(on a second thought: no, it's just an utility, because its opposite is actually a transition method)
         public bool IsEating()
         {
-            return !DidIFinishEating();
+            return !DidIFinishEating() && _myFoodInMouthGO != null;
         }
 
         public BreadInMouthComponent GetBreadInMouthComponent()

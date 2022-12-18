@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,7 +27,7 @@ namespace LevelStageNamespace
         {
 
             int randomSeed = (int)System.DateTime.Now.Ticks;
-            Random.InitState(randomSeed);
+            UnityEngine.Random.InitState(randomSeed);
 
             //this method needs to generate the current stage.
             //a stage is a spatially ordered collection of lakes. The lakes can be represented inside a matrix.
@@ -45,7 +46,7 @@ namespace LevelStageNamespace
             currentStageBitMap[StartMapX, StartMapY] = true;
 
             //2) how many lakes do we need to generate, actually?
-            int nLakes = Random.Range(currentStage.MinNumberOfLakes, currentStage.MaxNumberOfLakes + 1);
+            int nLakes = UnityEngine.Random.Range(currentStage.MinNumberOfLakes, currentStage.MaxNumberOfLakes + 1);
             int totalNumberOfLakes = nLakes;
 
             nLakes -= 1;        //since we already fixed the initial room.
@@ -68,7 +69,7 @@ namespace LevelStageNamespace
             while (nLakes > 0)
             {
                 //starting from the current room, choose a random direction.
-                _bitMapDirection currentDirection = (_bitMapDirection)Random.Range(0, 4);
+                _bitMapDirection currentDirection = (_bitMapDirection)UnityEngine.Random.Range(0, 4);
 
                 //can you move in that direction?
                 currentX = updateCurrentX(currentX, currentDirection);
@@ -76,7 +77,7 @@ namespace LevelStageNamespace
                 if (currentStageBitMap[currentX, currentY] == false)
                 {
                     //If no, dig in that direction for a certain number of steps
-                    int howMuchToDig = Mathf.Min(nLakes, Random.Range(minRoomsToDig, maxRoomsToDig + 1));
+                    int howMuchToDig = Mathf.Min(nLakes, UnityEngine.Random.Range(minRoomsToDig, maxRoomsToDig + 1));
                     for(int i = 0; i < howMuchToDig; i++)
                     {
                         dig(currentStageBitMap, currentX, currentY);
@@ -91,7 +92,7 @@ namespace LevelStageNamespace
                 else
                 {
                     //If yes, move up to a certain number of steps in that direction
-                    int howMuchToMove = Random.Range(minStepsToWalkIfPossible, maxStepsToWalkIfPossible + 1) - 1;   //-1 because actually we already did one step before the if!
+                    int howMuchToMove = UnityEngine.Random.Range(minStepsToWalkIfPossible, maxStepsToWalkIfPossible + 1) - 1;   //-1 because actually we already did one step before the if!
                     for(int i = 0; i < howMuchToMove; i++)
                     {
                         //I keep moving in that direction only if I would not hit a wall.
@@ -274,7 +275,7 @@ namespace LevelStageNamespace
             {
                 possibleExits.Add(EnumsDungeon.CompassDirection.East);
             }
-            farthestLake.ExitStageDirection = possibleExits[Random.Range(0, possibleExits.Count)];
+            farthestLake.ExitStageDirection = possibleExits[UnityEngine.Random.Range(0, possibleExits.Count)];
             switch (farthestLake.ExitStageDirection)
             {
                 case EnumsDungeon.CompassDirection.North:
@@ -321,8 +322,9 @@ namespace LevelStageNamespace
         {
             LakeDescriptionSO ret = ScriptableObject.CreateInstance<LakeDescriptionSO>();
 
-            generateEnemiesForLake(ret, stageDescription);
+
             decideLakeDimensionForLake(ret, stageDescription);
+            generateEnemiesForLake(ret, stageDescription);
             decideBreadToSpawnMapForLake(ret, stageDescription);
 
             ret.IsLakeCleared = false;
@@ -366,7 +368,24 @@ namespace LevelStageNamespace
         private static void generateEnemiesForLake(LakeDescriptionSO lake, StageSO stageDescription)
         {
             //first, let's decide how many enemies there must be
-            int totNumberOfEnemies = Random.Range(stageDescription.MinNumberOfEnemiesPerLake, stageDescription.MaxNumberOfEnemiesPerLake + 1);
+            EnemySpawnSO enemySpawnSO;
+            switch (lake.Dimension)
+            {
+                case EnumsDungeon.LakeDimension.Small:
+                    enemySpawnSO = stageDescription.ListEnemySpawnSO[(int)EnumsDungeon.LakeDimension.Small];
+                    break;
+                case EnumsDungeon.LakeDimension.Medium:
+                    enemySpawnSO = stageDescription.ListEnemySpawnSO[(int)EnumsDungeon.LakeDimension.Medium];
+                    break;
+                case EnumsDungeon.LakeDimension.Large:
+                    enemySpawnSO = stageDescription.ListEnemySpawnSO[(int)EnumsDungeon.LakeDimension.Large];
+                    break;
+                default:
+                    enemySpawnSO = null;
+                    break;
+            }
+
+            int totNumberOfEnemies = UnityEngine.Random.Range(enemySpawnSO.MinNumberOfEnemiesPerLake, enemySpawnSO.MaxNumberOfEnemiesPerLake + 1);
             lake.EnemiesToSpawnMap.Add(EnumsDungeon.EnemyType.Mallard, 0);
             lake.EnemiesToSpawnMap.Add(EnumsDungeon.EnemyType.Coot, 0);
             lake.EnemiesToSpawnMap.Add(EnumsDungeon.EnemyType.Goose, 0);
@@ -374,30 +393,30 @@ namespace LevelStageNamespace
             lake.EnemiesToSpawnMap.Add(EnumsDungeon.EnemyType.Seagull, 0);
 
             //then, let's set the minimum amount of enemies requested
-            lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Mallard] += stageDescription.MinNumberOfEachEnemy[(int)EnumsDungeon.EnemyType.Mallard];
+            lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Mallard] += enemySpawnSO.MinNumberOfEachEnemy[(int)EnumsDungeon.EnemyType.Mallard];
             totNumberOfEnemies -= lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Mallard];
 
-            lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Coot] += stageDescription.MinNumberOfEachEnemy[(int)EnumsDungeon.EnemyType.Coot];
+            lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Coot] += enemySpawnSO.MinNumberOfEachEnemy[(int)EnumsDungeon.EnemyType.Coot];
             totNumberOfEnemies -= lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Coot];
 
-            lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Goose] += stageDescription.MinNumberOfEachEnemy[(int)EnumsDungeon.EnemyType.Goose];
+            lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Goose] += enemySpawnSO.MinNumberOfEachEnemy[(int)EnumsDungeon.EnemyType.Goose];
             totNumberOfEnemies -= lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Goose];
 
-            lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Fish] += stageDescription.MinNumberOfEachEnemy[(int)EnumsDungeon.EnemyType.Fish];
+            lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Fish] += enemySpawnSO.MinNumberOfEachEnemy[(int)EnumsDungeon.EnemyType.Fish];
             totNumberOfEnemies -= lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Fish];
 
-            lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Seagull] += stageDescription.MinNumberOfEachEnemy[(int)EnumsDungeon.EnemyType.Seagull];
+            lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Seagull] += enemySpawnSO.MinNumberOfEachEnemy[(int)EnumsDungeon.EnemyType.Seagull];
             totNumberOfEnemies -= lake.EnemiesToSpawnMap[EnumsDungeon.EnemyType.Seagull];
 
             //we might still have some enemies to generate. Let's generate them randomly.
             for(int j = 0; j < totNumberOfEnemies; j++)
             {
-                float r = Random.Range(0f, 1f);
+                float r = UnityEngine.Random.Range(0f, 1f);
                 float accum = 0f;
                 int enemyChosenIndex = -1;
-                for (int i = 0; i < stageDescription.ProbabilitiesOfEnemies.Length; i++)
+                for (int i = 0; i < enemySpawnSO.ProbabilitiesOfEnemies.Length; i++)
                 {
-                    accum += stageDescription.ProbabilitiesOfEnemies[i];
+                    accum += enemySpawnSO.ProbabilitiesOfEnemies[i];
                     if (r < accum)
                     {
                         enemyChosenIndex = i;
@@ -412,7 +431,7 @@ namespace LevelStageNamespace
 
         private static void decideLakeDimensionForLake(LakeDescriptionSO lake, StageSO stageDescription)
         {
-            float r = Random.Range(0f, 1f);
+            float r = UnityEngine.Random.Range(0f, 1f);
             float accum = 0f;
             int lakeDimensionChosenIndex = -1;
             for (int i = 0; i < stageDescription.ProbabilitiesOfLake.Length; i++)
@@ -444,8 +463,25 @@ namespace LevelStageNamespace
 
         private static void decideBreadToSpawnMapForLake(LakeDescriptionSO lake, StageSO stageDescription)
         {
-            //first, let's decide hoe much bread do we want to spawn
-            int breadToSpawn = Random.Range(stageDescription.MinNumberOfBreadPerLake, stageDescription.MaxNumberOfBreadPerLake + 1);
+            BreadSpawnSO breadSpawnSO;
+            switch (lake.Dimension)
+            {
+                case EnumsDungeon.LakeDimension.Small:
+                    breadSpawnSO = stageDescription.ListBreadSpawnSO[(int)EnumsDungeon.BreadType.Small];
+                    break;
+                case EnumsDungeon.LakeDimension.Medium:
+                    breadSpawnSO = stageDescription.ListBreadSpawnSO[(int)EnumsDungeon.BreadType.Medium];
+                    break;
+                case EnumsDungeon.LakeDimension.Large:
+                    breadSpawnSO = stageDescription.ListBreadSpawnSO[(int)EnumsDungeon.BreadType.Large];
+                    break;
+                default:
+                    breadSpawnSO = null;
+                    break;
+            }
+
+            //first, let's decide how much bread do we want to spawn
+            int breadToSpawn = UnityEngine.Random.Range(breadSpawnSO.MinNumberOfBreadPerLake, breadSpawnSO.MaxNumberOfBreadPerLake + 1);
             lake.BreadToSpawnMap.Add(EnumsDungeon.BreadType.Small, 0);
             lake.BreadToSpawnMap.Add(EnumsDungeon.BreadType.Medium, 0);
             lake.BreadToSpawnMap.Add(EnumsDungeon.BreadType.Large, 0);
@@ -453,12 +489,12 @@ namespace LevelStageNamespace
             //generate, according to the given probability, the number of bread pieces of different kind to spawn
             for (int j = 0; j < breadToSpawn; j++)
             {
-                float r = Random.Range(0f, 1f);
+                float r = UnityEngine.Random.Range(0f, 1f);
                 float accum = 0f;
                 int breadTypeChosenIndex = -1;
-                for (int i = 0; i < stageDescription.ProbabilitiesOfBread.Length; i++)
+                for (int i = 0; i < breadSpawnSO.ProbabilitiesOfBread.Length; i++)
                 {
-                    accum += stageDescription.ProbabilitiesOfBread[i];
+                    accum += breadSpawnSO.ProbabilitiesOfBread[i];
                     if (r < accum)
                     {
                         breadTypeChosenIndex = i;

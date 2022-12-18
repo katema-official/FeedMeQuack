@@ -18,23 +18,12 @@ MonoBehaviour:
   - 0.9
   - 0.1
   - 0
-  MinNumberOfBreadPerLake: 4
-  MaxNumberOfBreadPerLake: 7
-  ProbabilitiesOfBread:
-  - 0.8
-  - 0.2
-  - 0
-  MinNumberOfEnemiesPerLake: 2
-  MaxNumberOfEnemiesPerLake: 4
-  ProbabilitiesOfEnemies:
-  - 0.9
-  - 0.1
-  - 0
-  - 0
-  - 0
-  MinNumberOfEachEnemy: 0100000000000000000000000000000000000000
   BreadPointsRequiredToCompleteStage: 40
   ListBreadSpawnSO:
-  - {fileID: 11400000, guid: 2f3229dbe89fa8449b91716eae1f1921, type: 2}
-  - {fileID: 11400000, guid: f4ee14ddabf5d4243b065f97a516dce6, type: 2}
-  - {fileID: 11400000, guid: 71f5851bdce23fb41b48a2bf2b091897, type: 2}
+  - {fileID: 11400000, guid: 199312a56be575d4cbfb03b1b20db9dc, type: 2}
+  - {fileID: 11400000, guid: fa06a10ebc6719d48b86dac614f018f8, type: 2}
+  - {fileID: 11400000, guid: 314e49858e63aa5448ca08089b1df8fd, type: 2}
+  ListEnemySpawnSO:
+  - {fileID: 11400000, guid: 93a57c3bbaf7a4e47ad56e27b533fcd6, type: 2}
+  - {fileID: 11400000, guid: 3d3fb358819186f42a412cebc626cca3, type: 2}
+  - {fileID: 11400000, guid: fe26f0b3b5dbf564dad293864dcbe546, type: 2}
