@@ -123,6 +123,7 @@ namespace Player
                     _spitArrow.SetActive(false);
                    _spitProgressBar.SetProgress(0);
                     _spitProgressBar.gameObject.SetActive(false);
+                    _controller.GetUICanvas().GetStatusView().SetVisible(false);
 
                     _moveSkill.EnableInput(true);
                     _spitCoolDownElapsedSeconds = _coolDown;
