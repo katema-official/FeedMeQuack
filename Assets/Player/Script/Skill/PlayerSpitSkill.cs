@@ -12,6 +12,7 @@ namespace Player
         [SerializeField] private float _maxRange = 0.0f;
         [SerializeField] private float _coolDown = 0.0f;
         [SerializeField] private float _chargeSpeed = 0.0f;
+        [SerializeField] private float _carryingSpeed = 0.0f;
         //------------------------------------------
 
         //-------------------------------------
@@ -39,6 +40,7 @@ namespace Player
             _maxRange = _spitDesc.MaxRange;
             _coolDown = _spitDesc.CoolDown;
             _chargeSpeed = _spitDesc.ChargeSpeed;
+            _carryingSpeed = _spitDesc.CarryingSpeed;
         }
         public override void applyPowerUp(PlayerSkillAttribute attrib, float value)
         {
@@ -92,9 +94,34 @@ namespace Player
             if (Input.GetButtonDown("SpitButton") && _eatSkill.GetCaughtBread() && _spitCoolDownElapsedSeconds <= 0)
 
             {
-                _controller.ChangeState(PlayerState.Spitting);
 
-                if (_controller.GetState() == PlayerState.Spitting)
+
+
+               
+                if (_controller.GetState() != PlayerState.Spitting && _controller.GetState() != PlayerState.Carrying)
+                {
+                    _controller.ChangeState(PlayerState.Carrying);
+                }
+                else if (_controller.GetState() == PlayerState.Carrying)
+                {
+                    _controller.ChangeState(PlayerState.Spitting);
+                }
+
+
+
+
+
+
+                if (_controller.GetState() == PlayerState.Carrying)
+                {
+                    //also interrupt the eating coroutine
+                    //_eatSkill.StopEating();
+
+                    _moveSkill.EnableInput(true);
+                    //_spitArrow.SetActive(true);
+                    //_spitProgressBar.gameObject.SetActive(true);
+                }
+                else if (_controller.GetState() == PlayerState.Spitting)
                 {
                     //also interrupt the eating coroutine
                     _eatSkill.StopEating();

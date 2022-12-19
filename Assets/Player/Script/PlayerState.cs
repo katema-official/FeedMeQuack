@@ -11,7 +11,7 @@ namespace Player
         Dashing,
         Stealing,
         Spitting,
-        Carring,
+        Carrying,
         GettingRobbed
     }
 
