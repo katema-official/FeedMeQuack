@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 697fc0091b001c348adba09492053db1, type: 3}
   m_Name: BreadSpawnLakeMedium1.1
   m_EditorClassIdentifier: 
-  MinNumberOfBreadPerLake: 0
-  MaxNumberOfBreadPerLake: 0
+  MinNumberOfBreadPerLake: 3
+  MaxNumberOfBreadPerLake: 4
   ProbabilitiesOfBread:
   - 1
   - 0

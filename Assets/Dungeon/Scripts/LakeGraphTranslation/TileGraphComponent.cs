@@ -119,7 +119,7 @@ namespace GraphLakeNamespace {
                     }
                 }
             }
-            //DrawGraph(_lakeGraph);
+            DrawGraph(_lakeGraph);
 
         }
 
@@ -220,6 +220,8 @@ namespace GraphLakeNamespace {
             }
             allPoints.Add(FromNodeToPosition(path[path.Length - 1].to));
             allPoints.Add(end);
+
+            DrawPath(allPoints);
 
 
             //then, we need to smooth the path based on the collider of the entity that wants to move in that direction

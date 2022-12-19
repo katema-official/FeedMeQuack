@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Scene
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 137
+  controlID: 103
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 126
+  controlID: 92
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -736,9 +736,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 1.8980373, y: -1.2380009, z: 1.3370179}
+    m_Target: {x: -1.3288355, y: 11.102583, z: -0.5439149}
     speed: 2
-    m_Value: {x: 1.8980373, y: -1.2380009, z: 1.3370179}
+    m_Value: {x: -1.3288355, y: 11.102583, z: -0.5439149}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -789,9 +789,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 31.076603
+    m_Target: 27.280142
     speed: 2
-    m_Value: 31.076603
+    m_Value: 27.280142
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -912,21 +912,21 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 2892fcff4c98fcff0c9bfcff74a3fcff32a6fcffacaffcff96b5fcff0ecffcffd24ffdff2250fdff2850fdff2c50fdff5863fdffac63fdff0064fdff4c64fdff5064fdff5664fdff5864fdff048cfdff9c96fdffa096fdff0898fdff0a98fdffdab1fdff90c2fdff84c3fdff88c3fdff8ec3fdff90c3fdffb0cefdffb2cefdffb2d9fdfff2e4fdff70fafdff74fafdff7afafdff7efafdffb00efeffca10feff6e11feff383afefffa42feffbaa2feffbca2feff90a4feff8ac0fefffceafeff4209ffffc810ffff6617ffff8e19ffff8622ffffd427ffffea2affffd02dffffae3bffffb243ffff8854ffff445dffff7261ffffe063ffff3c6cffff3a75ffff948bffffd894ffffdc9effff9caaffff42b1ffff44d0ffff64d2ffff1ad9ffff2cdcffff1ceafffff6edffff2afbfffff4ffffffa4900100c4900100d89101009e93010014da01000ee40100e4000200740a020048270200944d02008c540200
+      m_ExpandedIDs: f272ffff2ac8ffffd2d2ffffbad5fffff2d5fffffed8ffff20f1ffff16f6ffff2afbfffff4ffffff246400007eac000008ad000040ad000022ae000066ae000096ae000044af0000aeaf0000ceaf0000e6af000006b0000028b0000072b0000080b00000e8b000000cb100002cb100005cb10000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: 3
+        m_OriginalName: 3
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: 45356
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 9}
       m_SearchString: 
@@ -977,22 +977,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Enemies2/EnemyDucks
+    - Assets/Dungeon/Stages/Stage1.1
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Enemies2/EnemyDucks
+  - Assets/Dungeon/Stages/Stage1.1
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Jacopo\Desktop\FeedMeQuack
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 26680000
-    m_LastClickedID: 26662
-    m_ExpandedIDs: 00000000f8670000fa670000fc670000fe67000000680000026800000468000006680000086800000a6800000c6800000e6800001068000012680000146800002068000000ca9a3b
+    m_SelectedIDs: e6690000
+    m_LastClickedID: 27110
+    m_ExpandedIDs: 00000000d4690000d6690000d8690000da690000dc690000de690000e0690000e2690000e4690000e6690000e8690000ea690000ec690000f0690000f269000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1020,7 +1020,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000f8670000fa670000fc670000fe67000000680000026800000468000006680000086800000a6800000c6800000e680000106800001268000014680000
+    m_ExpandedIDs: 00000000d4690000d6690000d8690000da690000dc690000de690000e0690000e2690000e4690000e6690000e8690000ea690000ec690000ee690000f0690000f2690000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
