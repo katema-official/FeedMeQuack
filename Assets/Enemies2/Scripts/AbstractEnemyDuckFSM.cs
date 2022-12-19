@@ -76,7 +76,7 @@ namespace DuckEnemies
 
 
 
-        protected EnemyDuckFSMEnumState.State _state;
+        [SerializeField] protected EnemyDuckFSMEnumState.State _state;
 
         protected FSM _fsm;
         protected float _reactionTimeFSM = 0.05f;
@@ -358,7 +358,7 @@ namespace DuckEnemies
             {
                 _fsm.Update();
                 yield return new WaitForSeconds(_reactionTimeFSM);
-                Debug.Log("_state = " + _state);
+                //Debug.Log("_state = " + _state);
             }
         }
 

@@ -103,10 +103,10 @@ namespace GraphLakeNamespace {
                     (x-1f, y),
                     (x, y+1f),
                     (x, y-1f),
-                    (x+1f, y+1f),
-                    (x+1f, y-1f),
-                    (x-1f, y+1f),
-                    (x-1f, y-1f)
+                    //(x+1f, y+1f),
+                    //(x+1f, y-1f),
+                    //(x-1f, y+1f),
+                    //(x-1f, y-1f)
                 };
 
                 foreach((float,float) p in possibleAdjacentNodes)
