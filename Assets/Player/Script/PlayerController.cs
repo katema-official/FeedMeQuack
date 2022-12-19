@@ -110,6 +110,7 @@ namespace Player
             {
                 if (newState == PlayerState.Dashing ||
                     newState == PlayerState.Eating ||
+                    newState == PlayerState.Carring ||
                     newState == PlayerState.Stealing)
                 {
                     _state = newState;
@@ -124,7 +125,7 @@ namespace Player
             }
             else if (_state == PlayerState.Eating)
             {
-                if (newState == PlayerState.Spitting ||
+                if (/*newState == PlayerState.Spitting ||*/
                     newState == PlayerState.Normal)
                 {
                     _state = newState;
@@ -141,6 +142,13 @@ namespace Player
             {
                 if (newState == PlayerState.Eating || 
                     newState == PlayerState.Normal)
+                {
+                    _state = newState;
+                }
+            }
+            else if (_state == PlayerState.Carring)
+            {
+                if (newState == PlayerState.Spitting)
                 {
                     _state = newState;
                 }
