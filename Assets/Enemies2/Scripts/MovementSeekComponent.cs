@@ -91,7 +91,7 @@ namespace SteeringBehaviourNamespace
                 }
                 else
                 {
-                    Debug.Log("BASTA");
+                    //Debug.Log("BASTA");
                     HasStartedDecelerating = false;
                     _rigidbody2D.velocity = new Vector2(0, 0);
                 }
