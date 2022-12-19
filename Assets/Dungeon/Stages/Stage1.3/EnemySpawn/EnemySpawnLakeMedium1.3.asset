@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b5aa6750fed94140aa661efb5507166, type: 3}
   m_Name: EnemySpawnLakeMedium1.3
   m_EditorClassIdentifier: 
-  MinNumberOfEnemiesPerLake: 3
-  MaxNumberOfEnemiesPerLake: 5
+  MinNumberOfEnemiesPerLake: 5
+  MaxNumberOfEnemiesPerLake: 6
   ProbabilitiesOfEnemies:
-  - 0.85
-  - 0.15
+  - 0.7
+  - 0.3
   - 0
   - 0
   - 0
-  MinNumberOfEachEnemy: 0300000000000000000000000000000000000000
+  MinNumberOfEachEnemy: 0200000000000000000000000000000000000000

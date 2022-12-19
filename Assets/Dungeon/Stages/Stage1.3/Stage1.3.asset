@@ -15,8 +15,8 @@ MonoBehaviour:
   MinNumberOfLakes: 6
   MaxNumberOfLakes: 7
   ProbabilitiesOfLake:
-  - 0.85
-  - 0.15
+  - 0.8
+  - 0.2
   - 0
   BreadPointsRequiredToCompleteStage: 50
   ListBreadSpawnSO:
