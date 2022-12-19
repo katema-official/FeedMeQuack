@@ -31,6 +31,7 @@ namespace GraphLakeNamespace {
 
         void Start()
         {
+            if (GameObject.Find("LevelStageManagerObject").GetComponent<LevelStageManagerComponent>().IsCurrentLakeCleared()) return;
             _myTilemap = transform.Find("TileGraph").GetComponent<Tilemap>();
             _offsetX = _myTilemap.cellSize.x / 2f;
             _offsetY = _myTilemap.cellSize.y / 2f;
