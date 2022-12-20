@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="099dc64e-a604-4b85-85cc-6be12a6baf46" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/statChangermockup.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/statChangermockup.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/prefabs/Square.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/prefabs/Square.prefab.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Dungeon/Scenes/StartRunLoading.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dungeon/Scenes/StartRunLoading.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/HUDManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/HUDManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/MapManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/MapManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/prefabs/squarePrefab.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/prefabs/squarePrefab.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,6 +85,7 @@
       <workItem from="1670936757744" duration="6410000" />
       <workItem from="1670963950903" duration="3359000" />
       <workItem from="1671004980329" duration="4436000" />
+      <workItem from="1671542766998" duration="1641000" />
     </task>
     <servers />
   </component>
