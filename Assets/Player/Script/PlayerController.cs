@@ -127,7 +127,8 @@ namespace Player
             else if (_state == PlayerState.Eating)
             {
                 if (/*newState == PlayerState.Spitting ||*/
-                    newState == PlayerState.Normal)
+                    newState == PlayerState.Normal ||
+                     newState == PlayerState.GettingRobbed)
                 {
                     _state = newState;
                 }
