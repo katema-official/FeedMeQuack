@@ -94,7 +94,8 @@ namespace Player
                 else if (a == PlayerSkillAttribute.SpitSkill_ChargeSpeed ||
                     a == PlayerSkillAttribute.SpitSkill_CoolDown ||
                    a == PlayerSkillAttribute.SpitSkill_MaxPower ||
-                    a == PlayerSkillAttribute.SpitSkill_MaxRange) 
+                    a == PlayerSkillAttribute.SpitSkill_MaxRange ||
+                    a == PlayerSkillAttribute.SpitSkill_CarryingSpeed ) 
                     skillName = "SpitSkill";
                 else if (a == PlayerSkillAttribute.StealSkill_CoolDown) 
                     skillName = "StealSkill";

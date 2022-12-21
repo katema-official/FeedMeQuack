@@ -281,6 +281,8 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            if (!collision.gameObject.transform.parent) return;
+
             var powerup = collision.gameObject.transform.parent.gameObject.GetComponent<PowerUpsNamespace.PowerUpComponent>();
             if (powerup)
             {
@@ -299,6 +301,8 @@ namespace Player
 
         private void OnTriggerExit2D(Collider2D collision)
         {
+            if (!collision.gameObject.transform.parent) return;
+
             var powerup = collision.gameObject.transform.parent.gameObject.GetComponent<PowerUpsNamespace.PowerUpComponent>();
             if (powerup)
             {
