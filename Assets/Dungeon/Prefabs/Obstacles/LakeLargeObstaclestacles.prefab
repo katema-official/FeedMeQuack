@@ -27391,7 +27391,7 @@ GameObject:
   - component: {fileID: 7911856317338987788}
   - component: {fileID: 885310227480412813}
   m_Layer: 0
-  m_Name: LakeMediumObstacles
+  m_Name: LakeLargeObstaclestacles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

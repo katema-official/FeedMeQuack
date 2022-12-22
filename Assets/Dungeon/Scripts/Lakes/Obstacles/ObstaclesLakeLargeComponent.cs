@@ -6,7 +6,7 @@ using UnityEngine;
 namespace LevelStageNamespace
 {
 
-    public class ObstaclesLakeMediumComponent : ObstaclesLakeComponent
+    public class ObstaclesLakeLargeComponent : ObstaclesLakeComponent
     {
         // Start is called before the first frame update
         void Start()
