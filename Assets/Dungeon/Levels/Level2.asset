@@ -15,4 +15,4 @@ MonoBehaviour:
   Stages:
   - {fileID: 11400000, guid: 84d187a09f7ebef42bf995aaa33e8468, type: 2}
   - {fileID: 11400000, guid: e58e369aaf1f773409cb02525cbd2008, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 68920d8c4c0968544b21940fddea86d5, type: 2}
