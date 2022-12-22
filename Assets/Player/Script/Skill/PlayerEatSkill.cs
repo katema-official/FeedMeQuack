@@ -249,7 +249,11 @@ namespace Player
             int a;
             
             _mustStopEating = false;
+           
             _controller.GetUICanvas().GetStatusView().SetVisible(true);
+            _controller.GetUICanvas().GetStatusView().SetText("");
+            _controller.GetUICanvas().GetStatusView().SetIcon(_eatDesc.EatingStatusIcon);
+       
 
             Music.UniversalAudio.PlaySound("Duck 01", _controller.transform);
 

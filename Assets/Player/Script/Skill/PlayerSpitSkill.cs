@@ -148,7 +148,11 @@ namespace Player
                     //_eatSkill.StopEating();
 
                     _moveSkill.EnableInput(true);
+                   
                     _controller.GetUICanvas().GetStatusView().SetVisible(true);
+                    _controller.GetUICanvas().GetStatusView().SetText("");
+                    _controller.GetUICanvas().GetStatusView().SetIcon(_spitDesc.CarryingStatusIcon); 
+                    
                     //_spitArrow.SetActive(true);
                     //_spitProgressBar.gameObject.SetActive(true);
                 }
