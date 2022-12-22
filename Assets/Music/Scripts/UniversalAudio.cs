@@ -45,6 +45,8 @@ namespace Music // To change correctly
 
         public static EatingController _eatingController;
 
+        public static FlySoundController _flySoundController;
+
         private const string
             PathFromSourcesForMusic = "Songs/"; // Inside folder "Resources", if there is a relative path, write it here
 
@@ -68,6 +70,7 @@ namespace Music // To change correctly
             _spitBarSoundController ??= musicManagerGo.AddComponent<SpitBarSoundController>();
             _animalSoundController ??= musicManagerGo.AddComponent<AnimalSoundController>();
             _eatingController ??= musicManagerGo.AddComponent<EatingController>();
+            _flySoundController ??= musicManagerGo.AddComponent<FlySoundController>();
         }
 
         private static void GetAudioSources(GameObject musicManager)
@@ -145,6 +148,16 @@ namespace Music // To change correctly
         public static AnimalSoundController GetAnimalSoundController()
         {
             return _animalSoundController;
+        }
+        
+        public static EatingController GetEatingController()
+        {
+            return _eatingController;
+        }
+        
+        public static FlySoundController GetFlySoundController()
+        {
+            return _flySoundController;
         }
 
         private static void SetTrueTimeOfFading()
