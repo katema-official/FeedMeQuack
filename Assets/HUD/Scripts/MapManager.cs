@@ -12,7 +12,8 @@ namespace HUD
         public int currX, currY, xDelta, yDelta;
         private float minimapX, minimapY;
         [SerializeField] private int cellSize;
-        public int [,] _map, _wholeMap;
+        public int [,] _map;
+        [SerializeField] private int[,] _wholeMap;
         [SerializeField] private GameObject squarePrefab;
         public GameObject[,] mapTiles;
         
@@ -56,29 +57,28 @@ namespace HUD
             for (int row = 0; row < dimSize; row++){
                 for (int col = 0; col < dimSize; col++){
                     int relativeX = xDelta + col;
-                    int relativeY = 13 - yDelta - row;
-                    Debug.Log("x: "+relativeX);
-                    Debug.Log("y: "+relativeY);
+                    int relativeY = yDelta + row;
                     GameObject tile = mapTiles[row, col];
                     Renderer outer = tile.GetComponentsInChildren<Renderer>()[0];
                     Renderer inner = tile.GetComponentsInChildren<Renderer>()[1];
-                    if (_wholeMap[relativeX, relativeY] == 0){
+                    int value = _wholeMap[relativeX, relativeY];
+                    if (value == 0){
                         outer.material.color= Color.clear;
                         inner.material.color= Color.clear;
                     }
-                    else if (_wholeMap[relativeX, relativeY] == 1){
+                    else if (value == 1){
                         outer.material.color= Color.black;
                         inner.material.color= Color.gray;
                     }
-                    else if (_wholeMap[relativeX, relativeY] == 2){
+                    else if (value == 2){
                         outer.material.color= Color.black;
                         inner.material.color= Color.white;
                     }
-                    else if (_wholeMap[relativeX, relativeY] == 3){
+                    else if (value == 3){
                         outer.material.color= Color.black;
                         inner.material.color= Color.green;
                     }
-                    else if (_wholeMap[relativeX, relativeY] == -1){
+                    else if (value == -1){
                         outer.material.color= Color.black;
                         inner.material.color= Color.yellow;
                     }
@@ -121,10 +121,11 @@ namespace HUD
             changePos(dir);
             int x = xDelta + currX;
             int y = yDelta + currY;
-            _wholeMap[x + 1, y] = est;
-            _wholeMap[x - 1, y] = ovest;
-            _wholeMap[x, y+1] = nord;
-            _wholeMap[x, y-1] = sud;
+            _wholeMap[y,x]=-1;
+            _wholeMap[y+1,x]=sud;
+            _wholeMap[y-1,x]=nord;
+            _wholeMap[y,x+1]=est;
+            _wholeMap[y,x-1]=ovest;
             //_map[currX + 1, currY] = est;
             //_map[currX - 1, currY] = ovest;
             //_map[currX, currY + 1] = nord;
@@ -136,10 +137,10 @@ namespace HUD
         private void changePos(CardinalDirection dir){
             switch (dir){
                 case CardinalDirection.nord:
-                    currY++;
+                    currY--;
                     break;
                 case CardinalDirection.sud:
-                    currY--;
+                    currY++;
                     break;
                 case CardinalDirection.est:
                     currX++;
@@ -150,6 +151,7 @@ namespace HUD
                 default:
                     throw new ArgumentOutOfRangeException(nameof(dir), dir, null);
             }
+            print("X: "+currX+"  , Y: "+ currY);
         }
 
         public enum CardinalDirection{
