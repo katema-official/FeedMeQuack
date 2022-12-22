@@ -10,6 +10,7 @@ namespace HUD
         //che vedo il giocatore
         private int dimSize = 5;
         public int currX, currY, xDelta, yDelta;
+        private int _shiftRow, _shiftCol;
         private float minimapX, minimapY;
         [SerializeField] private int cellSize;
         public int [,] _map;
@@ -26,34 +27,7 @@ namespace HUD
             ChangeVisualization();
         }
 
-        private void ChangeVisualization(){/*
-            for (int row = 0; row < dimSize; row++){
-                for (int col = 0; col < dimSize; col++){
-                    GameObject tile = mapTiles[row, col];
-                    Renderer outer = tile.GetComponentsInChildren<Renderer>()[0];
-                    Renderer inner = tile.GetComponentsInChildren<Renderer>()[1];
-                    if (_map[row, col] == 0){
-                        outer.material.color= Color.clear;
-                        inner.material.color= Color.clear;
-                    }
-                    else if (_map[row, col] == 1){
-                        outer.material.color= Color.black;
-                        inner.material.color= Color.gray;
-                    }
-                    else if (_map[row, col] == 2){
-                        outer.material.color= Color.black;
-                        inner.material.color= Color.white;
-                    }
-                    else if (_map[row, col] == 3){
-                        outer.material.color= Color.black;
-                        inner.material.color= Color.green;
-                    }
-                    else if (_map[row, col] == -1){
-                        outer.material.color= Color.black;
-                        inner.material.color= Color.yellow;
-                    }
-                }
-            }*/
+        private void ChangeVisualization(){
             for (int row = 0; row < dimSize; row++){
                 for (int col = 0; col < dimSize; col++){
                     int relativeX = xDelta + col;
@@ -61,7 +35,7 @@ namespace HUD
                     GameObject tile = mapTiles[row, col];
                     Renderer outer = tile.GetComponentsInChildren<Renderer>()[0];
                     Renderer inner = tile.GetComponentsInChildren<Renderer>()[1];
-                    int value = _wholeMap[relativeX, relativeY];
+                    int value = _wholeMap[relativeX+_shiftRow, relativeY+_shiftCol];
                     if (value == 0){
                         outer.material.color= Color.clear;
                         inner.material.color= Color.clear;
@@ -87,6 +61,8 @@ namespace HUD
         }
 
         private void Start(){
+            _shiftCol = 0; 
+            _shiftRow = 0;
             int wholeMapSize = 13;
             var position = gameObject.transform.position;
             minimapX = position.x;
@@ -126,11 +102,6 @@ namespace HUD
             _wholeMap[y-1,x]=nord;
             _wholeMap[y,x+1]=est;
             _wholeMap[y,x-1]=ovest;
-            //_map[currX + 1, currY] = est;
-            //_map[currX - 1, currY] = ovest;
-            //_map[currX, currY + 1] = nord;
-            //_map[currX, currY - 1] = sud;
-            //_map[currX, currY] = -1;
             ChangeVisualization();
         }
 
@@ -138,27 +109,30 @@ namespace HUD
             switch (dir){
                 case CardinalDirection.nord:
                     currY--;
+                    _shiftRow--;
                     break;
                 case CardinalDirection.sud:
                     currY++;
+                    _shiftRow++;
                     break;
                 case CardinalDirection.est:
                     currX++;
+                    _shiftCol++;
                     break;
-                case CardinalDirection.overs:
-                    currY--;
+                case CardinalDirection.ovest:
+                    currX--;
+                    _shiftCol--;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(dir), dir, null);
             }
-            print("X: "+currX+"  , Y: "+ currY);
         }
 
         public enum CardinalDirection{
             nord,
             sud,
             est,
-            overs,
+            ovest,
         }
     }
 }
