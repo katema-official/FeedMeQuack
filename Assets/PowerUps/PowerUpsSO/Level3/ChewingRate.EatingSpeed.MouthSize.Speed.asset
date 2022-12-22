@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce54f9cfa58679442877e4b05fdb83b3, type: 3}
-  m_Name: EatingSpeed
+  m_Name: ChewingRate.EatingSpeed.MouthSize.Speed
   m_EditorClassIdentifier: 
-  Sprite: {fileID: -2413806693520163455, guid: 637a81a34705686479534b18f7c9104d, type: 3}
-  Name: Resilient Throat
-  Description: Eating Speed up+
-  Cost: 5
-  PowerUpKinds: 01000000
+  Sprite: {fileID: 0}
+  Name: Adulthood
+  Description: All stats up
+  Cost: 30
+  PowerUpKinds: 02000000010000000000000000000000
   amountForPowerUpKind:
+  - -0.1
+  - 2.5
   - 2
+  - 5

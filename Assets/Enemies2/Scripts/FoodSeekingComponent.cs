@@ -131,7 +131,7 @@ namespace DuckEnemies
         //condition used to check whether the food this component was after is still there or has changed/is not the same
         public bool HasFoodDisappeared()
         {
-            Debug.Log("Food disappeared? " + (_identifyFoodComponent.GetObjectiveFood().GetInstanceID() != _IDOfThisFood));
+            //Debug.Log("Food disappeared? " + (_identifyFoodComponent.GetObjectiveFood().GetInstanceID() != _IDOfThisFood));
             return _identifyFoodComponent.GetObjectiveFood().GetInstanceID() != _IDOfThisFood;
         }
 

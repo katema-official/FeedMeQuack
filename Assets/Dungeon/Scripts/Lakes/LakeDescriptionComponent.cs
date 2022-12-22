@@ -596,7 +596,7 @@ namespace LevelStageNamespace {
             _totalNumberOfBreadPiecesEaten += 1;
             if(_totalNumberOfBreadPiecesEaten == _totalNumberOfBreadPiecesToBeEaten)
             {
-                CompleteLake();
+                CompleteLake();   //TODO: non credo tu lo debba rimuovere
             }
         }
 

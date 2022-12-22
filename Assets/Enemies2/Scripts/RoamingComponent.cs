@@ -305,7 +305,7 @@ namespace DuckEnemies
             float widthRectangle = _desiredRoamingDistance * (3f / 2f);
             float heightRectangle = _decelerationRoaming / 2f;
 
-            Debug.Log("WHILE in RoamingComponent iniziato");
+            //Debug.Log("WHILE in RoamingComponent iniziato");
             while (!chosen)
             {
                 float x0, x1, y0, y1;
