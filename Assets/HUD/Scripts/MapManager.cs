@@ -25,8 +25,8 @@ namespace HUDNamespace
         private void ChangeVisualization(){
             for (int row = 0; row < dimSize; row++){
                 for (int col = 0; col < dimSize; col++){
-                    int relativeX = xDelta + col + 2;
-                    int relativeY = yDelta + row - 2;
+                    int relativeX = xDelta + col;
+                    int relativeY = yDelta + row;
                     GameObject tile = mapTiles[row, col];
                     Renderer outer = tile.GetComponentsInChildren<Renderer>()[0];
                     Renderer inner = tile.GetComponentsInChildren<Renderer>()[1];
@@ -58,7 +58,7 @@ namespace HUDNamespace
         private void Start(){
             _shiftCol = 0; 
             _shiftRow = 0;
-            int wholeMapSize = 13;
+            int wholeMapSize = 31;
             var position = gameObject.transform.position;
             minimapX = position.x;
             minimapY = position.y;
@@ -67,13 +67,13 @@ namespace HUDNamespace
             xDelta = wholeMapSize / 2 - currX;
             yDelta = xDelta;
             _map = new int[dimSize,dimSize];
-            _wholeMap = new int[13, 13];
+            _wholeMap = new int[wholeMapSize, wholeMapSize];
             squarePrefab.transform.localScale = new Vector3(cellSize, cellSize, 1);
             mapTiles = new GameObject[dimSize, dimSize];
             for (int row = 0; row < dimSize; row++){
                 for (int col = 0; col < dimSize; col++){
-                    float xPos = minimapX + row * cellSize;
-                    float yPos= minimapY + (dimSize-col-1) * cellSize;
+                    float xPos = minimapX + (row - 0.5f) * cellSize;
+                    float yPos= minimapY + (dimSize-col-1 - 0.5f) * cellSize;
                     Vector2 pos = new Vector2(xPos, yPos);
                     GameObject tile=Instantiate(squarePrefab, pos, Quaternion.identity);
                     tile.name = $"Tile {row},{col}";
@@ -82,7 +82,8 @@ namespace HUDNamespace
                     mapTiles[row,col] = tile;
                     _map[row, col] = 0;
                 }
-            }for (int row = 0; row < wholeMapSize; row++)
+            }
+            for (int row = 0; row < wholeMapSize; row++)
             for (int col = 0; col < wholeMapSize; col++)
                 _wholeMap[row, col] = 0;
             ChangeVisualization();
@@ -122,6 +123,8 @@ namespace HUDNamespace
                     currX--;
                     _shiftCol--;
                     break;
+                case CardinalDirection.none:
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(dir), dir, null);
             }
@@ -132,9 +135,14 @@ namespace HUDNamespace
             sud,
             est,
             ovest,
+            none
         }
 
         public void StartNewLevel(){
+            foreach(GameObject tileGO in mapTiles)
+            {
+                if(tileGO) Destroy(tileGO);
+            }
             Start();
         }
     }

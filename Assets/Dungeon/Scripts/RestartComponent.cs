@@ -12,6 +12,7 @@ public class RestartComponent : MonoBehaviour
         Destroy(GameObject.Find("LevelStageManagerObject"));
         Destroy(GameObject.Find("DuckPlayer"));
         Destroy(GameObject.Find("DuckTypeManager"));
+        Destroy(GameObject.Find("HUD"));
         Music.UniversalAudio.PlaySound("GameOver", transform);
     }
 

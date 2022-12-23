@@ -21,7 +21,7 @@ public class DaCancellare : MonoBehaviour
             Music.UniversalAudio._eatingController.SetIsInEatingState(false);
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            Music.UniversalAudio._animalSoundController.Swim(_audioSource);
+            //Music.UniversalAudio._animalSoundController.Swim(_audioSource);
         }
         if (Input.GetKeyUp(KeyCode.RightArrow))
             Music.UniversalAudio._animalSoundController.SetIsInSwimmingState(false);

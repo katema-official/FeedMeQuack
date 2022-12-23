@@ -86,6 +86,7 @@ namespace Player
                 {
                     _moveSkill.EnableInput(false, true);
                     _enemyToSteal = _locatedEnemy;
+                    //_controller.GetAnimalSoundController().PlayStealing("Mallard", transform);
                   
                     //find the point between ducks
                     var playerPos = _controller.gameObject.transform.position;
@@ -188,6 +189,7 @@ namespace Player
                     
                 _stealCoolDownElapsedSeconds = _coolDown;
                 _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.stealCD, _stealCoolDownElapsedSeconds);
+                //_controller.GetAnimalSoundController().SetIsInStealingState(false);
             }
             _enemyToSteal = null;
         }
