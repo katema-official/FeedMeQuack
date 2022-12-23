@@ -333,6 +333,7 @@ namespace Music // To change correctly
                 MusicManagerComponent
                     .GetSoundVolume();
             audioSource.Play();
+
             Object.Destroy(gameObject, clip.length *
                                        (Time.timeScale < 0.009999999776482582 ? 0.01f : Time.timeScale));
 

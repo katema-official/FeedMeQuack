@@ -27,6 +27,81 @@ namespace Player
         private DuckEnemies.StealingComponent _enemyToSteal = null;
 
 
+
+        public void Steal(DuckEnemies.StealingComponent enemy)
+        {
+            _controller.ChangeState(PlayerState.GettingRobbed);
+
+            if (_controller.GetState() == PlayerState.GettingRobbed)
+            {
+                _moveSkill.EnableInput(false, true);
+                _enemyToSteal = enemy;
+
+                //find the point between ducks
+                var playerPos = _controller.gameObject.transform.position;
+                var enemyPos = _enemyToSteal.gameObject.transform.position;
+                var dir = (enemyPos - playerPos);
+                var len = dir.magnitude;
+                dir.Normalize();
+                var middlePos = playerPos + dir * (len * 0.5f);
+
+                var distance = 1.5f;
+                var enemyDir = 0;
+                var enemyAngle = 0.0f;
+                Vector3 enemyFinalPos;
+                //place the ducks face to face
+                if (middlePos.x < playerPos.x)
+                {
+                    //player on the right
+                    var pos = middlePos;
+                    pos.x += distance;
+                    _controller.gameObject.transform.position = pos;
+                    //_controller.gameObject.transform.rotation = Quaternion.AngleAxis(90.0f,new Vector3(0,0,1));
+                    _moveSkill.SetRotation(90.0f);
+
+                    playerPos = pos;
+                    //enemy on the left
+                    pos = middlePos;
+                    pos.x -= distance;
+                    enemyDir = 0;
+                    enemyFinalPos = pos;
+                    enemyAngle = 90.0f;
+
+                }
+                else
+                {
+                    //player on the left
+                    var pos = middlePos;
+                    pos.x -= distance;
+                    _controller.gameObject.transform.position = pos;
+                    //_controller.gameObject.transform.rotation = Quaternion.AngleAxis(-90.0f, new Vector3(0, 0, 1));
+                    _moveSkill.SetRotation(-90.0f);
+                    playerPos = pos;
+                    //enemy on the right
+                    pos = middlePos;
+                    pos.x += distance;
+                    enemyDir = 1;
+                    enemyFinalPos = pos;
+                    enemyAngle = -90.0f;
+                }
+
+                //this function should allow the enemy to pass to passive steal state and to displace it in the correct position/direction
+                // enemyDir: 0 left | 1 right
+                BreadNamespace.BreadInMouthComponent breadContended = _eatSkill.GetCaughtBread();//_enemyToSteal.StartGettingRobbed(enemyFinalPos);//and also enemyDir for the sprite
+                                                                                                 // _enemyToSteal.SetPosition(enemyFinalPos);
+                                                                                                 // _enemyToSteal.SetRotation(enemyAngle);
+
+                //let's active the Quick Time Event.
+                LevelStageNamespace.LakeDescriptionComponent lakeDescriptionComponent = (LevelStageNamespace.LakeDescriptionComponent)_controller.GetLake();
+                if (lakeDescriptionComponent)
+                {
+                    _eatSkill.StopEating();
+                    lakeDescriptionComponent.PlayerStartStealFromEnemy(_controller.gameObject, breadContended.gameObject, playerPos.x, playerPos.y + 3f);
+                }
+            }
+        }
+
+
         public override void SetDescription(PlayerSkillDescriptionSO desc)
         {
             _description = desc;
@@ -142,6 +217,7 @@ namespace Player
                     if (lakeDescriptionComponent)
                     {
                         lakeDescriptionComponent.PlayerStartStealFromEnemy(_controller.gameObject, breadContended.gameObject, playerPos.x, playerPos.y + 3f);
+                        _controller.GetAnimalSoundController().UnSwim();
                     }                   
                 }
             }
@@ -167,7 +243,8 @@ namespace Player
 
         public void NotifyFinishedQTE(GameObject breadForPlayer, GameObject breadForEnemy)
         {
-            if (_controller.GetState() == PlayerState.Stealing && _enemyToSteal && _stealCoolDownElapsedSeconds <= 0)
+            if ((_controller.GetState() == PlayerState.Stealing || _controller.GetState() == PlayerState.GettingRobbed) && 
+                _enemyToSteal && _stealCoolDownElapsedSeconds <= 0)
             {
                 if (breadForEnemy == null)
                 {
@@ -231,5 +308,10 @@ namespace Player
                     Debug.Log("Enemy missed");
             }
         }
+
+
+
+
+
     }
 }

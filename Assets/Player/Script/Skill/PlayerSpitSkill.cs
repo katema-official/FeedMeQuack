@@ -120,7 +120,6 @@ namespace Player
         {
             if (Input.GetButtonDown("SpitButton") /*&& !_caughtBread*//*_eatSkill.GetCaughtBread()*/ && _spitCoolDownElapsedSeconds <= 0)
             {
-
                 if (_controller.GetState() != PlayerState.Spitting && _controller.GetState() != PlayerState.Carrying && !_caughtBread)
                 {
                     var locatedBread = FindClosestBread();
@@ -167,6 +166,7 @@ namespace Player
                     _moveSkill.EnableInput(true);
                     _spitArrow.SetActive(true);
                     _spitProgressBar.gameObject.SetActive(true);
+                    Music.UniversalAudio.GetSpitBarSoundController().Spit(_maxPower/_chargeSpeed, GetComponent<AudioSource>());
                 }
 
                 CheckData();
@@ -241,7 +241,7 @@ namespace Player
                 Vector3 startPos = _controller.GetPosition();
                 Vector3 endPos = _controller.GetPosition() + _moveSkill.GetDirection() * (_maxRange * (_spitPower / _maxPower));
                 _breadManager.ThrowBread(_caughtBread/*_eatSkill.GetCaughtBread()*/, startPos, endPos);
-
+                Music.UniversalAudio.GetSpitBarSoundController().SetIsInSpittingState(false);
 
                 //_eatSkill.ReleaseBread();
                 _caughtBread = null;

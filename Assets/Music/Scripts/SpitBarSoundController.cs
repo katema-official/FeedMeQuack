@@ -34,7 +34,7 @@ namespace Music
             _audioSource.clip = Resources.Load<AudioClip>("SFX/SpittingSoundUp");
             _audioSource.volume =
                 MusicManagerComponent
-                    .GetSoundVolume();
+                    .GetSoundVolume() * (0.5f);
             var mixer = Resources.Load("Mixers/GameAudioMixer") as AudioMixer;
             _audioSource.pitch = Resources.Load<AudioClip>("SFX/SpittingSoundUp").length / maxTime;
             if ( mixer != null)

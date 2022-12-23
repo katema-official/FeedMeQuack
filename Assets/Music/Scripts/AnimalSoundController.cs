@@ -40,7 +40,7 @@ namespace Music
         {
             _audioSource = GetComponent<AudioSource>();
             _audioSource.clip = Resources.Load<AudioClip>("SFX/Swimming");
-            _audioSource.spatialBlend = 0;
+            _audioSource.spatialBlend = 1;
             //_audioSource.maxDistance =
                 //float.MaxValue; // Just to be sure that we can hear all the sounds at the same volume
             _audioSource.volume =
@@ -75,6 +75,7 @@ namespace Music
 
         public void Swim()
         {
+            _audioSource.clip = Resources.Load<AudioClip>("SFX/Swimming");
             if (GetIsInSwimmingState() == true) return;
 
             _audioSource.UnPause();
