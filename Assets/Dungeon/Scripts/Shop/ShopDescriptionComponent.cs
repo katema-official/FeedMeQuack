@@ -14,7 +14,6 @@ namespace LevelStageNamespace
         [SerializeField] private List<ShopSO> _listOfShops;
         [SerializeField] private GameObject _powerUpPrefab;
 
-        private LevelStageManagerComponent _levelStageManagerComponent;
         private GameObject _platformsForPowerUpsGameobject;
 
 
@@ -24,7 +23,7 @@ namespace LevelStageNamespace
         {
             GameObject player = GameObject.FindWithTag("Player");
             player.transform.position = new Vector3(0, 0, 0);
-            _levelStageManagerComponent = GameObject.Find("LevelStageManagerObject").GetComponent<LevelStageManagerComponent>();
+            _levelStageManager = GameObject.Find("LevelStageManagerObject").GetComponent<LevelStageManagerComponent>();
             _platformsForPowerUpsGameobject = GameObject.Find("PlatformsForPowerUps");
 
             InitializeShop();
@@ -39,7 +38,7 @@ namespace LevelStageNamespace
 
         private void InitializeShop()
         {
-            int levelIndex = _levelStageManagerComponent.GetCurrentLevelIndex();
+            int levelIndex = _levelStageManager.GetCurrentLevelIndex();
             ShopSO currentShopSO = _listOfShops[levelIndex -1]; //-1!!! the first stage is "1", but its index in the list is "0"!
 
             //first of all, let's decide how many power ups do we want to generate
@@ -55,7 +54,6 @@ namespace LevelStageNamespace
 
                     //and let's put a random power up on top of them
                     int index = Random.Range(0, currentShopSO.ListOfPowerUps.Count);
-                    Debug.Log("INDEX = " + index);
                     PowerUpSO powerUpSO = currentShopSO.ListOfPowerUps[index];
 
                     //now let's create the real power up...

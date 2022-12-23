@@ -53,7 +53,6 @@ namespace PowerUpsNamespace
 
         private void UpdateTexts()
         {
-            Debug.Log("_name = " + _name + ", _description = " + _description);
             _nameTextMesh.text = _name;
             _descriptionTextMesh.text = _description;
             _costTextMesh.text = "Cost: " + _costDigestedbreadPoints;

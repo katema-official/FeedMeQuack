@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2367e82b6f1397f4e9420ea9b270d24c, type: 3}
+  m_Name: Mallard
+  m_EditorClassIdentifier: 
+  SpeedRoaming: 10
+  AccelerationRoaming: 10
+  DecelerationRoaming: 10
+  SteerRoaming: 10
+  ChillingTime: 3
+  DesiredRoamingDistance: 21
+  StopAtRoaming: 3
+  SpeedFoodSeeking: 13
+  AccelerationFoodSeeking: 5
+  DecelerationFoodSeeking: 30
+  SteerFoodSeeking: 20
+  StopAtFoodSeeking: 2
+  Circle1FoodRadius: 15
+  Circle2FoodRadius: 18
+  Circle3FoodRadius: 21
+  Circle1FoodProbability: 1
+  Circle2FoodProbability: 0.5
+  Circle3FoodProbability: 0.25
+  Circle1PlayerRadius: 10
+  Circle2PlayerRadius: 13
+  Circle3PlayerRadius: 16
+  Circle1PlayerProbability: 1
+  Circle2PlayerProbability: 0.7
+  Circle3PlayerProbability: 0.4
+  DashTriggerProbability: 0.1
+  SpeedDash: 20
+  AccelerationDash: 10
+  DecelerationDash: 40
+  SteerDash: 20
+  DistanceToDash: 10
+  StealTriggerProbability: 0
+  SpeedChasing: 0
+  AccelerationChasing: 0
+  DecelerationChasing: 0
+  SteerChasing: 0
+  MouthSize: 3
+  ChewingRate: 1.5
+  DigestingTime: 2

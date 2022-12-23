@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367d231055e7ed249865c0393d721980, type: 3}
   m_Name: ShopLevel2
   m_EditorClassIdentifier: 
-  ListOfPowerUps: []
-  MinAmountOfPowerUpsToSell: 2
+  ListOfPowerUps:
+  - {fileID: 11400000, guid: e4d5a96bcfb57634482b5b62b49086b2, type: 2}
+  - {fileID: 11400000, guid: 14daf82ed3a6e704289b1961fc85b56d, type: 2}
+  - {fileID: 11400000, guid: 8ede260865b29db4d927ae44af92a3e3, type: 2}
+  - {fileID: 11400000, guid: 2c9faf612411a1643b0b878ceffea650, type: 2}
+  - {fileID: 11400000, guid: 6d07225724021e94fbc8f751658eadfc, type: 2}
+  - {fileID: 11400000, guid: c66c29202c757c648abe4a471c2c1ec8, type: 2}
+  MinAmountOfPowerUpsToSell: 3
   MaxAmountOfPowerUpsToSell: 4

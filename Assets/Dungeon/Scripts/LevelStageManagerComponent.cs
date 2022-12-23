@@ -41,11 +41,6 @@ namespace LevelStageNamespace
             GoToNextLevel();
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
 
         //#######################################################################################################################################################
         //#######################################################################################################################################################
@@ -211,7 +206,7 @@ namespace LevelStageNamespace
                     SceneManager.LoadScene("LakeSmall");    //TODO: LakeMedium
                     break;
                 case EnumsDungeon.LakeDimension.Large:
-                    SceneManager.LoadScene("LakeSmall");    //TODO: LakeLarge
+                    SceneManager.LoadScene("LakeLarge");    //TODO: LakeLarge
                     break;
                 default:
                     Debug.Log("Non dovresti assolutamente essere qui");
@@ -295,7 +290,7 @@ namespace LevelStageNamespace
 
         
 
-
+        
 
 
 

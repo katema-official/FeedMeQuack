@@ -156,6 +156,8 @@ MonoBehaviour:
   _blackSquarePrefab: {fileID: 7569123848428525457, guid: 56a45038c389dea4180ed6ba96cf29cf, type: 3}
   Levels:
   - {fileID: 11400000, guid: 33a1fc404a3dd994480f0611009e65b6, type: 2}
+  - {fileID: 11400000, guid: 649a2aaca64c94045b4488794b3971cd, type: 2}
+  - {fileID: 11400000, guid: 51b5788053040454189ee8c38d25cd72, type: 2}
 --- !u!114 &27265054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,7 +178,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 27265052}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9134417, y: 1.321184, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

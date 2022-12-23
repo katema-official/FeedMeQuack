@@ -11,6 +11,8 @@ TagManager:
   - Water
   - DuckMouth
   - QuickTimeEventManager
+  - MainMenuCanvas
+  - AudioManager
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - Water
   - UI
   - WaterLayer
-  - 
+  - TerrainLayer
   - 
   - 
   - 
