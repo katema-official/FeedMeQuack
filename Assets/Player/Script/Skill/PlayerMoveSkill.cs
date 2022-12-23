@@ -23,6 +23,9 @@ namespace Player
         private Vector3 _finalDir;
 
         private bool _lockMovement = false;
+        private bool _initLock = false;
+        private Vector2 _lockInputAxis;
+        private Vector2 _oldVelocity;
 
         private bool _moveForward = false;
         private float _rotationMovement = 0.0f;
@@ -297,6 +300,7 @@ namespace Player
 
                 _rigidBody.AddForce(_finalDir * _force, ForceMode2D.Force);
                 _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity, speed);
+                _oldVelocity = _rigidBody.velocity;
 
             }
             else
@@ -430,6 +434,8 @@ namespace Player
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             _lockMovement = true;
+            _rigidBody.velocity = _oldVelocity;
+
         }
 
 
@@ -446,23 +452,87 @@ namespace Player
         {
             if (!_enableInput) return;
 
+            if (Input.GetButtonUp("Vertical"))
+            {
+                if (_forwardAxis.x != 0) _forwardAxis.x = 0;
+                if (_forwardAxis.y != 0) _forwardAxis.y = 0;
+            } 
+            if (Input.GetButtonUp("Horizontal"))
+            {
+                    if (_forwardAxis.x != 0) _forwardAxis.x = 0;
+                if (_forwardAxis.y != 0) _forwardAxis.y = 0;
+            }
+          
+            
             var h = Input.GetAxisRaw("Horizontal");
             var v = Input.GetAxisRaw("Vertical");
-
+ 
+            
             if (_lockMovement)
             {
-                if ((h == 0 && v == 0) && (_forwardAxis.x != 0 || _forwardAxis.y != 0))
-                    return;
-                else
-                    _lockMovement = false;
-            }  
+                // if ((h == 0 && v == 0) && (_forwardAxis.x != 0 || _forwardAxis.y != 0))
+                //if ((h == 0 && v == 0) || (_forwardAxis.x == h || _forwardAxis.y == v))
+                //    return;
+                //else
+                //    _lockMovement = false;
+
+                //if (!_initLock)
+                //{
+                //    _lockInputAxis = new Vector2((h != _forwardAxis.x) ? 1 : 0, (v != _forwardAxis.y) ? 1 : 0);
+                //    _initLock = true;
+                //}
+
+
+                //if (_lockInputAxis.x && (h != )
+                //{
+                //    _lockMovement = false;
+                //    _initLock = false;
+                //}
+
+
+               
+
+                _forwardAxis.x = (h != 0) ? h : _forwardAxis.x;
+                _forwardAxis.y = (v != 0) ? v : _forwardAxis.y;
+
+                //else
+                {
+                    if ((h == 0 && v == 0) && (_forwardAxis.x == 0 && _forwardAxis.y == 0))
+                    {
+                        _lockMovement = false;
+                      //  return;
+                    }
+
+                    //if ((h == 0 && v == 0))// && (_forwardAxis.x != 0 || _forwardAxis.y != 0))
+                    //{
+                    //    return;
+                    //}
+                    //else if((h != 0 || v != 0))// && (_forwardAxis.x != 0 || _forwardAxis.y != 0))
+                    //{
+                    //    _forwardAxis.x = (h != 0) ? h : _forwardAxis.x;
+                    //    _forwardAxis.y = (v != 0) ? v : _forwardAxis.y;
+                    //    _lockMovement = false;
+                    //}
+                }
+                return;
+
+
+                //else //if ((h == 0 && v == 0) && (_forwardAxis.x == 0 && _forwardAxis.y == 0))
+                //{
+                //    _lockMovement = false;
+                //}
+
+
+            }
 
             _moveForward = false;
+            _forwardAxis = new Vector3(h, v);
+
            // _forwardAxis = new Vector3(0, 0);
 
-            _forwardAxis = new Vector3(h,v);
-
-            if (h != 0 || v != 0)
+          
+            // if (h != 0 || v != 0)
+            if (_forwardAxis.x != 0 || _forwardAxis.y != 0)
             {
                 _moveForward = true;
                 _controller.GetAnimalSoundController().Swim();
