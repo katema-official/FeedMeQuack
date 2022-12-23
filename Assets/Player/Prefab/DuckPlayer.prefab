@@ -280,6 +280,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 579026756605706032}
+  - component: {fileID: 11353028492385494}
   m_Layer: 0
   m_Name: DuckPlayer
   m_TagString: Player

@@ -9,14 +9,14 @@ using Object = UnityEngine.Object;
 namespace Music // To change correctly
 {
     // This script exposes static methods to implement audio. The main functions are: PlayMusic(string songName, bool fromStart),
-    // PlaySound(string clipName, Transform thisTransform), PlayStealing(string robber, string robbed, Transform thisTransform)
-    // and StopAllMusic()
+    // PlaySound(string clipName, Transform thisTransform), PlayStealing(string animalName, Transform thisTransform)
+    // and StopAllMusic(). It's the access to the methods of EatingController, AnimalSoundController and SpitBarController classes
     public static class UniversalAudio
     {
         private class UniversalAudioMonoBehaviour : MonoBehaviour // To give MonoBehaviour to a static class
         {
         }
-        
+
         private static UniversalAudioMonoBehaviour
             _universalAudioMonoBehaviour; // Variable reference for the class to use instance at the occurrence
 
@@ -31,8 +31,7 @@ namespace Music // To change correctly
         // _startFadeOutVolume and _finalFadeInVolume are essentially the max volume of the AudioListener (1 is 100% of the
         // AudioListener volume intensity). So, in the options these values will be set as the component value of the Slider 
 
-        private static float _finalFadeInVolume =
-            PlayerPrefs.GetFloat("MusicVolume", MusicManagerComponent.GetAudioSourceVolume());
+        private static float _finalFadeInVolume = MusicManagerComponent.GetAudioSourceVolume();
 
         private static float _startFadeOutVolume = _finalFadeInVolume;
 
@@ -40,14 +39,22 @@ namespace Music // To change correctly
 
         private static AudioSource _audioSource1, _audioSource2;
 
+        public static SpitBarSoundController _spitBarSoundController;
+
+        public static AnimalSoundController _animalSoundController;
+
+        public static EatingController _eatingController;
+
+        public static FlySoundController _flySoundController;
+
         private const string
             PathFromSourcesForMusic = "Songs/"; // Inside folder "Resources", if there is a relative path, write it here
 
         private const string
             PathFromSourcesForSound = "SFX/"; // Inside folder "Resources", if there is a relative path, write it here
 
-        private const float MinTimeBetweenQuackSteal = 0.3f;
-        private const float MaxTimeBetweenQuackSteal = 1f;
+        private const float MinTimeBetweenQuackSteal = 2f;
+        private const float MaxTimeBetweenQuackSteal = 4f;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,6 +67,10 @@ namespace Music // To change correctly
             // If the instance not exists the first time we call the static class
             //Add this script to the object
             _universalAudioMonoBehaviour ??= musicManagerGo.AddComponent<UniversalAudioMonoBehaviour>();
+            _spitBarSoundController ??= musicManagerGo.AddComponent<SpitBarSoundController>();
+            _animalSoundController ??= musicManagerGo.AddComponent<AnimalSoundController>();
+            _eatingController ??= musicManagerGo.AddComponent<EatingController>();
+            _flySoundController ??= musicManagerGo.AddComponent<FlySoundController>();
         }
 
         private static void GetAudioSources(GameObject musicManager)
@@ -100,13 +111,13 @@ namespace Music // To change correctly
             else // If it exists, clean all the values to 0
             {
                 var keys = new List<string>(_audioClipTimerDictionary.Keys);
-                foreach(var key in keys)
+                foreach (var key in keys)
                 {
                     InitDictionary(key);
                 }
             }
         }
-        
+
         // Overload to clean only the track whose name is clipName
         private static void InitDictionary(string clipName)
         {
@@ -128,7 +139,27 @@ namespace Music // To change correctly
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Getter and Setter of the variables
+
+        public static SpitBarSoundController GetSpitBarSoundController()
+        {
+            return _spitBarSoundController;
+        }
         
+        public static AnimalSoundController GetAnimalSoundController()
+        {
+            return _animalSoundController;
+        }
+        
+        public static EatingController GetEatingController()
+        {
+            return _eatingController;
+        }
+        
+        public static FlySoundController GetFlySoundController()
+        {
+            return _flySoundController;
+        }
+
         private static void SetTrueTimeOfFading()
         {
             _timeOfFading = SceneManager.GetActiveScene().name == "MainMenu" ? 0 : 1;
@@ -162,7 +193,12 @@ namespace Music // To change correctly
                 {
                     // It's the same of (AudioClip)Resources.Load(pathFromSourcesForMusic + clipName, typeof(AudioClip));
                     _audioSource2.clip = Resources.Load<AudioClip>(PathFromSourcesForMusic + clipName);
-
+                    
+                    if (_audioSource1.clip.Equals(_audioSource2.clip))
+                    {
+                        yield break;
+                    }
+                    
                     _audioSource2.time =
                         _audioClipTimerDictionary[clipName]; // (The incoming track starts from the value
                     // displayed in _audioClipTimerDictionary)
@@ -191,6 +227,12 @@ namespace Music // To change correctly
                     // If it's the second AudioSource that's playing, do as above but swapped
                     {
                         _audioSource1.clip = Resources.Load<AudioClip>(PathFromSourcesForMusic + clipName);
+                        
+                        if (_audioSource1.clip.Equals(_audioSource2.clip))
+                        {
+                            yield break;
+                        }
+                        
                         _audioSource1.time = _audioClipTimerDictionary[clipName];
                         _audioSource1.Play();
                         while (timeElapsed < _timeOfFading)
@@ -240,7 +282,7 @@ namespace Music // To change correctly
             _universalAudioMonoBehaviour.StartCoroutine(FadeTrack(songName, fromStart));
         }
 
-        public static void PlaySound(string clipName, Transform thisTransform)
+        public static void PlaySound(string clipName, Transform thisTransform, AnimalSoundController animalSoundController = null)
         {
             if (clipName.Equals(
                     "GameOver")) // The GameOver is treated as a Sound that obliterate all other AudioSources
@@ -255,7 +297,9 @@ namespace Music // To change correctly
 
         public static void StopAllMusic() // To stop all the AudioSources
         {
-            var allAudioSources = Object.FindObjectsOfType(typeof(AudioSource)) as AudioSource[];//(AudioSource[])Object.FindObjectsOfType(typeof(AudioSource)); // casting as Object.FindObjectsOfType(typeof(AudioSource)) as AudioSource[] is much faster
+            var allAudioSources =
+                Object.FindObjectsOfType(
+                    typeof(AudioSource)) as AudioSource[]; //(AudioSource[])Object.FindObjectsOfType(typeof(AudioSource)); // casting as Object.FindObjectsOfType(typeof(AudioSource)) as AudioSource[] is much faster
 
             if (allAudioSources != null)
             {
@@ -267,7 +311,8 @@ namespace Music // To change correctly
         }
 
         private static void UniversalPlayClipAtPoint
-            (AudioClip clip, Vector3 position, string audioMixerPath = "Mixers/GameAudioMixer")
+        (AudioClip clip, Vector3 position,
+            string audioMixerPath = "Mixers/GameAudioMixer")
         {
             var gameObject = new GameObject("One shot audio");
             gameObject.transform.position = position;
@@ -281,53 +326,52 @@ namespace Music // To change correctly
 
             audioSource.clip = clip;
             audioSource.spatialBlend = 1;
-            audioSource.volume = MusicManagerComponent.GetSoundVolume();
+            audioSource.transform.position = position;
+            audioSource.maxDistance =
+                float.MaxValue; // Just to be sure that we can hear all the sounds at the same volume
+            audioSource.volume =
+                MusicManagerComponent
+                    .GetSoundVolume();
             audioSource.Play();
             Object.Destroy(gameObject, clip.length *
                                        (Time.timeScale < 0.009999999776482582 ? 0.01f : Time.timeScale));
+
         }
 
-        private static IEnumerator Stealing(string robber, string robbed, Transform thisTransform)
+
+        private static IEnumerator EmitSound(string animalName, Transform thisTransform)
         {
+            if (animalName.Equals("Mallard"))
+            {
+                animalName = "Duck";
+            }
             var random = new Unity.Mathematics.Random((uint)DateTime.Now.Ticks);
-            var numberRobber = random.NextInt(0, MusicManagerComponent.stringAndNumberDictionary[robber]);
-            switch (numberRobber)
+            while (_animalSoundController.GetIsInStealingState())
             {
-                case 0:
-                    PlaySound(robber, thisTransform);
-                    break;
-                case < 10:
-                    PlaySound(robber + " " + "0" + numberRobber, thisTransform);
-                    break;
-                default:
-                    PlaySound(robber + " " + numberRobber, thisTransform);
-                    break;
+                var numberOfClip = random.NextInt(0, MusicManagerComponent.stringAndNumberDictionary[animalName]);
+                switch (numberOfClip)
+                {
+                    case 0:
+                        PlaySound(animalName, thisTransform);
+                        break;
+                    case < 10:
+                        PlaySound(animalName + " " + "0" + numberOfClip, thisTransform);
+                        break;
+                    default:
+                        PlaySound(animalName + " " + numberOfClip, thisTransform);
+                        break;
+                }
+                yield return new WaitForSeconds(random.NextFloat(MinTimeBetweenQuackSteal, MaxTimeBetweenQuackSteal));
             }
 
-            var numberRobbed = random.NextInt(0, MusicManagerComponent.stringAndNumberDictionary[robbed]);
-
-            yield return new WaitForSeconds(random.NextFloat(MinTimeBetweenQuackSteal, MaxTimeBetweenQuackSteal));
-
-            switch (numberRobbed)
-            {
-                case 0:
-                    PlaySound(robbed, thisTransform);
-                    break;
-                case < 10:
-                    PlaySound(robbed + " " + "0" + numberRobbed, thisTransform);
-                    break;
-                default:
-                    PlaySound(robbed + " " + numberRobbed, thisTransform);
-                    break;
-            }
-
-            yield return new WaitForSeconds(random.NextFloat(MinTimeBetweenQuackSteal, MaxTimeBetweenQuackSteal));
+            yield return null;
         }
 
-        public static void PlayStealing(string robber, string robbed, Transform thisTransform)
+        public static void PlayStealing(string animalName, Transform thisTransform)
         {
-            _universalAudioMonoBehaviour.StartCoroutine(Stealing(robber, robbed, thisTransform));
+            _animalSoundController.SetIsInStealingState(true);
+            _universalAudioMonoBehaviour.StartCoroutine(EmitSound(animalName, thisTransform));
         }
-
+        
     }
 }
