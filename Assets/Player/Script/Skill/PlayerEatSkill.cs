@@ -65,11 +65,11 @@ namespace Player
 
             GameObject[] breads = GameObject.FindGameObjectsWithTag("FoodInWater");
             float minDistance = 10000000;
-            BreadNamespace.BreadInWaterComponent bread = null; 
+            BreadNamespace.BreadInWaterComponent bread = null;
             for (int i = 0; i < breads.Length; i++)
             {
                 var dist = Vector3.Distance(breads[i].transform.position, _controller.gameObject.transform.position);
-                if (dist <= 3f)
+                if (dist <= breads[i].GetComponent<CircleCollider2D>().radius)
                 {
                     if (dist <= minDistance)
                     {
@@ -158,7 +158,7 @@ namespace Player
 
 
                     _controller.applyPowerUp(spentDBP, listAttribs, listValues);
-                    if(spentDBP > 0) _locatedPowerUp = null;
+                  //  if(spentDBP > 0) _locatedPowerUp = null;
                     return;
                 }
 
@@ -247,18 +247,32 @@ namespace Player
         IEnumerator EatCoroutine()
         {
             int a;
+            
             _mustStopEating = false;
+           
+            _controller.GetUICanvas().GetStatusView().SetVisible(true);
+            _controller.GetUICanvas().GetStatusView().SetText("");
+            _controller.GetUICanvas().GetStatusView().SetIcon(_eatDesc.EatingStatusIcon);
+       
+
+            Music.UniversalAudio.PlaySound("Duck 01", _controller.transform);
 
             while (!_hasBreadBeenFullyEaten && !_mustStopEating)
             {
+                _controller.GetUICanvas().GetStatusView().SetText("" + _caughtBread.GetBreadPoints());
                 yield return new WaitForSeconds(_chewingRate);
                 if (!_mustStopEating)
                 {
                     (a, _hasBreadBeenFullyEaten) = _caughtBread.SubtractBreadPoints(1);//eat a point each chewingRate seconds
                     // Debug.Log("Bread eaten before");
                     _controller.AddBreadPoints(1);
+                   
+
                 }
             }
+            _controller.GetUICanvas().GetStatusView().SetText("" + _caughtBread.GetBreadPoints());
+            _controller.GetUICanvas().GetStatusView().SetVisible(false);
+
             //Debug.Log("Bread eaten after");
             yield break;
         }
@@ -271,11 +285,20 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            var powerup = collision.gameObject.transform.parent.gameObject.GetComponent<PowerUpsNamespace.PowerUpComponent>();
+            PowerUpsNamespace.PowerUpComponent powerup = null;
+            powerup = ((collision.gameObject)?.transform.parent)?.gameObject.GetComponent<PowerUpsNamespace.PowerUpComponent>();
             if (powerup)
             {
                 _locatedPowerUp = powerup;
             }
+
+
+
+
+
+
+            //var powerup = collision.gameObject.transform.parent.gameObject.GetComponent<PowerUpsNamespace.PowerUpComponent>();
+            
 
 
             //var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
@@ -289,7 +312,13 @@ namespace Player
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            _locatedPowerUp = null;
+            if (!collision.gameObject.transform.parent) return;
+
+            var powerup = collision.gameObject.transform.parent.gameObject.GetComponent<PowerUpsNamespace.PowerUpComponent>();
+            if (powerup)
+            {
+                _locatedPowerUp = null;
+            }
 
             //var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
 

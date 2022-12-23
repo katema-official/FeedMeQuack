@@ -18,3 +18,5 @@ MonoBehaviour:
   MaxRange: 40
   CoolDown: 5
   ChargeSpeed: 7
+  CarryingSpeed: 10
+  CarryingStatusIcon: {fileID: 21300000, guid: 8a6681dc10b14a942b8132654ea0837d, type: 3}

@@ -8,7 +8,7 @@ namespace LevelStageNamespace {
     {
         //component that specifies the nature of a lake
 
-        private LevelStageManagerComponent _levelStageManager;
+        
         private GameObject _playerObject;
 
         private LakeDescriptionSO _lakeDescriptionForThisLake;
@@ -43,8 +43,6 @@ namespace LevelStageNamespace {
         //original x scale of the north and south river
         private float _xScaleOfRiver;
 
-        private GameObject _lake;
-        //private GameObject _terrain;
 
 
         //########################################################################################################################################################
@@ -113,12 +111,10 @@ namespace LevelStageNamespace {
         protected override void Awake()
         {
             base.Awake();
-            _levelStageManager = GameObject.Find("LevelStageManagerObject").GetComponent<LevelStageManagerComponent>();
             _lakeDescriptionForThisLake = _levelStageManager.GetLakeDescriptionSO();
             ManageRiversOfthisLake();
             _breadSpawnForThisLake = _levelStageManager.GetBreadSpawnSO();
-            _lake = transform.Find("Water").gameObject;
-            //_terrain = transform.Find("Terrain").gameObject;
+            
 
             //first of all, a fade in effect
             _levelStageManager.FadeIn();
@@ -182,6 +178,10 @@ namespace LevelStageNamespace {
                 //to pass through the TriggerEnteredCollider of the river in which he is.
 
             }
+
+            //generate all the obstacles
+            _obstacles.GetComponent<ObstaclesLakeComponent>().
+                SetObstacles(_lakeDescriptionForThisLake.ObstaclesDescription.Item1, _lakeDescriptionForThisLake.ObstaclesDescription.Item2);
 
         }
 
@@ -457,14 +457,14 @@ namespace LevelStageNamespace {
                 else
                 {
                     GameObject[] breadsInWater = GameObject.FindGameObjectsWithTag("FoodInWater");
-                    if(breadsInWater.Length > 0)
+                    if (breadsInWater.Length > 0)
                     {
                     }
                     else
                     {
                         //we only have breadInMouth. If there is any, let's take one of them.
                         GameObject[] breadsInMouth = GameObject.FindGameObjectsWithTag("FoodInMouth");
-                        if(breadsInMouth.Length > 0)
+                        if (breadsInMouth.Length > 0)
                         {
 
                             if (breadID == 0)
@@ -478,7 +478,7 @@ namespace LevelStageNamespace {
                                 bool found = false;
                                 for (int i = 0; i < breadsInMouth.Length; i++)
                                 {
-                                    if(breadsInMouth[i].GetInstanceID() == breadID)
+                                    if (breadsInMouth[i].GetInstanceID() == breadID)
                                     {
                                         found = true;
                                         if (breadsInMouth[i].GetComponent<BreadNamespace.BreadInMouthComponent>().GetBreadPoints() == breadPoints)
@@ -486,11 +486,11 @@ namespace LevelStageNamespace {
                                             //there is a piece of bread (in mouth) that in three seconds wasn't eaten by a bit. Right now, this cannot happen.
                                             //So, open the rivers
                                             CompleteLake();
-                                            Debug.Log("Emergence: EMERGENCE PROCEDURE ACTIVATED");
+                                            Debug.Log("Emergence: EMERGENCE PROCEDURE ACTIVATED 1");
                                         }
                                     }
                                 }
-                                if(!found && breadsInMouth.Length > 0)
+                                if (!found && breadsInMouth.Length > 0)
                                 {
                                     chosenBreadToInvestigate = breadsInMouth[0];
                                     breadID = chosenBreadToInvestigate.GetInstanceID();
@@ -501,6 +501,17 @@ namespace LevelStageNamespace {
                                     breadID = 0;
                                 }
 
+                            }
+                        }
+                        else
+                        {
+                            //there is NO BREAD at all, of any kind: we can consider the lake finished, but let's do a double check
+                            yield return new WaitForSeconds(0.5f);
+                            breadsInMouth = GameObject.FindGameObjectsWithTag("FoodInMouth");
+                            if (breadsInMouth.Length == 0)
+                            {
+                                CompleteLake();
+                                Debug.Log("Emergence: EMERGENCE PROCEDURE ACTIVATED 2");
                             }
                         }
                     }
@@ -596,7 +607,7 @@ namespace LevelStageNamespace {
             _totalNumberOfBreadPiecesEaten += 1;
             if(_totalNumberOfBreadPiecesEaten == _totalNumberOfBreadPiecesToBeEaten)
             {
-                CompleteLake();
+                //CompleteLake();   //TODO: non credo tu lo debba rimuovere
             }
         }
 
@@ -735,7 +746,7 @@ namespace LevelStageNamespace {
 
         //########################################################################################################################################################
         //########################################################################################################################################################
-        //################################################################# POINTS GENERATION ###################################################################
+        //################################################### POINTS GENERATION AND GENERAL POINT MANAGEMENT #####################################################
         //########################################################################################################################################################
         //########################################################################################################################################################
 
@@ -792,7 +803,7 @@ namespace LevelStageNamespace {
         public (float, float) GeneratePointInsideLake()
         {
 
-            Bounds waterCenterBounds = _lake.transform.Find("WaterCenter").GetComponent<TilemapRenderer>().bounds;
+            Bounds waterCenterBounds = _water.transform.Find("WaterCenter").GetComponent<TilemapRenderer>().bounds;
 
             float x = Random.Range(waterCenterBounds.min.x, waterCenterBounds.max.x);
             float y = Random.Range(waterCenterBounds.min.y, waterCenterBounds.max.y);
@@ -852,6 +863,90 @@ namespace LevelStageNamespace {
                 }
             }
             return (x, y);
+        }
+
+
+        //can be considered as a less strict version of the Contains() method used in the LakeShopDescriptionComponent.
+        //HANDLE WITH CARE: this function exists because, at this very moment, it's impossible to have the bread fall exactly in the point that we decided
+        //it should have fallen in the lake. In fact, it falls a bit offsetted (is it even a word?) wrt the originally planned point. SO, if somehow the minimum
+        //distance that there must be between a duck and a breadInWater changes (even more if the change is a shrinking of this distance), it is not guaranteed
+        //anymore that this function gives a value that makes the game work.
+        public bool IsBreadInWaterInLake(Vector3 point, float breadInWaterRadius)
+        {
+            //simple case
+            if (base.Contains(point)) return true;
+
+            //if the Contains returned false, it means that the piece of bread is on some kind of terrain.
+            //Let's give to this bread another chance: maybe it's just a bit outside of the (properly said) lake, but it's
+            //still reachable from other ducks.
+            //We do this check by considering the adjacent positions wrt this point (above, below, to the left, to the right, and also the diagonal ones) 
+
+            float range = (2f*breadInWaterRadius) / 3f;
+
+            /*Debug.DrawRay(point, new Vector3(0, 1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(0, -1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(1, 0, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(-1, 0, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(1, 1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(1, -1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(-1, 1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(-1, -1, 0) * range, Color.red, 10f, false);
+            */
+
+            Vector2 point2d = new Vector2(point.x, point.y);
+            
+            if (Contains(point + new Vector3(range, 0, 0)) || Contains(point + new Vector3(-range, 0, 0)) ||
+                Contains(point + new Vector3(0, -range, 0)) || Contains(point + new Vector3(0, -range, 0)) ||
+                Contains(point + new Vector3(range, range, 0)) || Contains(point + new Vector3(-range, range, 0)) ||
+                Contains(point + new Vector3(range, -range, 0)) || Contains(point + new Vector3(-range, -range, 0)))
+                    {
+                        return true;
+                    }
+            return false;
+
+            /*
+
+            Ray rayNorth = new Ray(point, new Vector3(0, 1, 0));
+            Ray raySouth = new Ray(point, new Vector3(0, -1, 0));
+            Ray rayWest = new Ray(point, new Vector3(1, 0, 0));
+            Ray rayEast = new Ray(point, new Vector3(-1, 0, 0));
+
+            Ray rayNorthEast = new Ray(point, new Vector3(1, 1, 0));
+            Ray raySouthEast = new Ray(point, new Vector3(1, -1, 0));
+            Ray rayNorthWest = new Ray(point, new Vector3(-1, 1, 0));
+            Ray raySouthWest = new Ray(point, new Vector3(-1, -1, 0));
+
+            Debug.DrawRay(point, new Vector3(0, 1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(0, -1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(1, 0, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(-1, 0, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(1, 1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(1, -1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(-1, 1, 0) * range, Color.red, 10f, false);
+            Debug.DrawRay(point, new Vector3(-1, -1, 0) * range, Color.red, 10f, false);
+
+            RaycastHit2D hit1 = Physics2D.Raycast(point2d, new Vector2(0, 1), range, LayerMask.GetMask("TerrainLayer"));
+            RaycastHit2D hit2 = Physics2D.Raycast(point2d, new Vector2(0, -1), range, LayerMask.GetMask("TerrainLayer"));
+            RaycastHit2D hit3 = Physics2D.Raycast(point2d, new Vector2(1, 0), range, LayerMask.GetMask("TerrainLayer"));
+            RaycastHit2D hit4 = Physics2D.Raycast(point2d, new Vector2(-1, 0), range, LayerMask.GetMask("TerrainLayer"));
+            RaycastHit2D hit5 = Physics2D.Raycast(point2d, new Vector2(1, 1), range, LayerMask.GetMask("TerrainLayer"));
+            RaycastHit2D hit6 = Physics2D.Raycast(point2d, new Vector2(1, -1), range, LayerMask.GetMask("TerrainLayer"));
+            RaycastHit2D hit7 = Physics2D.Raycast(point2d, new Vector2(-1, 1), range, LayerMask.GetMask("TerrainLayer"));
+            RaycastHit2D hit8 = Physics2D.Raycast(point2d, new Vector2(-1, -1), range, LayerMask.GetMask("TerrainLayer"));
+
+
+            if (hit1.collider || hit2.collider || hit3.collider || hit4.collider ||
+                hit5.collider || hit6.collider || hit7.collider || hit8.collider)
+            {
+                Debug.Log("INSIDE");
+                return true;
+            }
+            else
+            {
+                Debug.Log("OUTSIDE");
+                return false;
+            }
+            */
         }
 
 
@@ -952,6 +1047,16 @@ namespace LevelStageNamespace {
 
 
         }
+
+#if UNITY_EDITOR
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                CompleteLake();
+            }
+        }
+#endif
 
     }
 }

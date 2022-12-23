@@ -211,7 +211,7 @@ namespace BreadNamespace
 
             _airSprite.GetComponent<Rigidbody2D>().velocity = new Vector2(_airSprite.GetComponent<Rigidbody2D>().velocity.x, _velocity);
 
-
+            
             if (_airSprite.transform.position.y <= _shadow.transform.position.y)
             {
                 _sleep = true;

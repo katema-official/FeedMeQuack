@@ -17,7 +17,7 @@ namespace BreadNamespace
 
         [SerializeField] private GameObject BreadInMouthPrefab;
 
-        private int _breadPoints;
+        [SerializeField] private int _breadPoints;
 
         private LevelStageNamespace.LakeDescriptionComponent _lakeDescriptionComponent;
 
@@ -51,12 +51,13 @@ namespace BreadNamespace
                     break;
             }
 
-            //if the piece of bread was spawned outside the lake, it must be destroyed
-            if(_lakeDescriptionComponent.Contains(transform.position) == false)
+            //if the piece of bread was spawned outside the lake (I mean, on the terrain or an obstacle), it must be destroyed
+            if(_lakeDescriptionComponent.IsBreadInWaterInLake(transform.position, GetComponent<CircleCollider2D>().radius) == false)
             {
                 _lakeDescriptionComponent.NotifyBreadEaten();
                 StartCoroutine(FadeOutOutsideLake());
             }
+
 
         }
 
@@ -141,6 +142,11 @@ namespace BreadNamespace
         }
 
 
+
+        public int GetBreadPoints()
+        {
+            return _breadPoints;
+        }
 
 
 

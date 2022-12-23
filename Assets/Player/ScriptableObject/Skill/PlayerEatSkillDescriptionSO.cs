@@ -11,5 +11,6 @@ namespace Player
         public float EatingSpeed = 0.0f;
         public float ChewingRate = 0.0f;
         public int   MouthSize = 0;
+        public Sprite EatingStatusIcon;
     }
 }

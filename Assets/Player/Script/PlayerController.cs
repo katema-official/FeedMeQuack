@@ -17,6 +17,10 @@ namespace Player
 
         private PlayerState _state = PlayerState.Normal;
 
+
+        private PlayerUICanvas _uiCanvas = null;
+
+
         private PlayerDuckDescriptionSO _description = null;
         private List<PlayerSkill> _skills;
         private Animator _animator;
@@ -54,6 +58,11 @@ namespace Player
             return _animator;
         }
 
+        public PlayerUICanvas GetUICanvas()
+        {
+            return _uiCanvas;
+        }
+
         public void NotifyStageCompleted(int points)
         {
             _digestedBreadPoints += (_breadPoints - points);
@@ -85,7 +94,8 @@ namespace Player
                 else if (a == PlayerSkillAttribute.SpitSkill_ChargeSpeed ||
                     a == PlayerSkillAttribute.SpitSkill_CoolDown ||
                    a == PlayerSkillAttribute.SpitSkill_MaxPower ||
-                    a == PlayerSkillAttribute.SpitSkill_MaxRange) 
+                    a == PlayerSkillAttribute.SpitSkill_MaxRange ||
+                    a == PlayerSkillAttribute.SpitSkill_CarryingSpeed ) 
                     skillName = "SpitSkill";
                 else if (a == PlayerSkillAttribute.StealSkill_CoolDown) 
                     skillName = "StealSkill";
@@ -101,6 +111,7 @@ namespace Player
             {
                 if (newState == PlayerState.Dashing ||
                     newState == PlayerState.Eating ||
+                    newState == PlayerState.Carrying ||
                     newState == PlayerState.Stealing)
                 {
                     _state = newState;
@@ -115,8 +126,9 @@ namespace Player
             }
             else if (_state == PlayerState.Eating)
             {
-                if (newState == PlayerState.Spitting ||
-                    newState == PlayerState.Normal)
+                if (/*newState == PlayerState.Spitting ||*/
+                    newState == PlayerState.Normal ||
+                     newState == PlayerState.GettingRobbed)
                 {
                     _state = newState;
                 }
@@ -132,6 +144,13 @@ namespace Player
             {
                 if (newState == PlayerState.Eating || 
                     newState == PlayerState.Normal)
+                {
+                    _state = newState;
+                }
+            }
+            else if (_state == PlayerState.Carrying)
+            {
+                if (newState == PlayerState.Spitting)
                 {
                     _state = newState;
                 }
@@ -165,6 +184,7 @@ namespace Player
 
             _camera = transform.parent.GetComponentInChildren<Camera>();
             _mouth = transform.Find("Mouth");
+            _uiCanvas = transform.parent.Find("UI/PlayerUICanvas").GetComponent<PlayerUICanvas>();
 
             _skills = new List<PlayerSkill>();
             foreach (var s in _description.Skills)

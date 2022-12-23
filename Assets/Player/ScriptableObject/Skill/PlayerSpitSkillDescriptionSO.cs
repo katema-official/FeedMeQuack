@@ -12,5 +12,7 @@ namespace Player
         public float MaxRange = 0.0f;
         public float CoolDown = 0.0f;
         public float ChargeSpeed = 0.0f;
+        public float CarryingSpeed = 0.0f;
+        public Sprite CarryingStatusIcon;
     }
 }
