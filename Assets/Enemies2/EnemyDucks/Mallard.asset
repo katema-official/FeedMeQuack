@@ -25,8 +25,8 @@ MonoBehaviour:
   SteerFoodSeeking: 20
   StopAtFoodSeeking: 2
   Circle1FoodRadius: 15
-  Circle2FoodRadius: 18
-  Circle3FoodRadius: 21
+  Circle2FoodRadius: 21
+  Circle3FoodRadius: 27
   Circle1FoodProbability: 1
   Circle2FoodProbability: 0.5
   Circle3FoodProbability: 0.25
@@ -49,4 +49,4 @@ MonoBehaviour:
   SteerChasing: 0
   MouthSize: 3
   ChewingRate: 1.5
-  DigestingTime: 2
+  DigestingTime: 1

@@ -84,7 +84,6 @@ namespace DuckEnemies
                             //_foodInWaterObjectiveGO = foodGO;
                             //_foodInWaterObjectiveID = _foodInWaterObjectiveGO.GetInstanceID();
                             SaveIdentifiedFood(foodGO);
-                            Debug.Log("Circle 1 accepted");
                         }
                         else
                         {
@@ -103,13 +102,11 @@ namespace DuckEnemies
                             //_foodInWaterObjectiveGO = foodGO;
                             //_foodInWaterObjectiveID = _foodInWaterObjectiveGO.GetInstanceID();
                             SaveIdentifiedFood(foodGO);
-                            Debug.Log("Circle 2 accepted");
                         }
                         else
                         {
                             _refusedFoodCircle2.Add(foodGO.GetInstanceID());
                             _refusedFoodCircle3.Add(foodGO.GetInstanceID());
-                            Debug.Log("Circle 2 denyed");
                         }
                     }
                     break;
@@ -122,12 +119,10 @@ namespace DuckEnemies
                             //_foodInWaterObjectiveGO = foodGO;
                             //_foodInWaterObjectiveID = _foodInWaterObjectiveGO.GetInstanceID();
                             SaveIdentifiedFood(foodGO);
-                            Debug.Log("Circle 3 accepted");
                         }
                         else
                         {
                             _refusedFoodCircle3.Add(foodGO.GetInstanceID());
-                            Debug.Log("Circle 3 denyed");
                         }
                     }
                     break;

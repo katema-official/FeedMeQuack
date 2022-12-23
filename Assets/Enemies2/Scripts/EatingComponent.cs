@@ -90,7 +90,7 @@ namespace DuckEnemies
                 int eatenBP;
                 bool completelyEaten;
                 (eatenBP, completelyEaten) = _myBreadInMouthComponent.SubtractBreadPoints(1);
-                Debug.Log("eatenBP = " + eatenBP + ", completelyEaten = " + completelyEaten);
+                //Debug.Log("eatenBP = " + eatenBP + ", completelyEaten = " + completelyEaten);
                 if (!completelyEaten)
                 {
                     yield return new WaitForSeconds(_chewingRate);
