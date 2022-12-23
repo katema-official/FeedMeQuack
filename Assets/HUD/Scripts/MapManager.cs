@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace HUD
+namespace HUDNamespace
 {
     public class MapManager: MonoBehaviour
     {

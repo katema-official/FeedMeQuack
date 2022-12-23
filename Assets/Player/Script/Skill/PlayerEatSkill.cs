@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HUDNamespace;
 
 namespace Player
 {
@@ -43,6 +44,10 @@ namespace Player
             _eatingSpeed = _eatDesc.EatingSpeed;
             _chewingRate = _eatDesc.ChewingRate;
             _mouthSize = _eatDesc.MouthSize;
+
+            _controller.GetHUDManager().ChangeText(HUDManager.textFields.eatingSpeed, _eatingSpeed);
+            _controller.GetHUDManager().ChangeText(HUDManager.textFields.chewingRate, _chewingRate);
+            _controller.GetHUDManager().ChangeText(HUDManager.textFields.mouthSize, _mouthSize);
         }
 
         public BreadNamespace.BreadInWaterComponent FindClosestBread()
@@ -127,6 +132,8 @@ namespace Player
             _breadManager = GameObject.FindObjectOfType<PlayerBreadManager>();
 
             var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
+
+            _controller.GetHUDManager().ChangeBreadPointsCollectedText(_controller.GetBreadPoints());
         }
 
 
@@ -158,6 +165,7 @@ namespace Player
 
 
                     _controller.applyPowerUp(spentDBP, listAttribs, listValues);
+                    _controller.GetHUDManager().ChangeDigestedBreadPointsCollectedText(_controller.GetDigestedBreadPoints());
                   //  if(spentDBP > 0) _locatedPowerUp = null;
                     return;
                 }
@@ -203,14 +211,17 @@ namespace Player
             if (attrib == PlayerSkillAttribute.EatSkill_ChewingRate)
             {
                 _chewingRate += value;
+                _controller.GetHUDManager().ChangeText(HUDManager.textFields.chewingRate, _chewingRate);
             }
             else if (attrib == PlayerSkillAttribute.EatSkill_EatingSpeed)
             {
                 _eatingSpeed += value;
+                _controller.GetHUDManager().ChangeText(HUDManager.textFields.eatingSpeed, _eatingSpeed);
             }
             else if(attrib == PlayerSkillAttribute.EatSkill_MouthSize)
             {
                 _mouthSize += (int)value;
+                _controller.GetHUDManager().ChangeText(HUDManager.textFields.mouthSize, _mouthSize);
             }
         }
 
@@ -266,7 +277,7 @@ namespace Player
                     (a, _hasBreadBeenFullyEaten) = _caughtBread.SubtractBreadPoints(1);//eat a point each chewingRate seconds
                     // Debug.Log("Bread eaten before");
                     _controller.AddBreadPoints(1);
-                   
+                    _controller.GetHUDManager().ChangeBreadPointsCollectedText(_controller.GetBreadPoints());
 
                 }
             }

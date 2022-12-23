@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Player;
 
 namespace LevelStageNamespace {
     public class LakeDescriptionComponent : LakeShopDescriptionComponent
@@ -462,6 +463,11 @@ namespace LevelStageNamespace {
                     }
                     else
                     {
+                        if(_playerObject.GetComponent<PlayerController>().GetState() != PlayerState.Carrying)
+                        {
+                            //TODO
+                        }
+
                         //we only have breadInMouth. If there is any, let's take one of them.
                         GameObject[] breadsInMouth = GameObject.FindGameObjectsWithTag("FoodInMouth");
                         if (breadsInMouth.Length > 0)

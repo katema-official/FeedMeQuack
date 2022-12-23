@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HUDNamespace;
 
 namespace Player
 {
@@ -42,6 +43,8 @@ namespace Player
             _coolDown = _spitDesc.CoolDown;
             _chargeSpeed = _spitDesc.ChargeSpeed;
             _carryingSpeed = _spitDesc.CarryingSpeed;
+
+            _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.spitCD, _spitCoolDownElapsedSeconds);
         }
         public override void applyPowerUp(PlayerSkillAttribute attrib, float value)
         {
@@ -190,6 +193,7 @@ namespace Player
 
                     _moveSkill.EnableInput(true);
                     _spitCoolDownElapsedSeconds = _coolDown;
+                    _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.spitCD, _spitCoolDownElapsedSeconds);
                 }
                 CheckData();
             }
@@ -250,6 +254,7 @@ namespace Player
 
                 if (_spitCoolDownElapsedSeconds < 0)
                     _spitCoolDownElapsedSeconds = 0;
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.spitCD, (int)_spitCoolDownElapsedSeconds);
             }
         }
     }

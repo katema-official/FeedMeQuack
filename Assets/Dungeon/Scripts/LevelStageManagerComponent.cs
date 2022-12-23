@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using HUDNamespace;
 
 namespace LevelStageNamespace
 {
@@ -25,10 +26,13 @@ namespace LevelStageNamespace
         private int _xOfCurrentLake;
         private int _yOfCurrentLake;
 
+        private HUDManager _hudManager;
+
 
         // Start is called before the first frame update
         void Start()
         {
+            _hudManager = GameObject.FindObjectOfType<HUDManager>();
 
             for(int i = 1; i < Levels.Count + 1; i++)
             {
@@ -112,6 +116,8 @@ namespace LevelStageNamespace
 
                 //MUSIC: Reproduce calm music when entering new stage
                 Music.UniversalAudio.PlayMusic("Swimming", false);
+
+                _hudManager.ChangeGoalText(GetStage(GetLevel(_currentLevel), _currentStage).BreadPointsRequiredToCompleteStage);
             }
             else
             {

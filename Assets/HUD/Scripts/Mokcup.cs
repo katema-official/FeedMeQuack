@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using HUD;
+using HUDNamespace;
 using UnityEngine;
 
 public class Mokcup : MonoBehaviour

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HUDNamespace;
+
 namespace Player
 {
     public class PlayerDashSkill : PlayerSkill
@@ -30,6 +32,8 @@ namespace Player
             _maxSpeed = _dashDesc.MaxSpeed;
             _maxDuration = _dashDesc.MaxDuration;
             _coolDown = _dashDesc.CoolDown;
+
+            _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
         }
         public override void applyPowerUp(PlayerSkillAttribute attrib, float value)
         {
@@ -52,11 +56,13 @@ namespace Player
             if (_controller.GetState() == PlayerState.Dashing)
             {
                 _dashCoolDownElapsedSeconds = 0;
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
             }
             else
             {
                 _dashElapsedSeconds = 0.0f;
                 _dashCoolDownElapsedSeconds = _coolDown;
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
             }
         }
 
@@ -87,6 +93,7 @@ namespace Player
                         _moveSkill.EnableInput(true);
                         _dashElapsedSeconds = 0.0f;
                         _dashCoolDownElapsedSeconds = _coolDown;
+                        _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
                     }
                 }
                 else
@@ -130,6 +137,7 @@ namespace Player
 
                 if (_dashCoolDownElapsedSeconds < 0)
                     _dashCoolDownElapsedSeconds = 0;
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, (int) _dashCoolDownElapsedSeconds);
             }
         }
 

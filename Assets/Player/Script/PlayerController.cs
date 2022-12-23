@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HUDNamespace;
 
 namespace Player
 {
@@ -24,6 +25,8 @@ namespace Player
         private PlayerDuckDescriptionSO _description = null;
         private List<PlayerSkill> _skills;
         private Animator _animator;
+
+        private HUDManager _hudManager;
 
         public Transform GetMouthTransform()
         {
@@ -67,6 +70,8 @@ namespace Player
         {
             _digestedBreadPoints += (_breadPoints - points);
             _breadPoints = 0;
+            GetHUDManager().ChangeBreadPointsCollectedText(GetBreadPoints());
+            GetHUDManager().ChangeDigestedBreadPointsCollectedText(GetDigestedBreadPoints());
         }
 
         public void applyPowerUp(int spentDBP,List<PlayerSkillAttribute> listSkillAttribs, List<float> listValues)
@@ -185,6 +190,7 @@ namespace Player
             _camera = transform.parent.GetComponentInChildren<Camera>();
             _mouth = transform.Find("Mouth");
             _uiCanvas = transform.parent.Find("UI/PlayerUICanvas").GetComponent<PlayerUICanvas>();
+            _hudManager = GameObject.FindObjectOfType<HUDManager>();
 
             _skills = new List<PlayerSkill>();
             foreach (var s in _description.Skills)
@@ -196,6 +202,7 @@ namespace Player
 
 
             _animator= GetComponent<Animator>();
+
         }
 
         // Start is called before the first frame update
@@ -241,6 +248,11 @@ namespace Player
         {
             return (int) _digestedBreadPoints;
 
+        }
+
+        public HUDManager GetHUDManager()
+        {
+            return _hudManager;
         }
     }
 }
