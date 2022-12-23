@@ -18841,7 +18841,7 @@ MonoBehaviour:
   NumberOfSeagull: 0
   MallardPrefab: {fileID: 1758801312685362596, guid: b26597cc84cb91d4db2448d4d3d4e516, type: 3}
   CootPrefab: {fileID: 1758801312685362596, guid: b26597cc84cb91d4db2448d4d3d4e516, type: 3}
-  GoosePrefab: {fileID: 0}
+  GoosePrefab: {fileID: 1758801312685362596, guid: b26597cc84cb91d4db2448d4d3d4e516, type: 3}
   FishPrefab: {fileID: 0}
   SeagullPrefab: {fileID: 0}
   NorthRiver: {fileID: 0}

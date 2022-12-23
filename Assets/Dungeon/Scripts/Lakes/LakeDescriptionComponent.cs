@@ -1048,6 +1048,7 @@ namespace LevelStageNamespace {
 
         }
 
+#if UNITY_EDITOR
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.L))
@@ -1055,6 +1056,7 @@ namespace LevelStageNamespace {
                 CompleteLake();
             }
         }
+#endif
 
     }
 }
