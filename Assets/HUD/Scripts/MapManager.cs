@@ -9,11 +9,11 @@ namespace HUD
         //metodo che di volta in volta ottiene le stanze adiacenti a quella attuale, e con queste nuove informazioni arricchisco di volta in volta la minimappa
         //che vedo il giocatore
         private int dimSize = 5;
-        public int currX, currY, xDelta, yDelta;
+        private int currX, currY, xDelta, yDelta;
         private int _shiftRow, _shiftCol;
         private float minimapX, minimapY;
         [SerializeField] private int cellSize;
-        public int [,] _map;
+        private int [,] _map;
         [SerializeField] private int[,] _wholeMap;
         [SerializeField] private GameObject squarePrefab;
         public GameObject[,] mapTiles;
@@ -21,11 +21,6 @@ namespace HUD
         /*
          * 0 se non compare, 1 grigia, 2 bianca, 3 se è la exit
          */
-
-        public void UpdateMap(int[,] newMap){
-            _map = newMap;
-            ChangeVisualization();
-        }
 
         private void ChangeVisualization(){
             for (int row = 0; row < dimSize; row++){
@@ -133,6 +128,10 @@ namespace HUD
             sud,
             est,
             ovest,
+        }
+
+        public void StartNewLevel(){
+            Start();
         }
     }
 }
