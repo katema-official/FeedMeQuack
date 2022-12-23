@@ -990,10 +990,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5e6870c5cc4e2e8818336797fb882e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currX: 0
-  currY: 0
-  xDelta: 0
-  yDelta: 0
   cellSize: 15
   squarePrefab: {fileID: 7064466828822472568, guid: 8abcac768ea1ec5409fc9c0e8751b9ae, type: 3}
 --- !u!1 &349542539
@@ -3858,7 +3854,7 @@ MonoBehaviour:
   speedValueText: {fileID: 1604943482}
   eatingSpeedValueText: {fileID: 1994037682}
   mouthSizeValueText: {fileID: 167600660}
-  chewingRate: {fileID: 0}
+  chewingRate: {fileID: 1687064532}
   dashCDValueText: {fileID: 1396975423}
   stealCDValueText: {fileID: 2031099248}
   spitCDValueText: {fileID: 1169629909}
@@ -3872,7 +3868,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1884368325}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 708d4fa515cdbb34e9773850d615e3eb, type: 3}
   m_Name: 
