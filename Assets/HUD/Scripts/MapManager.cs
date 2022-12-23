@@ -25,8 +25,8 @@ namespace HUDNamespace
         private void ChangeVisualization(){
             for (int row = 0; row < dimSize; row++){
                 for (int col = 0; col < dimSize; col++){
-                    int relativeX = xDelta + col;
-                    int relativeY = yDelta + row;
+                    int relativeX = xDelta + col + 2;
+                    int relativeY = yDelta + row - 2;
                     GameObject tile = mapTiles[row, col];
                     Renderer outer = tile.GetComponentsInChildren<Renderer>()[0];
                     Renderer inner = tile.GetComponentsInChildren<Renderer>()[1];
@@ -88,6 +88,10 @@ namespace HUDNamespace
             ChangeVisualization();
         }
 
+        //0: no room exists there
+        //1: the room exists but hasn't been visited yet
+        //2: the room exists and has been cleared
+        //3: the room is the exit
         public void UpdateMinimapAfterRiver(CardinalDirection dir, int nord, int sud, int est, int ovest){
             changePos(dir);
             int x = xDelta + currX;
