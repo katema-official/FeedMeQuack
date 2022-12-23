@@ -12,6 +12,7 @@ namespace Player
         [SerializeField] private float _maxRange = 0.0f;
         [SerializeField] private float _coolDown = 0.0f;
         [SerializeField] private float _chargeSpeed = 0.0f;
+        [SerializeField] private float _carryingSpeed = 0.0f;
         //------------------------------------------
 
         //-------------------------------------
@@ -23,6 +24,7 @@ namespace Player
         //-------------------------------------
 
 
+        [SerializeField] private BreadNamespace.BreadInMouthComponent _caughtBread = null;
 
         private PlayerController _controller = null;
         private PlayerMoveSkill _moveSkill = null;
@@ -39,12 +41,17 @@ namespace Player
             _maxRange = _spitDesc.MaxRange;
             _coolDown = _spitDesc.CoolDown;
             _chargeSpeed = _spitDesc.ChargeSpeed;
+            _carryingSpeed = _spitDesc.CarryingSpeed;
         }
         public override void applyPowerUp(PlayerSkillAttribute attrib, float value)
         {
             if (attrib == PlayerSkillAttribute.SpitSkill_ChargeSpeed)
             {
                 _chargeSpeed += value;
+            }
+            else if (attrib == PlayerSkillAttribute.SpitSkill_CarryingSpeed)
+            {
+                _carryingSpeed += value;
             }
             else if (attrib == PlayerSkillAttribute.SpitSkill_CoolDown)
             {
@@ -66,7 +73,26 @@ namespace Player
                 _canSpit = false;
             }
         }
+        private BreadNamespace.BreadInWaterComponent FindClosestBread()
+        {
+            GameObject[] breads = GameObject.FindGameObjectsWithTag("FoodInWater");
+            float minDistance = 10000000;
+            BreadNamespace.BreadInWaterComponent bread = null;
+            for (int i = 0; i < breads.Length; i++)
+            {
+                var dist = Vector3.Distance(breads[i].transform.position, _controller.gameObject.transform.position);
+                if (dist <= 3f)
+                {
+                    if (dist <= minDistance)
+                    {
+                        minDistance = dist;
+                        bread = breads[i].GetComponent<BreadNamespace.BreadInWaterComponent>();
+                    }
+                }
+            }
 
+            return bread;
+        }
 
         void Awake()
         {
@@ -89,16 +115,52 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetButtonDown("SpitButton") && _eatSkill.GetCaughtBread() && _spitCoolDownElapsedSeconds <= 0)
-
+            if (Input.GetButtonDown("SpitButton") /*&& !_caughtBread*//*_eatSkill.GetCaughtBread()*/ && _spitCoolDownElapsedSeconds <= 0)
             {
-                _controller.ChangeState(PlayerState.Spitting);
 
-                if (_controller.GetState() == PlayerState.Spitting)
+                if (_controller.GetState() != PlayerState.Spitting && _controller.GetState() != PlayerState.Carrying && !_caughtBread)
+                {
+                    var locatedBread = FindClosestBread();
+
+                    if (locatedBread)
+                    {
+                        _caughtBread = locatedBread.GenerateNewBreadInMouth(locatedBread.GetBreadPoints()).GetComponent<BreadNamespace.BreadInMouthComponent>();
+                        _controller.ChangeState(PlayerState.Carrying);
+                    } 
+                    else
+                    {
+                        return;
+                    }
+                }
+                else if (_controller.GetState() == PlayerState.Carrying && _caughtBread)
+                {
+                    _controller.ChangeState(PlayerState.Spitting);
+                }
+
+
+
+
+
+
+                if (_controller.GetState() == PlayerState.Carrying)
                 {
                     //also interrupt the eating coroutine
-                    _eatSkill.StopEating();
+                    //_eatSkill.StopEating();
 
+                    _moveSkill.EnableInput(true);
+                   
+                    _controller.GetUICanvas().GetStatusView().SetVisible(true);
+                    _controller.GetUICanvas().GetStatusView().SetText("");
+                    _controller.GetUICanvas().GetStatusView().SetIcon(_spitDesc.CarryingStatusIcon); 
+                    
+                    //_spitArrow.SetActive(true);
+                    //_spitProgressBar.gameObject.SetActive(true);
+                }
+                else if (_controller.GetState() == PlayerState.Spitting)
+                {
+                    //also interrupt the eating coroutine
+                    // _eatSkill.StopEating();
+                    _controller.GetUICanvas().GetStatusView().SetVisible(false);
                     _moveSkill.EnableInput(true);
                     _spitArrow.SetActive(true);
                     _spitProgressBar.gameObject.SetActive(true);
@@ -107,22 +169,24 @@ namespace Player
                 CheckData();
             }
 
-            if ((Input.GetButtonUp("SpitButton") && _eatSkill.GetCaughtBread() && _spitCoolDownElapsedSeconds <= 0) ||
+            if (((Input.GetButtonUp("SpitButton") && _caughtBread/*_eatSkill.GetCaughtBread()*/ && _spitCoolDownElapsedSeconds <= 0) ||
 
-                (_spitPower >= _maxPower))
+                (_spitPower >= _maxPower)) && _controller.GetState() == PlayerState.Spitting)
             {
                 _canSpit = true;
             }
 
-            if (_canSpit && !_eatSkill.GetCaughtBread())
+            if (_canSpit && !_caughtBread/*_eatSkill.GetCaughtBread()*/)
             {
                 _controller.ChangeState(PlayerState.Normal);
 
                 if (_controller.GetState() == PlayerState.Normal)
                 {
                     _spitArrow.SetActive(false);
+
                    _spitProgressBar.SetProgress(0);
                     _spitProgressBar.gameObject.SetActive(false);
+                    _controller.GetUICanvas().GetStatusView().SetVisible(false);
 
                     _moveSkill.EnableInput(true);
                     _spitCoolDownElapsedSeconds = _coolDown;
@@ -137,11 +201,17 @@ namespace Player
 
         void FixedUpdate()
         {
+            if (_controller.GetState() == PlayerState.Carrying && _caughtBread)
+            {
+                _moveSkill.Move(_carryingSpeed);
+                _caughtBread.Move(_controller.GetMouthTransform().position);
+            }
             
-            if (_controller.GetState() == PlayerState.Spitting && _eatSkill.GetCaughtBread() && !_canSpit && _spitCoolDownElapsedSeconds <= 0)
+            else if (_controller.GetState() == PlayerState.Spitting && _caughtBread/*_eatSkill.GetCaughtBread()*/ && !_canSpit && _spitCoolDownElapsedSeconds <= 0)
             {
                 _moveSkill.Rotate();
-                _eatSkill.GetCaughtBread().Move(_controller.GetMouthTransform().position);
+                // _eatSkill.GetCaughtBread().Move(_controller.GetMouthTransform().position);
+                _caughtBread.Move(_controller.GetMouthTransform().position);
 
                 _spitArrow.transform.position = _controller.GetPosition();
                 _spitArrow.transform.rotation = (Quaternion.AngleAxis(_moveSkill.GetAngle(), Vector3.forward));
@@ -162,14 +232,15 @@ namespace Player
             }
 
 
-            if (_controller.GetState() == PlayerState.Spitting && _eatSkill.GetCaughtBread() && _canSpit)
+            if (_controller.GetState() == PlayerState.Spitting && _caughtBread/*_eatSkill.GetCaughtBread()*/ && _canSpit)
             {
                 Vector3 startPos = _controller.GetPosition();
                 Vector3 endPos = _controller.GetPosition() + _moveSkill.GetDirection() * (_maxRange * (_spitPower / _maxPower));
-                _breadManager.ThrowBread(_eatSkill.GetCaughtBread(), startPos, endPos);
+                _breadManager.ThrowBread(_caughtBread/*_eatSkill.GetCaughtBread()*/, startPos, endPos);
 
 
-                _eatSkill.ReleaseBread();
+                //_eatSkill.ReleaseBread();
+                _caughtBread = null;
                 _spitPower = 0;
             }
 

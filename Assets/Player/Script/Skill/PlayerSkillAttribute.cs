@@ -21,6 +21,7 @@ namespace Player
         SpitSkill_MaxRange,
         SpitSkill_CoolDown,
         SpitSkill_ChargeSpeed,
+        SpitSkill_CarryingSpeed,
 
         StealSkill_CoolDown,
     }
