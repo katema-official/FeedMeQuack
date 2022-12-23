@@ -466,10 +466,10 @@ namespace Player
         private void FixedUpdate()
         {
             MoveCamera();
-            var screenPos = _camera.WorldToScreenPoint(_rigidBody.position);
+            var screenPos = _camera.WorldToScreenPoint(_rigidBody.position) + new Vector3(-45f, 80f, 0);
             //Debug.Log("screen: " + screenPos);
-            screenPos.y += 80;
-            screenPos.x -= 20;
+            //screenPos.y += 80;
+            //screenPos.x -= 20;
             _controller.GetUICanvas().GetStatusView().SetPosition(screenPos);
 
             if (_controller.GetState() != PlayerState.Normal) return;
