@@ -23,6 +23,7 @@ namespace Music
         private const float DefaultMusicValue = 0.5f, DefaultSoundValue = 0.95f;
         private static Button _defaultButton;
         private const float TimeToDestroyPoliMi = 15f;
+        private const float TimeToFadeIn = 10f;
         private void Awake()
         {
             InitMusicSliders();
@@ -51,7 +52,8 @@ namespace Music
 
         private void Update()
         {
-            if (SceneManager.GetActiveScene().name.Equals("MainMenu") && (Input.GetKeyDown(KeyCode.Space) || Time.time >= TimeToDestroyPoliMi))
+            if (SceneManager.GetActiveScene().name.Equals("MainMenu") && (Input.GetKeyDown(KeyCode.Space) || Time.time >= TimeToDestroyPoliMi 
+                || Time.time >= TimeToFadeIn))
             {
                 Destroy(GameObject.Find("SplashStartingMenu"));
             }
