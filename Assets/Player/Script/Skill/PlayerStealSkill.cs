@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HUDNamespace;
 
 namespace Player
 {
@@ -32,6 +33,7 @@ namespace Player
             _stealDesc = (PlayerStealSkillDescriptionSO)_description;
 
             _coolDown = _stealDesc.CoolDown;
+            _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.stealCD, _stealCoolDownElapsedSeconds);
 
         }
         public override void applyPowerUp(PlayerSkillAttribute attrib, float value)
@@ -156,6 +158,7 @@ namespace Player
 
                 if (_stealCoolDownElapsedSeconds < 0)
                     _stealCoolDownElapsedSeconds = 0;
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.stealCD, (int) _stealCoolDownElapsedSeconds);
             }
 
         }
@@ -184,6 +187,7 @@ namespace Player
                 }
                     
                 _stealCoolDownElapsedSeconds = _coolDown;
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.stealCD, _stealCoolDownElapsedSeconds);
             }
             _enemyToSteal = null;
         }

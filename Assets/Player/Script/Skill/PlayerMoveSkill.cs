@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using HUDNamespace;
+
 namespace Player
 {
     public class PlayerMoveSkill : PlayerSkill
@@ -37,6 +39,7 @@ namespace Player
             _moveDesc = (PlayerMoveSkillDescriptionSO)_description;
 
             _speed = _moveDesc.Speed;
+            _controller.GetHUDManager().ChangeText(HUDManager.textFields.speed, _speed);
         }
 
         public void EnableInput(bool enable, bool resetVelocity = false)
@@ -408,6 +411,7 @@ namespace Player
             if (attrib == PlayerSkillAttribute.MoveSkill_Speed)
             {
                 _speed += value;
+                _controller.GetHUDManager().ChangeText(HUDManager.textFields.speed, _speed);
             }
         }
 

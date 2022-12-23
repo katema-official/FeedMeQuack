@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using HUDNamespace;
 
 namespace LevelStageNamespace
 {
@@ -25,10 +26,15 @@ namespace LevelStageNamespace
         private int _xOfCurrentLake;
         private int _yOfCurrentLake;
 
+        private HUDManager _hudManager;
+        private MapManager _mapManager;
+
 
         // Start is called before the first frame update
         void Start()
         {
+            _hudManager = GameObject.FindObjectOfType<HUDManager>();
+            _mapManager = GameObject.FindObjectOfType<MapManager>();
 
             for(int i = 1; i < Levels.Count + 1; i++)
             {
@@ -112,6 +118,8 @@ namespace LevelStageNamespace
 
                 //MUSIC: Reproduce calm music when entering new stage
                 Music.UniversalAudio.PlayMusic("Swimming", false);
+
+                _hudManager.ChangeGoalText(GetStage(GetLevel(_currentLevel), _currentStage).BreadPointsRequiredToCompleteStage);
             }
             else
             {
@@ -196,6 +204,36 @@ namespace LevelStageNamespace
 
         public void EnterLake()
         {
+            //update the map interface
+            MapManager.CardinalDirection direction;
+            switch (GetLakeDescriptionSO().PlayerSpawnDirection)
+            {
+                case EnumsDungeon.CompassDirection.North:
+                    direction = MapManager.CardinalDirection.sud;
+                    break;
+                case EnumsDungeon.CompassDirection.South:
+                    direction = MapManager.CardinalDirection.nord;
+                    break;
+                case EnumsDungeon.CompassDirection.West:
+                    direction = MapManager.CardinalDirection.est;
+                    break;
+                case EnumsDungeon.CompassDirection.East:
+                    direction = MapManager.CardinalDirection.ovest;
+                    break;
+                default:
+                    direction = MapManager.CardinalDirection.nord;
+                    break;
+            }
+
+            int nord = GetValueForMinimap(_currentStageMap[_xOfCurrentLake - 1, _yOfCurrentLake]);
+            int sud = GetValueForMinimap(_currentStageMap[_xOfCurrentLake + 1, _yOfCurrentLake]);
+            int ovest = GetValueForMinimap(_currentStageMap[_xOfCurrentLake, _yOfCurrentLake - 1]);
+            int est = GetValueForMinimap(_currentStageMap[_xOfCurrentLake, _yOfCurrentLake + 1]);
+
+            _mapManager.UpdateMinimapAfterRiver(direction, nord, sud, est, ovest);
+            
+
+
             //third: go to the right lake
             switch (GetLakeDescriptionSO().Dimension)
             {
@@ -212,6 +250,32 @@ namespace LevelStageNamespace
                     Debug.Log("Non dovresti assolutamente essere qui");
                     break;
             }
+        }
+
+        private int GetValueForMinimap(LakeDescriptionSO lake)
+        {
+            int ret;
+            if (lake == null)
+            {
+                ret = 0;
+            }
+            else
+            {
+                if (lake.IsLakeCleared == false)
+                {
+                    ret = 1;
+                }
+                else
+                {
+                    ret = 2;
+                }
+
+                if (lake.IsFinalRoom)
+                {
+                    ret = 3;
+                }
+            }
+            return ret;
         }
 
         //#######################################################################################################################################################
