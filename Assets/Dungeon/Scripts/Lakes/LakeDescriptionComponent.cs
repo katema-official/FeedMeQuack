@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Player;
+using HUDNamespace;
 
 namespace LevelStageNamespace {
     public class LakeDescriptionComponent : LakeShopDescriptionComponent
@@ -103,7 +104,7 @@ namespace LevelStageNamespace {
 
         //[SerializeField] public bool LakeCleared;
 
-
+        private MapManager _mapManager;
 
 
 
@@ -115,7 +116,42 @@ namespace LevelStageNamespace {
             _lakeDescriptionForThisLake = _levelStageManager.GetLakeDescriptionSO();
             ManageRiversOfthisLake();
             _breadSpawnForThisLake = _levelStageManager.GetBreadSpawnSO();
-            
+
+            //update the map interface
+            _mapManager = GameObject.FindObjectOfType<MapManager>();
+            MapManager.CardinalDirection direction;
+            switch (_lakeDescriptionForThisLake.PlayerSpawnDirection)
+            {
+                case EnumsDungeon.CompassDirection.North:
+                    direction = MapManager.CardinalDirection.sud;
+                    break;
+                case EnumsDungeon.CompassDirection.South:
+                    direction = MapManager.CardinalDirection.nord;
+                    break;
+                case EnumsDungeon.CompassDirection.West:
+                    direction = MapManager.CardinalDirection.est;
+                    break;
+                case EnumsDungeon.CompassDirection.East:
+                    direction = MapManager.CardinalDirection.ovest;
+                    break;
+                default:
+                    direction = MapManager.CardinalDirection.none;
+                    Debug.Log("LOL");
+                    break;
+            }
+
+
+            LakeDescriptionSO[,] currentStageMap = _levelStageManager.GetCurrentStageMap();
+            int xOfCurrentLake = _levelStageManager.GetXOfCurrentLake();
+            int yOfCurrentLake = _levelStageManager.GetYOfCurrentLake();
+
+            int nord = GetValueForMinimap(currentStageMap[xOfCurrentLake - 1, yOfCurrentLake]);
+            int sud = GetValueForMinimap(currentStageMap[xOfCurrentLake + 1, yOfCurrentLake]);
+            int ovest = GetValueForMinimap(currentStageMap[xOfCurrentLake, yOfCurrentLake - 1]);
+            int est = GetValueForMinimap(currentStageMap[xOfCurrentLake, yOfCurrentLake + 1]);
+
+
+
 
             //first of all, a fade in effect
             _levelStageManager.FadeIn();
@@ -128,6 +164,10 @@ namespace LevelStageNamespace {
             {
                 _playerObject.transform.position = new Vector3(0, 0, 0);
                 _levelStageManager.SetLakeAsCleared();
+
+                //update minimap
+                direction = MapManager.CardinalDirection.none;
+                _mapManager.UpdateMinimapAfterRiver(direction, nord, sud, est, ovest);
             }
             else
             {
@@ -149,6 +189,9 @@ namespace LevelStageNamespace {
                         _playerObject.transform.position = transform.Find(riversString + "/RiverEast/Position").transform.position + new Vector3(-OffsetXPlayer, 0, 0);
                         break;
                 }
+
+                //update minimap
+                _mapManager.UpdateMinimapAfterRiver(direction, nord, sud, est, ovest);
 
                 if (_lakeDescriptionForThisLake.EnemiesToSpawnMap != null)
                 {
@@ -1053,6 +1096,35 @@ namespace LevelStageNamespace {
 
 
         }
+
+        //Minimap management
+        private int GetValueForMinimap(LakeDescriptionSO lake)
+        {
+            int ret;
+            if (lake == null)
+            {
+                ret = 0;
+            }
+            else
+            {
+                if (lake.IsLakeCleared == false)
+                {
+                    ret = 1;
+                }
+                else
+                {
+                    ret = 2;
+                }
+
+                if (lake.IsFinalRoom)
+                {
+                    ret = 3;
+                }
+            }
+            return ret;
+        }
+
+
 
 #if UNITY_EDITOR
         void Update()

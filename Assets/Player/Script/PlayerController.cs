@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using HUDNamespace;
+using Music;
 
 namespace Player
 {
@@ -27,6 +28,7 @@ namespace Player
         private Animator _animator;
 
         private HUDManager _hudManager;
+        private AnimalSoundController _animalSoundController;
 
         public Transform GetMouthTransform()
         {
@@ -191,6 +193,7 @@ namespace Player
             _mouth = transform.Find("Mouth");
             _uiCanvas = transform.parent.Find("UI/PlayerUICanvas").GetComponent<PlayerUICanvas>();
             _hudManager = GameObject.FindObjectOfType<HUDManager>();
+            _animalSoundController = GetComponent<AnimalSoundController>();
 
             _skills = new List<PlayerSkill>();
             foreach (var s in _description.Skills)
@@ -253,6 +256,11 @@ namespace Player
         public HUDManager GetHUDManager()
         {
             return _hudManager;
+        }
+
+        public AnimalSoundController GetAnimalSoundController()
+        {
+            return _animalSoundController;
         }
     }
 }

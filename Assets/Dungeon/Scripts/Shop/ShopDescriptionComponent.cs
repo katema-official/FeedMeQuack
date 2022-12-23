@@ -5,6 +5,7 @@ using LevelStageNamespace;
 using System.Linq;
 using PowerUpsNamespace;
 using UnityEngine.Tilemaps;
+using HUDNamespace;
 
 namespace LevelStageNamespace
 {
@@ -15,6 +16,7 @@ namespace LevelStageNamespace
         [SerializeField] private GameObject _powerUpPrefab;
 
         private GameObject _platformsForPowerUpsGameobject;
+        private MapManager _mapManager;
 
 
 
@@ -32,6 +34,8 @@ namespace LevelStageNamespace
         protected override void Awake()
         {
             base.Awake();
+            _mapManager = GameObject.FindObjectOfType<MapManager>();
+            _mapManager.StartNewLevel();    //reset the minimap
         }
 
 

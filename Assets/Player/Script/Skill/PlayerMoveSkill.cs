@@ -462,8 +462,15 @@ namespace Player
 
             _forwardAxis = new Vector3(h,v);
 
-            if (h!=0 || v!=0)
+            if (h != 0 || v != 0)
+            {
                 _moveForward = true;
+                _controller.GetAnimalSoundController().Swim();
+            }
+            else
+            {
+                _controller.GetAnimalSoundController().UnSwim();
+            }
         }
 
 

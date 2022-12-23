@@ -103,6 +103,7 @@ namespace LevelStageNamespace
 
         public void GoToNextStage()
         {
+            
             if (_currentStage < _numberOfStagesPerLevel[_currentLevel]) //if in this level there is a next stage...
             {
                 _xOfCurrentLake = GenerateDungeonClass.StartMapX;
@@ -125,6 +126,7 @@ namespace LevelStageNamespace
             {
                 GoToNextLevel();    //this was the last stage of this level, go to the next level.
             }
+            
         }
 
         //#######################################################################################################################################################
@@ -204,36 +206,7 @@ namespace LevelStageNamespace
 
         public void EnterLake()
         {
-            //update the map interface
-            MapManager.CardinalDirection direction;
-            switch (GetLakeDescriptionSO().PlayerSpawnDirection)
-            {
-                case EnumsDungeon.CompassDirection.North:
-                    direction = MapManager.CardinalDirection.sud;
-                    break;
-                case EnumsDungeon.CompassDirection.South:
-                    direction = MapManager.CardinalDirection.nord;
-                    break;
-                case EnumsDungeon.CompassDirection.West:
-                    direction = MapManager.CardinalDirection.est;
-                    break;
-                case EnumsDungeon.CompassDirection.East:
-                    direction = MapManager.CardinalDirection.ovest;
-                    break;
-                default:
-                    direction = MapManager.CardinalDirection.nord;
-                    break;
-            }
-
-            int nord = GetValueForMinimap(_currentStageMap[_xOfCurrentLake - 1, _yOfCurrentLake]);
-            int sud = GetValueForMinimap(_currentStageMap[_xOfCurrentLake + 1, _yOfCurrentLake]);
-            int ovest = GetValueForMinimap(_currentStageMap[_xOfCurrentLake, _yOfCurrentLake - 1]);
-            int est = GetValueForMinimap(_currentStageMap[_xOfCurrentLake, _yOfCurrentLake + 1]);
-
-            _mapManager.UpdateMinimapAfterRiver(direction, nord, sud, est, ovest);
             
-
-
             //third: go to the right lake
             switch (GetLakeDescriptionSO().Dimension)
             {
@@ -252,31 +225,6 @@ namespace LevelStageNamespace
             }
         }
 
-        private int GetValueForMinimap(LakeDescriptionSO lake)
-        {
-            int ret;
-            if (lake == null)
-            {
-                ret = 0;
-            }
-            else
-            {
-                if (lake.IsLakeCleared == false)
-                {
-                    ret = 1;
-                }
-                else
-                {
-                    ret = 2;
-                }
-
-                if (lake.IsFinalRoom)
-                {
-                    ret = 3;
-                }
-            }
-            return ret;
-        }
 
         //#######################################################################################################################################################
         //#######################################################################################################################################################
@@ -353,9 +301,20 @@ namespace LevelStageNamespace
 
 
         
+        public LakeDescriptionSO[,] GetCurrentStageMap()
+        {
+            return _currentStageMap;
+        }
 
+        public int GetXOfCurrentLake()
+        {
+            return _xOfCurrentLake;
+        }
         
-
+        public int GetYOfCurrentLake()
+        {
+            return _yOfCurrentLake;
+        }
 
 
     }
