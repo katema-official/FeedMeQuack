@@ -73,7 +73,7 @@ namespace HUDNamespace
             for (int row = 0; row < dimSize; row++){
                 for (int col = 0; col < dimSize; col++){
                     float xPos = minimapX + (row - 0.5f) * cellSize;
-                    float yPos= minimapY + (dimSize-col-1 - 0.5f) * cellSize;
+                    float yPos = minimapY + (dimSize-col-1 - 0.5f) * cellSize;
                     Vector2 pos = new Vector2(xPos, yPos);
                     GameObject tile=Instantiate(squarePrefab, pos, Quaternion.identity);
                     tile.name = $"Tile {row},{col}";
