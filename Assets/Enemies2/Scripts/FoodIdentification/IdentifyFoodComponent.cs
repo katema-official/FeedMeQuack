@@ -21,8 +21,6 @@ namespace DuckEnemies
         private HashSet<int> _refusedFoodCircle2;
         private HashSet<int> _refusedFoodCircle3;
         private HashSet<GameObject> _identifiedFoods;
-        //[SerializeField] private GameObject _foodInWaterObjectiveGO;
-        //[SerializeField] private int _foodInWaterObjectiveID;
 
         private FoodCircleComponent _foodCircleComponent1;
         private FoodCircleComponent _foodCircleComponent2;
@@ -43,8 +41,6 @@ namespace DuckEnemies
             _refusedFoodCircle2 = new HashSet<int>();
             _refusedFoodCircle3 = new HashSet<int>();
             _identifiedFoods = new HashSet<GameObject>();
-            //_foodInWaterObjectiveGO = null;
-            //_foodInWaterObjectiveID = -1;
 
             _foodCircleComponent1.GetComponent<CircleCollider2D>().radius = _circle1FoodRadius;
             _foodCircleComponent2.GetComponent<CircleCollider2D>().radius = _circle2FoodRadius;
@@ -77,12 +73,9 @@ namespace DuckEnemies
             switch (idCircle){
                 case 1:
                     if(_identifiedFoods.Contains(foodGO) == false && !_refusedFoodCircle1.Contains(foodGO.GetInstanceID()))
-                    //if ((_foodInWaterObjectiveGO == null || _foodInWaterObjectiveGO.GetInstanceID() != _foodInWaterObjectiveID) && !_refusedFoodCircle1.Contains(foodGO.GetInstanceID()))
                     {
                         if (r < _circle1FoodProbability)
                         {
-                            //_foodInWaterObjectiveGO = foodGO;
-                            //_foodInWaterObjectiveID = _foodInWaterObjectiveGO.GetInstanceID();
                             SaveIdentifiedFood(foodGO);
                         }
                         else
@@ -95,12 +88,9 @@ namespace DuckEnemies
                     break;
                 case 2:
                     if(_identifiedFoods.Contains(foodGO) == false && !_refusedFoodCircle2.Contains(foodGO.GetInstanceID()))
-                    //if ((_foodInWaterObjectiveGO == null || _foodInWaterObjectiveGO.GetInstanceID() != _foodInWaterObjectiveID) && !_refusedFoodCircle2.Contains(foodGO.GetInstanceID()))
                     {
                         if (r < _circle2FoodProbability)
                         {
-                            //_foodInWaterObjectiveGO = foodGO;
-                            //_foodInWaterObjectiveID = _foodInWaterObjectiveGO.GetInstanceID();
                             SaveIdentifiedFood(foodGO);
                         }
                         else
@@ -112,12 +102,9 @@ namespace DuckEnemies
                     break;
                 case 3:
                     if (_identifiedFoods.Contains(foodGO) == false && !_refusedFoodCircle3.Contains(foodGO.GetInstanceID()))
-                    //if ((_foodInWaterObjectiveGO == null || _foodInWaterObjectiveGO.GetInstanceID() != _foodInWaterObjectiveID) && !_refusedFoodCircle3.Contains(foodGO.GetInstanceID()))
                     {
                         if (r < _circle3FoodProbability)
                         {
-                            //_foodInWaterObjectiveGO = foodGO;
-                            //_foodInWaterObjectiveID = _foodInWaterObjectiveGO.GetInstanceID();
                             SaveIdentifiedFood(foodGO);
                         }
                         else
@@ -148,11 +135,10 @@ namespace DuckEnemies
             }
             return true;
 
-            //return (_foodInWaterObjectiveGO != null && _foodInWaterObjectiveGO.GetInstanceID() == _foodInWaterObjectiveID);
         }
 
         //function to call whenever we want to clean the data structures.
-        //Basically, call this function when you want the duck do be aware again of every possible
+        //Basically, call this function when you want the duck to be aware again of every possible
         //BreadInWater that is in this lake.
         public void ForgetAboutAllFood()
         {
@@ -160,8 +146,6 @@ namespace DuckEnemies
             _refusedFoodCircle2.Clear();
             _refusedFoodCircle3.Clear();
             _identifiedFoods.Clear();
-            //_foodInWaterObjectiveGO = null;
-            //_foodInWaterObjectiveID = -1;
         }
 
         
@@ -190,7 +174,6 @@ namespace DuckEnemies
 
             return foodClosest;
 
-            //return _foodInWaterObjectiveGO;
         }
 
 
