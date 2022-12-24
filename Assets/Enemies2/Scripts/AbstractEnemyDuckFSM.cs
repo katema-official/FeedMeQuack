@@ -223,6 +223,7 @@ namespace DuckEnemies
             chasing.enterActions.Add(_chasingComponent.EnterChasing_StartPathFinderCoroutine);
             chasing.enterActions.Add(_chasingComponent.EnterChasing_SetSteeringBehaviour);
             chasing.stayActions.Add(_chasingComponent.StayChasing_UpdateDestination);
+            chasing.exitActions.Add(_chasingComponent.ExitFoodSeeking_DeletePath);
             chasing.exitActions.Add(_chasingComponent.ExitCoroutine_StopPathFinderCoroutine);
 
 
@@ -323,7 +324,7 @@ namespace DuckEnemies
             stealingPassive.AddTransition(stealingPassive_to_hubstate, hubState);
             stealingPassive.AddTransition(stealingPassive_to_eating, eating);
 
-            
+            chasing.AddTransition(chasing_to_hubState, hubState);
 
 
             _fsm = new FSM(hubState);

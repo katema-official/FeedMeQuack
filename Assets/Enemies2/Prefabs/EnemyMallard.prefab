@@ -159,6 +159,7 @@ MonoBehaviour:
   _accelerationChasing: 0
   _decelerationChasing: 0
   _steerChasing: 0
+  _wantsToStealCooldown: 0
   _mouthSize: 0
   _chewingRate: 0
   _digestingTime: 0
@@ -324,6 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e82c02b3f739ec4290c99b3573f0c54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tresholdCurrentDestinationReached: 1.5
 --- !u!1 &1758801313041092808
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +474,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -534,7 +536,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -596,7 +598,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

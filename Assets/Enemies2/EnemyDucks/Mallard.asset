@@ -30,9 +30,9 @@ MonoBehaviour:
   Circle1FoodProbability: 1
   Circle2FoodProbability: 0.5
   Circle3FoodProbability: 0.25
-  Circle1PlayerRadius: 15
-  Circle2PlayerRadius: 18
-  Circle3PlayerRadius: 21
+  Circle1PlayerRadius: 20
+  Circle2PlayerRadius: 21
+  Circle3PlayerRadius: 22
   Circle1PlayerProbability: 1
   Circle2PlayerProbability: 0.5
   Circle3PlayerProbability: 0.25

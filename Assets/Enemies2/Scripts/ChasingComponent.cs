@@ -24,7 +24,7 @@ namespace DuckEnemies {
         private MovementSeekComponent _movementSeekComponent;
         private PlayerController _playerController;
 
-        private float _stopAtPlayer = 3f;   //minimum distance between enemy and player such that the player is considered reached
+        private float _stopAtPlayer = 2f;   //minimum distance between enemy and player such that the player is considered reached
 
 
 
@@ -60,8 +60,9 @@ namespace DuckEnemies {
         //############################################################# ACTIONS #############################################################
         public void EnterChasing_StartPathFinderCoroutine()
         {
-            _findPathCoroutine = StartCoroutine(FindPath());
+            ComputePath();
             _keepChasing = true;
+            _findPathCoroutine = StartCoroutine(FindPath());
         }
 
         public void EnterChasing_SetSteeringBehaviour()
@@ -88,6 +89,7 @@ namespace DuckEnemies {
                 if (Vector2.Distance(transform.position, _currentDestination) <= _movementSeekComponent.StopAt)
                 {
                     _keepChasing = false;
+                    Debug.Log("REACHED");
                 }
                 return;
             }
@@ -104,11 +106,18 @@ namespace DuckEnemies {
 
 
 
+        public void ExitFoodSeeking_DeletePath()
+        {
+            _movementSeekComponent.StopMoving();
+        }
+
         public void ExitCoroutine_StopPathFinderCoroutine()
         {
             StopCoroutine(_findPathCoroutine);
             _keepChasing = false;
         }
+
+        
 
 
         //############################################################# TRANSITIONS #############################################################
@@ -135,36 +144,41 @@ namespace DuckEnemies {
         {
             while(_keepChasing)
             {
-                _finalDestinationChasing = _identifyPlayerComponent.GetObjectivePlayer().transform.position;
-                _pathChasing = _tileGraphComponent.GetPathFromPointToPoint(transform.position, _finalDestinationChasing, GetComponent<CircleCollider2D>());
-                _indexCurrentDestination = 0;
-
-                //the player moves, so we have to implement a sort of chasing component.
-                //1) Compute current distance between enemy and player
-                float distanceEnemyPlayer = 0f;
-                for(int i = 0; i < _pathChasing.Count - 1; i++)
-                {
-                    distanceEnemyPlayer += Vector2.Distance(_pathChasing[i], _pathChasing[i+1]);
-                }
-
-                //2) Compute the time to get there (at max speed, for simplicity)
-                float timeToGetThere = distanceEnemyPlayer / _speedChasing;
-
-                //3) Assuming that the player keeps moving in that direction at that speed, compute where it would end up
-                float plusDistance = _playerController.GetComponent<Rigidbody2D>().velocity.magnitude * timeToGetThere;
-                Vector3 arrival = new Vector2(_pathChasing[_pathChasing.Count - 1].x, _pathChasing[_pathChasing.Count - 1].y) + 
-                    _playerController.GetComponent<Rigidbody2D>().velocity.normalized * plusDistance;
-
-                //4) Add this new point to the end of the path to follow (shouldn't be done like this, but it's the fastest and easiset way)
-                _pathChasing.Add(arrival);
-
-                _currentDestination = _pathChasing[0];
-                _movementSeekComponent.SetCurrentAndFinalDestination(_currentDestination, _pathChasing[_pathChasing.Count - 1]);
-
                 yield return new WaitForSeconds(_updateTime);
+                ComputePath();
 
             }
             yield return null;
+        }
+
+        private void ComputePath()
+        {
+            _finalDestinationChasing = _identifyPlayerComponent.GetObjectivePlayer().transform.position;
+            _pathChasing = _tileGraphComponent.GetPathFromPointToPoint(transform.position, _finalDestinationChasing, GetComponent<CircleCollider2D>());
+            _indexCurrentDestination = 0;
+
+            //the player moves, so we have to implement a sort of chasing component.
+            //1) Compute current distance between enemy and player
+            float distanceEnemyPlayer = 0f;
+            for (int i = 0; i < _pathChasing.Count - 1; i++)
+            {
+                distanceEnemyPlayer += Vector2.Distance(_pathChasing[i], _pathChasing[i + 1]);
+            }
+
+            //2) Compute the time to get there (at max speed, for simplicity)
+            float timeToGetThere = distanceEnemyPlayer / _speedChasing;
+
+            //3) Assuming that the player keeps moving in that direction at that speed, compute where it would end up
+            float plusDistance = _playerController.GetComponent<Rigidbody2D>().velocity.magnitude * timeToGetThere;
+            Vector3 arrival = new Vector2(_pathChasing[_pathChasing.Count - 1].x, _pathChasing[_pathChasing.Count - 1].y) +
+                _playerController.GetComponent<Rigidbody2D>().velocity.normalized * plusDistance;
+
+            //4) Add this new point to the end of the path to follow (shouldn't be done like this, but it's the fastest and easiset way)
+            _pathChasing.Add(arrival);
+
+            _currentDestination = _pathChasing[0];
+            _movementSeekComponent.SetCurrentAndFinalDestination(_currentDestination, _pathChasing[_pathChasing.Count - 1]);
+
         }
 
 
