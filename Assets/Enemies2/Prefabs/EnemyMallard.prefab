@@ -82,6 +82,7 @@ GameObject:
   - component: {fileID: 4450470051131763287}
   - component: {fileID: 600086623845101832}
   - component: {fileID: 8682119449077030363}
+  - component: {fileID: 8048907995565324456}
   m_Layer: 0
   m_Name: EnemyMallard
   m_TagString: Untagged
@@ -309,6 +310,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d051c1976390ad3439b0053b04412095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8048907995565324456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758801312685362596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e82c02b3f739ec4290c99b3573f0c54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1758801313041092808

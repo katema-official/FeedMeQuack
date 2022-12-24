@@ -102,6 +102,16 @@ namespace DuckEnemies
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _eatingComponent = GetComponent<EatingComponent>();
         }
+
+
+
+
+        //STEALING ACTIVE
+
+
+
+
+
     }
 
 }

@@ -33,9 +33,9 @@ MonoBehaviour:
   Circle1PlayerRadius: 15
   Circle2PlayerRadius: 18
   Circle3PlayerRadius: 21
-  Circle1PlayerProbability: 0.5
-  Circle2PlayerProbability: 0.4
-  Circle3PlayerProbability: 0.3
+  Circle1PlayerProbability: 1
+  Circle2PlayerProbability: 0.5
+  Circle3PlayerProbability: 0.25
   DashTriggerProbability: 0.1
   SpeedDash: 20
   AccelerationDash: 10

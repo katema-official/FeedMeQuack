@@ -63,6 +63,7 @@ namespace DuckEnemies
         [SerializeField] protected float _accelerationChasing;                 //at which the duck moves when going after the player 
         [SerializeField] protected float _decelerationChasing;                 //(because it wants to steal it)
         [SerializeField] protected float _steerChasing;
+        [SerializeField] protected float _wantsToStealCooldown;
 
         //####################################### EATING MANAGEMENT #######################################
 
@@ -89,6 +90,8 @@ namespace DuckEnemies
         protected DashingComponent _dashingComponent;
         protected EatingComponent _eatingComponent;
         protected StealingComponent _stealingComponent;
+        protected IdentifyPlayerComponent _identifyPlayerComponent;
+        protected ChasingComponent _chasingComponent;
 
 
 
@@ -139,6 +142,7 @@ namespace DuckEnemies
             _accelerationChasing = _myEnemyDuckDescription.AccelerationChasing;
             _decelerationChasing = _myEnemyDuckDescription.DecelerationChasing;
             _steerChasing = _myEnemyDuckDescription.SteerChasing;
+            _wantsToStealCooldown = _myEnemyDuckDescription.WantsToStealCooldown;
 
             _mouthSize = _myEnemyDuckDescription.MouthSize;
             _chewingRate = _myEnemyDuckDescription.ChewingRate;
@@ -156,8 +160,11 @@ namespace DuckEnemies
             _eatingComponent = GetComponent<EatingComponent>();
             _eatingComponent.Initialize(_mouthSize, _chewingRate, _digestingTime);
             _stealingComponent = GetComponent<StealingComponent>();
-            //No identify for the _stealingComponent (for now at least)
-
+            //No initialize for the _stealingComponent (for now at least)
+            _identifyPlayerComponent = GetComponent<IdentifyPlayerComponent>();
+            _identifyPlayerComponent.Initialize(_circle1PlayerRadius, _circle2PlayerRadius, _circle3PlayerRadius, _circle1PlayerProbability, _circle2PlayerProbability, _circle3PlayerProbability);
+            _chasingComponent = GetComponent<ChasingComponent>();
+            _chasingComponent.Initialize(_stealTriggerProbability, _speedChasing, _accelerationChasing, _decelerationChasing, _steerChasing, _wantsToStealCooldown);
 
             //Initialization of the FSM
 
@@ -211,8 +218,9 @@ namespace DuckEnemies
             FSMState stealingPassive = new FSMState();
             stealingPassive.enterActions.Add(_stealingComponent.EnterStealingPassive_ResetVariables);
             stealingPassive.exitActions.Add(_stealingComponent.ExitStealingPassive_ResetVariables);
-            
 
+            FSMState chasing = new FSMState();
+            //I have no ideas for now
 
 
 
@@ -268,24 +276,30 @@ namespace DuckEnemies
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Eating });
 
 
+            FSMTransition x_to_Chasing = new FSMTransition(_chasingComponent.DecidedToSteal,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Chasing });
+
+
             //actually, this is the last transition for hubState. If it isn't possible to go in any other state, go in this
             FSMTransition hubState_to_chilling = new FSMTransition(GoToChill, 
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Chilling });
             
 
             hubState.AddTransition(x_to_foodSeen, foodSeen);
-            //chasing transition
+            hubState.AddTransition(x_to_Chasing, chasing);
             hubState.AddTransition(hubState_to_chilling, chilling);
 
             chilling.AddTransition(x_to_foodSeen, foodSeen);
+            chilling.AddTransition(x_to_Chasing, chasing);
             chilling.AddTransition(chilling_to_roaming, roaming);
 
             roaming.AddTransition(x_to_foodSeen, foodSeen);
-            //chasing transition
+            roaming.AddTransition(x_to_Chasing, chasing);
             roaming.AddTransition(roaming_to_hubState, hubState);
 
             foodSeen.AddTransition(foodSeen_to_dashing, dashing);
             foodSeen.AddTransition(foodSeen_to_foodSeeking, foodSeeking);
+            foodSeen.AddTransition(foodSeen_to_hubState, hubState);
 
             dashing.AddTransition(dashing_to_bite, bite);
 

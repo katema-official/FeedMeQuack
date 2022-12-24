@@ -28,6 +28,29 @@ namespace DuckEnemies
 
         private LakeDescriptionComponent _lakeDescriptionComponent;
 
+        private float _u;   //random number between 0 and 1 that will be used to determine if the duck wants to steal the player
+
+        public void Initialize(float radius1, float radius2, float radius3, float prob1, float prob2, float prob3)
+        {
+            _circle1PlayerRadius = radius1;
+            _circle2PlayerRadius = radius2;
+            _circle3PlayerRadius = radius3;
+            _circle1PlayerProbability = prob1;
+            _circle2PlayerProbability = prob2;
+            _circle3PlayerProbability = prob3;
+
+            _refusedPlayerCircle1 = false;
+            _refusedPlayerCircle2 = false;
+            _refusedPlayerCircle3 = false;
+            _identifiedPlayer = null;
+
+            _playerCircleComponent1.GetComponent<CircleCollider2D>().radius = _circle1PlayerRadius;
+            _playerCircleComponent2.GetComponent<CircleCollider2D>().radius = _circle2PlayerRadius;
+            _playerCircleComponent3.GetComponent<CircleCollider2D>().radius = _circle3PlayerRadius;
+
+            _u = Random.Range(0f, 1f);
+        }
+
 
         void Awake()
         {
@@ -113,12 +136,18 @@ namespace DuckEnemies
             _refusedPlayerCircle2 = false;
             _refusedPlayerCircle3 = false;
             _identifiedPlayer = null;
+            _u = Random.Range(0f, 1f);
         }
 
 
         public GameObject GetObjectivePlayer()
         {
             return _identifiedPlayer;
+        }
+
+        public float GetU()
+        {
+            return _u;
         }
 
     }
