@@ -1009,10 +1009,10 @@ namespace LevelStageNamespace {
             _disputedBread = breadToSteal;
             GameObject qteManager = Instantiate(QTEMinigamePrefab);
             qteManager.GetComponent<QTEStealNamespace.QTEManagerComponment>().Initialize(x, y,
-                _levelStageManager.GetCurrentStageIndex()*2, 
-                3f + _levelStageManager.GetCurrentLevelIndex() + _levelStageManager.GetCurrentStageIndex(),
-                _levelStageManager.GetCurrentLevelIndex()-1, 
-                (_levelStageManager.GetCurrentLevelIndex()*6 + _levelStageManager.GetCurrentStageIndex()*2));
+                _levelStageManager.GetCurrentLevelIndex()*2, 
+                _levelStageManager.GetCurrentLevelIndex()*3 + _levelStageManager.GetCurrentStageIndex(),
+                0, 
+                (3 + _levelStageManager.GetCurrentLevelIndex()*3 + _levelStageManager.GetCurrentStageIndex()));
 
             
         }
@@ -1122,6 +1122,7 @@ namespace LevelStageNamespace {
         {
             if (Input.GetKeyDown(KeyCode.L))
             {
+                _playerObject.GetComponent<PlayerController>().AddBreadPoints(20);
                 CompleteLake();
             }
         }

@@ -121,6 +121,7 @@ namespace LevelStageNamespace
                 Music.UniversalAudio.PlayMusic("Swimming", false);
 
                 _hudManager.ChangeGoalText(GetStage(GetLevel(_currentLevel), _currentStage).BreadPointsRequiredToCompleteStage);
+                //_hudManager.ChangeLevelText("" + GetCurrentLevelIndex() + "." + GetCurrentStageIndex);
             }
             else
             {

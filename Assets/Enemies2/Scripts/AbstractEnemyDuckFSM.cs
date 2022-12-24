@@ -200,6 +200,8 @@ namespace DuckEnemies
             FSMState eating = new FSMState();
             eating.enterActions.Add(_eatingComponent.EnterEating_ResetValues);
             eating.enterActions.Add(_eatingComponent.EnterEating_StartEating);
+            eating.enterActions.Add(_eatingComponent.EnterEating_SpawnEatingStatus);
+            eating.exitActions.Add(_eatingComponent.ExitEating_DestoryEatingStatus);
             //eating.exitActions.Add(_eatingComponent.ExitEating_ResetValues);
 
             FSMState digesting = new FSMState();
