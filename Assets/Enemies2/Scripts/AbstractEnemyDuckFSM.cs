@@ -220,7 +220,10 @@ namespace DuckEnemies
             stealingPassive.exitActions.Add(_stealingComponent.ExitStealingPassive_ResetVariables);
 
             FSMState chasing = new FSMState();
-            //I have no ideas for now
+            chasing.enterActions.Add(_chasingComponent.EnterChasing_StartPathFinderCoroutine);
+            chasing.enterActions.Add(_chasingComponent.EnterChasing_SetSteeringBehaviour);
+            chasing.stayActions.Add(_chasingComponent.StayChasing_UpdateDestination);
+            chasing.exitActions.Add(_chasingComponent.ExitCoroutine_StopPathFinderCoroutine);
 
 
 
@@ -278,6 +281,9 @@ namespace DuckEnemies
 
             FSMTransition x_to_Chasing = new FSMTransition(_chasingComponent.DecidedToSteal,
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Chasing });
+
+            FSMTransition chasing_to_hubState = new FSMTransition(_chasingComponent.MustStopChasing,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
 
 
             //actually, this is the last transition for hubState. If it isn't possible to go in any other state, go in this
