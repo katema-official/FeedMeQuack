@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BreadNamespace;
+using Player;
 
 namespace DuckEnemies
 {
@@ -23,6 +24,9 @@ namespace DuckEnemies
         private BreadInMouthComponent _breadInMouthComponentAfterStealingPassive;
 
 
+
+
+        private ChasingComponent _chasingComponent;
 
         //STEALING PASSIVE
         //Since me and the boys (kek) defined some interfaces beforehand (before I had to re-make the enemies), I have to respect them.
@@ -101,15 +105,30 @@ namespace DuckEnemies
             //_playerStartedStealingMe = false;
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _eatingComponent = GetComponent<EatingComponent>();
+            _chasingComponent = GetComponent<ChasingComponent>();
         }
 
 
 
 
-        //STEALING ACTIVE
 
 
 
+
+        //TRY STEAL ACTIVE & STEALING ACTIVE
+
+        //############################################################# ACTIONS #############################################################
+
+        
+
+
+
+        //############################################################# TRANSITIONS #############################################################
+
+        public bool DoesPlayerHaveFoodInMouth()
+        {
+            return _chasingComponent.GetPlayer().GetState() == PlayerState.Eating;
+        }
 
 
     }

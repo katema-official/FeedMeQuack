@@ -226,6 +226,7 @@ namespace DuckEnemies
             chasing.exitActions.Add(_chasingComponent.ExitFoodSeeking_DeletePath);
             chasing.exitActions.Add(_chasingComponent.ExitCoroutine_StopPathFinderCoroutine);
 
+            FSMState tryStealActive = new FSMState();
 
 
             //SECOND: define the transition between states
@@ -283,8 +284,12 @@ namespace DuckEnemies
             FSMTransition x_to_Chasing = new FSMTransition(_chasingComponent.DecidedToSteal,
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Chasing });
 
+
             FSMTransition chasing_to_hubState = new FSMTransition(_chasingComponent.MustStopChasing,
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
+
+            FSMTransition chasing_to_tryStealActive = new FSMTransition(_chasingComponent.PlayerReached,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.TryStealActive });
 
 
             //actually, this is the last transition for hubState. If it isn't possible to go in any other state, go in this

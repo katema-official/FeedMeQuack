@@ -134,6 +134,11 @@ namespace DuckEnemies {
             return _playerController.GetState() != PlayerState.Eating;
         }
 
+        public bool PlayerReached()
+        {
+            return _keepChasing == false;
+        }
+
 
 
         //############################################################# UTILITIES #############################################################
@@ -179,6 +184,14 @@ namespace DuckEnemies {
             _currentDestination = _pathChasing[0];
             _movementSeekComponent.SetCurrentAndFinalDestination(_currentDestination, _pathChasing[_pathChasing.Count - 1]);
 
+        }
+
+
+
+
+        public PlayerController GetPlayer()
+        {
+            return _playerController;
         }
 
 
