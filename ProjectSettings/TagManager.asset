@@ -13,6 +13,7 @@ TagManager:
   - QuickTimeEventManager
   - MainMenuCanvas
   - AudioManager
+  - Minimap
   layers:
   - Default
   - TransparentFX

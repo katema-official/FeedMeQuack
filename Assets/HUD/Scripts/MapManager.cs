@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace HUDNamespace
 {
@@ -60,6 +61,7 @@ namespace HUDNamespace
             _shiftRow = 0;
             int wholeMapSize = 31;
             var position = gameObject.transform.position;
+            GameObject minimapGO = gameObject.transform.parent.gameObject.GetComponentInChildren<RawImage>().gameObject;
             minimapX = position.x;
             minimapY = position.y;
             currX = dimSize / 2;
