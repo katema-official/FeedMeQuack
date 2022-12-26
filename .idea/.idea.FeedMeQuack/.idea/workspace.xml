@@ -4,8 +4,7 @@
     <list default="true" id="099dc64e-a604-4b85-85cc-6be12a6baf46" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Dungeon/Scenes/StartRunLoading.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dungeon/Scenes/StartRunLoading.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/MapManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/MapManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/HUDManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/HUDManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +89,7 @@
       <workItem from="1671725162793" duration="3011000" />
       <workItem from="1671740177392" duration="1578000" />
       <workItem from="1672045417109" duration="3019000" />
-      <workItem from="1672062781791" duration="303000" />
+      <workItem from="1672062781791" duration="1001000" />
     </task>
     <servers />
   </component>

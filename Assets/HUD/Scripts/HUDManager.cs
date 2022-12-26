@@ -14,7 +14,7 @@ namespace HUDNamespace
         private TMP_Text speedValueText, eatingSpeedValueText, mouthSizeValueText, chewingRate,
             dashCDValueText, stealCDValueText, spitCDValueText;
 
-        [SerializeField] private TMP_Text breadPointsValueText, digestedBreadPointsValueText, goalValueText;
+        [SerializeField] private TMP_Text breadPointsValueText, digestedBreadPointsValueText, goalValueText, levelValueText;
         // Start is called before the first frame update
 
         public void ChangeText(textFields field, float value)
@@ -68,6 +68,10 @@ namespace HUDNamespace
         public void ChangeGoalText(int value)
         {
             goalValueText.text = value.ToString();
+        }
+
+        public void ChangeLevelText(String value){
+            levelValueText.text = value;
         }
 
         public enum textFields
