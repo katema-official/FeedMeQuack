@@ -7,16 +7,16 @@ namespace Player
 {
     public class PlayerUICanvas : MonoBehaviour
     {
-        private PlayerStatusView _statusView = null;
+        private StatusViewController  _statusView = null;
 
-        public PlayerStatusView GetStatusView()
+        public StatusViewController GetStatusView()
         {
             return _statusView;
         }
 
         void Awake()
         {
-            _statusView = transform.Find("PlayerStatusView").GetComponent<PlayerStatusView>();
+            _statusView = transform.Find("PlayerStatusView").GetComponent<StatusViewController>();
         }
         // Start is called before the first frame update
         void Start()

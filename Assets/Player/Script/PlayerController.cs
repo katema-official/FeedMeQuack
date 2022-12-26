@@ -20,7 +20,7 @@ namespace Player
         private PlayerState _state = PlayerState.Normal;
 
 
-        private PlayerUICanvas _uiCanvas = null;
+        private StatusViewController _statusView = null;
 
 
         private PlayerDuckDescriptionSO _description = null;
@@ -63,9 +63,9 @@ namespace Player
             return _animator;
         }
 
-        public PlayerUICanvas GetUICanvas()
+        public StatusViewController GetStatusView()
         {
-            return _uiCanvas;
+            return _statusView;
         }
 
         public void NotifyStageCompleted(int points)
@@ -191,7 +191,7 @@ namespace Player
 
             _camera = transform.parent.GetComponentInChildren<Camera>();
             _mouth = transform.Find("Mouth");
-            _uiCanvas = transform.parent.Find("UI/PlayerUICanvas").GetComponent<PlayerUICanvas>();
+            _statusView = transform.parent.Find("UI/StatusView").GetComponent<StatusViewController>();
             _hudManager = GameObject.FindObjectOfType<HUDManager>();
             _animalSoundController = GetComponent<AnimalSoundController>();
 
