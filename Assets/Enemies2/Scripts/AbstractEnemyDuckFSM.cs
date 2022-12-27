@@ -171,6 +171,7 @@ namespace DuckEnemies
             //FIRST: define each state with its actions: enter action, stay actions and exit actions
             FSMState hubState = new FSMState();
             hubState.enterActions.Add(EnterHubState_CleanVariables);
+            hubState.enterActions.Add(_identifyPlayerComponent.ForgetAboutPlayer);
 
             FSMState chilling = new FSMState();
             chilling.enterActions.Add(_roamingComponent.EnterChilling_ChooseChillingTime);
