@@ -42,7 +42,7 @@ MonoBehaviour:
   DecelerationDash: 40
   SteerDash: 20
   DistanceToDash: 10
-  StealTriggerProbability: 0
+  StealTriggerProbability: 0.1
   SpeedChasing: 13
   AccelerationChasing: 5
   DecelerationChasing: 30
