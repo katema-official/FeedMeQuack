@@ -223,10 +223,16 @@ namespace DuckEnemies
             chasing.enterActions.Add(_chasingComponent.EnterChasing_StartPathFinderCoroutine);
             chasing.enterActions.Add(_chasingComponent.EnterChasing_SetSteeringBehaviour);
             chasing.stayActions.Add(_chasingComponent.StayChasing_UpdateDestination);
-            chasing.exitActions.Add(_chasingComponent.ExitFoodSeeking_DeletePath);
+            chasing.exitActions.Add(_chasingComponent.ExitChasing_DeletePath);
             chasing.exitActions.Add(_chasingComponent.ExitCoroutine_StopPathFinderCoroutine);
 
             FSMState tryStealActive = new FSMState();
+            tryStealActive.enterActions.Add(_stealingComponent.EnterTryStealActive_StealPlayer);
+
+            FSMState stealingActive = new FSMState();
+            stealingActive.enterActions.Add(_stealingComponent.EnterStealingActive_ResetVariables);
+            stealingActive.exitActions.Add(_chasingComponent.ResetStealingCooldown);
+
 
 
             //SECOND: define the transition between states
@@ -275,6 +281,7 @@ namespace DuckEnemies
             FSMTransition digesting_to_hubState = new FSMTransition(_eatingComponent.GetDigestingEnded,
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
 
+
             FSMTransition stealingPassive_to_hubstate = new FSMTransition(_stealingComponent.StealingPassive_WasAllFoodStolen,
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
             FSMTransition stealingPassive_to_eating = new FSMTransition(_stealingComponent.StealingPassive_DoIHaveSomeFoodLeft,
@@ -287,9 +294,20 @@ namespace DuckEnemies
 
             FSMTransition chasing_to_hubState = new FSMTransition(_chasingComponent.MustStopChasing,
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
-
             FSMTransition chasing_to_tryStealActive = new FSMTransition(_chasingComponent.PlayerReached,
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.TryStealActive });
+
+
+            FSMTransition tryStealActive_to_hubState = new FSMTransition(() => !_stealingComponent.IsPlayerVictimOfStealing(),
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
+            FSMTransition tryStealActive_to_stealingActive = new FSMTransition(_stealingComponent.IsPlayerVictimOfStealing,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.StealingActive });
+
+
+            FSMTransition stealingActive_to_hubState = new FSMTransition(_stealingComponent.StealingActive_EnemyDidNotStoleAnyFood,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
+            FSMTransition stealingActive_to_eating = new FSMTransition(_stealingComponent.StealingActive_EnemyStoleSomeFood,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Eating });
 
 
             //actually, this is the last transition for hubState. If it isn't possible to go in any other state, go in this
@@ -330,6 +348,14 @@ namespace DuckEnemies
             stealingPassive.AddTransition(stealingPassive_to_eating, eating);
 
             chasing.AddTransition(chasing_to_hubState, hubState);
+            chasing.AddTransition(chasing_to_tryStealActive, tryStealActive);
+
+            tryStealActive.AddTransition(tryStealActive_to_hubState, hubState);
+            tryStealActive.AddTransition(tryStealActive_to_stealingActive, stealingActive);
+
+            stealingActive.AddTransition(stealingActive_to_hubState, hubState);
+            stealingActive.AddTransition(stealingActive_to_eating, eating);
+
 
 
             _fsm = new FSM(hubState);

@@ -24,7 +24,7 @@ namespace DuckEnemies {
         private MovementSeekComponent _movementSeekComponent;
         private PlayerController _playerController;
 
-        private float _stopAtPlayer = 2f;   //minimum distance between enemy and player such that the player is considered reached
+        private float _stopAtPlayer = 5f;   //minimum distance between enemy and player such that the player is considered reached
 
 
 
@@ -83,19 +83,23 @@ namespace DuckEnemies {
 
         public void StayChasing_UpdateDestination()
         {
-            if (_indexCurrentDestination == _pathChasing.Count - 1)
-            {
+            //if (_indexCurrentDestination == _pathChasing.Count - 1)
+            //{
                 //when the distance between me and the final destination is lower than StopAt, i stop accelerating in that direction
-                if (Vector2.Distance(transform.position, _currentDestination) <= _movementSeekComponent.StopAt)
+                if (Vector2.Distance(transform.position, GetPlayer().gameObject.transform.position) <= _movementSeekComponent.StopAt)
                 {
                     _keepChasing = false;
                     Debug.Log("REACHED");
-                }
-                return;
             }
+            else
+            {
+                Debug.Log("Not reached! distance is " + Vector2.Distance(transform.position, GetPlayer().gameObject.transform.position));
+            }
+            //}
 
 
-            if (Vector2.Distance(transform.position, _currentDestination) <= _tresholdCurrentDestinationReached)
+            if (Vector2.Distance(transform.position, _currentDestination) <= _tresholdCurrentDestinationReached &&
+                _indexCurrentDestination <= _pathChasing.Count - 1)
             {
                 _indexCurrentDestination += 1;
                 _currentDestination = _pathChasing[_indexCurrentDestination];
@@ -106,7 +110,7 @@ namespace DuckEnemies {
 
 
 
-        public void ExitFoodSeeking_DeletePath()
+        public void ExitChasing_DeletePath()
         {
             _movementSeekComponent.StopMoving();
         }
@@ -117,6 +121,25 @@ namespace DuckEnemies {
             _keepChasing = false;
         }
 
+
+        //to reset the will of the duck to steal the player
+        public void ResetStealingCooldown()
+        {
+            _actualStealCooldown = _wantsToStealCooldown;
+            _identifyPlayerComponent.ForgetAboutPlayer();
+            StartCoroutine(DecreaseCooldown());
+
+        }
+
+        private IEnumerator DecreaseCooldown()
+        {
+            while(_actualStealCooldown > 0)
+            {
+                _actualStealCooldown -= 1f;
+                yield return new WaitForSeconds(1f);
+            }
+            yield return null;
+        }
         
 
 
@@ -144,7 +167,7 @@ namespace DuckEnemies {
         //############################################################# UTILITIES #############################################################
 
         //coroutine that computes the path to follow to get to the player
-        private float _updateTime = 1f;     //every _updateTime the path will be recomputed
+        private float _updateTime = 0.3f;     //every _updateTime the path will be recomputed
         private IEnumerator FindPath()
         {
             while(_keepChasing)
@@ -183,7 +206,7 @@ namespace DuckEnemies {
 
             _currentDestination = _pathChasing[0];
             _movementSeekComponent.SetCurrentAndFinalDestination(_currentDestination, _pathChasing[_pathChasing.Count - 1]);
-
+            _movementSeekComponent.StartMoving();
         }
 
 
