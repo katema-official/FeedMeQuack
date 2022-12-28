@@ -113,6 +113,9 @@ namespace LevelStageNamespace {
         protected override void Awake()
         {
             base.Awake();
+
+            Application.targetFrameRate = 60;
+
             _lakeDescriptionForThisLake = _levelStageManager.GetLakeDescriptionSO();
             ManageRiversOfthisLake();
             _breadSpawnForThisLake = _levelStageManager.GetBreadSpawnSO();
@@ -159,7 +162,8 @@ namespace LevelStageNamespace {
             //now we have to place the player in the correct spot
             _playerObject = GameObject.FindWithTag("Player");     //TODO: change in actual player when you have it
 
-            //if the room is the initial one and the player just arrived in the stage, we want it to be on the center of the room
+            //if the
+            //is the initial one and the player just arrived in the stage, we want it to be on the center of the room
             if (!_lakeDescriptionForThisLake.IsLakeCleared && _lakeDescriptionForThisLake.IsStartingRoom)
             {
                 _playerObject.transform.position = new Vector3(0, 0, 0);

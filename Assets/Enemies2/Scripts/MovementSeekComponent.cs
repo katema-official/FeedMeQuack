@@ -51,8 +51,6 @@ namespace SteeringBehaviourNamespace
             if (IsDestinationValid)
             {
 
-                float angle = Mathf.Atan2(-_directionToMoveNormalized.x, _directionToMoveNormalized.y) * Mathf.Rad2Deg;
-                _currentRotation = angle;
                 //then, I apply a force in that direction
                 float force = _currentAcceleration * MaxSteer;
                 if (_rigidbody2D.velocity.magnitude <= MaxSpeed)
@@ -100,12 +98,16 @@ namespace SteeringBehaviourNamespace
 
         }
 
+
+
+
+
         private void Awake()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _animator = transform.Find("Sprite").GetComponent<Animator>();
             _currentRotation = Random.Range(-180f, 180f);
-            Debug.Log("rotation = " + _currentRotation);
+            //Debug.Log("rotation = " + _currentRotation);
             SetRotation();    
         }
 
@@ -186,7 +188,13 @@ namespace SteeringBehaviourNamespace
 
         private void Update()
         {
-            SetRotation();
+            if (IsDestinationValid)
+            {
+                float angle = Mathf.Atan2(-_directionToMoveNormalized.x, _directionToMoveNormalized.y) * Mathf.Rad2Deg;
+                _currentRotation = angle;
+                SetRotation();
+            }
+            
         }
 
         public void SetRotation()
