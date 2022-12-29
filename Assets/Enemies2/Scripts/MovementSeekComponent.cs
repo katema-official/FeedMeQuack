@@ -67,7 +67,6 @@ namespace SteeringBehaviourNamespace
                 }
                 else
                 {
-                    Debug.Log("MI FERMO");
                     HasStartedDecelerating = false;
                     _rigidbody2D.velocity = new Vector2(0, 0);
                 }

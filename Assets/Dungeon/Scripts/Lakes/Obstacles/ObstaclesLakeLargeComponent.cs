@@ -21,10 +21,6 @@ namespace LevelStageNamespace
         }
 
 
-
-        //this value must be updated whenever the prefab is modified (I could'nt think of anything better, sorry
-        private static int _nObstaclesSet = 3;
-
         //yeah yeah I know it's very ugly but I can't come up with anything better at the moment, sorryyyyyyyy
         private static Dictionary<int, Dictionary<int, List<int>>> _obstacleSetsDictionary = new Dictionary<int, Dictionary<int, List<int>>>()
     {

@@ -10,11 +10,17 @@ namespace DuckEnemies
         //this component just signals to the IdentifyPlayerComponent if the player has been identified
 
         [SerializeField] private int ID = 0;
-        IdentifyPlayerComponent _identifyPlayerComponent;
+        private IdentifyPlayerComponent _identifyPlayerComponent;
+        private float _radius;
 
         void Awake()
         {
             _identifyPlayerComponent = transform.parent.GetComponent<IdentifyPlayerComponent>();
+        }
+
+        void Start()
+        {
+            _radius = GetComponent<CircleCollider2D>().radius;
         }
 
         /*private void OnTriggerStay2D(Collider2D collision)
@@ -28,15 +34,20 @@ namespace DuckEnemies
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            NotifyPlayerNear(collision);
+            CheckPlayer(collision);
         }
 
-        private void NotifyPlayerNear(Collider2D collision)
+        private void CheckPlayer(Collider2D collision)
         {
             if (collision.CompareTag("Player"))
             {
                 _identifyPlayerComponent.NotifyPlayerIdentified(collision.gameObject, ID);
             }
+        }
+        public void NotifyPlayerNear(Collider2D collision)
+        {
+            if (Vector2.Distance(transform.position, collision.gameObject.transform.position) > _radius + 0.5f) return;
+            CheckPlayer(collision);
         }
 
 

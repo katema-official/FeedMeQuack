@@ -173,6 +173,7 @@ namespace DuckEnemies
             hubState.enterActions.Add(EnterHubState_CleanVariables);
             hubState.enterActions.Add(_identifyPlayerComponent.ForgetAboutPlayer);
             hubState.enterActions.Add(EnterHubState_CheckNearbyFood);
+            hubState.enterActions.Add(EnterHubState_CheckNearbyPlayer);
 
             FSMState chilling = new FSMState();
             chilling.enterActions.Add(_roamingComponent.EnterChilling_ChooseChillingTime);
@@ -392,6 +393,16 @@ namespace DuckEnemies
                 transform.Find("FoodCollider2").GetComponent<FoodCircleComponent>().NotifyBreadNear(g.GetComponent<Collider2D>());
                 transform.Find("FoodCollider3").GetComponent<FoodCircleComponent>().NotifyBreadNear(g.GetComponent<Collider2D>());
             }
+        }
+
+        protected void EnterHubState_CheckNearbyPlayer()
+        {
+            GameObject g = GameObject.FindGameObjectWithTag("Player");
+            transform.Find("PlayerCollider1").GetComponent<PlayerCircleComponent>().NotifyPlayerNear(g.GetComponent<Collider2D>());
+            transform.Find("PlayerCollider2").GetComponent<PlayerCircleComponent>().NotifyPlayerNear(g.GetComponent<Collider2D>());
+            transform.Find("PlayerCollider3").GetComponent<PlayerCircleComponent>().NotifyPlayerNear(g.GetComponent<Collider2D>());
+
+
         }
 
 
