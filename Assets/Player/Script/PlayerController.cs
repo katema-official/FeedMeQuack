@@ -155,6 +155,14 @@ namespace Player
                     _state = newState;
                 }
             }
+            else if (_state == PlayerState.GettingRobbed)
+            {
+                if (newState == PlayerState.Eating ||
+                    newState == PlayerState.Normal)
+                {
+                    _state = newState;
+                }
+            }
             else if (_state == PlayerState.Carrying)
             {
                 if (newState == PlayerState.Spitting)
