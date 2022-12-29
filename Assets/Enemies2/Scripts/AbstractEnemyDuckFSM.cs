@@ -172,6 +172,7 @@ namespace DuckEnemies
             FSMState hubState = new FSMState();
             hubState.enterActions.Add(EnterHubState_CleanVariables);
             hubState.enterActions.Add(_identifyPlayerComponent.ForgetAboutPlayer);
+            hubState.enterActions.Add(EnterHubState_CheckNearbyFood);
 
             FSMState chilling = new FSMState();
             chilling.enterActions.Add(_roamingComponent.EnterChilling_ChooseChillingTime);
@@ -379,6 +380,19 @@ namespace DuckEnemies
             //lol i moved everything away
         }
 
+        //to avoid calling the OnTriggerStay2D, that might be heavy computationally speaking, I resort to onTriggerEnter2D and
+        //this action, performed each time a duck enters the hubState, that collects all the nearby bread (it's like calling the
+        //OnTriggerStay2D but the least necessary amount of time)
+        protected void EnterHubState_CheckNearbyFood()
+        {
+            GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("FoodInWater");
+            foreach(GameObject g in gameObjects)
+            {
+                transform.Find("FoodCollider1").GetComponent<FoodCircleComponent>().NotifyBreadNear(g.GetComponent<Collider2D>());
+                transform.Find("FoodCollider2").GetComponent<FoodCircleComponent>().NotifyBreadNear(g.GetComponent<Collider2D>());
+                transform.Find("FoodCollider3").GetComponent<FoodCircleComponent>().NotifyBreadNear(g.GetComponent<Collider2D>());
+            }
+        }
 
 
         //############################################################# TRANSITIONS #############################################################
