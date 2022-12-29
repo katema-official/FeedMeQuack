@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using HUDNamespace;
+using UnityEngine.InputSystem;
 
 namespace Player
 {
@@ -26,6 +27,10 @@ namespace Player
         private bool _initLock = false;
         private Vector2 _lockInputAxis;
         private Vector2 _oldVelocity;
+
+        private bool _h = false;
+        private bool _v = false;
+
 
         private bool _moveForward = false;
         private float _rotationMovement = 0.0f;
@@ -233,6 +238,7 @@ namespace Player
 
 
                 _rotationMovement = angle;
+                _oldVelocity = _rigidBody.velocity;
 
 
                 //up
@@ -300,7 +306,7 @@ namespace Player
 
                 _rigidBody.AddForce(_finalDir * _force, ForceMode2D.Force);
                 _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity, speed);
-                _oldVelocity = _rigidBody.velocity;
+                
 
             }
             else
@@ -428,14 +434,17 @@ namespace Player
 
             var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
             SceneManager.sceneLoaded += OnSceneLoaded;
+
+            
         }
 
         // called second
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             _lockMovement = true;
+            _initLock = true;
+            _rigidBody = GetComponent<Rigidbody2D>();
             _rigidBody.velocity = _oldVelocity;
-
         }
 
 
@@ -444,94 +453,47 @@ namespace Player
         void Start()
         {
             _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
+        //    _rigidBody.velocity = _oldVelocity;
             MoveCamera();
         }
+
+
+        
+
 
         // Update is called once per frame
         void Update()
         {
             if (!_enableInput) return;
 
-            if (Input.GetButtonUp("Vertical"))
+
+            //var h = Input.GetAxisRaw("Horizontal");
+            //var v = Input.GetAxisRaw("Vertical");
+
+            float v = 0;
+            float h = 0;
+
+
+            var keyboard = Keyboard.current;
+            if (keyboard != null)
             {
-                if (_forwardAxis.x != 0) _forwardAxis.x = 0;
-                if (_forwardAxis.y != 0) _forwardAxis.y = 0;
-            } 
-            if (Input.GetButtonUp("Horizontal"))
-            {
-                    if (_forwardAxis.x != 0) _forwardAxis.x = 0;
-                if (_forwardAxis.y != 0) _forwardAxis.y = 0;
+                if (keyboard.wKey.isPressed) v = 1;
+                if (keyboard.sKey.isPressed)  v = -1;  
+                if (keyboard.aKey.isPressed)  h = -1;
+                if (keyboard.dKey.isPressed) h = 1;
             }
-          
-            
-            var h = Input.GetAxisRaw("Horizontal");
-            var v = Input.GetAxisRaw("Vertical");
- 
-            
-            if (_lockMovement)
+
+            var gamepad = Gamepad.current;
+            if (gamepad != null)
             {
-                // if ((h == 0 && v == 0) && (_forwardAxis.x != 0 || _forwardAxis.y != 0))
-                //if ((h == 0 && v == 0) || (_forwardAxis.x == h || _forwardAxis.y == v))
-                //    return;
-                //else
-                //    _lockMovement = false;
-
-                //if (!_initLock)
-                //{
-                //    _lockInputAxis = new Vector2((h != _forwardAxis.x) ? 1 : 0, (v != _forwardAxis.y) ? 1 : 0);
-                //    _initLock = true;
-                //}
-
-
-                //if (_lockInputAxis.x && (h != )
-                //{
-                //    _lockMovement = false;
-                //    _initLock = false;
-                //}
-
-
-               
-
-                _forwardAxis.x = (h != 0) ? h : _forwardAxis.x;
-                _forwardAxis.y = (v != 0) ? v : _forwardAxis.y;
-
-                //else
-                {
-                    if ((h == 0 && v == 0) && (_forwardAxis.x == 0 && _forwardAxis.y == 0))
-                    {
-                        _lockMovement = false;
-                      //  return;
-                    }
-
-                    //if ((h == 0 && v == 0))// && (_forwardAxis.x != 0 || _forwardAxis.y != 0))
-                    //{
-                    //    return;
-                    //}
-                    //else if((h != 0 || v != 0))// && (_forwardAxis.x != 0 || _forwardAxis.y != 0))
-                    //{
-                    //    _forwardAxis.x = (h != 0) ? h : _forwardAxis.x;
-                    //    _forwardAxis.y = (v != 0) ? v : _forwardAxis.y;
-                    //    _lockMovement = false;
-                    //}
-                }
-                return;
-
-
-                //else //if ((h == 0 && v == 0) && (_forwardAxis.x == 0 && _forwardAxis.y == 0))
-                //{
-                //    _lockMovement = false;
-                //}
-
-
+                Vector2 move = gamepad.leftStick.ReadValue();
+                h += move.x;
+                v += move.y;
             }
 
             _moveForward = false;
             _forwardAxis = new Vector3(h, v);
 
-           // _forwardAxis = new Vector3(0, 0);
-
-          
-            // if (h != 0 || v != 0)
             if (_forwardAxis.x != 0 || _forwardAxis.y != 0)
             {
                 _moveForward = true;
@@ -546,11 +508,14 @@ namespace Player
 
         private void FixedUpdate()
         {
+           // _oldVelocity = _rigidBody.velocity;
             MoveCamera();
             // var screenPos = _camera.WorldToScreenPoint(_rigidBody.position) + new Vector3(-45f, 80f, 0);
             //Debug.Log("screen: " + screenPos);
             //screenPos.y += 80;
             //screenPos.x -= 20;
+
+            
 
             var pos = _rigidBody.position + new Vector2(0, 3);
             _controller.GetStatusView().SetPosition(pos);
