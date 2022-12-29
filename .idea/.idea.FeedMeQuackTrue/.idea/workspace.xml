@@ -3,13 +3,20 @@
   <component name="ChangeListManager">
     <list default="true" id="0808f2d5-72ad-4799-babc-2a377af7996b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuackTrue/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuackTrue/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Dungeon/Tilesets/Grasslands/SpriteAtlasGrasslands.spriteatlas" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dungeon/Tilesets/Grasslands/SpriteAtlasGrasslands.spriteatlas" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Music/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/MainMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/DaCancellare.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Scripts/DaCancellare.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/DaCancellare.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/DaCancellare.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/DisclaimerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Scripts/DisclaimerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/EatingController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/EatingController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/FlySoundController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/FlySoundController.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/MusicManagerComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Scripts/MusicManagerComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/PoliMiArchiveController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Scripts/PoliMiArchiveController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/SpitBarSoundController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/SpitBarSoundController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/UniversalAudio.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Scripts/UniversalAudio.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +24,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Music/Scripts/FirstAudioSourceDeleter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Music/Scripts/PoliMiArchiveController.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -104,6 +112,7 @@
       <workItem from="1671705741572" duration="873000" />
       <workItem from="1671785035668" duration="656000" />
       <workItem from="1672328525659" duration="10047000" />
+      <workItem from="1672339424695" duration="3212000" />
     </task>
     <servers />
   </component>

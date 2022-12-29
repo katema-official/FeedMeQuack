@@ -50,11 +50,11 @@ namespace Music
             UniversalAudio.PlayMusic("Swimming", false);
             if (audioSource1.isPlaying)
             {
-                audioSource1.time = 9.87f;
+                audioSource1.time = 9.96f;
             }
             else
             {
-                audioSource2.time = 9.87f;
+                audioSource2.time = 9.96f;
             }
         }
 
@@ -76,13 +76,16 @@ namespace Music
 
             if (GameObject.FindGameObjectsWithTag("AudioManager").Length >= 2)
             {
+                var i = 0;
                 foreach (var gO in GameObject.FindGameObjectsWithTag("AudioManager"))
                 {
-                    /*if (gO.transform.GetComponentsInChildren<AudioSource>()[1] != audioSource2)
+                    i++;
+                    
+                    if (i == 2)
                     {
                         DestroyImmediate(gO);
                         break;
-                    }*/
+                    }
                     
                 }
 
@@ -99,6 +102,16 @@ namespace Music
                     }
                 }
                 _defaultButton.onClick.AddListener(DefaultVolumes);
+                
+                UniversalAudio.PlayMusic("Swimming", false);
+                if (audioSource1.isPlaying)
+                {
+                    audioSource1.time = 9.87f;
+                }
+                else
+                {
+                    audioSource2.time = 9.87f;
+                }
             }
 
         }

@@ -14,7 +14,7 @@ namespace Music
             if (Time.time >= TimeForMainMenu || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape) || 
                 Input.GetKeyDown(KeyCode.Insert))
             {
-                SceneManager.LoadScene("MainMenu");
+                SceneManager.LoadScene("PolimiLogo");
             }
         }
     }

@@ -5,8 +5,14 @@ namespace Music
 {
     public class PoliMiArchiveController : MonoBehaviour
     {
-        private const float TimeToDestroyPoliMi = 8.8f;
-        private AudioSource _audioSource;
+        private const float TimeToDestroyPoliMi = 8.9f;
+        private static AudioSource _audioSource;
+        private float _lifeTime;
+
+        public static AudioSource GetAudioSource()
+        {
+            return _audioSource;
+        }
 
         // Start is called before the first frame update
         private void Awake()
@@ -22,14 +28,11 @@ namespace Music
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space) || Time.time >= TimeToDestroyPoliMi)
+            _lifeTime += Time.deltaTime;
+            
+            if (Input.GetKeyDown(KeyCode.Space) || _lifeTime >= TimeToDestroyPoliMi)
             {
                 SceneManager.LoadScene("MainMenu");
-            }
-
-            if (SceneManager.GetActiveScene().name.Equals("MainMenu"))
-            {
-                Destroy(GameObject.Find("AudioSource"));
             }
         }
         

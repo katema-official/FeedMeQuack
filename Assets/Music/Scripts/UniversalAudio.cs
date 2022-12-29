@@ -39,23 +39,12 @@ namespace Music // To change correctly
 
         private static AudioSource _audioSource1, _audioSource2;
 
-        public static SpitBarSoundController _spitBarSoundController;
-
-        public static AnimalSoundController _animalSoundController;
-
-        public static EatingController _eatingController;
-
-        public static FlySoundController _flySoundController;
-
         private const string
             PathFromSourcesForMusic = "Songs/"; // Inside folder "Resources", if there is a relative path, write it here
 
         private const string
             PathFromSourcesForSound = "SFX/"; // Inside folder "Resources", if there is a relative path, write it here
-
-        private const float MinTimeBetweenQuackSteal = 2f;
-        private const float MaxTimeBetweenQuackSteal = 4f;
-
+        
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -67,10 +56,6 @@ namespace Music // To change correctly
             // If the instance not exists the first time we call the static class
             //Add this script to the object
             _universalAudioMonoBehaviour ??= musicManagerGo.AddComponent<UniversalAudioMonoBehaviour>();
-            _spitBarSoundController ??= musicManagerGo.AddComponent<SpitBarSoundController>();
-            _animalSoundController ??= musicManagerGo.AddComponent<AnimalSoundController>();
-            _eatingController ??= musicManagerGo.AddComponent<EatingController>();
-            _flySoundController ??= musicManagerGo.AddComponent<FlySoundController>();
         }
 
         private static void GetAudioSources(GameObject musicManager)
@@ -139,27 +124,7 @@ namespace Music // To change correctly
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Getter and Setter of the variables
-
-        public static SpitBarSoundController GetSpitBarSoundController()
-        {
-            return _spitBarSoundController;
-        }
         
-        public static AnimalSoundController GetAnimalSoundController()
-        {
-            return _animalSoundController;
-        }
-        
-        public static EatingController GetEatingController()
-        {
-            return _eatingController;
-        }
-        
-        public static FlySoundController GetFlySoundController()
-        {
-            return _flySoundController;
-        }
-
         private static void SetTrueTimeOfFading()
         {
             _timeOfFading = SceneManager.GetActiveScene().name == "MainMenu" ? 0 : 1;
@@ -339,40 +304,5 @@ namespace Music // To change correctly
 
         }
 
-
-        private static IEnumerator EmitSound(string animalName, Transform thisTransform)
-        {
-            if (animalName.Equals("Mallard"))
-            {
-                animalName = "Duck";
-            }
-            var random = new Unity.Mathematics.Random((uint)DateTime.Now.Ticks);
-            while (_animalSoundController.GetIsInStealingState())
-            {
-                var numberOfClip = random.NextInt(0, MusicManagerComponent.stringAndNumberDictionary[animalName]);
-                switch (numberOfClip)
-                {
-                    case 0:
-                        PlaySound(animalName, thisTransform);
-                        break;
-                    case < 10:
-                        PlaySound(animalName + " " + "0" + numberOfClip, thisTransform);
-                        break;
-                    default:
-                        PlaySound(animalName + " " + numberOfClip, thisTransform);
-                        break;
-                }
-                yield return new WaitForSeconds(random.NextFloat(MinTimeBetweenQuackSteal, MaxTimeBetweenQuackSteal));
-            }
-
-            yield return null;
-        }
-
-        public static void PlayStealing(string animalName, Transform thisTransform)
-        {
-            _animalSoundController.SetIsInStealingState(true);
-            _universalAudioMonoBehaviour.StartCoroutine(EmitSound(animalName, thisTransform));
-        }
-        
     }
 }
