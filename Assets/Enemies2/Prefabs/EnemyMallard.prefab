@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5752818651182031547}
   - component: {fileID: 9199695255296371306}
   - component: {fileID: 7589914270819933481}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FoodCollider2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,9 +83,9 @@ GameObject:
   - component: {fileID: 600086623845101832}
   - component: {fileID: 8682119449077030363}
   - component: {fileID: 8048907995565324456}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyMallard
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 1758801313041092809}
   - component: {fileID: 1758801313041092815}
   - component: {fileID: 1758801313041092814}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -442,7 +442,7 @@ GameObject:
   - component: {fileID: 9062316846765613191}
   - component: {fileID: 3156228438536913363}
   - component: {fileID: 5920658745868377779}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerCollider1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -504,7 +504,7 @@ GameObject:
   - component: {fileID: 7528561058932933809}
   - component: {fileID: 7666657950311281358}
   - component: {fileID: 6206879204625072158}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerCollider3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -566,7 +566,7 @@ GameObject:
   - component: {fileID: 3950267246223638872}
   - component: {fileID: 4604584234216466401}
   - component: {fileID: 3222954611505738465}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerCollider2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -628,7 +628,7 @@ GameObject:
   - component: {fileID: 1810251744743779629}
   - component: {fileID: 3082132160318803605}
   - component: {fileID: 7691587044160769360}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FoodCollider3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -690,7 +690,7 @@ GameObject:
   - component: {fileID: 3525119631585101411}
   - component: {fileID: 1572621774556376618}
   - component: {fileID: 3366117125588145404}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FoodCollider1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

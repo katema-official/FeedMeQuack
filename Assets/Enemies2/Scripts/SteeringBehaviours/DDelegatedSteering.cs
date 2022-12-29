@@ -19,14 +19,14 @@ namespace SteeringBehaviourNamespace
 		}
 
 		public MovementStatus GetMovementStatus()
-        {
+		{
 			return status;
-        }
+		}
 
 		void FixedUpdate()
 		{
 
-			status.movementDirection = transform.right;	//transform.right and not transform.forward since we are in 2D
+			status.movementDirection = transform.right; //transform.right and not transform.forward since we are in 2D
 
 			// Contact all behaviours and build a list of directions
 			List<Vector3> components = new List<Vector3>();
@@ -44,6 +44,7 @@ namespace SteeringBehaviourNamespace
 			}
 		}
 
+#if UNITY_EDITOR
 		private void OnDrawGizmos()
 		{
 			if (status != null)
@@ -51,5 +52,7 @@ namespace SteeringBehaviourNamespace
 				UnityEditor.Handles.Label(transform.position + 2f * transform.up, status.linearSpeed.ToString() + "\n" + status.angularSpeed.ToString());
 			}
 		}
+
+#endif
 	}
 }

@@ -27,6 +27,8 @@ namespace SteeringBehaviourNamespace
         private Vector2 _directionToMoveNormalized;
         private Rigidbody2D _rigidbody2D;
         private Animator _animator;
+        private Vector2 _directionToBrake;
+        private bool _stopForReal;
 
         [SerializeField] private float _initialSteer = 0f;
 
@@ -38,46 +40,51 @@ namespace SteeringBehaviourNamespace
         //where the duck actually moves
         private void FixedUpdate()
         {
-            if (IsDestinationValid || HasStartedDecelerating)
-            {
-                //_xComponentSpeed = _rigidbody2D.velocity.x;
-                //_yComponentSpeed = _rigidbody2D.velocity.y;
-
-                //first of all, i retrieve the direction in which I need to move
-                _directionToMoveNormalized = (CurrentDestination - (new Vector2(transform.position.x, transform.position.y)));
-                _directionToMoveNormalized.Normalize();
-            }
+            //if (IsDestinationValid || HasStartedDecelerating...
 
             if (IsDestinationValid)
             {
 
                 //then, I apply a force in that direction
-                float force = _currentAcceleration * MaxSteer;
+                //float force = _currentAcceleration * MaxSteer;
                 if (_rigidbody2D.velocity.magnitude <= MaxSpeed)
                 {
-                    _rigidbody2D.AddForce(_directionToMoveNormalized * force, ForceMode2D.Force);
+                    _rigidbody2D.AddForce(_directionToMoveNormalized * _currentAcceleration * MaxSteer, ForceMode2D.Force);
                 }
                 _rigidbody2D.velocity = Vector2.ClampMagnitude(_rigidbody2D.velocity, MaxSpeed);
-                if (Vector2.Distance(transform.position, FinalDestination) <= StopAt)
-                {
-                    IsDestinationValid = false;
-                    HasStartedDecelerating = true;
-                    SetCurrentVelocityComponents();
-                    //Debug.Log("X AND Y AT THE END: " + _xComponentSpeed + ", " + _yComponentSpeed);
-                }
-                
+
+                //if (Vector2.Distance...
+
 
             }
 
-            if (HasStartedDecelerating)
+
+            if(HasStartedDecelerating)
             {
+                if (!_stopForReal)
+                {
+                    _rigidbody2D.AddForce(_directionToBrake * Deceleration, ForceMode2D.Force);
+                }
+                else
+                {
+                    Debug.Log("MI FERMO");
+                    HasStartedDecelerating = false;
+                    _rigidbody2D.velocity = new Vector2(0, 0);
+                }
+            }
+
+            /*if (HasStartedDecelerating)
+            {
+
+                
+
                 if(_rigidbody2D.velocity.x * _xComponentSpeed > 0 && _rigidbody2D.velocity.y * _yComponentSpeed > 0)
                 {
 
-                    Vector2 _directionToBrake = -_rigidbody2D.velocity.normalized;  //_directionToMoveNormalized;
+                    //_directionToBrake = -_rigidbody2D.velocity.normalized;  //_directionToMoveNormalized;
 
-                    float forceBreak = Deceleration;
-                    _rigidbody2D.AddForce(_directionToBrake * forceBreak, ForceMode2D.Force);
+                    //float forceBreak = Deceleration;
+                    _rigidbody2D.AddForce(_directionToBrake * Deceleration, ForceMode2D.Force);
                     //Debug.LogFormat("SPEED X AND Y: {0} AND {1}", _rigidbody2D.velocity.x, _rigidbody2D.velocity.y);
                     if(_rigidbody2D.velocity.x * _xComponentSpeed < 0 && _rigidbody2D.velocity.y * _yComponentSpeed < 0) //oppure se ti stai muovendo di pochissimo (non viene mai chiamato hahahaha lol kek)
                     {
@@ -94,10 +101,38 @@ namespace SteeringBehaviourNamespace
                     _rigidbody2D.velocity = new Vector2(0, 0);
                 }
                    
-            }
+            }*/
 
         }
 
+
+        private void LateUpdate()
+        {
+
+            if (IsDestinationValid || HasStartedDecelerating)
+            {
+                //first of all, i retrieve the direction in which I need to move
+                _directionToMoveNormalized = (CurrentDestination - (new Vector2(transform.position.x, transform.position.y)));
+                _directionToMoveNormalized.Normalize();
+            }
+
+            if (IsDestinationValid)
+            {
+                float angle = Mathf.Atan2(-_directionToMoveNormalized.x, _directionToMoveNormalized.y) * Mathf.Rad2Deg;
+                _currentRotation = angle;
+                SetRotation();
+                if (Vector2.Distance(transform.position, FinalDestination) <= StopAt)
+                {
+                    StopMoving();
+                }
+            }
+
+            if (HasStartedDecelerating)
+            {
+                _stopForReal = _rigidbody2D.velocity.x * _xComponentSpeed < 0 && _rigidbody2D.velocity.y * _yComponentSpeed < 0;
+            }
+
+        }
 
 
 
@@ -145,6 +180,7 @@ namespace SteeringBehaviourNamespace
         //method to call when all the data necessary to go to a destination have been fixed
         public void StartMoving()
         {
+            _stopForReal = false;
             IsDestinationValid = true;
             HasStartedDecelerating = false;
         }
@@ -152,6 +188,7 @@ namespace SteeringBehaviourNamespace
         //method to call when we don't want the duck to move anymore
         public void StopMoving()
         {
+            _directionToBrake = -_rigidbody2D.velocity.normalized;
             IsDestinationValid = false;
             HasStartedDecelerating = true;
             SetCurrentVelocityComponents();
@@ -186,16 +223,7 @@ namespace SteeringBehaviourNamespace
 
 
 
-        private void Update()
-        {
-            if (IsDestinationValid)
-            {
-                float angle = Mathf.Atan2(-_directionToMoveNormalized.x, _directionToMoveNormalized.y) * Mathf.Rad2Deg;
-                _currentRotation = angle;
-                SetRotation();
-            }
-            
-        }
+        
 
         public void SetRotation()
         {

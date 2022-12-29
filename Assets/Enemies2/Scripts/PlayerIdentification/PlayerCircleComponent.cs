@@ -12,18 +12,33 @@ namespace DuckEnemies
         [SerializeField] private int ID = 0;
         IdentifyPlayerComponent _identifyPlayerComponent;
 
-
         void Awake()
         {
             _identifyPlayerComponent = transform.parent.GetComponent<IdentifyPlayerComponent>();
         }
 
-        private void OnTriggerStay2D(Collider2D collision)
+        /*private void OnTriggerStay2D(Collider2D collision)
         {
             if (collision.gameObject.tag == "Player")
             {
                 _identifyPlayerComponent.NotifyPlayerIdentified(collision.gameObject, ID);
             }
+        }*/
+
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            NotifyPlayerNear(collision);
         }
+
+        private void NotifyPlayerNear(Collider2D collision)
+        {
+            if (collision.CompareTag("Player"))
+            {
+                _identifyPlayerComponent.NotifyPlayerIdentified(collision.gameObject, ID);
+            }
+        }
+
+
     }
 }
