@@ -238,8 +238,7 @@ namespace Player
 
 
                 _rotationMovement = angle;
-                _oldVelocity = _rigidBody.velocity;
-
+               
 
                 //up
                 if (angle >= 0 && angle < 22.5)
@@ -306,7 +305,7 @@ namespace Player
 
                 _rigidBody.AddForce(_finalDir * _force, ForceMode2D.Force);
                 _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity, speed);
-                
+               // Debug.Log("_rigidBody.velocity " + _rigidBody.velocity);
 
             }
             else
@@ -314,7 +313,13 @@ namespace Player
                // _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity * 0.9f, speed);
 
             }
-        
+
+
+
+            if ((_rigidBody.velocity - _oldVelocity).magnitude < speed-2.0f)
+                _oldVelocity = _rigidBody.velocity;
+
+          //  Debug.Log("_rigidBody.velocity " + _oldVelocity);
 
             // _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
 
@@ -433,13 +438,14 @@ namespace Player
             
 
             var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
-            SceneManager.sceneLoaded += OnSceneLoaded;
+           // SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.activeSceneChanged += OnSceneLoaded;
 
-            
+
         }
 
         // called second
-        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        void OnSceneLoaded(Scene scene, Scene scene2)
         {
             _lockMovement = true;
             _initLock = true;
