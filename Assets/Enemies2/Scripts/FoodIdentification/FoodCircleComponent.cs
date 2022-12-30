@@ -22,7 +22,6 @@ namespace DuckEnemies
         void Start()
         {
             _radius = GetComponent<CircleCollider2D>().radius;
-            Debug.Log("RADIUS = " + _radius);
         }
 
         /*private void OnTriggerStay2D(Collider2D collision)

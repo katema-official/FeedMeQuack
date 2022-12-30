@@ -9,7 +9,7 @@ namespace LevelStageNamespace
     public class LakeShopDescriptionComponent : MonoBehaviour
     {
 
-        protected LevelStageManagerComponent _levelStageManager;
+        protected LevelStageManagerComponent _levelStageManager = null;
 
         protected GameObject _terrain;
         protected GameObject _obstacles = null;
@@ -117,7 +117,7 @@ namespace LevelStageNamespace
         // Start is called before the first frame update
         protected virtual void Awake()
         {
-            _levelStageManager = GameObject.Find("LevelStageManagerObject").GetComponent<LevelStageManagerComponent>();
+            _levelStageManager = GameObject.Find("LevelStageManagerObject")?.GetComponent<LevelStageManagerComponent>();
 
             _terrain = transform.Find("Terrain").gameObject;
             _obstacles = GameObject.Find("Obstacles")?.transform.GetChild(0).gameObject;
