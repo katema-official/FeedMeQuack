@@ -97,7 +97,11 @@ namespace Player
             {
                 _controller.ChangeState(PlayerState.Eating);
                 if (_controller.GetState() == PlayerState.Eating)
+                {
                     _moveSkill.EnableInput(true);
+                    _controller.GetStatusView().SetVisible(true);
+                    _controller.GetStatusView().SetText("");
+                }
                 _caughtBread = bread;
                 StartCoroutine(EatCoroutine());
             }
@@ -107,7 +111,11 @@ namespace Player
                 _controller.ChangeState(PlayerState.Normal);
 
                 if (_controller.GetState() == PlayerState.Normal)
+                {
                     _moveSkill.EnableInput(true);
+                    _controller.GetStatusView().SetVisible(false);
+                    _controller.GetStatusView().SetText("");
+                }
                 _hasBreadBeenFullyEaten = false;
             }
         }

@@ -17,7 +17,7 @@ namespace Player
 
         private LevelStageNamespace.LakeShopDescriptionComponent _currentLake = null;
 
-        private PlayerState _state = PlayerState.Normal;
+        [SerializeField] private PlayerState _state = PlayerState.Normal;
 
 
         private StatusViewController _statusView = null;
