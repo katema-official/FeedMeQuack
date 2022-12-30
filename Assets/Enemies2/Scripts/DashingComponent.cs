@@ -16,7 +16,7 @@ namespace DuckEnemies
         private float _steerDashing;
         private float _distanceToDash;
 
-        private float _stopAtDashing = 3f;      //this won't be given by the outside, since the duck won't simply stop when close enough to the food,
+        private float _stopAtDashing = 10f;      //this won't be given by the outside, since the duck won't simply stop when close enough to the food,
                                                 //but also when in water.
 
 

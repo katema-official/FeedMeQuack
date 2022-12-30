@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2367e82b6f1397f4e9420ea9b270d24c, type: 3}
+  m_Name: Goose
+  m_EditorClassIdentifier: 
+  Type: 1
+  SpeedRoaming: 17
+  AccelerationRoaming: 17
+  DecelerationRoaming: 17
+  SteerRoaming: 17
+  ChillingTime: 1
+  DesiredRoamingDistance: 45
+  StopAtRoaming: 3
+  SpeedFoodSeeking: 20
+  AccelerationFoodSeeking: 14
+  DecelerationFoodSeeking: 40
+  SteerFoodSeeking: 28
+  StopAtFoodSeeking: 2
+  Circle1FoodRadius: 35
+  Circle2FoodRadius: 41
+  Circle3FoodRadius: 47
+  Circle1FoodProbability: 1
+  Circle2FoodProbability: 0.7
+  Circle3FoodProbability: 0.4
+  Circle1PlayerRadius: 40
+  Circle2PlayerRadius: 43
+  Circle3PlayerRadius: 46
+  Circle1PlayerProbability: 1
+  Circle2PlayerProbability: 0.5
+  Circle3PlayerProbability: 0.25
+  DashTriggerProbability: 0.3
+  SpeedDash: 40
+  AccelerationDash: 20
+  DecelerationDash: 40
+  SteerDash: 20
+  DistanceToDash: 15
+  StealTriggerProbability: 0
+  SpeedChasing: 16
+  AccelerationChasing: 7
+  DecelerationChasing: 35
+  SteerChasing: 30
+  WantsToStealCooldown: 10
+  MouthSize: 6
+  ChewingRate: 0.8
+  DigestingTime: 0.4

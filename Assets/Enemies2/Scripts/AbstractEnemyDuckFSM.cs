@@ -246,6 +246,7 @@ namespace DuckEnemies
             stealingActive.enterActions.Add(_stealingComponent.EnterStealingActive_PlaySound);
             stealingActive.exitActions.Add(_chasingComponent.ResetStealingCooldown);
             stealingActive.exitActions.Add(_stealingComponent.ExitStealingActive_StopSound);
+            stealingActive.exitActions.Add(_identifyFoodComponent.ForgetAboutAllFood);
 
 
 
