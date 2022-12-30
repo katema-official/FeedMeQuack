@@ -89,16 +89,6 @@ namespace Player
             GetAllObstaclesGameObjects(_obstaclesGO, _obstaclesList);
             _obstaclesList.RemoveAll(x => !x.activeSelf);
             _enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
-
-            foreach (GameObject obstacle in _obstaclesList)
-            {
-                Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), true);
-            }
-
-            foreach (GameObject enemy in _enemies)
-            {
-                Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), true);
-            }
         }
     
 
@@ -122,21 +112,43 @@ namespace Player
                         _dashElapsedSeconds = 0.0f;
                         _dashCoolDownElapsedSeconds = _coolDown;
                         _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
+
+                        foreach (GameObject obstacle in _obstaclesList)
+                        {
+                            Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), false);
+                        }
+
+                        foreach (GameObject enemy in _enemies)
+                        {
+                            Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), false);
+                        }
                     }
                 }
                 else
                 {
-                    var p = _controller.GetPosition() + _moveSkill.GetDirection() * _noDashArea;
+                    //var p = _controller.GetPosition() + _moveSkill.GetDirection() * _noDashArea;
 
-                    if (_controller.GetLake().Contains(p))
-                    {
-                        _controller.ChangeState(PlayerState.Dashing);
-                    }
+                    //if (_controller.GetLake().Contains(p))
+                    //{
+                    //    _controller.ChangeState(PlayerState.Dashing);
+                    //}
+
+                    _controller.ChangeState(PlayerState.Dashing);
                 }
 
                 if (_controller.GetState() == PlayerState.Dashing)
                 {
                     _moveSkill.EnableInput(false);
+
+                    foreach (GameObject obstacle in _obstaclesList)
+                    {
+                        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), true);
+                    }
+
+                    foreach (GameObject enemy in _enemies)
+                    {
+                        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), true);
+                    }
                 }
 
             }
@@ -147,8 +159,19 @@ namespace Player
                 _controller.ChangeState(PlayerState.Normal);
 
                 if (_controller.GetState() == PlayerState.Normal)
+                { 
                     _moveSkill.EnableInput(true);
 
+                    foreach (GameObject obstacle in _obstaclesList)
+                    {
+                        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), false);
+                    }
+
+                    foreach (GameObject enemy in _enemies)
+                    {
+                        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), false);
+                    }
+                }
                 CheckData();
             }
         }
@@ -182,6 +205,16 @@ namespace Player
                     _moveSkill.EnableInput(true);
                     _dashElapsedSeconds = 0.0f;
                     _dashCoolDownElapsedSeconds = _coolDown;
+
+                    foreach (GameObject obstacle in _obstaclesList)
+                    {
+                        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), false);
+                    }
+
+                    foreach (GameObject enemy in _enemies)
+                    {
+                        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), false);
+                    }
                 }
             }
         }
