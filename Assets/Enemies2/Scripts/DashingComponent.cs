@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SteeringBehaviourNamespace;
 using LevelStageNamespace;
+using Music;
 
 namespace DuckEnemies
 {
@@ -22,6 +23,7 @@ namespace DuckEnemies
         private IdentifyFoodComponent _identifyFoodComponent;
         private MovementSeekComponent _movementSeekComponent;
         private LakeShopDescriptionComponent _lakeShopDescriptionComponent;
+        private AnimalSoundController _animalSoundController;
         private Rigidbody2D _rigidbody2D;
         private float _dashTriggerProbability;
         private bool _destinationReached;
@@ -77,6 +79,11 @@ namespace DuckEnemies
             }
         }
 
+        public void EnterDashing_PlaySound()
+        {
+            _animalSoundController.Fly();
+        }
+
         public void ExitDashing_EnableCollisionsWithObstacles()
         {
             foreach (GameObject obstacle in _obstaclesList)
@@ -86,6 +93,10 @@ namespace DuckEnemies
             _destinationReached = true;
         }
 
+        public void ExitDashing_StopSound()
+        {
+            _animalSoundController.UnFly();
+        }
 
 
 
@@ -127,6 +138,8 @@ namespace DuckEnemies
 
             GetAllObstaclesGameObjects(_obstaclesGO, _obstaclesList);
             StartCoroutine(UpdateObstacles());
+
+            _animalSoundController = GetComponent<AnimalSoundController>();
         }
 
         //I'm so sorry but rn I don't want to do anything difficult to do something so simple

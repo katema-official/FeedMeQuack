@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using BreadNamespace;
 using TMPro;
+using Music;
 
 namespace DuckEnemies
 {
@@ -33,6 +34,7 @@ namespace DuckEnemies
 
         [SerializeField] private GameObject _eatingStatusPrefab;
         private GameObject _eatingStatusGO;
+        private AnimalSoundController _animalSoundController;
 
         public void Initialize(int mouthSize, float chewingRate, float digestingTime)
         {
@@ -44,6 +46,7 @@ namespace DuckEnemies
         void Awake()
         {
             _identifyFoodComponent = GetComponent<IdentifyFoodComponent>();
+            _animalSoundController = GetComponent<AnimalSoundController>();
         }
 
 
@@ -95,6 +98,12 @@ namespace DuckEnemies
             StartCoroutine(EatingCoroutine());
         }
 
+        public void EnterEating_PlaySound()
+        {
+            _animalSoundController.SetIsEnemy(true);
+            _animalSoundController.Eat();
+        }
+
         private IEnumerator EatingCoroutine()
         {
             yield return new WaitForSeconds(_chewingRate);
@@ -126,6 +135,11 @@ namespace DuckEnemies
         {
             _notDisturbed = true;   //will tell to the duck if it can keep eating the food or not
             _finishedEating = false;
+        }
+
+        public void ExitEating_StopSound()
+        {
+            _animalSoundController.UnEat();
         }
 
 

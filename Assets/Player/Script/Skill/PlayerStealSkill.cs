@@ -90,6 +90,7 @@ namespace Player
                 BreadNamespace.BreadInMouthComponent breadContended = _eatSkill.GetCaughtBread();//_enemyToSteal.StartGettingRobbed(enemyFinalPos);//and also enemyDir for the sprite
                                                                                                  // _enemyToSteal.SetPosition(enemyFinalPos);
                                                                                                  // _enemyToSteal.SetRotation(enemyAngle);
+                _controller.GetAnimalSoundController().PlayStealing(transform);
 
                 //let's active the Quick Time Event.
                 LevelStageNamespace.LakeDescriptionComponent lakeDescriptionComponent = (LevelStageNamespace.LakeDescriptionComponent)_controller.GetLake();
@@ -211,6 +212,7 @@ namespace Player
                     //this function should allow the enemy to pass to passive steal state and to displace it in the correct position/direction
                     // enemyDir: 0 left | 1 right
                     BreadNamespace.BreadInMouthComponent breadContended = _enemyToSteal.StartGettingRobbed(enemyFinalPos);//and also enemyDir for the sprite
+                    _controller.GetAnimalSoundController().PlayStealing(transform);
 
                     //let's active the Quick Time Event.
                     LevelStageNamespace.LakeDescriptionComponent lakeDescriptionComponent = (LevelStageNamespace.LakeDescriptionComponent)_controller.GetLake();
@@ -218,7 +220,7 @@ namespace Player
                     {
                         lakeDescriptionComponent.PlayerStartStealFromEnemy(_controller.gameObject, breadContended.gameObject, playerPos.x, playerPos.y + 3f);
                         _controller.GetAnimalSoundController().UnSwim();
-                    }                   
+                    }                 
                 }
             }
 
@@ -243,6 +245,8 @@ namespace Player
 
         public void NotifyFinishedQTE(GameObject breadForPlayer, GameObject breadForEnemy)
         {
+            _controller.GetAnimalSoundController().SetIsInStealingState(false);
+
             if (((_controller.GetState() == PlayerState.Stealing && _stealCoolDownElapsedSeconds <= 0) 
                 || _controller.GetState() == PlayerState.GettingRobbed) && 
                 _enemyToSteal)
@@ -270,9 +274,6 @@ namespace Player
                 {
                     _eatSkill.SetCaughtBread(breadForPlayer.GetComponent<BreadNamespace.BreadInMouthComponent>());  // this function allows the player to change from steal to eat or normal state and provides the resulting bread.
                 }
-
-                
-                //_controller.GetAnimalSoundController().SetIsInStealingState(false);
             }
             _enemyToSteal = null;
         }

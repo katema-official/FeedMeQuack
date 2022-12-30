@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Music;
 
 namespace SteeringBehaviourNamespace
 {
@@ -32,6 +33,7 @@ namespace SteeringBehaviourNamespace
 
         [SerializeField] private float _initialSteer = 0f;
 
+        private AnimalSoundController _animalSoundController;
 
 
 
@@ -142,7 +144,8 @@ namespace SteeringBehaviourNamespace
             _animator = transform.Find("Sprite").GetComponent<Animator>();
             _currentRotation = Random.Range(-180f, 180f);
             //Debug.Log("rotation = " + _currentRotation);
-            SetRotation();    
+            SetRotation();  
+            _animalSoundController = GetComponent<AnimalSoundController>();
         }
 
 
@@ -182,6 +185,7 @@ namespace SteeringBehaviourNamespace
             _stopForReal = false;
             IsDestinationValid = true;
             HasStartedDecelerating = false;
+            _animalSoundController.Swim();
         }
 
         //method to call when we don't want the duck to move anymore
@@ -193,6 +197,7 @@ namespace SteeringBehaviourNamespace
             SetCurrentVelocityComponents();
             //HasStartedDecelerating = false;   //I probably don't need this. If it was far from the destination, this is already false. If I want it to stop moving because
             //the destination was reached, I still want this duck to decelerate
+            _animalSoundController.UnSwim();
         }
 
         //It's a bit drastic, but can be useful every time we don't want this component to take care anymore of the movement of the duck (as for example in the Dashing)
