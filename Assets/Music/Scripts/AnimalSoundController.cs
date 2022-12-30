@@ -8,7 +8,7 @@ namespace Music
 {
     public class AnimalSoundController : MonoBehaviour
     {
-        private AudioSource[] _audioSources = new AudioSource[4];
+        private readonly AudioSource[] _audioSources = new AudioSource[4];
 
         private const string AudioMixerPath = "Mixers/GameAudioMixer";
         private string _animalName = "Mallard";
@@ -26,8 +26,36 @@ namespace Music
         private bool _isInEatingState;
         private bool _isInAnimalCall;
 
-        private const bool IsEnemy = false;
+        private bool _isEnemy = false;
         private string _eatSoundName;
+
+        public void SetAnimalName(char[] newName)
+        {
+            switch (newName[0].ToString().ToUpper())
+            {
+                case "M":
+                    _animalName = "Mallard";
+                    break;
+                case "G":
+                    _animalName = "Goose";
+                    break;
+                case "C":
+                    _animalName = "Coot";
+                    break;
+                default:
+                    _animalName = "Mallard";
+                    break;
+            }
+        }
+
+        public string GetAnimalName()
+        {
+            if (_animalName.ToUpper().StartsWith("M"))
+            {
+                _animalName = "Duck";
+            }
+            return _animalName;
+        }
 
         public void SetIsInSwimmingState(bool isStateChanged)
         {
@@ -88,6 +116,16 @@ namespace Music
         {
             return _isInAnimalCall;
         }
+        
+        public void SetIsEnemy(bool isNewState)
+        {
+            _isEnemy = isNewState;
+        }
+
+        public bool GetIsEnemy()
+        {
+            return _isEnemy;
+        }
 
         private void Awake()
         {
@@ -96,14 +134,8 @@ namespace Music
                 _animalName = "Duck";
             }
 
-            if (!IsEnemy)
-            {
-                _eatSoundName = "PlayerEating";
-            }
-            else
-            {
-                _eatSoundName = "EnemyEating";
-            }
+            _eatSoundName = GetIsEnemy() ? "EnemyEating" : "PlayerEating";
+            
         }
 
         // Start is called before the first frame update
@@ -215,22 +247,22 @@ namespace Music
             yield return null;
         }
         
-        private IEnumerator EmitSound(string animalName, Transform thisTransform)
+        private IEnumerator EmitSound(Transform thisTransform)
         {
             var random = new Unity.Mathematics.Random((uint)DateTime.Now.Ticks);
             while (GetIsInStealingState())
             {
-                var numberOfClip = random.NextInt(0, MusicManagerComponent.stringAndNumberDictionary[animalName]);
+                var numberOfClip = random.NextInt(0, MusicManagerComponent.stringAndNumberDictionary[GetAnimalName()]);
                 switch (numberOfClip)
                 {
                     case 0:
-                        UniversalAudio.PlaySound(animalName, thisTransform);
+                        UniversalAudio.PlaySound(GetAnimalName(), thisTransform);
                         break;
                     case < 10:
-                        UniversalAudio.PlaySound(animalName + " " + "0" + numberOfClip, thisTransform);
+                        UniversalAudio.PlaySound(GetAnimalName() + " " + "0" + numberOfClip, thisTransform);
                         break;
                     default:
-                        UniversalAudio.PlaySound(animalName + " " + numberOfClip, thisTransform);
+                        UniversalAudio.PlaySound(GetAnimalName() + " " + numberOfClip, thisTransform);
                         break;
                 }
                 yield return new WaitForSeconds(random.NextFloat(MinTimeBetweenQuackSteal, MaxTimeBetweenQuackSteal));
@@ -239,27 +271,27 @@ namespace Music
             yield return null;
         }
 
-        public void PlayStealing(string animalName, Transform thisTransform)
+        public void PlayStealing(Transform thisTransform)
         {
             SetIsInStealingState(true);
-            StartCoroutine(EmitSound(animalName, thisTransform));
+            StartCoroutine(EmitSound(thisTransform));
         }
 
         public void AnimalCall()
         {
-            if (_isInAnimalCall)
+            if (GetIsInAnimalCall())
             {
-                var numberOfClip = new Unity.Mathematics.Random((uint)DateTime.Now.Ticks).NextInt(0, MusicManagerComponent.stringAndNumberDictionary[_animalName]);
+                var numberOfClip = new Unity.Mathematics.Random((uint)DateTime.Now.Ticks).NextInt(0, MusicManagerComponent.stringAndNumberDictionary[GetAnimalName()]);
                 switch (numberOfClip)
                 {
                     case 0:
-                        UniversalAudio.PlaySound(_animalName, transform);
+                        UniversalAudio.PlaySound(GetAnimalName(), transform);
                         break;
                     case < 10:
-                        UniversalAudio.PlaySound(_animalName + " " + "0" + numberOfClip, transform);
+                        UniversalAudio.PlaySound(GetAnimalName() + " " + "0" + numberOfClip, transform);
                         break;
                     default:
-                        UniversalAudio.PlaySound(_animalName + " " + numberOfClip, transform);
+                        UniversalAudio.PlaySound(GetAnimalName() + " " + numberOfClip, transform);
                         break;
                 }
             }
