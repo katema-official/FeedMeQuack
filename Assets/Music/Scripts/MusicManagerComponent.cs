@@ -22,8 +22,7 @@ namespace Music
         public static Dictionary<string, int> stringAndNumberDictionary;
         private const float DefaultMusicValue = 0.5f, DefaultSoundValue = 0.95f;
         private static Button _defaultButton;
-        private const float TimeToDestroyPoliMi = 15f;
-        private const float TimeToFadeIn = 10f;
+        private static float _timeAlive;
         private void Awake()
         {
             InitMusicSliders();
@@ -33,6 +32,7 @@ namespace Music
 
         private void Start()
         {
+            
             var buttons = GameObject.Find("MainMenuCanvas").transform
                 .GetComponentsInChildren<Button>(true);
             foreach (var button in buttons)
@@ -48,16 +48,19 @@ namespace Music
 
             InitAnimalsSound();
             UniversalAudio.PlayMusic("Swimming", false);
+            if (audioSource1.isPlaying)
+            {
+                audioSource1.time = 9.96f;
+            }
+            else
+            {
+                audioSource2.time = 9.96f;
+            }
         }
 
         private void Update()
         {
-            if (SceneManager.GetActiveScene().name.Equals("MainMenu") && (Input.GetKeyDown(KeyCode.Space) || Time.time >= TimeToDestroyPoliMi 
-                || Time.time >= TimeToFadeIn))
-            {
-                Destroy(GameObject.Find("SplashStartingMenu"));
-            }
-
+            _timeAlive += Time.deltaTime;
             if (!SceneManager.GetActiveScene().name.Equals("MainMenu") && musicSliders[0] != musicSliders[1])
             {
                 musicSliders[0] = musicSliders[1];
@@ -73,13 +76,17 @@ namespace Music
 
             if (GameObject.FindGameObjectsWithTag("AudioManager").Length >= 2)
             {
+                var i = 0;
                 foreach (var gO in GameObject.FindGameObjectsWithTag("AudioManager"))
                 {
-                    if (gO.transform.GetComponentsInChildren<AudioSource>()[0] != audioSource1)
+                    i++;
+                    
+                    if (i == 2)
                     {
                         DestroyImmediate(gO);
                         break;
                     }
+                    
                 }
 
                 SetRightSliders();
@@ -95,6 +102,16 @@ namespace Music
                     }
                 }
                 _defaultButton.onClick.AddListener(DefaultVolumes);
+                
+                UniversalAudio.PlayMusic("Swimming", false);
+                if (audioSource1.isPlaying)
+                {
+                    audioSource1.time = 9.87f;
+                }
+                else
+                {
+                    audioSource2.time = 9.87f;
+                }
             }
 
         }
@@ -250,6 +267,11 @@ namespace Music
         public static float GetSoundVolume()
         {
             return _soundVolume;
+        }
+        
+        public static float GetDefaultAudioSourceVolume()
+        {
+            return DefaultMusicValue;
         }
 
     }
