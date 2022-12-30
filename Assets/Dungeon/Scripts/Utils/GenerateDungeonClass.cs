@@ -339,7 +339,7 @@ namespace LevelStageNamespace
                     ret.ObstaclesDescription = ObstaclesLakeSmallComponent.GenerateObstaclesDescription();
                     break;
                 case EnumsDungeon.LakeDimension.Medium:
-                    ret.ObstaclesDescription = ObstaclesLakeSmallComponent.GenerateObstaclesDescription();
+                    ret.ObstaclesDescription = ObstaclesLakeMediumComponent.GenerateObstaclesDescription();
                     break;
                 case EnumsDungeon.LakeDimension.Large:
                     ret.ObstaclesDescription = ObstaclesLakeLargeComponent.GenerateObstaclesDescription();
@@ -516,7 +516,7 @@ namespace LevelStageNamespace
         private static void debugGeneratedLake(LakeDescriptionSO lake, int i, int j)
         {
             if(lake.IsStartingRoom == true) { return; }
-            Debug.LogFormat("room [{0},{1}] has:\n" +
+            /*Debug.LogFormat("room [{0},{1}] has:\n" +
                             "{2} mallards, {3} coots, {4} goose\n" +
                             "northRiver: {5}, southRiver: {6}, westRiver: {7}, eastRiver: {8}\n" +
                             "dimension: {9}\n" +
@@ -527,7 +527,7 @@ namespace LevelStageNamespace
                             lake.HasNorthRiver, lake.HasSouthRiver, lake.HasWestRiver, lake.HasEastRiver,
                             lake.Dimension,
                             lake.BreadToSpawnMap[EnumsDungeon.BreadType.Small], lake.BreadToSpawnMap[EnumsDungeon.BreadType.Medium], lake.BreadToSpawnMap[EnumsDungeon.BreadType.Large]);
-                            
+                     */       
         }
 
         private static void debugGeneratedStageBitmap(bool[,] bitmap)

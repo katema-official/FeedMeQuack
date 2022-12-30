@@ -10,7 +10,7 @@ namespace QTEStealNamespace {
         {
             if (collision.gameObject.tag == "QuickTimeEventManager")
             {
-                Debug.Log("TOUCH");
+                //Debug.Log("TOUCH");
                 transform.parent.gameObject.GetComponent<QTEButtonManagerComponent>().ChangeState(EnumsQTESteal.QTEButtonState.InPressing);
             }
         }
@@ -19,7 +19,7 @@ namespace QTEStealNamespace {
         {
             if (collision.gameObject.tag == "QuickTimeEventManager")
             {
-                Debug.Log("UN-TOUCH");
+                //Debug.Log("UN-TOUCH");
                 transform.parent.gameObject.GetComponent<QTEButtonManagerComponent>().ChangeState(EnumsQTESteal.QTEButtonState.Failure);
             }
         }

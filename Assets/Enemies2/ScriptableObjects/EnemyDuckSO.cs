@@ -54,6 +54,7 @@ namespace DuckEnemies
         public float AccelerationChasing;
         public float DecelerationChasing;
         public float SteerChasing;
+        public float WantsToStealCooldown;
 
         [Header("Eating stuff")]
         public int MouthSize;
