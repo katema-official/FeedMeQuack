@@ -17,4 +17,4 @@ MonoBehaviour:
   EatingSpeed: 10
   ChewingRate: 1
   MouthSize: 3
-  EatingStatusIcon: {fileID: 21300000, guid: 31535c9de0572aa4ba7b988642119b17, type: 3}
+  EatingStatusIcon: {fileID: 21300000, guid: 3c3659714137de546b4471566405a8ad, type: 3}

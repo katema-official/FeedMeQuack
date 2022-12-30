@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using HUDNamespace;
+using UnityEngine.InputSystem;
 
 namespace Player
 {
@@ -23,6 +24,13 @@ namespace Player
         private Vector3 _finalDir;
 
         private bool _lockMovement = false;
+        private bool _initLock = false;
+        private Vector2 _lockInputAxis;
+        private Vector2 _oldVelocity;
+
+        private bool _h = false;
+        private bool _v = false;
+
 
         private bool _moveForward = false;
         private float _rotationMovement = 0.0f;
@@ -230,7 +238,7 @@ namespace Player
 
 
                 _rotationMovement = angle;
-
+               
 
                 //up
                 if (angle >= 0 && angle < 22.5)
@@ -297,6 +305,7 @@ namespace Player
 
                 _rigidBody.AddForce(_finalDir * _force, ForceMode2D.Force);
                 _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity, speed);
+               // Debug.Log("_rigidBody.velocity " + _rigidBody.velocity);
 
             }
             else
@@ -304,7 +313,13 @@ namespace Player
                // _rigidBody.velocity = Vector2.ClampMagnitude(_rigidBody.velocity * 0.9f, speed);
 
             }
-        
+
+
+
+            if ((_rigidBody.velocity - _oldVelocity).magnitude < speed-2.0f)
+                _oldVelocity = _rigidBody.velocity;
+
+          //  Debug.Log("_rigidBody.velocity " + _oldVelocity);
 
             // _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
 
@@ -423,13 +438,19 @@ namespace Player
             
 
             var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
-            SceneManager.sceneLoaded += OnSceneLoaded;
+           // SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.activeSceneChanged += OnSceneLoaded;
+
+
         }
 
         // called second
-        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        void OnSceneLoaded(Scene scene, Scene scene2)
         {
             _lockMovement = true;
+            _initLock = true;
+            _rigidBody = GetComponent<Rigidbody2D>();
+            _rigidBody.velocity = _oldVelocity;
         }
 
 
@@ -438,31 +459,48 @@ namespace Player
         void Start()
         {
             _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
+        //    _rigidBody.velocity = _oldVelocity;
             MoveCamera();
         }
+
+
+        
+
 
         // Update is called once per frame
         void Update()
         {
             if (!_enableInput) return;
 
-            var h = Input.GetAxisRaw("Horizontal");
-            var v = Input.GetAxisRaw("Vertical");
 
-            if (_lockMovement)
+            //var h = Input.GetAxisRaw("Horizontal");
+            //var v = Input.GetAxisRaw("Vertical");
+
+            float v = 0;
+            float h = 0;
+
+
+            var keyboard = Keyboard.current;
+            if (keyboard != null)
             {
-                if ((h == 0 && v == 0) && (_forwardAxis.x != 0 || _forwardAxis.y != 0))
-                    return;
-                else
-                    _lockMovement = false;
-            }  
+                if (keyboard.wKey.isPressed) v = 1;
+                if (keyboard.sKey.isPressed)  v = -1;  
+                if (keyboard.aKey.isPressed)  h = -1;
+                if (keyboard.dKey.isPressed) h = 1;
+            }
+
+            var gamepad = Gamepad.current;
+            if (gamepad != null)
+            {
+                Vector2 move = gamepad.leftStick.ReadValue();
+                h += move.x;
+                v += move.y;
+            }
 
             _moveForward = false;
-           // _forwardAxis = new Vector3(0, 0);
+            _forwardAxis = new Vector3(h, v);
 
-            _forwardAxis = new Vector3(h,v);
-
-            if (h != 0 || v != 0)
+            if (_forwardAxis.x != 0 || _forwardAxis.y != 0)
             {
                 _moveForward = true;
                 _controller.GetAnimalSoundController().Swim();
@@ -476,12 +514,17 @@ namespace Player
 
         private void FixedUpdate()
         {
+           // _oldVelocity = _rigidBody.velocity;
             MoveCamera();
-            var screenPos = _camera.WorldToScreenPoint(_rigidBody.position) + new Vector3(-45f, 80f, 0);
+            // var screenPos = _camera.WorldToScreenPoint(_rigidBody.position) + new Vector3(-45f, 80f, 0);
             //Debug.Log("screen: " + screenPos);
             //screenPos.y += 80;
             //screenPos.x -= 20;
-            _controller.GetUICanvas().GetStatusView().SetPosition(screenPos);
+
+            
+
+            var pos = _rigidBody.position + new Vector2(0, 3);
+            _controller.GetStatusView().SetPosition(pos);
 
             if (_controller.GetState() != PlayerState.Normal) return;
 
