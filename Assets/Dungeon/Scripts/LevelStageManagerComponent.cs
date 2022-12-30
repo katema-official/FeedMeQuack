@@ -121,6 +121,7 @@ namespace LevelStageNamespace
                 Music.UniversalAudio.PlayMusic("Swimming", false);
 
                 _hudManager.ChangeGoalText(GetStage(GetLevel(_currentLevel), _currentStage).BreadPointsRequiredToCompleteStage);
+                //_hudManager.ChangeLevelText("" + GetCurrentLevelIndex() + "." + GetCurrentStageIndex);
             }
             else
             {
@@ -191,8 +192,8 @@ namespace LevelStageNamespace
                     break;
             }
 
-            Debug.Log("The player comes from " + GetLakeDescriptionSO().PlayerSpawnDirection);
-            Debug.LogFormat("New room is: [{0},{1}]", _xOfCurrentLake, _yOfCurrentLake);
+            //Debug.Log("The player comes from " + GetLakeDescriptionSO().PlayerSpawnDirection);
+            //Debug.LogFormat("New room is: [{0},{1}]", _xOfCurrentLake, _yOfCurrentLake);
 
             //this function continues in EnterLake, called by the black square
 
@@ -214,10 +215,10 @@ namespace LevelStageNamespace
                     SceneManager.LoadScene("LakeSmall");
                     break;
                 case EnumsDungeon.LakeDimension.Medium:
-                    SceneManager.LoadScene("LakeSmall");    //TODO: LakeMedium
+                    SceneManager.LoadScene("LakeMedium");
                     break;
                 case EnumsDungeon.LakeDimension.Large:
-                    SceneManager.LoadScene("LakeLarge");    //TODO: LakeLarge
+                    SceneManager.LoadScene("LakeLarge");
                     break;
                 default:
                     Debug.Log("Non dovresti assolutamente essere qui");

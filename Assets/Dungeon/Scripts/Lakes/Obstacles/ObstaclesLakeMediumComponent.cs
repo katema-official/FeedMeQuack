@@ -5,8 +5,7 @@ using UnityEngine;
 
 namespace LevelStageNamespace
 {
-
-    public class ObstaclesLakeLargeComponent : ObstaclesLakeComponent
+    public class ObstaclesLakeMediumComponent : ObstaclesLakeComponent
     {
         // Start is called before the first frame update
         void Start()
@@ -21,20 +20,19 @@ namespace LevelStageNamespace
         }
 
 
+
+        //this value must be updated whenever the prefab is modified (I could'nt think of anything better, sorry
+        private static int _nObstaclesSet = 4;
+
         //yeah yeah I know it's very ugly but I can't come up with anything better at the moment, sorryyyyyyyy
         private static Dictionary<int, Dictionary<int, List<int>>> _obstacleSetsDictionary = new Dictionary<int, Dictionary<int, List<int>>>()
     {
         {1, new Dictionary<int, List<int>>()
             {
-                {1, new List<int>(){1,2,3,4} },
-                {2, new List<int>(){1,2,3,4} },
-                {3, new List<int>(){1,2,3,4} },
-                {4, new List<int>(){1,2,3,4} },
-                {5, new List<int>(){1,2,3,4} },
-                {6, new List<int>(){1,2,3,4} },
-                {7, new List<int>(){1,2,3,4} },
-                {8, new List<int>(){1,2,3,4} },
-                {9, new List<int>(){1,2,3,4} }
+                {1, new List<int>(){1,2,3,4,5} },
+                {2, new List<int>(){1,2,3,4,5} },
+                {3, new List<int>(){1,2,3,4,5} },
+                {4, new List<int>(){1,2,3,4,5} }
             }
         },
 
@@ -43,10 +41,23 @@ namespace LevelStageNamespace
                 {1, new List<int>{1} }
             }
         },
+
+        {3, new Dictionary<int, List<int>>()
+            {
+                {1, new List<int>(){1,2,3} },
+                {2, new List<int>(){1,2,3} }
+            }
+        },
+
+        {4,  new Dictionary<int, List<int>>()
+            {
+                {1, new List<int>{1} }
+            }
+        },
     };
 
         //the probability, for each set, to be chosen, Must sum up to one
-        private static List<float> _probabilitiesOfSets = new List<float>() { 0.98f, 0.02f };
+        private static List<float> _probabilitiesOfSets = new List<float>() { 0.70f, 0.05f, 0.22f, 0.03f };
 
 
 
@@ -102,5 +113,9 @@ namespace LevelStageNamespace
         {
             base.SetObstacles(setIndex, quadrants_obstacles);
         }
+
     }
+
+
+
 }

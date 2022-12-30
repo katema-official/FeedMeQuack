@@ -355,7 +355,7 @@ namespace DuckEnemies
                 }
                 directionIndex = (directionIndex + 1) % nDirections;
             }
-            Debug.Log("WHILE in RoamingComponent finito");
+            //Debug.Log("WHILE in RoamingComponent finito");
 
             return chosenPoint;
         }

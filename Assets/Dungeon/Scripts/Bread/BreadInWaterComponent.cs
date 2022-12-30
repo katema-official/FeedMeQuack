@@ -1,3 +1,4 @@
+using DuckEnemies;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -112,18 +113,23 @@ namespace BreadNamespace
 
 
 
-        // Start is called before the first frame update
         void Awake()
         {
             _lakeDescriptionComponent = GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeDescriptionComponent>();
             Music.UniversalAudio.PlaySound("BreadInWater", transform);
         }
 
-        // Update is called once per frame
-        void Update()
+        void Start()
         {
-
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");  
+            foreach(GameObject enemy in enemies)
+            {
+                enemy.transform.Find("FoodCollider1").GetComponent<FoodCircleComponent>().NotifyBreadNear(GetComponent<Collider2D>());
+                enemy.transform.Find("FoodCollider2").GetComponent<FoodCircleComponent>().NotifyBreadNear(GetComponent<Collider2D>());
+                enemy.transform.Find("FoodCollider3").GetComponent<FoodCircleComponent>().NotifyBreadNear(GetComponent<Collider2D>());
+            }
         }
+
 
 
 

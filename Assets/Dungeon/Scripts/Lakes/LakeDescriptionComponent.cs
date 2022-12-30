@@ -113,6 +113,9 @@ namespace LevelStageNamespace {
         protected override void Awake()
         {
             base.Awake();
+
+            Application.targetFrameRate = 60;
+
             _lakeDescriptionForThisLake = _levelStageManager.GetLakeDescriptionSO();
             ManageRiversOfthisLake();
             _breadSpawnForThisLake = _levelStageManager.GetBreadSpawnSO();
@@ -159,7 +162,8 @@ namespace LevelStageNamespace {
             //now we have to place the player in the correct spot
             _playerObject = GameObject.FindWithTag("Player");     //TODO: change in actual player when you have it
 
-            //if the room is the initial one and the player just arrived in the stage, we want it to be on the center of the room
+            //if the
+            //is the initial one and the player just arrived in the stage, we want it to be on the center of the room
             if (!_lakeDescriptionForThisLake.IsLakeCleared && _lakeDescriptionForThisLake.IsStartingRoom)
             {
                 _playerObject.transform.position = new Vector3(0, 0, 0);
@@ -494,29 +498,44 @@ namespace LevelStageNamespace {
             {
                 Debug.Log("Emergence: START WAITING 3 SECONDS");
                 yield return new WaitForSeconds(3f);
-                GameObject[] breadsThrown = GameObject.FindGameObjectsWithTag("FoodThrown");
-                if(breadsThrown.Length > 0)
+
+                if (GameObject.FindGameObjectsWithTag("FoodThrown").Length > 0 ||
+                    GameObject.FindGameObjectsWithTag("FoodInWater").Length > 0 ||
+                    _playerObject.GetComponent<PlayerController>().GetState() == PlayerState.Carrying)
                 {
+                    yield return null;
                 }
                 else
                 {
-                    GameObject[] breadsInWater = GameObject.FindGameObjectsWithTag("FoodInWater");
-                    if (breadsInWater.Length > 0)
+                    //we only have breadInMouth. If there is any, let's take one of them.
+                    GameObject[] breadsInMouth = GameObject.FindGameObjectsWithTag("FoodInMouth");
+                    if (breadsInMouth.Length > 0)
                     {
-                    }
-                    else
-                    {
-                        if(_playerObject.GetComponent<PlayerController>().GetState() != PlayerState.Carrying)
+
+                        if (breadID == 0)
                         {
-                            //TODO
+                            chosenBreadToInvestigate = breadsInMouth[0];
+                            breadID = chosenBreadToInvestigate.GetInstanceID();
+                            breadPoints = chosenBreadToInvestigate.GetComponent<BreadNamespace.BreadInMouthComponent>().GetBreadPoints();
                         }
-
-                        //we only have breadInMouth. If there is any, let's take one of them.
-                        GameObject[] breadsInMouth = GameObject.FindGameObjectsWithTag("FoodInMouth");
-                        if (breadsInMouth.Length > 0)
+                        else
                         {
-
-                            if (breadID == 0)
+                            bool found = false;
+                            for (int i = 0; i < breadsInMouth.Length; i++)
+                            {
+                                if (breadsInMouth[i].GetInstanceID() == breadID)
+                                {
+                                    found = true;
+                                    if (breadsInMouth[i].GetComponent<BreadNamespace.BreadInMouthComponent>().GetBreadPoints() == breadPoints)
+                                    {
+                                        //there is a piece of bread (in mouth) that in three seconds wasn't eaten by a bit. Right now, this cannot happen.
+                                        //So, open the rivers
+                                        CompleteLake();
+                                        Debug.Log("Emergence: EMERGENCE PROCEDURE ACTIVATED 1");
+                                    }
+                                }
+                            }
+                            if (!found && breadsInMouth.Length > 0)
                             {
                                 chosenBreadToInvestigate = breadsInMouth[0];
                                 breadID = chosenBreadToInvestigate.GetInstanceID();
@@ -524,44 +543,20 @@ namespace LevelStageNamespace {
                             }
                             else
                             {
-                                bool found = false;
-                                for (int i = 0; i < breadsInMouth.Length; i++)
-                                {
-                                    if (breadsInMouth[i].GetInstanceID() == breadID)
-                                    {
-                                        found = true;
-                                        if (breadsInMouth[i].GetComponent<BreadNamespace.BreadInMouthComponent>().GetBreadPoints() == breadPoints)
-                                        {
-                                            //there is a piece of bread (in mouth) that in three seconds wasn't eaten by a bit. Right now, this cannot happen.
-                                            //So, open the rivers
-                                            CompleteLake();
-                                            Debug.Log("Emergence: EMERGENCE PROCEDURE ACTIVATED 1");
-                                        }
-                                    }
-                                }
-                                if (!found && breadsInMouth.Length > 0)
-                                {
-                                    chosenBreadToInvestigate = breadsInMouth[0];
-                                    breadID = chosenBreadToInvestigate.GetInstanceID();
-                                    breadPoints = chosenBreadToInvestigate.GetComponent<BreadNamespace.BreadInMouthComponent>().GetBreadPoints();
-                                }
-                                else
-                                {
-                                    breadID = 0;
-                                }
+                                breadID = 0;
+                            }
 
-                            }
                         }
-                        else
+                    }
+                    else
+                    {
+                        //there is NO BREAD at all, of any kind: we can consider the lake finished, but let's do a double check
+                        yield return new WaitForSeconds(0.5f);
+                        breadsInMouth = GameObject.FindGameObjectsWithTag("FoodInMouth");
+                        if (breadsInMouth.Length == 0)
                         {
-                            //there is NO BREAD at all, of any kind: we can consider the lake finished, but let's do a double check
-                            yield return new WaitForSeconds(0.5f);
-                            breadsInMouth = GameObject.FindGameObjectsWithTag("FoodInMouth");
-                            if (breadsInMouth.Length == 0)
-                            {
-                                CompleteLake();
-                                Debug.Log("Emergence: EMERGENCE PROCEDURE ACTIVATED 2");
-                            }
+                            CompleteLake();
+                            Debug.Log("Emergence: EMERGENCE PROCEDURE ACTIVATED 2");
                         }
                     }
                 }
@@ -1018,10 +1013,10 @@ namespace LevelStageNamespace {
             _disputedBread = breadToSteal;
             GameObject qteManager = Instantiate(QTEMinigamePrefab);
             qteManager.GetComponent<QTEStealNamespace.QTEManagerComponment>().Initialize(x, y,
-                (3 * (_levelStageManager.GetCurrentLevelIndex()-1)) + 1 + _levelStageManager.GetCurrentStageIndex(), 
-                3f + _levelStageManager.GetCurrentLevelIndex() + _levelStageManager.GetCurrentStageIndex(),
-                _levelStageManager.GetCurrentLevelIndex()-1, 
-                (_levelStageManager.GetCurrentLevelIndex()*6 + _levelStageManager.GetCurrentStageIndex()*2));
+                _levelStageManager.GetCurrentLevelIndex()*2, 
+                _levelStageManager.GetCurrentLevelIndex()*3 + _levelStageManager.GetCurrentStageIndex(),
+                0, 
+                (3 + _levelStageManager.GetCurrentLevelIndex()*3 + _levelStageManager.GetCurrentStageIndex()));
 
             
         }
@@ -1131,6 +1126,7 @@ namespace LevelStageNamespace {
         {
             if (Input.GetKeyDown(KeyCode.L))
             {
+                _playerObject.GetComponent<PlayerController>().AddBreadPoints(20);
                 CompleteLake();
             }
         }

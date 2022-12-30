@@ -13,7 +13,7 @@ TagManager:
   - QuickTimeEventManager
   - MainMenuCanvas
   - AudioManager
-  - Minimap
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -23,7 +23,7 @@ TagManager:
   - UI
   - WaterLayer
   - TerrainLayer
-  - 
+  - EnemyLayer
   - 
   - 
   - 

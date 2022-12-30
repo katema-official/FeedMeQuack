@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BreadNamespace;
+using TMPro;
 
 namespace DuckEnemies
 {
@@ -29,6 +30,9 @@ namespace DuckEnemies
         private float _maxRollModifier = 1.2f;
         private bool _digestingEnded = false;
         private float _currentDigestingTime;
+
+        [SerializeField] private GameObject _eatingStatusPrefab;
+        private GameObject _eatingStatusGO;
 
         public void Initialize(int mouthSize, float chewingRate, float digestingTime)
         {
@@ -76,6 +80,15 @@ namespace DuckEnemies
             _finishedEating = false;
         }
 
+        public void EnterEating_SpawnEatingStatus()
+        {
+            _eatingStatusGO = Instantiate(_eatingStatusPrefab);
+            _eatingStatusGO.transform.SetParent(transform);
+            _eatingStatusGO.transform.localPosition = new Vector3(0f, 2.25f, 0);
+            _eatingStatusGO.transform.localScale = new Vector3(0.35f, 0.35f, 0);
+            _eatingStatusGO.transform.Find("ValueText").GetComponent<TextMeshPro>().text = "" + _myBreadInMouthComponent.GetBreadPoints();
+        }
+
         //I try to model the eating procedure as a coroutine and not as a stayAction for efficiency reasons
         public void EnterEating_StartEating()
         {
@@ -90,7 +103,8 @@ namespace DuckEnemies
                 int eatenBP;
                 bool completelyEaten;
                 (eatenBP, completelyEaten) = _myBreadInMouthComponent.SubtractBreadPoints(1);
-                Debug.Log("eatenBP = " + eatenBP + ", completelyEaten = " + completelyEaten);
+                //Debug.Log("eatenBP = " + eatenBP + ", completelyEaten = " + completelyEaten);
+                _eatingStatusGO.transform.Find("ValueText").GetComponent<TextMeshPro>().text = "" + _myBreadInMouthComponent.GetBreadPoints();
                 if (!completelyEaten)
                 {
                     yield return new WaitForSeconds(_chewingRate);
@@ -101,6 +115,11 @@ namespace DuckEnemies
                 }
             }
             yield return null;
+        }
+
+        public void ExitEating_DestoryEatingStatus()
+        {
+            Destroy(_eatingStatusGO);
         }
 
         public void ExitEating_ResetValues()

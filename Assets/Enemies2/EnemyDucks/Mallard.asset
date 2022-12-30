@@ -25,28 +25,29 @@ MonoBehaviour:
   SteerFoodSeeking: 20
   StopAtFoodSeeking: 2
   Circle1FoodRadius: 15
-  Circle2FoodRadius: 18
-  Circle3FoodRadius: 21
+  Circle2FoodRadius: 21
+  Circle3FoodRadius: 27
   Circle1FoodProbability: 1
   Circle2FoodProbability: 0.5
   Circle3FoodProbability: 0.25
-  Circle1PlayerRadius: 10
-  Circle2PlayerRadius: 13
-  Circle3PlayerRadius: 16
+  Circle1PlayerRadius: 20
+  Circle2PlayerRadius: 21
+  Circle3PlayerRadius: 22
   Circle1PlayerProbability: 1
-  Circle2PlayerProbability: 0.7
-  Circle3PlayerProbability: 0.4
+  Circle2PlayerProbability: 0.5
+  Circle3PlayerProbability: 0.25
   DashTriggerProbability: 0.1
   SpeedDash: 20
   AccelerationDash: 10
   DecelerationDash: 40
   SteerDash: 20
   DistanceToDash: 10
-  StealTriggerProbability: 0
-  SpeedChasing: 0
-  AccelerationChasing: 0
-  DecelerationChasing: 0
-  SteerChasing: 0
+  StealTriggerProbability: 0.1
+  SpeedChasing: 13
+  AccelerationChasing: 5
+  DecelerationChasing: 30
+  SteerChasing: 20
+  WantsToStealCooldown: 10
   MouthSize: 3
   ChewingRate: 1.5
-  DigestingTime: 2
+  DigestingTime: 1

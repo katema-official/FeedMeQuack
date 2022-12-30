@@ -63,6 +63,7 @@ namespace DuckEnemies
         [SerializeField] protected float _accelerationChasing;                 //at which the duck moves when going after the player 
         [SerializeField] protected float _decelerationChasing;                 //(because it wants to steal it)
         [SerializeField] protected float _steerChasing;
+        [SerializeField] protected float _wantsToStealCooldown;
 
         //####################################### EATING MANAGEMENT #######################################
 
@@ -89,6 +90,8 @@ namespace DuckEnemies
         protected DashingComponent _dashingComponent;
         protected EatingComponent _eatingComponent;
         protected StealingComponent _stealingComponent;
+        protected IdentifyPlayerComponent _identifyPlayerComponent;
+        protected ChasingComponent _chasingComponent;
 
 
 
@@ -139,6 +142,7 @@ namespace DuckEnemies
             _accelerationChasing = _myEnemyDuckDescription.AccelerationChasing;
             _decelerationChasing = _myEnemyDuckDescription.DecelerationChasing;
             _steerChasing = _myEnemyDuckDescription.SteerChasing;
+            _wantsToStealCooldown = _myEnemyDuckDescription.WantsToStealCooldown;
 
             _mouthSize = _myEnemyDuckDescription.MouthSize;
             _chewingRate = _myEnemyDuckDescription.ChewingRate;
@@ -156,14 +160,20 @@ namespace DuckEnemies
             _eatingComponent = GetComponent<EatingComponent>();
             _eatingComponent.Initialize(_mouthSize, _chewingRate, _digestingTime);
             _stealingComponent = GetComponent<StealingComponent>();
-            //No identify for the _stealingComponent (for now at least)
-
+            //No initialize for the _stealingComponent (for now at least)
+            _identifyPlayerComponent = GetComponent<IdentifyPlayerComponent>();
+            _identifyPlayerComponent.Initialize(_circle1PlayerRadius, _circle2PlayerRadius, _circle3PlayerRadius, _circle1PlayerProbability, _circle2PlayerProbability, _circle3PlayerProbability);
+            _chasingComponent = GetComponent<ChasingComponent>();
+            _chasingComponent.Initialize(_stealTriggerProbability, _speedChasing, _accelerationChasing, _decelerationChasing, _steerChasing, _wantsToStealCooldown);
 
             //Initialization of the FSM
 
             //FIRST: define each state with its actions: enter action, stay actions and exit actions
             FSMState hubState = new FSMState();
             hubState.enterActions.Add(EnterHubState_CleanVariables);
+            hubState.enterActions.Add(_identifyPlayerComponent.ForgetAboutPlayer);
+            hubState.enterActions.Add(EnterHubState_CheckNearbyFood);
+            hubState.enterActions.Add(EnterHubState_CheckNearbyPlayer);
 
             FSMState chilling = new FSMState();
             chilling.enterActions.Add(_roamingComponent.EnterChilling_ChooseChillingTime);
@@ -200,6 +210,8 @@ namespace DuckEnemies
             FSMState eating = new FSMState();
             eating.enterActions.Add(_eatingComponent.EnterEating_ResetValues);
             eating.enterActions.Add(_eatingComponent.EnterEating_StartEating);
+            eating.enterActions.Add(_eatingComponent.EnterEating_SpawnEatingStatus);
+            eating.exitActions.Add(_eatingComponent.ExitEating_DestoryEatingStatus);
             //eating.exitActions.Add(_eatingComponent.ExitEating_ResetValues);
 
             FSMState digesting = new FSMState();
@@ -209,8 +221,20 @@ namespace DuckEnemies
             FSMState stealingPassive = new FSMState();
             stealingPassive.enterActions.Add(_stealingComponent.EnterStealingPassive_ResetVariables);
             stealingPassive.exitActions.Add(_stealingComponent.ExitStealingPassive_ResetVariables);
-            
 
+            FSMState chasing = new FSMState();
+            chasing.enterActions.Add(_chasingComponent.EnterChasing_StartPathFinderCoroutine);
+            chasing.enterActions.Add(_chasingComponent.EnterChasing_SetSteeringBehaviour);
+            chasing.stayActions.Add(_chasingComponent.StayChasing_UpdateDestination);
+            chasing.exitActions.Add(_chasingComponent.ExitChasing_DeletePath);
+            chasing.exitActions.Add(_chasingComponent.ExitCoroutine_StopPathFinderCoroutine);
+
+            FSMState tryStealActive = new FSMState();
+            tryStealActive.enterActions.Add(_stealingComponent.EnterTryStealActive_StealPlayer);
+
+            FSMState stealingActive = new FSMState();
+            stealingActive.enterActions.Add(_stealingComponent.EnterStealingActive_ResetVariables);
+            stealingActive.exitActions.Add(_chasingComponent.ResetStealingCooldown);
 
 
 
@@ -260,9 +284,32 @@ namespace DuckEnemies
             FSMTransition digesting_to_hubState = new FSMTransition(_eatingComponent.GetDigestingEnded,
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
 
+
             FSMTransition stealingPassive_to_hubstate = new FSMTransition(_stealingComponent.StealingPassive_WasAllFoodStolen,
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
             FSMTransition stealingPassive_to_eating = new FSMTransition(_stealingComponent.StealingPassive_DoIHaveSomeFoodLeft,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Eating });
+
+
+            FSMTransition x_to_Chasing = new FSMTransition(_chasingComponent.DecidedToSteal,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Chasing });
+
+
+            FSMTransition chasing_to_hubState = new FSMTransition(_chasingComponent.MustStopChasing,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
+            FSMTransition chasing_to_tryStealActive = new FSMTransition(_chasingComponent.PlayerReached,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.TryStealActive });
+
+
+            FSMTransition tryStealActive_to_hubState = new FSMTransition(() => !_stealingComponent.IsPlayerVictimOfStealing(),
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
+            FSMTransition tryStealActive_to_stealingActive = new FSMTransition(_stealingComponent.IsPlayerVictimOfStealing,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.StealingActive });
+
+
+            FSMTransition stealingActive_to_hubState = new FSMTransition(_stealingComponent.StealingActive_EnemyDidNotStoleAnyFood,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
+            FSMTransition stealingActive_to_eating = new FSMTransition(_stealingComponent.StealingActive_EnemyStoleSomeFood,
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Eating });
 
 
@@ -272,18 +319,20 @@ namespace DuckEnemies
             
 
             hubState.AddTransition(x_to_foodSeen, foodSeen);
-            //chasing transition
+            hubState.AddTransition(x_to_Chasing, chasing);
             hubState.AddTransition(hubState_to_chilling, chilling);
 
             chilling.AddTransition(x_to_foodSeen, foodSeen);
+            chilling.AddTransition(x_to_Chasing, chasing);
             chilling.AddTransition(chilling_to_roaming, roaming);
 
             roaming.AddTransition(x_to_foodSeen, foodSeen);
-            //chasing transition
+            roaming.AddTransition(x_to_Chasing, chasing);
             roaming.AddTransition(roaming_to_hubState, hubState);
 
             foodSeen.AddTransition(foodSeen_to_dashing, dashing);
             foodSeen.AddTransition(foodSeen_to_foodSeeking, foodSeeking);
+            foodSeen.AddTransition(foodSeen_to_hubState, hubState);
 
             dashing.AddTransition(dashing_to_bite, bite);
 
@@ -301,7 +350,15 @@ namespace DuckEnemies
             stealingPassive.AddTransition(stealingPassive_to_hubstate, hubState);
             stealingPassive.AddTransition(stealingPassive_to_eating, eating);
 
-            
+            chasing.AddTransition(chasing_to_hubState, hubState);
+            chasing.AddTransition(chasing_to_tryStealActive, tryStealActive);
+
+            tryStealActive.AddTransition(tryStealActive_to_hubState, hubState);
+            tryStealActive.AddTransition(tryStealActive_to_stealingActive, stealingActive);
+
+            stealingActive.AddTransition(stealingActive_to_hubState, hubState);
+            stealingActive.AddTransition(stealingActive_to_eating, eating);
+
 
 
             _fsm = new FSM(hubState);
@@ -324,6 +381,29 @@ namespace DuckEnemies
             //lol i moved everything away
         }
 
+        //to avoid calling the OnTriggerStay2D, that might be heavy computationally speaking, I resort to onTriggerEnter2D and
+        //this action, performed each time a duck enters the hubState, that collects all the nearby bread (it's like calling the
+        //OnTriggerStay2D but the least necessary amount of time)
+        protected void EnterHubState_CheckNearbyFood()
+        {
+            GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("FoodInWater");
+            foreach(GameObject g in gameObjects)
+            {
+                transform.Find("FoodCollider1").GetComponent<FoodCircleComponent>().NotifyBreadNear(g.GetComponent<Collider2D>());
+                transform.Find("FoodCollider2").GetComponent<FoodCircleComponent>().NotifyBreadNear(g.GetComponent<Collider2D>());
+                transform.Find("FoodCollider3").GetComponent<FoodCircleComponent>().NotifyBreadNear(g.GetComponent<Collider2D>());
+            }
+        }
+
+        protected void EnterHubState_CheckNearbyPlayer()
+        {
+            GameObject g = GameObject.FindGameObjectWithTag("Player");
+            transform.Find("PlayerCollider1").GetComponent<PlayerCircleComponent>().NotifyPlayerNear(g.GetComponent<Collider2D>());
+            transform.Find("PlayerCollider2").GetComponent<PlayerCircleComponent>().NotifyPlayerNear(g.GetComponent<Collider2D>());
+            transform.Find("PlayerCollider3").GetComponent<PlayerCircleComponent>().NotifyPlayerNear(g.GetComponent<Collider2D>());
+
+
+        }
 
 
         //############################################################# TRANSITIONS #############################################################
