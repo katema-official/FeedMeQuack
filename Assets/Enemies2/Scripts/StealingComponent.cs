@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using BreadNamespace;
 using Player;
+using Music;
 
 namespace DuckEnemies
 {
@@ -23,7 +24,7 @@ namespace DuckEnemies
         private bool _currentlyBeingRobbed = false;
         private bool _currentlyStealingThePlayer = false;
         private BreadInMouthComponent _breadInMouthComponentAfterStealingPassive;
-
+        private AnimalSoundController _animalSoundController;
 
 
 
@@ -109,6 +110,7 @@ namespace DuckEnemies
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _eatingComponent = GetComponent<EatingComponent>();
             _chasingComponent = GetComponent<ChasingComponent>();
+            _animalSoundController = GetComponent<AnimalSoundController>();
         }
 
 
@@ -125,15 +127,38 @@ namespace DuckEnemies
         public void EnterTryStealActive_StealPlayer()
         {
             _chasingComponent.GetPlayer().gameObject.GetComponent<PlayerStealSkill>().Steal(this);
-            Debug.Log("After stealing the player: " + _chasingComponent.GetPlayer().GetState());
+            //Debug.Log("After stealing the player: " + _chasingComponent.GetPlayer().GetState());
         }
 
         public void EnterStealingActive_ResetVariables()
         {
-            Debug.Log("Entered stealingActive");
             _breadInMouthComponentAfterStealingPassive = null;
             _currentlyStealingThePlayer = true;
         }
+
+        public void EnterStealingActive_PlaySound()
+        {
+            char t;
+            LevelStageNamespace.EnumsDungeon.EnemyType type = GetComponent<AbstractEnemyDuckFSM>().GetEnemyType();
+            switch (type)
+            {
+                case LevelStageNamespace.EnumsDungeon.EnemyType.Mallard:
+                    t = 'M';
+                    break;
+                case LevelStageNamespace.EnumsDungeon.EnemyType.Coot:
+                    t = 'C';
+                    break;
+                case LevelStageNamespace.EnumsDungeon.EnemyType.Goose:
+                    t = 'G';
+                    break;
+                default:
+                    t = ' ';
+                    break;
+            }
+            _animalSoundController.SetAnimalName(new char[] {t});
+            _animalSoundController.PlayStealing(this.transform);
+        }
+
 
         public void ExitStealingActive_ResetVariables()
         {
@@ -141,6 +166,10 @@ namespace DuckEnemies
             _currentlyStealingThePlayer = false;
         }
 
+        public void ExitStealingActive_StopSound()
+        {
+            _animalSoundController.SetIsInStealingState(false);
+        }
 
 
 

@@ -166,7 +166,8 @@ namespace Player
                     _moveSkill.EnableInput(true);
                     _spitArrow.SetActive(true);
                     _spitProgressBar.gameObject.SetActive(true);
-                    Music.UniversalAudio.GetSpitBarSoundController().Spit(_maxPower/_chargeSpeed, GetComponent<AudioSource>());
+                    //Music.UniversalAudio.GetSpitBarSoundController().Spit(_maxPower/_chargeSpeed, GetComponent<AudioSource>());
+                    _controller.GetAnimalSoundController().Spit(_maxPower / _chargeSpeed);
                 }
 
                 CheckData();
@@ -241,7 +242,8 @@ namespace Player
                 Vector3 startPos = _controller.GetPosition();
                 Vector3 endPos = _controller.GetPosition() + _moveSkill.GetDirection() * (_maxRange * (_spitPower / _maxPower));
                 _breadManager.ThrowBread(_caughtBread/*_eatSkill.GetCaughtBread()*/, startPos, endPos);
-                Music.UniversalAudio.GetSpitBarSoundController().SetIsInSpittingState(false);
+                //Music.UniversalAudio.GetSpitBarSoundController().SetIsInSpittingState(false);
+                _controller.GetAnimalSoundController().SetIsInSpittingState(false);
 
                 //_eatSkill.ReleaseBread();
                 _caughtBread = null;

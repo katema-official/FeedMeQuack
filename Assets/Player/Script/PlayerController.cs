@@ -219,7 +219,7 @@ namespace Player
         // Start is called before the first frame update
         private void Start()
         {
-            
+            _animalSoundController.SetIsEnemy(false);
         }
 
         // Update is called once per frame

@@ -7,6 +7,8 @@ namespace DuckEnemies
     [CreateAssetMenu(fileName = "new EnemyDuck", menuName = "EnemyDuckSO")]
     public class EnemyDuckSO : ScriptableObject
     {
+        public LevelStageNamespace.EnumsDungeon.EnemyType Type;
+
         [Header("Roaming stuff")]
         public float SpeedRoaming;
         public float AccelerationRoaming;

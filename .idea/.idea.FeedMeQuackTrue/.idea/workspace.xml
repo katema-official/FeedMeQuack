@@ -2,12 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0808f2d5-72ad-4799-babc-2a377af7996b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuackTrue/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuackTrue/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/AnimalSoundController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Scripts/AnimalSoundController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Music/Scripts/FirstAudioSourceDeleter.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Music/Scripts/PoliMiArchiveController.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -93,6 +98,9 @@
       <workItem from="1671614229088" duration="22000" />
       <workItem from="1671705741572" duration="873000" />
       <workItem from="1671785035668" duration="656000" />
+      <workItem from="1672328525659" duration="10047000" />
+      <workItem from="1672339424695" duration="3212000" />
+      <workItem from="1672387315316" duration="3783000" />
     </task>
     <servers />
   </component>

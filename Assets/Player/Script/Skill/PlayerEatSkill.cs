@@ -115,6 +115,7 @@ namespace Player
                     _moveSkill.EnableInput(true);
                     _controller.GetStatusView().SetVisible(false);
                     _controller.GetStatusView().SetText("");
+                    _controller.GetAnimalSoundController().UnEat();
                 }
                 _hasBreadBeenFullyEaten = false;
             }
@@ -174,6 +175,15 @@ namespace Player
 
                     _controller.applyPowerUp(spentDBP, listAttribs, listValues);
                     _controller.GetHUDManager().ChangeDigestedBreadPointsCollectedText(_controller.GetDigestedBreadPoints());
+
+                    if(spentDBP == 0)
+                    {
+                        Music.UniversalAudio.PlaySound("CannotBuy", transform);
+                    }
+                    else
+                    {
+                        Music.UniversalAudio.PlaySound("Bought", transform);
+                    }
                   //  if(spentDBP > 0) _locatedPowerUp = null;
                     return;
                 }
@@ -272,9 +282,8 @@ namespace Player
             _controller.GetStatusView().SetVisible(true);
             _controller.GetStatusView().SetText("");
             _controller.GetStatusView().SetIcon(_eatDesc.EatingStatusIcon);
-       
 
-            Music.UniversalAudio.PlaySound("Duck 01", _controller.transform);
+            _controller.GetAnimalSoundController().Eat();
 
             while (!_hasBreadBeenFullyEaten && !_mustStopEating)
             {
@@ -291,6 +300,8 @@ namespace Player
             }
             _controller.GetStatusView().SetText("" + _caughtBread.GetBreadPoints());
             _controller.GetStatusView().SetVisible(false);
+
+            _controller.GetAnimalSoundController().UnEat();
 
             //Debug.Log("Bread eaten after");
             yield break;

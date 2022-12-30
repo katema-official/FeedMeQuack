@@ -16,6 +16,8 @@ namespace DuckEnemies
         //First, we define a set of variables whose value can be set by the developer. Then we define other variables/data structures
         //that will be used at runtime
 
+        [SerializeField] protected LevelStageNamespace.EnumsDungeon.EnemyType _type;
+
         //####################################### ROAMING AND SEEKING (SPEED, ACCELERATION, DECELERATION, STEER...) #######################################
 
         [SerializeField] protected float _speedRoaming;                        //max speed, acceleration, deceleration and steer 
@@ -100,6 +102,7 @@ namespace DuckEnemies
             //Initialization of internal data structures and variables
             _state = EnemyDuckFSMEnumState.State.HubState;
 
+            _type = _myEnemyDuckDescription.Type;
 
             _speedRoaming = _myEnemyDuckDescription.SpeedRoaming;
             _accelerationRoaming = _myEnemyDuckDescription.AccelerationRoaming;
@@ -191,7 +194,9 @@ namespace DuckEnemies
             FSMState dashing = new FSMState();
             dashing.enterActions.Add(_dashingComponent.EnterDashing_SaveDestination);
             dashing.enterActions.Add(_dashingComponent.EnterDashing_DisableCollisionsWithObstacles);
+            dashing.enterActions.Add(_dashingComponent.EnterDashing_PlaySound);
             dashing.exitActions.Add(_dashingComponent.ExitDashing_EnableCollisionsWithObstacles);
+            dashing.exitActions.Add(_dashingComponent.ExitDashing_StopSound);
 
             FSMState foodSeeking = new FSMState();
             foodSeeking.enterActions.Add(_foodSeekingComponent.EnterFoodSeeking_FindPath);
@@ -210,8 +215,10 @@ namespace DuckEnemies
             FSMState eating = new FSMState();
             eating.enterActions.Add(_eatingComponent.EnterEating_ResetValues);
             eating.enterActions.Add(_eatingComponent.EnterEating_StartEating);
+            eating.enterActions.Add(_eatingComponent.EnterEating_PlaySound);
             eating.enterActions.Add(_eatingComponent.EnterEating_SpawnEatingStatus);
             eating.exitActions.Add(_eatingComponent.ExitEating_DestoryEatingStatus);
+            eating.exitActions.Add(_eatingComponent.ExitEating_StopSound);
             //eating.exitActions.Add(_eatingComponent.ExitEating_ResetValues);
 
             FSMState digesting = new FSMState();
@@ -220,7 +227,9 @@ namespace DuckEnemies
 
             FSMState stealingPassive = new FSMState();
             stealingPassive.enterActions.Add(_stealingComponent.EnterStealingPassive_ResetVariables);
+            stealingPassive.enterActions.Add(_stealingComponent.EnterStealingActive_PlaySound);
             stealingPassive.exitActions.Add(_stealingComponent.ExitStealingPassive_ResetVariables);
+            stealingPassive.exitActions.Add(_stealingComponent.ExitStealingActive_StopSound);
 
             FSMState chasing = new FSMState();
             chasing.enterActions.Add(_chasingComponent.EnterChasing_StartPathFinderCoroutine);
@@ -234,7 +243,9 @@ namespace DuckEnemies
 
             FSMState stealingActive = new FSMState();
             stealingActive.enterActions.Add(_stealingComponent.EnterStealingActive_ResetVariables);
+            stealingActive.enterActions.Add(_stealingComponent.EnterStealingActive_PlaySound);
             stealingActive.exitActions.Add(_chasingComponent.ResetStealingCooldown);
+            stealingActive.exitActions.Add(_stealingComponent.ExitStealingActive_StopSound);
 
 
 
@@ -443,6 +454,11 @@ namespace DuckEnemies
         }
 
 
+
+        public LevelStageNamespace.EnumsDungeon.EnemyType GetEnemyType()
+        {
+            return _type;
+        }
 
 
 
