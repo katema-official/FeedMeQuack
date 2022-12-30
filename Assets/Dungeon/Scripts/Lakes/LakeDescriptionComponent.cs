@@ -1088,6 +1088,7 @@ namespace LevelStageNamespace {
                 breadInMouthForEnemy
             );
 
+            Debug.Log("BP FOR ENEMY = " + bpForEnemy + ", BP FOR PLAYER = " + bpForPlayer);
 
 
         }

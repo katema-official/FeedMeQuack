@@ -243,9 +243,16 @@ namespace Player
 
         public void NotifyFinishedQTE(GameObject breadForPlayer, GameObject breadForEnemy)
         {
-            if ((_controller.GetState() == PlayerState.Stealing || _controller.GetState() == PlayerState.GettingRobbed) && 
-                _enemyToSteal && _stealCoolDownElapsedSeconds <= 0)
+            if (((_controller.GetState() == PlayerState.Stealing && _stealCoolDownElapsedSeconds <= 0) 
+                || _controller.GetState() == PlayerState.GettingRobbed) && 
+                _enemyToSteal)
             {
+                if (_controller.GetState() == PlayerState.Stealing)
+                {
+                    _stealCoolDownElapsedSeconds = _coolDown;
+                    _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.stealCD, _stealCoolDownElapsedSeconds);
+                }
+
                 if (breadForEnemy == null)
                 {
                     _enemyToSteal.AssignBreadAfterRobbery(null);
@@ -263,9 +270,8 @@ namespace Player
                 {
                     _eatSkill.SetCaughtBread(breadForPlayer.GetComponent<BreadNamespace.BreadInMouthComponent>());  // this function allows the player to change from steal to eat or normal state and provides the resulting bread.
                 }
-                    
-                _stealCoolDownElapsedSeconds = _coolDown;
-                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.stealCD, _stealCoolDownElapsedSeconds);
+
+                
                 //_controller.GetAnimalSoundController().SetIsInStealingState(false);
             }
             _enemyToSteal = null;

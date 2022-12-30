@@ -97,7 +97,11 @@ namespace Player
             {
                 _controller.ChangeState(PlayerState.Eating);
                 if (_controller.GetState() == PlayerState.Eating)
+                {
                     _moveSkill.EnableInput(true);
+                    _controller.GetStatusView().SetVisible(true);
+                    _controller.GetStatusView().SetText("");
+                }
                 _caughtBread = bread;
                 StartCoroutine(EatCoroutine());
             }
@@ -107,7 +111,11 @@ namespace Player
                 _controller.ChangeState(PlayerState.Normal);
 
                 if (_controller.GetState() == PlayerState.Normal)
+                {
                     _moveSkill.EnableInput(true);
+                    _controller.GetStatusView().SetVisible(false);
+                    _controller.GetStatusView().SetText("");
+                }
                 _hasBreadBeenFullyEaten = false;
             }
         }
@@ -261,16 +269,16 @@ namespace Player
             
             _mustStopEating = false;
            
-            _controller.GetUICanvas().GetStatusView().SetVisible(true);
-            _controller.GetUICanvas().GetStatusView().SetText("");
-            _controller.GetUICanvas().GetStatusView().SetIcon(_eatDesc.EatingStatusIcon);
+            _controller.GetStatusView().SetVisible(true);
+            _controller.GetStatusView().SetText("");
+            _controller.GetStatusView().SetIcon(_eatDesc.EatingStatusIcon);
        
 
             Music.UniversalAudio.PlaySound("Duck 01", _controller.transform);
 
             while (!_hasBreadBeenFullyEaten && !_mustStopEating)
             {
-                _controller.GetUICanvas().GetStatusView().SetText("" + _caughtBread.GetBreadPoints());
+                _controller.GetStatusView().SetText("" + _caughtBread.GetBreadPoints());
                 yield return new WaitForSeconds(_chewingRate);
                 if (!_mustStopEating)
                 {
@@ -281,8 +289,8 @@ namespace Player
 
                 }
             }
-            _controller.GetUICanvas().GetStatusView().SetText("" + _caughtBread.GetBreadPoints());
-            _controller.GetUICanvas().GetStatusView().SetVisible(false);
+            _controller.GetStatusView().SetText("" + _caughtBread.GetBreadPoints());
+            _controller.GetStatusView().SetVisible(false);
 
             //Debug.Log("Bread eaten after");
             yield break;
