@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2367e82b6f1397f4e9420ea9b270d24c, type: 3}
   m_Name: Mallard
   m_EditorClassIdentifier: 
+  Type: 0
   SpeedRoaming: 10
   AccelerationRoaming: 10
   DecelerationRoaming: 10
