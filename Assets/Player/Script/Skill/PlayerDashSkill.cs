@@ -26,6 +26,7 @@ namespace Player
 
         private GameObject _obstaclesGO;
         private List<GameObject> _obstaclesList;
+        private List<GameObject> _enemies;
 
         public override void SetDescription(PlayerSkillDescriptionSO desc)
         {
@@ -75,22 +76,28 @@ namespace Player
             _controller = GetComponent<PlayerController>();
             _moveSkill = GetComponent<PlayerMoveSkill>();
             _obstaclesList = new List<GameObject>();
-
+            _enemies = new List<GameObject>();
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         // called second
         void OnSceneLoaded(Scene scene, LoadSceneMode  scene2)
         {
+            _enemies.Clear();
             _obstaclesList.Clear();
             _obstaclesGO = GameObject.Find("Obstacles").transform.GetChild(0).gameObject;
             GetAllObstaclesGameObjects(_obstaclesGO, _obstaclesList);
             _obstaclesList.RemoveAll(x => !x.activeSelf);
+            _enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
 
-            //StartCoroutine(UpdateObstacles());
             foreach (GameObject obstacle in _obstaclesList)
             {
                 Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), true);
+            }
+
+            foreach (GameObject enemy in _enemies)
+            {
+                Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), true);
             }
         }
     
