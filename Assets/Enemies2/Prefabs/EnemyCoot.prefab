@@ -165,7 +165,7 @@ MonoBehaviour:
   _mouthSize: 0
   _chewingRate: 0
   _digestingTime: 0
-  _myEnemyDuckDescription: {fileID: 11400000, guid: aa9b6961286ad034dbc9bb4a0ded93c1, type: 2}
+  _myEnemyDuckDescription: {fileID: 11400000, guid: c4de5eca6e6249c4899296e0c6342b80, type: 2}
   _state: 0
 --- !u!58 &1758801312685362606
 CircleCollider2D:
@@ -414,7 +414,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 40
-  m_Sprite: {fileID: -532916494, guid: 357894d1325c33b42b45007a80aac5f5, type: 3}
+  m_Sprite: {fileID: -2143704156, guid: f635790670ad32d4ea80c0fbfe609fbf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -435,7 +435,7 @@ Animator:
   m_GameObject: {fileID: 1758801313041092808}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 693ae72fac5e629428affb3f23469f15, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4e4f7ac87f388f64e83ba914b2b827a1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
