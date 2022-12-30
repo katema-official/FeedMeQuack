@@ -13,11 +13,11 @@ namespace Music
         private const string AudioMixerPath = "Mixers/GameAudioMixer";
         private string _animalName = "Mallard";
 
-        private float _flyTime = 1.5f;
-        private float _spitTime = 1.5f;
+        private const float _flyTime = 1.5f;
+        private const float _spitTime = 1.5f;
         
-        private const float MinTimeBetweenQuackSteal = 2f;
-        private const float MaxTimeBetweenQuackSteal = 4f;
+        private const float MinTimeBetweenQuackSteal = 0.5f;
+        private const float MaxTimeBetweenQuackSteal = 1f;
         
         private bool _isInSwimmingState;
         private bool _isInStealingState;
@@ -202,7 +202,7 @@ namespace Music
             SetIsInSwimmingState(false);
         }
         
-        public void Fly(float flyTime)
+        public void Fly(float flyTime = _flyTime)
         {
             if (GetIsInFlyingState() == true) return;
             _audioSources[1].pitch = Resources.Load<AudioClip>("SFX/Flying").length / flyTime;
@@ -218,7 +218,7 @@ namespace Music
             SetIsInFlyingState(false);
         }
         
-        public void Spit(float maxTime)
+        public void Spit(float maxTime = _spitTime)
         {
             _audioSources[2].pitch = Resources.Load<AudioClip>("SFX/SpittingSoundUp").length / maxTime;
             SetIsInSpittingState(true);
