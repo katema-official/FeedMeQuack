@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using HUDNamespace;
+using UnityEngine.SceneManagement;
 
 namespace Player
 {
@@ -22,8 +23,10 @@ namespace Player
         private PlayerController _controller = null;
         private PlayerMoveSkill _moveSkill = null;
         private PlayerDashSkillDescriptionSO _dashDesc = null;
-        
-        
+
+        private GameObject _obstaclesGO;
+        private List<GameObject> _obstaclesList;
+
         public override void SetDescription(PlayerSkillDescriptionSO desc)
         {
             _description = desc;
@@ -71,12 +74,30 @@ namespace Player
         {
             _controller = GetComponent<PlayerController>();
             _moveSkill = GetComponent<PlayerMoveSkill>();
+            _obstaclesList = new List<GameObject>();
+
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
+
+        // called second
+        void OnSceneLoaded(Scene scene, LoadSceneMode  scene2)
+        {
+            _obstaclesList.Clear();
+            _obstaclesGO = GameObject.Find("Obstacles").transform.GetChild(0).gameObject;
+            GetAllObstaclesGameObjects(_obstaclesGO, _obstaclesList);
+            _obstaclesList.RemoveAll(x => !x.activeSelf);
+
+            //StartCoroutine(UpdateObstacles());
+            foreach (GameObject obstacle in _obstaclesList)
+            {
+                Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), true);
+            }
+        }
+    
 
         // Start is called before the first frame update
         void Start()
         {
-        
         }
 
         // Update is called once per frame
@@ -107,7 +128,9 @@ namespace Player
                 }
 
                 if (_controller.GetState() == PlayerState.Dashing)
+                {
                     _moveSkill.EnableInput(false);
+                }
 
             }
 
@@ -160,6 +183,26 @@ namespace Player
         {
         }
 
+        //I'm so sorry but rn I don't want to do anything difficult to do something so simple
+        private IEnumerator UpdateObstacles()
+        {
+            yield return new WaitForSeconds(0.05f);
+            _obstaclesList.RemoveAll(x => !x.activeSelf);
+            //In this way I only work with active obstacles
+            yield return null;
+        }
 
+        private void GetAllObstaclesGameObjects(GameObject obstacleGO, List<GameObject> ret)
+        {
+            if (obstacleGO.transform.childCount == 0)
+            {
+                ret.Add(obstacleGO);
+            }
+
+            foreach (Transform child in obstacleGO.transform)
+            {
+                GetAllObstaclesGameObjects(child.gameObject, ret);
+            }
+        }
     }
 }
