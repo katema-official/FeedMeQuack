@@ -452,10 +452,19 @@ namespace Player
             _lockMovement = true;
             _initLock = true;
             _rigidBody = GetComponent<Rigidbody2D>();
-            _rigidBody.velocity = _oldVelocity;
+            _rigidBody.velocity = new Vector2();
+            StartCoroutine(WaitCoroutine());
         }
 
-
+        IEnumerator WaitCoroutine()
+        {
+            yield return new WaitForSeconds(0.2f);
+            _rigidBody = GetComponent<Rigidbody2D>();
+            _rigidBody.velocity = _oldVelocity;
+            _lockMovement = false;
+            //Debug.Log("Bread eaten after");
+            yield break;
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -473,7 +482,12 @@ namespace Player
         void Update()
         {
             if (!_enableInput) return;
-
+            if (_lockMovement)
+            {
+                _rigidBody = GetComponent<Rigidbody2D>();
+                _rigidBody.velocity = new Vector2(0,0);
+                return;
+            }
 
             //var h = Input.GetAxisRaw("Horizontal");
             //var v = Input.GetAxisRaw("Vertical");
@@ -499,6 +513,11 @@ namespace Player
                 v += move.y;
             }
 
+
+
+
+
+
             _moveForward = false;
             _forwardAxis = new Vector3(h, v);
 
@@ -523,7 +542,12 @@ namespace Player
             //screenPos.y += 80;
             //screenPos.x -= 20;
 
-            
+            if (_lockMovement)
+            {
+                _rigidBody = GetComponent<Rigidbody2D>();
+                _rigidBody.velocity = new Vector2(0, 0);
+                return;
+            }
 
             var pos = _rigidBody.position + new Vector2(0, 3);
             _controller.GetStatusView().SetPosition(pos);
