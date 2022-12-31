@@ -229,7 +229,7 @@ namespace GraphLakeNamespace {
             allPoints.Add(FromNodeToPosition(path[path.Length - 1].to));
             allPoints.Add(end);
 
-            //DrawPath(allPoints);
+            DrawPath(allPoints);
 
 
             //then, we need to smooth the path based on the collider of the entity that wants to move in that direction
@@ -268,7 +268,7 @@ namespace GraphLakeNamespace {
             List<Vector3> debugList = new List<Vector3>() { start };
             debugList.AddRange(necessaryPoints);
 
-            //DrawPath(debugList);
+            DrawPath(debugList);
 
             return necessaryPoints;
 

@@ -16,7 +16,7 @@ namespace DuckEnemies
         private float _steerDashing;
         private float _distanceToDash;
 
-        private float _stopAtDashing = 3f;      //this won't be given by the outside, since the duck won't simply stop when close enough to the food,
+        private float _stopAtDashing = 1f;      //this won't be given by the outside, since the duck won't simply stop when close enough to the food,
                                                 //but also when in water.
 
 
@@ -63,7 +63,7 @@ namespace DuckEnemies
         public void EnterDashing_SaveDestination()
         {
             _foodObjective = _identifyFoodComponent.GetObjectiveFood();
-            _foodObjectivePosition = _foodObjective.transform.position;
+            _foodObjectivePosition = new Vector3(_foodObjective.transform.position.x, _foodObjective.transform.position.y, 0);
             _destinationReached = false;
             _currentRotation = _movementSeekComponent.GetRotation();
             SetAcceleration_Increment();
@@ -192,6 +192,11 @@ namespace DuckEnemies
             }
         }
 
+        public GameObject GetFoodObjective()
+        {
+            return _foodObjective;
+        }
+
 
         //#################################################################### THE ACTUAL DASHING ####################################################################
 
@@ -250,7 +255,7 @@ namespace DuckEnemies
                 if(Vector2.Distance(_foodObjectivePosition, transform.position) <= _stopAtDashing) //&&
                     //_lakeShopDescriptionComponent.Contains(transform.position))
                 {
-                    (bool, Vector3) newPos = ((LakeDescriptionComponent) _lakeShopDescriptionComponent).AdjustPlacement(_foodObjectivePosition);
+                    (bool, Vector3) newPos = ((LakeDescriptionComponent) _lakeShopDescriptionComponent).AdjustPlacement(transform.position);
                     if(newPos.Item1 == true)
                     {
                         transform.position = newPos.Item2;

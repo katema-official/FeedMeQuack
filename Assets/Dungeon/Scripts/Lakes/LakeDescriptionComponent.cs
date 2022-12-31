@@ -1137,6 +1137,23 @@ namespace LevelStageNamespace {
         //########################################################################################################################################################
         //########################################################################################################################################################
 
+        //the upper left, lower etc.. are referred to where the grass is in that tileset
+        private const string tilesetTerrainUpperLeft = "tileset-grassland-water_0";
+        private const string tilesetTerrainUpper = "tileset-grassland-water_1";
+        private const string tilesetTerrainUpperRight = "tileset-grassland-water_2";
+        private const string tilesetIslandLowerRight = "tileset-grassland-water_3";
+        private const string tilesetIslandLowerLeft = "tileset-grassland-water_4";
+        private const string tilesetTerrainLeft = "tileset-grassland-water_6";
+        private const string tilesetTerrainRight = "tileset-grassland-water_8";
+        private const string tilesetIslandUpperRight = "tileset-grassland-water_9";
+        private const string tilesetIslandUpperLeft = "tileset-grassland-water_10";
+        private const string tilesetTerrainLowerLeft = "tileset-grassland-water_12";
+        private const string tilesetTerrainLower = "tileset-grassland-water_13";
+        private const string tilesetTerrainLowerRight = "tileset-grassland-water_14";
+
+        private float xLenTile = 1.5f;
+        private float yLenTile = 1.5f;
+
         //function that, given the current position of an objects, positions it inside the lake, in the closest possible
         //water tile
         //if the first return value is "false", the currentPos is already in water.
@@ -1150,6 +1167,7 @@ namespace LevelStageNamespace {
             Tilemap terrainTilemap = _terrain.GetComponent<Tilemap>();
             Vector3Int localPoint = terrainTilemap.WorldToCell(currentPos);
 
+            /*
             List<Vector3Int> nearbyPoints = new List<Vector3Int>();
             nearbyPoints.Add(localPoint + new Vector3Int(1, 0, 0));
             nearbyPoints.Add(localPoint + new Vector3Int(-1, 0, 0));
@@ -1161,6 +1179,40 @@ namespace LevelStageNamespace {
             nearbyPoints.Add(localPoint + new Vector3Int(-1, -1, 0));
             Tilemap waterCenterTilemap = _water.transform.Find("WaterCenter").GetComponent<Tilemap>();
             nearbyPoints.RemoveAll(x => !waterCenterTilemap.HasTile(x));
+            */
+
+            string tileName = "";
+            Vector3 pointCenter = Vector3.zero;
+
+            if (terrainTilemap.HasTile(localPoint))
+            {
+                Debug.Log("Tile type: " + terrainTilemap.GetTile(localPoint));
+                tileName = terrainTilemap.GetTile(localPoint).ToString();
+                pointCenter = terrainTilemap.GetCellCenterWorld(localPoint);
+                //pointCenter = terrainTilemap.CellToWorld(localPoint) + new Vector3(xLenTile, yLenTile);
+            }
+            else
+            {
+                (int, List<(int, int)>) obstacles = _levelStageManager.GetLakeDescriptionSO().ObstaclesDescription;
+                List<Tilemap> tilemapsObstacles = _obstacles.GetComponent<ObstaclesLakeComponent>().GetAllActiveObs(obstacles.Item1, obstacles.Item2);
+                foreach (Tilemap t in tilemapsObstacles)
+                {
+                    if (t.HasTile(localPoint))
+                    {
+                        Debug.Log("Tile type: " + t.GetTile(localPoint));
+                        tileName = t.GetTile(localPoint).ToString();
+                        pointCenter = t.GetCellCenterWorld(localPoint);
+                        //pointCenter = t.CellToWorld(localPoint) + new Vector3(xLenTile, yLenTile);
+                    }
+                }
+            }
+
+            Vector3 newPoint = GetTilePointInsideLake(tileName, currentPos, pointCenter);
+
+            if (newPoint == currentPos) return (false, Vector3.zero);
+
+            /*
+
 
             List<Vector3> trueNearbyPoints = new List<Vector3>();
             foreach(Vector3Int point in nearbyPoints)
@@ -1177,8 +1229,102 @@ namespace LevelStageNamespace {
                 TileGraphComponent.DrawRayPointToPoint(currentPos, p);
             }
 
+            */
+
             return (true, newPoint);
         }
+
+
+        private Vector3 GetTilePointInsideLake(string tileName, Vector3 currentPosOfObj, Vector3 pointCenterOfTile)
+        {
+            Vector3 ret = currentPosOfObj;
+            switch (tileName)
+            {
+                case tilesetTerrainUpperLeft:
+                    //this if (and the following ones) mean: "if you are not inside the water..."
+                    if(!(currentPosOfObj.x > pointCenterOfTile.x && currentPosOfObj.y < pointCenterOfTile.y))
+                    {
+                        ret = pointCenterOfTile + new Vector3(xLenTile/4, -yLenTile/4, 0);
+                    }
+                    break;
+                case tilesetTerrainUpper:
+                    if(!(currentPosOfObj.y < pointCenterOfTile.y))
+                    {
+                        ret = pointCenterOfTile;
+                    }
+                    break;
+                case tilesetTerrainUpperRight:
+                    if (!(currentPosOfObj.x < pointCenterOfTile.x && currentPosOfObj.y < pointCenterOfTile.y))
+                    {
+                        ret = pointCenterOfTile + new Vector3(-xLenTile / 4, -yLenTile / 4, 0);
+                    }
+                    break;
+                case tilesetIslandLowerRight:
+                    //here it's easier to say: "if you are inside the terrain..."
+                    if ((currentPosOfObj.x > pointCenterOfTile.x && currentPosOfObj.y < pointCenterOfTile.y))
+                    {
+                        ret = pointCenterOfTile;
+                    }
+                    break;
+                case tilesetIslandLowerLeft:
+                    if ((currentPosOfObj.x < pointCenterOfTile.x && currentPosOfObj.y < pointCenterOfTile.y))
+                    {
+                        ret = pointCenterOfTile;
+                    }
+                    break;
+                case tilesetTerrainLeft:
+                    if(!(currentPosOfObj.x > pointCenterOfTile.x))
+                    {
+                        ret = pointCenterOfTile + new Vector3(xLenTile / 4, 0, 0);
+                    }
+                    break;
+                case tilesetTerrainRight:
+                    if (!(currentPosOfObj.x < pointCenterOfTile.x))
+                    {
+                        ret = pointCenterOfTile + new Vector3(-xLenTile / 4, 0, 0);
+                    }
+                    break;
+                case tilesetIslandUpperRight:
+                    if ((currentPosOfObj.x > pointCenterOfTile.x && currentPosOfObj.y > pointCenterOfTile.y))
+                    {
+                        ret = pointCenterOfTile;
+                    }
+                    break;
+                case tilesetIslandUpperLeft:
+                    if ((currentPosOfObj.x < pointCenterOfTile.x && currentPosOfObj.y > pointCenterOfTile.y))
+                    {
+                        ret = pointCenterOfTile;
+                    }
+                    break;
+                case tilesetTerrainLowerLeft:
+                    if (!(currentPosOfObj.x > pointCenterOfTile.x && currentPosOfObj.y > pointCenterOfTile.y))
+                    {
+                        ret = pointCenterOfTile + new Vector3(xLenTile / 4, yLenTile / 4, 0);
+                    }
+                    break;
+                case tilesetTerrainLower:
+                    if(!(currentPosOfObj.y > pointCenterOfTile.y))
+                    {
+                        ret = pointCenterOfTile + new Vector3(0, yLenTile / 4, 0);
+                    }
+                    break;
+                case tilesetTerrainLowerRight:
+                    if (!(currentPosOfObj.x < pointCenterOfTile.x && currentPosOfObj.y > pointCenterOfTile.y))
+                    {
+                        ret = pointCenterOfTile + new Vector3(-xLenTile / 4, yLenTile / 4, 0);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+
+            return ret;
+        }
+
+
+
+
 
         //check if a point is in a terrain tile, and around it there are terrain tiles
         public bool IsEntityInTerrain(Vector3 point)
