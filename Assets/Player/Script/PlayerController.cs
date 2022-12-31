@@ -57,7 +57,10 @@ namespace Player
         {
             return (int) _breadPoints;
         }
-
+        public Bounds GetCameraBounds()
+        {
+            return CameraUtility.OrthographicBounds(_camera);
+        }
         public Animator GetAnimator()
         {
             return _animator;
