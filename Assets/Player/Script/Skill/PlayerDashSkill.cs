@@ -123,8 +123,14 @@ namespace Player
 
         }
 
-        void OnExitDashingState()
+        void OnExitDashingState(bool externalTerrain = false)
         {
+            var p = _controller.GetPosition();
+
+            if (!_controller.GetLake().Contains(p) && !externalTerrain) return;
+
+
+
             _controller.ChangeState(PlayerState.Normal);
 
             if (_controller.GetState() == PlayerState.Normal)
@@ -148,8 +154,6 @@ namespace Player
         }
 
 
-
-
         void Awake()
         {
             _controller = GetComponent<PlayerController>();
@@ -171,80 +175,24 @@ namespace Player
             {
                 if (_controller.GetState() == PlayerState.Dashing)
                 {
+                    _dashElapsedSeconds = _maxDuration;
                     OnExitDashingState();
-                    //_controller.ChangeState(PlayerState.Normal);
-
-                    //if (_controller.GetState() == PlayerState.Normal)
-                    //{
-                    //    _moveSkill.EnableInput(true);
-                    //    _dashElapsedSeconds = 0.0f;
-                    //    _dashCoolDownElapsedSeconds = _coolDown;
-                    //    _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
-
-                    //    foreach (GameObject obstacle in _obstaclesList)
-                    //    {
-                    //        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), false);
-                    //    }
-
-                    //    foreach (GameObject enemy in _enemies)
-                    //    {
-                    //        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), false);
-                    //    }
-                    //}
+                    
                 }
                 else
                 {
                     //var p = _controller.GetPosition() + _moveSkill.GetDirection() * _noDashArea;
-
                     //if (_controller.GetLake().Contains(p))
                     //{
                     //    _controller.ChangeState(PlayerState.Dashing);
                     //}
-
-                    //  _controller.ChangeState(PlayerState.Dashing);
-
                     OnEnterDashingState();
                 }
-
-                //if (_controller.GetState() == PlayerState.Dashing)
-                //{
-                //    _moveSkill.EnableInput(false);
-
-                //    foreach (GameObject obstacle in _obstaclesList)
-                //    {
-                //        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), true);
-                //    }
-
-                //    foreach (GameObject enemy in _enemies)
-                //    {
-                //        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), true);
-                //    }
-                //}
-
             }
-
 
             if (_controller.GetState() == PlayerState.Dashing && _dashElapsedSeconds >= _maxDuration && _dashCoolDownElapsedSeconds <= 0)
             {
-                //_controller.ChangeState(PlayerState.Normal);
-
-                //if (_controller.GetState() == PlayerState.Normal)
-                //{ 
-                //    _moveSkill.EnableInput(true);
-
-                //    foreach (GameObject obstacle in _obstaclesList)
-                //    {
-                //        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), false);
-                //    }
-
-                //    foreach (GameObject enemy in _enemies)
-                //    {
-                //        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), false);
-                //    }
-                //}
-
                 OnExitDashingState();
-               // CheckData();
             }
         }
 
@@ -255,6 +203,11 @@ namespace Player
                 _dashElapsedSeconds += Time.deltaTime;
                 _moveSkill.Move(_maxSpeed, true);
             }
+            else if (_controller.GetState() == PlayerState.Dashing && _dashElapsedSeconds >= _maxDuration)
+            {
+                _moveSkill.Move(_maxSpeed, true);
+            }
+
 
             if (_controller.GetState() != PlayerState.Dashing && _dashCoolDownElapsedSeconds > 0)
             {
@@ -270,33 +223,12 @@ namespace Player
         {
             if (_controller.GetState() == PlayerState.Dashing)
             {
-                OnExitDashingState();
-                //_controller.ChangeState(PlayerState.Normal);
-
-                //if (_controller.GetState() == PlayerState.Normal)
-                //{
-                //    _moveSkill.EnableInput(true);
-                //    _dashElapsedSeconds = 0.0f;
-                //    _dashCoolDownElapsedSeconds = _coolDown;
-
-                //    foreach (GameObject obstacle in _obstaclesList)
-                //    {
-                //        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), false);
-                //    }
-
-                //    foreach (GameObject enemy in _enemies)
-                //    {
-                //        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), false);
-                //    }
-                //}
+                OnExitDashingState(true);
             }
         }
 
         void OnCollisionExit2D(Collision2D other)
         {
         }
-
-
-
     }
 }

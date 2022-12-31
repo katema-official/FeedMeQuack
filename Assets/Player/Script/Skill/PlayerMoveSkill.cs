@@ -315,11 +315,13 @@ namespace Player
             }
 
 
+            var mag = (_rigidBody.velocity - _oldVelocity).magnitude;
 
-            if ((_rigidBody.velocity - _oldVelocity).magnitude < speed-2.0f)
+            if (mag < speed*0.8f)
                 _oldVelocity = _rigidBody.velocity;
+      
 
-          //  Debug.Log("_rigidBody.velocity " + _oldVelocity);
+            Debug.Log("_rigidBody.velocity " + _oldVelocity);
 
             // _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
 
