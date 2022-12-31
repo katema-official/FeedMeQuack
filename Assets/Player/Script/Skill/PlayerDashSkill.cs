@@ -19,7 +19,6 @@ namespace Player
         private float _noDashArea = 10.0f;
         //-------------------------------------
 
-
         private PlayerController _controller = null;
         private PlayerMoveSkill _moveSkill = null;
         private PlayerDashSkillDescriptionSO _dashDesc = null;
@@ -69,17 +68,28 @@ namespace Player
                 _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
             }
         }
-
-
-        void Awake()
+        //I'm so sorry but rn I don't want to do anything difficult to do something so simple
+        private IEnumerator UpdateObstacles()
         {
-            _controller = GetComponent<PlayerController>();
-            _moveSkill = GetComponent<PlayerMoveSkill>();
-            _obstaclesList = new List<GameObject>();
-            _enemies = new List<GameObject>();
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            yield return new WaitForSeconds(0.05f);
+            _obstaclesList.RemoveAll(x => !x.activeSelf);
+            //In this way I only work with active obstacles
+            yield return null;
         }
 
+        private void GetAllObstaclesGameObjects(GameObject obstacleGO, List<GameObject> ret)
+        {
+            if (obstacleGO.transform.childCount == 0)
+            {
+                ret.Add(obstacleGO);
+            }
+
+            foreach (Transform child in obstacleGO.transform)
+            {
+                GetAllObstaclesGameObjects(child.gameObject, ret);
+            }
+        }
+        
         // called second
         void OnSceneLoaded(Scene scene, LoadSceneMode  scene2)
         {
@@ -91,6 +101,63 @@ namespace Player
             _enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
         }
     
+
+        void OnEnterDashingState()
+        {
+            _controller.ChangeState(PlayerState.Dashing);
+
+            if (_controller.GetState() == PlayerState.Dashing)
+            {
+                _moveSkill.EnableInput(false);
+
+                foreach (GameObject obstacle in _obstaclesList)
+                {
+                    Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), true);
+                }
+
+                foreach (GameObject enemy in _enemies)
+                {
+                    Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), true);
+                }
+            }
+
+        }
+
+        void OnExitDashingState()
+        {
+            _controller.ChangeState(PlayerState.Normal);
+
+            if (_controller.GetState() == PlayerState.Normal)
+            {
+                _moveSkill.EnableInput(true);
+                _dashElapsedSeconds = 0.0f;
+                _dashCoolDownElapsedSeconds = _coolDown;
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
+
+                foreach (GameObject obstacle in _obstaclesList)
+                {
+                    Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), false);
+                }
+
+                foreach (GameObject enemy in _enemies)
+                {
+                    Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), false);
+                }
+            }
+            CheckData();
+        }
+
+
+
+
+        void Awake()
+        {
+            _controller = GetComponent<PlayerController>();
+            _moveSkill = GetComponent<PlayerMoveSkill>();
+            _obstaclesList = new List<GameObject>();
+            _enemies = new List<GameObject>();
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -104,25 +171,26 @@ namespace Player
             {
                 if (_controller.GetState() == PlayerState.Dashing)
                 {
-                    _controller.ChangeState(PlayerState.Normal);
+                    OnExitDashingState();
+                    //_controller.ChangeState(PlayerState.Normal);
 
-                    if (_controller.GetState() == PlayerState.Normal)
-                    {
-                        _moveSkill.EnableInput(true);
-                        _dashElapsedSeconds = 0.0f;
-                        _dashCoolDownElapsedSeconds = _coolDown;
-                        _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
+                    //if (_controller.GetState() == PlayerState.Normal)
+                    //{
+                    //    _moveSkill.EnableInput(true);
+                    //    _dashElapsedSeconds = 0.0f;
+                    //    _dashCoolDownElapsedSeconds = _coolDown;
+                    //    _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
 
-                        foreach (GameObject obstacle in _obstaclesList)
-                        {
-                            Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), false);
-                        }
+                    //    foreach (GameObject obstacle in _obstaclesList)
+                    //    {
+                    //        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), false);
+                    //    }
 
-                        foreach (GameObject enemy in _enemies)
-                        {
-                            Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), false);
-                        }
-                    }
+                    //    foreach (GameObject enemy in _enemies)
+                    //    {
+                    //        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), false);
+                    //    }
+                    //}
                 }
                 else
                 {
@@ -133,46 +201,50 @@ namespace Player
                     //    _controller.ChangeState(PlayerState.Dashing);
                     //}
 
-                    _controller.ChangeState(PlayerState.Dashing);
+                    //  _controller.ChangeState(PlayerState.Dashing);
+
+                    OnEnterDashingState();
                 }
 
-                if (_controller.GetState() == PlayerState.Dashing)
-                {
-                    _moveSkill.EnableInput(false);
+                //if (_controller.GetState() == PlayerState.Dashing)
+                //{
+                //    _moveSkill.EnableInput(false);
 
-                    foreach (GameObject obstacle in _obstaclesList)
-                    {
-                        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), true);
-                    }
+                //    foreach (GameObject obstacle in _obstaclesList)
+                //    {
+                //        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), true);
+                //    }
 
-                    foreach (GameObject enemy in _enemies)
-                    {
-                        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), true);
-                    }
-                }
+                //    foreach (GameObject enemy in _enemies)
+                //    {
+                //        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), true);
+                //    }
+                //}
 
             }
 
 
             if (_controller.GetState() == PlayerState.Dashing && _dashElapsedSeconds >= _maxDuration && _dashCoolDownElapsedSeconds <= 0)
             {
-                _controller.ChangeState(PlayerState.Normal);
+                //_controller.ChangeState(PlayerState.Normal);
 
-                if (_controller.GetState() == PlayerState.Normal)
-                { 
-                    _moveSkill.EnableInput(true);
+                //if (_controller.GetState() == PlayerState.Normal)
+                //{ 
+                //    _moveSkill.EnableInput(true);
 
-                    foreach (GameObject obstacle in _obstaclesList)
-                    {
-                        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), false);
-                    }
+                //    foreach (GameObject obstacle in _obstaclesList)
+                //    {
+                //        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), false);
+                //    }
 
-                    foreach (GameObject enemy in _enemies)
-                    {
-                        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), false);
-                    }
-                }
-                CheckData();
+                //    foreach (GameObject enemy in _enemies)
+                //    {
+                //        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), false);
+                //    }
+                //}
+
+                OnExitDashingState();
+               // CheckData();
             }
         }
 
@@ -198,24 +270,25 @@ namespace Player
         {
             if (_controller.GetState() == PlayerState.Dashing)
             {
-                _controller.ChangeState(PlayerState.Normal);
+                OnExitDashingState();
+                //_controller.ChangeState(PlayerState.Normal);
 
-                if (_controller.GetState() == PlayerState.Normal)
-                {
-                    _moveSkill.EnableInput(true);
-                    _dashElapsedSeconds = 0.0f;
-                    _dashCoolDownElapsedSeconds = _coolDown;
+                //if (_controller.GetState() == PlayerState.Normal)
+                //{
+                //    _moveSkill.EnableInput(true);
+                //    _dashElapsedSeconds = 0.0f;
+                //    _dashCoolDownElapsedSeconds = _coolDown;
 
-                    foreach (GameObject obstacle in _obstaclesList)
-                    {
-                        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), false);
-                    }
+                //    foreach (GameObject obstacle in _obstaclesList)
+                //    {
+                //        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), false);
+                //    }
 
-                    foreach (GameObject enemy in _enemies)
-                    {
-                        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), false);
-                    }
-                }
+                //    foreach (GameObject enemy in _enemies)
+                //    {
+                //        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), false);
+                //    }
+                //}
             }
         }
 
@@ -223,26 +296,7 @@ namespace Player
         {
         }
 
-        //I'm so sorry but rn I don't want to do anything difficult to do something so simple
-        private IEnumerator UpdateObstacles()
-        {
-            yield return new WaitForSeconds(0.05f);
-            _obstaclesList.RemoveAll(x => !x.activeSelf);
-            //In this way I only work with active obstacles
-            yield return null;
-        }
 
-        private void GetAllObstaclesGameObjects(GameObject obstacleGO, List<GameObject> ret)
-        {
-            if (obstacleGO.transform.childCount == 0)
-            {
-                ret.Add(obstacleGO);
-            }
 
-            foreach (Transform child in obstacleGO.transform)
-            {
-                GetAllObstaclesGameObjects(child.gameObject, ret);
-            }
-        }
     }
 }
