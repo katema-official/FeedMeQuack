@@ -66,8 +66,8 @@ public class TutorialComponent : MonoBehaviour
         int tutorial = int.Parse(splitA[1]);
         if(tutorial == 0)
         {
-            Destroy(this);
-            Destroy(this.gameObject);
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+            Destroy(gameObject);
             return;
         }
 
@@ -147,7 +147,7 @@ public class TutorialComponent : MonoBehaviour
     }
 
 
-    private float _deleteTimeText = 8f;
+    //private float _deleteTimeText = 8f;
     private IEnumerator DeleteText(float time = 8f)
     {
         yield return new WaitForSeconds(time);
@@ -177,7 +177,6 @@ public class TutorialComponent : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         _sceneCount++;
-        Debug.Log("SCENE COUNT = " + _sceneCount);
         if (scene.name == "LakeSmall" && _sceneCount == 3)
         {
             StopCoroutine(_deleteTextCoroutine);
@@ -204,7 +203,8 @@ public class TutorialComponent : MonoBehaviour
     private void EndTutorial()
     {
         StreamWriter writer = new StreamWriter(_tutorialPath, false);
-        writer.Write("tutorial, 0");
+        writer.Write("tutorial, 0\n");
+        writer.Close();
     }
 
 

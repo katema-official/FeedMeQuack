@@ -164,11 +164,18 @@ namespace GraphLakeNamespace {
             Debug.DrawRay(start, end - start, Color.yellow, 5f, false);
         }
 
-        private void DrawPath(List<Vector3> path)
+        public static void DrawRayPointToPoint(Vector3 v1, Vector3 v2)
         {
+            Debug.DrawRay(v1, v2 - v1, Color.yellow, 5f, false);
+        }
+
+        public void DrawPath(List<Vector3> path, Color? c = null)
+        {
+            if (c == null) c = Color.red;
+            Color color = (Color) c;
             for(int i = 0; i < path.Count - 1; i++)
             {
-                Debug.DrawRay(path[i], path[i+1] - path[i], Color.red, 5f, false);
+                Debug.DrawRay(path[i], path[i+1] - path[i], color, 5f, false);
             }
         }
 
@@ -222,7 +229,7 @@ namespace GraphLakeNamespace {
             allPoints.Add(FromNodeToPosition(path[path.Length - 1].to));
             allPoints.Add(end);
 
-            DrawPath(allPoints);
+            //DrawPath(allPoints);
 
 
             //then, we need to smooth the path based on the collider of the entity that wants to move in that direction
@@ -261,7 +268,7 @@ namespace GraphLakeNamespace {
             List<Vector3> debugList = new List<Vector3>() { start };
             debugList.AddRange(necessaryPoints);
 
-            DrawPath(debugList);
+            //DrawPath(debugList);
 
             return necessaryPoints;
 

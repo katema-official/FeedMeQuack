@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BreadSpawnLakeMedium3.3
   m_EditorClassIdentifier: 
   MinNumberOfBreadPerLake: 7
-  MaxNumberOfBreadPerLake: 9
+  MaxNumberOfBreadPerLake: 7
   ProbabilitiesOfBread:
   - 0
   - 0.55

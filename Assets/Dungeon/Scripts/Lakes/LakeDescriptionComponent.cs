@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Player;
 using HUDNamespace;
+using System.Linq;
+using GraphLakeNamespace;
 
 namespace LevelStageNamespace {
     public class LakeDescriptionComponent : LakeShopDescriptionComponent
@@ -1088,10 +1090,18 @@ namespace LevelStageNamespace {
                 breadInMouthForEnemy
             );
 
-            Debug.Log("BP FOR ENEMY = " + bpForEnemy + ", BP FOR PLAYER = " + bpForPlayer);
+            //Debug.Log("BP FOR ENEMY = " + bpForEnemy + ", BP FOR PLAYER = " + bpForPlayer);
 
 
         }
+
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+        //####################################################################### MINIMAP ########################################################################
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+
+
 
         //Minimap management
         private int GetValueForMinimap(LakeDescriptionSO lake)
@@ -1119,6 +1129,83 @@ namespace LevelStageNamespace {
             }
             return ret;
         }
+
+
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+        //############################################################# CORRECTION OF DUCK PLACEMENT #############################################################
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+
+        //function that, given the current position of an objects, positions it inside the lake, in the closest possible
+        //water tile
+        //if the first return value is "false", the currentPos is already in water.
+        //if the first return value is "true, the new position in which the object must be positioned is given in the second return value.
+        public (bool, Vector3) AdjustPlacement(Vector3 currentPos)
+        {
+            //simple case
+            if (base.Contains(currentPos)) return (false, Vector3.zero);
+
+            //we must now return the closes point inside the lake
+            Tilemap terrainTilemap = _terrain.GetComponent<Tilemap>();
+            Vector3Int localPoint = terrainTilemap.WorldToCell(currentPos);
+
+            List<Vector3Int> nearbyPoints = new List<Vector3Int>();
+            nearbyPoints.Add(localPoint + new Vector3Int(1, 0, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(-1, 0, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(0, 1, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(0, -1, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(1, 1, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(1, -1, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(-1, 1, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(-1, -1, 0));
+            Tilemap waterCenterTilemap = _water.transform.Find("WaterCenter").GetComponent<Tilemap>();
+            nearbyPoints.RemoveAll(x => !waterCenterTilemap.HasTile(x));
+
+            List<Vector3> trueNearbyPoints = new List<Vector3>();
+            foreach(Vector3Int point in nearbyPoints)
+            {
+                trueNearbyPoints.Add(waterCenterTilemap.CellToWorld(point) + new Vector3(1.5f, 1.5f));
+            }
+
+            Vector3 newPoint;
+
+            newPoint = trueNearbyPoints.OrderByDescending(adj => Vector3.Distance(currentPos, adj)).Last();
+
+            foreach(Vector3 p in trueNearbyPoints)
+            {
+                TileGraphComponent.DrawRayPointToPoint(currentPos, p);
+            }
+
+            return (true, newPoint);
+        }
+
+        //check if a point is in a terrain tile, and around it there are terrain tiles
+        public bool IsEntityInTerrain(Vector3 point)
+        {
+            //simple case
+            if (base.Contains(point)) return false;
+
+            Tilemap terrainTilemap = _terrain.GetComponent<Tilemap>();
+            Vector3Int localPoint = terrainTilemap.WorldToCell(point);
+
+            List<Vector3Int> nearbyPoints = new List<Vector3Int>();
+            nearbyPoints.Add(localPoint + new Vector3Int(1, 0, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(-1, 0, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(0, 1, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(0, -1, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(1, 1, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(1, -1, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(-1, 1, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(-1, -1, 0));
+            nearbyPoints.RemoveAll(x => terrainTilemap.HasTile(x));
+
+            if (nearbyPoints.Count > 0) return true;
+
+            return false;
+
+        }
+
 
 
 

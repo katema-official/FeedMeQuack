@@ -185,6 +185,8 @@ namespace DuckEnemies {
             _pathChasing = _tileGraphComponent.GetPathFromPointToPoint(transform.position, _finalDestinationChasing, GetComponent<CircleCollider2D>());
             _indexCurrentDestination = 0;
 
+            _tileGraphComponent.DrawPath(_pathChasing, Color.black);
+
             //the player moves, so we have to implement a sort of chasing component.
             //1) Compute current distance between enemy and player
             float distanceEnemyPlayer = 0f;
@@ -192,6 +194,8 @@ namespace DuckEnemies {
             {
                 distanceEnemyPlayer += Vector2.Distance(_pathChasing[i], _pathChasing[i + 1]);
             }
+
+            distanceEnemyPlayer = Mathf.Max(distanceEnemyPlayer, 2f);
 
             //2) Compute the time to get there (at max speed, for simplicity)
             float timeToGetThere = distanceEnemyPlayer / _speedChasing;
@@ -203,6 +207,8 @@ namespace DuckEnemies {
 
             //4) Add this new point to the end of the path to follow (shouldn't be done like this, but it's the fastest and easiset way)
             _pathChasing.Add(arrival);
+
+            _tileGraphComponent.DrawPath(_pathChasing, Color.green);
 
             _currentDestination = _pathChasing[0];
             _movementSeekComponent.SetCurrentAndFinalDestination(_currentDestination, _pathChasing[_pathChasing.Count - 1]);
