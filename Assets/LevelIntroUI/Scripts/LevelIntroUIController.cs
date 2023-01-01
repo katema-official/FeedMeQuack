@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 public class LevelIntroUIController : MonoBehaviour
 {
-    public void SetString(string str)
+    public void ShowText(string str)
     {
         GetComponentInChildren<TextFadeInOut>().StartAnim(str);
     }
