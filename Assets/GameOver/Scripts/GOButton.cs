@@ -25,8 +25,8 @@ public class GOButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        _manager.SetEnableButtons(false);
-        SetEnable(false);
+        //_manager.SetEnableButtons(false);
+        //SetEnable(false);
     }
     public void SetEnable(bool enable)
     {
@@ -34,7 +34,7 @@ public class GOButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             _image.gameObject.SetActive(true);
             _text.fontStyle = FontStyles.Underline;
-            _text.color = new Color(100.0f / 255.0f, 61.0f / 255.0f, 22.0f / 255.0f);
+            _text.color = new Color(255.0f / 255.0f, 157.0f / 255.0f, 58.0f / 255.0f);
         }
         else
         {

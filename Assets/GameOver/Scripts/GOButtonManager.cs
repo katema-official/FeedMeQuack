@@ -7,6 +7,7 @@ public class GOButtonManager : MonoBehaviour
 
     public void SetEnableButtons(bool enable)
     {
+
         foreach (Transform c in transform)
         {
             c.GetComponent<GOButton>().SetEnable(enable);
@@ -34,6 +35,7 @@ public class GOButtonManager : MonoBehaviour
     void Start()
     {
         SetEnableButtons(false);
+        transform.GetChild(0).GetComponent<GOButton>().SetEnable(true);
         //foreach(Transform c in transform)
         //{
         //    c.GetComponent<GOButton>().SetEnable(false);
