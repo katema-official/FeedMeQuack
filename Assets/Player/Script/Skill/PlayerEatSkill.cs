@@ -100,7 +100,8 @@ namespace Player
                 {
                     _moveSkill.EnableInput(true);
                     _controller.GetStatusView().SetMiniStatusActive(true);
-                   _controller.GetStatusView().SetVisible(true);
+                   _controller.GetStatusView().SetInteractionActive(false, 0);
+                    _controller.GetStatusView().SetVisible(true);
                     _controller.GetStatusView().SetText("");
                 }
                 _caughtBread = bread;
@@ -115,6 +116,7 @@ namespace Player
                 {
                     _moveSkill.EnableInput(true);
                     _controller.GetStatusView().SetMiniStatusActive(false);
+                    _controller.GetStatusView().SetInteractionActive(false, 0);
                     _controller.GetStatusView().SetText("");
                     _controller.GetAnimalSoundController().UnEat();
                 }
@@ -281,6 +283,7 @@ namespace Player
             _mustStopEating = false;
 
             _controller.GetStatusView().SetMiniStatusActive(true);
+            _controller.GetStatusView().SetInteractionActive(false, 0);
             _controller.GetStatusView().SetVisible(true);
             _controller.GetStatusView().SetText("");
             _controller.GetStatusView().SetIcon(_eatDesc.EatingStatusIcon);
@@ -302,7 +305,7 @@ namespace Player
             }
             _controller.GetStatusView().SetText("" + _caughtBread.GetBreadPoints());
             _controller.GetStatusView().SetMiniStatusActive(false);
-
+            _controller.GetStatusView().SetInteractionActive(false, 0);
             _controller.GetAnimalSoundController().UnEat();
 
             //Debug.Log("Bread eaten after");
@@ -336,7 +339,10 @@ namespace Player
             var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
             if (breadController)
             {
-                _controller.GetStatusView().SetInteractionActive(true, 0);
+
+
+                if (_controller.GetState() != PlayerState.Eating)
+                    _controller.GetStatusView().SetInteractionActive(true, 0);
               //  _controller.GetStatusView().SetVisible(true);
                 //    _locatedBreads.Add(breadController);
                 //    _locatedBread = FindClosestBread();
@@ -344,6 +350,16 @@ namespace Player
 
         }
 
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
+            if (breadController)
+            {
+                if (_controller.GetState() != PlayerState.Eating)
+                    _controller.GetStatusView().SetInteractionActive(true, 0);
+            }
+
+        }
         private void OnTriggerExit2D(Collider2D collision)
         {
             var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
