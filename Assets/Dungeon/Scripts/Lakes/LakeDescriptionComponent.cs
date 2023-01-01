@@ -1184,12 +1184,37 @@ namespace LevelStageNamespace {
             string tileName = "";
             Vector3 pointCenter = Vector3.zero;
 
-            if (terrainTilemap.HasTile(localPoint))
+            Tilemap waterBorderTilemap = _water.transform.Find("WaterBorder").GetComponent<Tilemap>();
+            Tilemap borderWest = waterBorderTilemap.transform.Find("Rivers/RiverWest/0").GetComponent<Tilemap>();
+            Tilemap borderEast = waterBorderTilemap.transform.Find("Rivers/RiverEast/0").GetComponent<Tilemap>();
+            Tilemap borderNorth = waterBorderTilemap.transform.Find("Rivers/RiverNorth/0").GetComponent<Tilemap>();
+            Tilemap borderSouth = waterBorderTilemap.transform.Find("Rivers/RiverSouth/0").GetComponent<Tilemap>();
+
+            if (waterBorderTilemap.HasTile(localPoint))
             {
-                Debug.Log("Tile type: " + terrainTilemap.GetTile(localPoint));
-                tileName = terrainTilemap.GetTile(localPoint).ToString();
-                pointCenter = terrainTilemap.GetCellCenterWorld(localPoint);
+                //Debug.Log("Tile type: " + terrainTilemap.GetTile(localPoint));
+                tileName = waterBorderTilemap.GetTile(localPoint).ToString();
+                pointCenter = waterBorderTilemap.GetCellCenterWorld(localPoint);
                 //pointCenter = terrainTilemap.CellToWorld(localPoint) + new Vector3(xLenTile, yLenTile);
+            }else if (borderWest.HasTile(localPoint))
+            {
+                tileName = borderWest.GetTile(localPoint).ToString();
+                pointCenter = borderWest.GetCellCenterWorld(localPoint);
+            }
+            else if (borderEast.HasTile(localPoint))
+            {
+                tileName = borderEast.GetTile(localPoint).ToString();
+                pointCenter = borderEast.GetCellCenterWorld(localPoint);
+            }
+            else if (borderNorth.HasTile(localPoint))
+            {
+                tileName = borderNorth.GetTile(localPoint).ToString();
+                pointCenter = borderNorth.GetCellCenterWorld(localPoint);
+            }
+            else if (borderSouth.HasTile(localPoint))
+            {
+                tileName = borderSouth.GetTile(localPoint).ToString();
+                pointCenter = borderSouth.GetCellCenterWorld(localPoint);
             }
             else
             {
@@ -1199,7 +1224,7 @@ namespace LevelStageNamespace {
                 {
                     if (t.HasTile(localPoint))
                     {
-                        Debug.Log("Tile type: " + t.GetTile(localPoint));
+                        //Debug.Log("Tile type: " + t.GetTile(localPoint));
                         tileName = t.GetTile(localPoint).ToString();
                         pointCenter = t.GetCellCenterWorld(localPoint);
                         //pointCenter = t.CellToWorld(localPoint) + new Vector3(xLenTile, yLenTile);
@@ -1237,6 +1262,8 @@ namespace LevelStageNamespace {
 
         private Vector3 GetTilePointInsideLake(string tileName, Vector3 currentPosOfObj, Vector3 pointCenterOfTile)
         {
+            tileName = tileName.Split(" ")[0];
+            Debug.Log("tileName = " + tileName);
             Vector3 ret = currentPosOfObj;
             switch (tileName)
             {
@@ -1273,6 +1300,7 @@ namespace LevelStageNamespace {
                     }
                     break;
                 case tilesetTerrainLeft:
+                    Debug.Log("LEFT: currentPosOfObj = " + currentPosOfObj + ", pointCenterOfTile: " + pointCenterOfTile);
                     if(!(currentPosOfObj.x > pointCenterOfTile.x))
                     {
                         ret = pointCenterOfTile + new Vector3(xLenTile / 4, 0, 0);
@@ -1299,7 +1327,7 @@ namespace LevelStageNamespace {
                 case tilesetTerrainLowerLeft:
                     if (!(currentPosOfObj.x > pointCenterOfTile.x && currentPosOfObj.y > pointCenterOfTile.y))
                     {
-                        ret = pointCenterOfTile + new Vector3(xLenTile / 4, yLenTile / 4, 0);
+                        ret = pointCenterOfTile + new Vector3(xLenTile / 4 + xLenTile / 6, yLenTile / 4 + yLenTile / 6, 0);
                     }
                     break;
                 case tilesetTerrainLower:
@@ -1318,6 +1346,8 @@ namespace LevelStageNamespace {
                 default:
                     break;
             }
+
+            Debug.Log("CORRECTION APPLIED. OLD POINT WAS " + currentPosOfObj + ", NEW POINT IS " + ret);
 
             return ret;
         }

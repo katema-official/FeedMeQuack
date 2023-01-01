@@ -4,6 +4,7 @@ using UnityEngine;
 using BreadNamespace;
 using Player;
 using Music;
+using LevelStageNamespace;
 
 namespace DuckEnemies
 {
@@ -25,6 +26,7 @@ namespace DuckEnemies
         private bool _currentlyStealingThePlayer = false;
         private BreadInMouthComponent _breadInMouthComponentAfterStealingPassive;
         private AnimalSoundController _animalSoundController;
+        private LakeDescriptionComponent _lakeDescriptionComponent;
 
 
 
@@ -47,6 +49,16 @@ namespace DuckEnemies
         {
             _breadInMouthComponentAfterStealingPassive = null;
             _currentlyBeingRobbed = false;
+        }
+
+
+        public void ExitStealing_MoveIfNecessary()
+        {
+            (bool, Vector3) adj = _lakeDescriptionComponent.AdjustPlacement(transform.position);
+            if(adj.Item1 == true)
+            {
+                transform.position = adj.Item2;
+            }
         }
 
         //############################################################# TRANSITIONS #############################################################
@@ -86,7 +98,6 @@ namespace DuckEnemies
         //called both after the player steals from the enemy, and the enemy steals from the player
         public void AssignBreadAfterRobbery(BreadInMouthComponent breadInMouthComponentAfterStealingPassive)
         {
-            Debug.Log("AAAAA");
             _breadInMouthComponentAfterStealingPassive = breadInMouthComponentAfterStealingPassive;
             if (_breadInMouthComponentAfterStealingPassive)
             {
@@ -111,6 +122,7 @@ namespace DuckEnemies
             _eatingComponent = GetComponent<EatingComponent>();
             _chasingComponent = GetComponent<ChasingComponent>();
             _animalSoundController = GetComponent<AnimalSoundController>();
+            _lakeDescriptionComponent = GameObject.Find("WholeLake").GetComponent<LakeDescriptionComponent>();
         }
 
 

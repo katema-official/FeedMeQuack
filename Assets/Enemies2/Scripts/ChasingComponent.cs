@@ -86,14 +86,14 @@ namespace DuckEnemies {
             //if (_indexCurrentDestination == _pathChasing.Count - 1)
             //{
                 //when the distance between me and the final destination is lower than StopAt, i stop accelerating in that direction
-                if (Vector2.Distance(transform.position, GetPlayer().gameObject.transform.position) <= _movementSeekComponent.StopAt)
-                {
+            if (Vector2.Distance(transform.position, GetPlayer().gameObject.transform.position) <= _movementSeekComponent.StopAt)
+            {
                     _keepChasing = false;
-                    Debug.Log("REACHED");
+                    //Debug.Log("REACHED");
             }
             else
             {
-                Debug.Log("Not reached! distance is " + Vector2.Distance(transform.position, GetPlayer().gameObject.transform.position));
+                //Debug.Log("Not reached! distance is " + Vector2.Distance(transform.position, GetPlayer().gameObject.transform.position));
             }
             //}
 
