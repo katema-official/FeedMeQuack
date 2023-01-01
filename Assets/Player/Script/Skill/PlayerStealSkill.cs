@@ -218,6 +218,7 @@ namespace Player
                     LevelStageNamespace.LakeDescriptionComponent lakeDescriptionComponent = (LevelStageNamespace.LakeDescriptionComponent)_controller.GetLake();
                     if (lakeDescriptionComponent)
                     {
+                        _controller.GetStatusView().SetInteractionActive(false, 3);
                         lakeDescriptionComponent.PlayerStartStealFromEnemy(_controller.gameObject, breadContended.gameObject, playerPos.x, playerPos.y + 3f);
                         _controller.GetAnimalSoundController().UnSwim();
                     }                 
@@ -291,7 +292,8 @@ namespace Player
 
             if (enemyController)
             {
-                _controller.GetStatusView().SetInteractionActive(true, 3);
+                if (collision.gameObject.GetComponent<DuckEnemies.EatingComponent>().GetBreadInMouthComponent() &&  _controller.GetState() == PlayerState.Normal)
+                    _controller.GetStatusView().SetInteractionActive(true, 3);
 
                 _locatedEnemies.Add(enemyController);
                 _locatedEnemy = FindClosestEnemy();
@@ -303,6 +305,18 @@ namespace Player
 
 
         }
+
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            var enemyController = collision.gameObject.GetComponent<DuckEnemies.StealingComponent>();
+
+            if (enemyController)
+            {
+                if (collision.gameObject.GetComponent<DuckEnemies.EatingComponent>().GetBreadInMouthComponent() && _controller.GetState() == PlayerState.Normal)
+                    _controller.GetStatusView().SetInteractionActive(true, 3);
+            }
+        }
+
 
         private void OnTriggerExit2D(Collider2D collision)
         {
