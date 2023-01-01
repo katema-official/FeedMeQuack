@@ -6,16 +6,17 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 
-public class GOButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class GOButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-
-
-
     private bool _enable = false;
     private Image _image = null;
     private TextMeshProUGUI _text = null;
     private GOButtonManager _manager = null;
-
+    [SerializeField] private GameOverButtonType _type;
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        _manager.OnButtonClick(_type);
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
