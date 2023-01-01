@@ -315,19 +315,32 @@ namespace Player
             }
 
 
-            var mag = (_rigidBody.velocity - _oldVelocity).magnitude;
+            //var mag = (_rigidBody.velocity - _oldVelocity).magnitude;
 
-            if (mag < speed*0.8f)
-                _oldVelocity = _rigidBody.velocity;
+            //if (mag < speed*0.8f)
+            //    _oldVelocity = _rigidBody.velocity;
       
 
-            Debug.Log("_rigidBody.velocity " + _oldVelocity);
+            //Debug.Log("_rigidBody.velocity " + _oldVelocity);
 
             // _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
 
             // MoveCamera();
 
         }
+        public void SetOldVelocity(Vector2 oldVelocity)
+        {
+            _oldVelocity = oldVelocity;
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.name == "TriggerExitedCollider")
+            {
+                SetOldVelocity(_rigidBody.velocity);
+            }
+        }
+
 
         private void MoveCamera()
         {
@@ -437,34 +450,18 @@ namespace Player
             _rigidBody = GetComponent<Rigidbody2D>();
             _controller = GetComponent<PlayerController>();
             _camera = transform.parent.GetComponentInChildren<Camera>();
-            
 
             var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
-           // SceneManager.sceneLoaded += OnSceneLoaded;
-            SceneManager.activeSceneChanged += OnSceneLoaded;
-
-
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         // called second
-        void OnSceneLoaded(Scene scene, Scene scene2)
+        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            _lockMovement = true;
-            _initLock = true;
-            _rigidBody = GetComponent<Rigidbody2D>();
-            _rigidBody.velocity = new Vector2();
-            StartCoroutine(WaitCoroutine());
-        }
-
-        IEnumerator WaitCoroutine()
-        {
-            yield return new WaitForSeconds(0.2f);
             _rigidBody = GetComponent<Rigidbody2D>();
             _rigidBody.velocity = _oldVelocity;
-            _lockMovement = false;
-            //Debug.Log("Bread eaten after");
-            yield break;
         }
+
 
         // Start is called before the first frame update
         void Start()

@@ -291,6 +291,8 @@ namespace Player
 
             if (enemyController)
             {
+                _controller.GetStatusView().SetInteractionActive(true, 3);
+
                 _locatedEnemies.Add(enemyController);
                 _locatedEnemy = FindClosestEnemy();
                 
@@ -308,6 +310,8 @@ namespace Player
 
             if (enemyController)
             {
+                _controller.GetStatusView().SetInteractionActive(false, 3);
+
                 _locatedEnemies.Remove(enemyController);
                 _locatedEnemy = FindClosestEnemy();
                
