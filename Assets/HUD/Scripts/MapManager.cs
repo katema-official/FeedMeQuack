@@ -79,7 +79,6 @@ namespace HUDNamespace
                     GameObject tile=Instantiate(squarePrefab, pos, Quaternion.identity);
                     tile.name = $"Tile {row},{col}";
                     tile.transform.parent = gameObject.transform;
-                    Debug.Log(tile.name);
                     mapTiles[row,col] = tile;
                     _map[row, col] = 0;
                 }

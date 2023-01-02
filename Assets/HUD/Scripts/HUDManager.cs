@@ -1,23 +1,30 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BreadNamespace;
+using CodeMonkey.Utils;
+using DuckEnemies;
+using Player;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace HUDNamespace
 {
 
     public class HUDManager : MonoBehaviour
     {
+        private Windows_QuestPointer _windowQuestPointer;
         private bool isTabPressed;
+        public List<GameObject> breadsInWater, breadsOutsideScreen;
         private int goal=0, currentPoints=0;
+        public Camera camera;
         [SerializeField] private GameObject ToggableHUD;
         [SerializeField]
         private TMP_Text speedValueText, eatingSpeedValueText, mouthSizeValueText, chewingRate,
             dashCDValueText, stealCDValueText, spitCDValueText;
 
         [SerializeField] private TMP_Text breadPointsValueText, digestedBreadPointsValueText, PressTabText, levelValueText, stageValueText;
-        // Start is called before the first frame update
 
         public void ChangeText(textFields field, float value)
         {
@@ -116,6 +123,9 @@ namespace HUDNamespace
         
         void Update()
         {
+            foreach (var go in FindObjectsOfType<FoodSeekingComponent>()){
+                Destroy(go.gameObject);
+            }
             if (Input.GetKeyDown(KeyCode.Tab)){
                 isTabPressed = !isTabPressed;
             }
@@ -128,6 +138,69 @@ namespace HUDNamespace
                 ToggableHUD.SetActive(false);
                 PressTabText.gameObject.SetActive(true);
             }
+
+//            if (breadsInWater.Count > 0)
+//                DisplayArrows();
+            UpdateBreadList();
+        }
+
+        private void UpdateBreadList(){
+            BreadInWaterComponent[] breads = FindObjectsOfType<BreadInWaterComponent>();
+            breadsInWater = new List<GameObject>();
+            for (int i = 0; i < breads.Length; i++){
+                GameObject bread = breads[i].gameObject;
+                if (!breadsInWater.Contains(bread)){
+                    breadsInWater.Add(bread);
+                }
+            }
+            DisplayArrows();
+        }
+
+        private void DisplayArrows(){
+            foreach (var bread in breadsInWater){
+                if (CheckIfBreadOutsideCamera(bread)){ //okay if bread outside camera
+                    if (!breadsOutsideScreen.Contains(bread)){
+                        breadsOutsideScreen.Add(bread);
+                        var foo=_windowQuestPointer.CreatePointer(bread.transform.position);
+                        FunctionUpdater.Create(() => {
+                            if (bread==null || !CheckIfBreadOutsideCamera(bread)) {
+                                _windowQuestPointer.DestroyPointer(foo);
+                                breadsOutsideScreen.Remove(bread);
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        });
+                    }
+                    
+                }
+            }
+        }
+
+        private void DrawArrowToBread(GameObject bread){
+            _windowQuestPointer.CreatePointer(bread.transform.position);
+        }
+
+        public void NotifyHUDManagerOfNewBread(GameObject newBread){
+            if (breadsInWater == null){
+                breadsInWater = new List<GameObject>();
+            }
+            breadsInWater.Add(newBread);
+        }
+
+        public void BreadDeleted(GameObject breadDeleted){
+            breadsInWater.Remove(breadDeleted);
+        }
+
+        private bool CheckIfBreadOutsideCamera(GameObject gameObject){
+            Vector3 viewportPoint = camera.WorldToViewportPoint(gameObject.transform.position);
+            return !(viewportPoint.x >= 0 && viewportPoint.x <= 1 && viewportPoint.y >= 0 && viewportPoint.y <= 1);
+        }
+
+        void Start(){
+            breadsOutsideScreen = new List<GameObject>();
+            _windowQuestPointer = FindObjectOfType<Windows_QuestPointer>();
+            camera = FindObjectOfType<Camera>();
         }
     }
 }
