@@ -315,7 +315,21 @@ namespace Player
             }
 
 
-            //var mag = (_rigidBody.velocity - _oldVelocity).magnitude;
+            var mag = (_rigidBody.velocity).magnitude;
+
+
+            //if (mag>= _speed*0.8f)
+            //{
+            //    if (_controller.GetState() == PlayerState.Normal)
+            //        _controller.GetStatusView().SetInteractionActive(true, 5);
+            //    else
+            //        _controller.GetStatusView().SetInteractionActive(false, 5);
+            //}
+            //else
+            //{
+            //    _controller.GetStatusView().SetInteractionActive(false, 5);
+            //}
+
 
             //if (mag < speed*0.8f)
             //    _oldVelocity = _rigidBody.velocity;

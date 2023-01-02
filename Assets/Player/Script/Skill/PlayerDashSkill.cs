@@ -110,6 +110,10 @@ namespace Player
             {
                 _moveSkill.EnableInput(false);
 
+                
+                _controller.GetStatusView().SetInteractionActive(true, 1);
+                
+
                 foreach (GameObject obstacle in _obstaclesList)
                 {
                     Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), true);
@@ -135,6 +139,7 @@ namespace Player
 
             if (_controller.GetState() == PlayerState.Normal)
             {
+                _controller.GetStatusView().SetInteractionActive(false, 1);
                 _moveSkill.EnableInput(true);
                 _dashElapsedSeconds = 0.0f;
                 _dashCoolDownElapsedSeconds = _coolDown;

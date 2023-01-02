@@ -14,9 +14,23 @@ public class StatusViewController : MonoBehaviour
     bool _miniStatusActive = false;
     bool _interactionActive = false;
 
-    bool[] _messagesA  = new bool[4];
-    string[] _messages = { "<color=\"yellow\">E: <color=\"white\">Eat\n<color=\"yellow\">Q: <color=\"white\">Catch", "<color=\"yellow\">Left Shift: <color=\"white\">Stop Dash", "<color=\"yellow\">Q: <color=\"white\">Spit", "<color=\"yellow\">Space: <color=\"white\">Steal" };
-    string[] _messagesXbox = { "<color=\"green\">A: <color=\"white\">Eat\n<color=\"blue\">X: <color=\"white\">Catch", "<color=\"red\">B: <color=\"white\">Stop Dash", "<color=\"blue\">X: <color=\"white\">Spit", "<color=\"yellow\">Y: <color=\"white\">Steal" };
+    bool[] _messagesA  = new bool[6];
+    string[] _messages = { 
+        "<color=\"yellow\">E: <color=\"white\">Eat\n<color=\"yellow\">Q: <color=\"white\">Catch", 
+        "<color=\"yellow\">Left Shift: <color=\"white\">Stop Dash", 
+        "<color=\"yellow\">Q: <color=\"white\">Spit", 
+        "<color=\"yellow\">Space: <color=\"white\">Steal",
+        "<color=\"yellow\">E: <color=\"white\">Buy",
+        "<color=\"yellow\">Left Shift: <color=\"white\">Dash",
+    };
+    string[] _messagesXbox = { 
+        "<color=\"green\">A: <color=\"white\">Eat\n<color=\"blue\">X: <color=\"white\">Catch", 
+        "<color=\"red\">B: <color=\"white\">Stop Dash", 
+        "<color=\"blue\">X: <color=\"white\">Spit", 
+        "<color=\"yellow\">Y: <color=\"white\">Steal",
+        "<color=\"green\">A: <color=\"white\">Buy",
+        "<color=\"red\">B: <color=\"white\">Dash"
+    };
 
     public void SetMiniStatusActive(bool active)
     {
@@ -99,7 +113,7 @@ public class StatusViewController : MonoBehaviour
 
         string text = "";
         int lines = 0;
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 6; i++)
         {   
             var gamepad = Gamepad.current;
             if (gamepad != null)

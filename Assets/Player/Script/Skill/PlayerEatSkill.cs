@@ -324,6 +324,11 @@ namespace Player
             powerup = ((collision.gameObject)?.transform.parent)?.gameObject.GetComponent<PowerUpsNamespace.PowerUpComponent>();
             if (powerup)
             {
+                if (_controller.GetState() == PlayerState.Normal)
+                    _controller.GetStatusView().SetInteractionActive(true, 4);
+                else
+                    _controller.GetStatusView().SetInteractionActive(false, 4);
+
                 _locatedPowerUp = powerup;
             }
 
@@ -382,6 +387,8 @@ namespace Player
             var powerup = collision.gameObject.transform.parent.gameObject.GetComponent<PowerUpsNamespace.PowerUpComponent>();
             if (powerup)
             {
+
+                _controller.GetStatusView().SetInteractionActive(false, 4);
                 _locatedPowerUp = null;
             }
 
