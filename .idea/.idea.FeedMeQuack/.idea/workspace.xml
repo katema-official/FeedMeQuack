@@ -2,13 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="099dc64e-a604-4b85-85cc-6be12a6baf46" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/dash-icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/dash-icon.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/spit-icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/spit-icon.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/steal-icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/steal-icon.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Dungeon/Scenes/StartRunLoading.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dungeon/Scenes/StartRunLoading.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/HUDManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/HUDManager.cs" afterDir="false" />
     </list>
@@ -99,7 +92,7 @@
       <workItem from="1672140199479" duration="157000" />
       <workItem from="1672225409863" duration="144000" />
       <workItem from="1672263753023" duration="611000" />
-      <workItem from="1672655893162" duration="809000" />
+      <workItem from="1672655893162" duration="1417000" />
     </task>
     <servers />
   </component>
