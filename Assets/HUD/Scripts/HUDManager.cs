@@ -9,12 +9,14 @@ namespace HUDNamespace
 
     public class HUDManager : MonoBehaviour
     {
+        private bool isTabPressed;
         private int goal=0, currentPoints=0;
+        [SerializeField] private GameObject ToggableHUD;
         [SerializeField]
         private TMP_Text speedValueText, eatingSpeedValueText, mouthSizeValueText, chewingRate,
             dashCDValueText, stealCDValueText, spitCDValueText;
 
-        [SerializeField] private TMP_Text breadPointsValueText, digestedBreadPointsValueText, goalValueText, levelValueText, stageValueText;
+        [SerializeField] private TMP_Text breadPointsValueText, digestedBreadPointsValueText, PressTabText, levelValueText, stageValueText;
         // Start is called before the first frame update
 
         public void ChangeText(textFields field, float value)
@@ -110,6 +112,22 @@ namespace HUDNamespace
             dashCD,
             stealCD,
             spitCD
+        }
+        
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Tab)){
+                isTabPressed = !isTabPressed;
+            }
+
+            if (isTabPressed){
+                ToggableHUD.SetActive(true);
+                PressTabText.gameObject.SetActive(false);
+            }
+            else{
+                ToggableHUD.SetActive(false);
+                PressTabText.gameObject.SetActive(true);
+            }
         }
     }
 }
