@@ -9,7 +9,7 @@ namespace HUDNamespace
 
     public class HUDManager : MonoBehaviour
     {
-
+        private int goal=0, currentPoints=0;
         [SerializeField]
         private TMP_Text speedValueText, eatingSpeedValueText, mouthSizeValueText, chewingRate,
             dashCDValueText, stealCDValueText, spitCDValueText;
@@ -39,9 +39,9 @@ namespace HUDNamespace
             }
         }
 
-        public void ChangeBreadPointsCollectedText(int value)
-        {
-            breadPointsValueText.text = value.ToString();
+        public void ChangeBreadPointsCollectedText(int value){
+            Color orange = new Color(255, 169, 106);
+            breadPointsValueText.text = value.ToString()+"/"+ "<color=orange>"+goal.ToString()+"</color>";
         }
 
         public void ChangeDigestedBreadPointsCollectedText(int value)
@@ -86,9 +86,11 @@ namespace HUDNamespace
             }
         }
 
-        public void ChangeGoalText(int value)
-        {
-            goalValueText.text = value.ToString();
+        public void ChangeGoalText(int value){
+            goal = value;
+            ChangeBreadPointsCollectedText(0);
+            //goalValueText.text = value.ToString();
+
         }
 
         public void ChangeLevelText(String value){

@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="099dc64e-a604-4b85-85cc-6be12a6baf46" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Dungeon/Scenes/StartRunLoading.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dungeon/Scenes/StartRunLoading.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/HUDManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/HUDManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +95,7 @@
       <workItem from="1672140199479" duration="157000" />
       <workItem from="1672225409863" duration="144000" />
       <workItem from="1672263753023" duration="611000" />
-      <workItem from="1672655893162" duration="1417000" />
+      <workItem from="1672655893162" duration="2945000" />
     </task>
     <servers />
   </component>
