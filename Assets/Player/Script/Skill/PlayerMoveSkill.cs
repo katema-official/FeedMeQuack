@@ -535,18 +535,25 @@ namespace Player
             if (_forwardAxis.x != 0 || _forwardAxis.y != 0)
             {
                 _moveForward = true;
-                _controller.GetAnimalSoundController().Swim();
+               // _controller.GetAnimalSoundController().Swim();
             }
             else
             {
-                _controller.GetAnimalSoundController().UnSwim();
+               // _controller.GetAnimalSoundController().UnSwim();
             }
         }
 
 
         private void FixedUpdate()
         {
-           // _oldVelocity = _rigidBody.velocity;
+            // _oldVelocity = _rigidBody.velocity;
+
+
+            var mag = (_rigidBody.velocity).magnitude/_speed;
+
+            _controller.GetAnimalSoundController().Swim(mag);
+
+
             MoveCamera();
             // var screenPos = _camera.WorldToScreenPoint(_rigidBody.position) + new Vector3(-45f, 80f, 0);
             //Debug.Log("screen: " + screenPos);
