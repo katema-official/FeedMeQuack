@@ -23,16 +23,16 @@ namespace HUDNamespace
             switch (field)
             {
                 case textFields.speed:
-                    speedValueText.text = value.ToString();
+                    speedValueText.text = value.ToString() + " m/s";
                     break;
                 case textFields.eatingSpeed:
-                    eatingSpeedValueText.text = value.ToString();
+                    eatingSpeedValueText.text = value.ToString()+ " m/s";
                     break;
                 case textFields.mouthSize:
-                    mouthSizeValueText.text = value.ToString();
+                    mouthSizeValueText.text = value.ToString()+ " BP/Bite";
                     break;
                 case textFields.chewingRate:
-                    chewingRate.text = value.ToString();
+                    chewingRate.text = value.ToString()+ " BP/s";
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(field), field, null);
