@@ -294,6 +294,8 @@ namespace Player
             {
                 if (collision.gameObject.GetComponent<DuckEnemies.EatingComponent>().GetBreadInMouthComponent() &&  _controller.GetState() == PlayerState.Normal)
                     _controller.GetStatusView().SetInteractionActive(true, 3);
+                else
+                    _controller.GetStatusView().SetInteractionActive(false, 3);
 
                 _locatedEnemies.Add(enemyController);
                 _locatedEnemy = FindClosestEnemy();
@@ -314,6 +316,8 @@ namespace Player
             {
                 if (collision.gameObject.GetComponent<DuckEnemies.EatingComponent>().GetBreadInMouthComponent() && _controller.GetState() == PlayerState.Normal)
                     _controller.GetStatusView().SetInteractionActive(true, 3);
+                else
+                    _controller.GetStatusView().SetInteractionActive(false, 3);
             }
         }
 

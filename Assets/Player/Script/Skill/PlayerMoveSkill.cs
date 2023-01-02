@@ -452,11 +452,11 @@ namespace Player
             _camera = transform.parent.GetComponentInChildren<Camera>();
 
             var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.activeSceneChanged += OnSceneLoaded;
         }
 
         // called second
-        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        void OnSceneLoaded(Scene scene, Scene mode)
         {
             _rigidBody = GetComponent<Rigidbody2D>();
             _rigidBody.velocity = _oldVelocity;

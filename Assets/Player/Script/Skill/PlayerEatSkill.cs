@@ -341,9 +341,11 @@ namespace Player
             {
 
 
-                if (_controller.GetState() != PlayerState.Eating)
+                if (_controller.GetState() == PlayerState.Normal)
                     _controller.GetStatusView().SetInteractionActive(true, 0);
-              //  _controller.GetStatusView().SetVisible(true);
+                else
+                    _controller.GetStatusView().SetInteractionActive(false, 0);
+                //  _controller.GetStatusView().SetVisible(true);
                 //    _locatedBreads.Add(breadController);
                 //    _locatedBread = FindClosestBread();
             }
@@ -355,8 +357,10 @@ namespace Player
             var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
             if (breadController)
             {
-                if (_controller.GetState() != PlayerState.Eating)
+                if (_controller.GetState() == PlayerState.Normal)
                     _controller.GetStatusView().SetInteractionActive(true, 0);
+                else
+                    _controller.GetStatusView().SetInteractionActive(false, 0);
             }
 
         }

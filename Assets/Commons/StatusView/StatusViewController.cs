@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+
+
 public class StatusViewController : MonoBehaviour
 {
     private SpriteRenderer _icon = null;
@@ -11,26 +14,30 @@ public class StatusViewController : MonoBehaviour
     bool _miniStatusActive = false;
     bool _interactionActive = false;
 
+    bool[] _messagesA  = new bool[4];
+    string[] _messages = { "<color=\"yellow\">E: <color=\"white\">Eat\n<color=\"yellow\">Q: <color=\"white\">Catch", "<color=\"yellow\">Left Shift: <color=\"white\">Stop Dash", "<color=\"yellow\">Q: <color=\"white\">Spit", "<color=\"yellow\">Space: <color=\"white\">Steal" };
+    string[] _messagesXbox = { "<color=\"green\">A: <color=\"white\">Eat\n<color=\"blue\">X: <color=\"white\">Catch", "<color=\"red\">B: <color=\"white\">Stop Dash", "<color=\"blue\">X: <color=\"white\">Spit", "<color=\"yellow\">Y: <color=\"white\">Steal" };
+
     public void SetMiniStatusActive(bool active)
     {
         _miniStatusActive = active;
         transform.Find("MiniStatus").gameObject.SetActive(active);
-
         Active();
     }
     public void SetInteractionActive(bool active, int type)
     {
-        _interactionActive = active;
+        _messagesA[type] = active;
+        //_interactionActive = active;
 
-        transform.Find("Interaction/BreadInteraction").gameObject.SetActive(false);
-        transform.Find("Interaction/DashInteraction").gameObject.SetActive(false);
-        transform.Find("Interaction/SpitInteraction").gameObject.SetActive(false);
-        transform.Find("Interaction/EnemyInteraction").gameObject.SetActive(false);
+        //transform.Find("Interaction/BreadInteraction").gameObject.SetActive(false);
+        //transform.Find("Interaction/DashInteraction").gameObject.SetActive(false);
+        //transform.Find("Interaction/SpitInteraction").gameObject.SetActive(false);
+        //transform.Find("Interaction/EnemyInteraction").gameObject.SetActive(false);
 
-        if (type == 0) transform.Find("Interaction/BreadInteraction").gameObject.SetActive(_interactionActive);
-        if (type == 1) transform.Find("Interaction/DashInteraction").gameObject.SetActive(_interactionActive);
-        if (type == 2) transform.Find("Interaction/SpitInteraction").gameObject.SetActive(_interactionActive);
-        if (type == 3) transform.Find("Interaction/EnemyInteraction").gameObject.SetActive(_interactionActive);
+        //if (type == 0) transform.Find("Interaction/BreadInteraction").gameObject.SetActive(_interactionActive);
+        //if (type == 1) transform.Find("Interaction/DashInteraction").gameObject.SetActive(_interactionActive);
+        //if (type == 2) transform.Find("Interaction/SpitInteraction").gameObject.SetActive(_interactionActive);
+        //if (type == 3) transform.Find("Interaction/EnemyInteraction").gameObject.SetActive(_interactionActive);
 
         Active();
     }
@@ -57,8 +64,6 @@ public class StatusViewController : MonoBehaviour
             _label.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(0.9f, 0, _label.gameObject.GetComponent<RectTransform>().localPosition.z);
         }
 
-
-
         _label.text = text;
     }
     public void SetPosition(Vector2 pos)
@@ -83,15 +88,49 @@ public class StatusViewController : MonoBehaviour
 
     private void Active()
     {
-        if (_interactionActive)
+        //if (_interactionActive)
+        //{
+        //    transform.Find("MiniStatus").localPosition = new Vector3(0, 2.21f, 0);
+        //}
+        //else
+        //{
+        //    transform.Find("MiniStatus").localPosition = new Vector3(0, 0.0f, 0);
+        //}
+
+        string text = "";
+        int lines = 0;
+        for (int i = 0; i < 4; i++)
+        {   
+            var gamepad = Gamepad.current;
+            if (gamepad != null)
+            {
+                if (_messagesA[i])
+                {
+                    if (lines >= 1) text += "\n";
+                    text += _messagesXbox[i];
+                    lines++;
+                }
+                continue;
+            }
+
+            if (_messagesA[i])
+            {
+                if (lines >= 1) text += "\n";
+                text += _messages[i];
+                lines++;
+            }
+        }
+
+        transform.Find("Interaction/Text").GetComponent<TextMeshPro>().text = text;
+
+        if (text.Length > 0)
         {
-            transform.Find("MiniStatus").localPosition = new Vector3(0, 1.91f,0);
+            transform.Find("MiniStatus").localPosition = new Vector3(0, 2.21f, 0);
         }
         else
         {
             transform.Find("MiniStatus").localPosition = new Vector3(0, 0.0f, 0);
         }
-
     }
 
 
