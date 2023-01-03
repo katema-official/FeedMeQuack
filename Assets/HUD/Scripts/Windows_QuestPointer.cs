@@ -109,6 +109,7 @@ public class Windows_QuestPointer : MonoBehaviour {
             Vector3 toPosition = targetPosition;
             Vector3 fromPosition = uiCamera.transform.position;
             Vector2 dir = (toPosition - fromPosition).normalized;
+            float angle = UtilsClass.GetAngleFromVectorFloat(dir);
             // Get the center position of the canvas
             RectTransform canvasRectTransform = FindObjectOfType<Canvas>().GetComponent<RectTransform>();
             Vector2 center = canvasRectTransform.rect.center;
@@ -117,13 +118,37 @@ public class Windows_QuestPointer : MonoBehaviour {
             dir.Normalize();
 
             // Calculate the distance from the center to the border
-            float distance = Mathf.Max(canvasRectTransform.rect.width, canvasRectTransform.rect.height) * 0.90f;
+            //float distance = Mathf.Max(canvasRectTransform.rect.width, canvasRectTransform.rect.height) * 0.90f;
 
             // Calculate the final position on the border
-            Vector2 finalPosition = center + dir * distance*0.9f;
+            //Vector2 finalPosition = center + dir * distance*0.9f;
+
+            float x,y;
+
+            double angleRad = angle * Math.PI / 180;
+            double tan = Math.Tan(angleRad);
+            double cotan = 1/tan;
+            var rect = canvasRectTransform.rect;
+            
+            if (angle is >= 45 and < 135){ //top
+                y= rect.height* 0.95f;
+                x = (float) (rect.width*0.5+rect.width* 0.5 * cotan)* 0.95f;
+            }
+            else if (angle is >= 135 and < 225){ //left
+                x = rect.width* 0.05f- rect.width * 0.5f;
+                y = (float) (0.5f * (1 - tan) * 0.95f * rect.height)- 0.5f* rect.height;
+            }
+            else if (angle is >= 225 and < 315){ //bottom
+                y= rect.height* 0.05f;
+                x = (float) (rect.width*0.5-rect.width* 0.5 * cotan)* 0.95f;
+            }
+            else { //right
+                x = rect.width* 0.95f;
+                y= (float) (0.5f * (1 + tan) * 0.95f * rect.height);
+            }
             
             RectTransform rectTransform = pointerGameObject.GetComponent<RectTransform>();
-            rectTransform.anchoredPosition = finalPosition;
+            rectTransform.anchoredPosition = new Vector2(x,y);
         }
 
         public void DestroySelf() {

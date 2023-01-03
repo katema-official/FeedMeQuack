@@ -2,68 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="099dc64e-a604-4b85-85cc-6be12a6baf46" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Assets.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Assets.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Assets.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Assets/Circle.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Assets/Circle.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Assets/White_1x1.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Assets/White_1x1.mat.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Assets/White_1x1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Assets/White_1x1.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/CMDebug.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/CMDebug.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/MonoBehaviours.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/MonoBehaviours/CameraFollow.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/MonoBehaviours/CameraFollow.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/MonoBehaviours/CameraFollowSetup.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/MonoBehaviours/CameraFollowSetup.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/MonoBehaviours/ComponentActions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/MonoBehaviours/ComponentActions.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/MonoBehaviours/PositionRendererSorter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/MonoBehaviours/PositionRendererSorter.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/README.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/README.txt.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Resources.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Resources/CodeMonkeyAssets.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Resources/CodeMonkeyAssets.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/Button_Sprite.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/Button_Sprite.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/Button_UI.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/Button_UI.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/FunctionPeriodic.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/FunctionPeriodic.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/FunctionTimer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/FunctionTimer.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/FunctionUpdater.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/FunctionUpdater.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/UI_Bar.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/UI_Bar.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/UI_BarMultiple.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/UI_BarMultiple.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/UI_Sprite.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/UI_Sprite.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/UI_TextComplex.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/UI_TextComplex.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/UtilsClass.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/UtilsClass.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/World_Bar.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/World_Bar.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/World_Mesh.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/World_Mesh.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/World_Sprite.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/CodeMonkey/Utils/World_Sprite.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/Windows_QuestPointer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/Windows_QuestPointer.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/Arrow.psd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/Arrow.psd.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Dungeon/Scenes/StartRunLoading.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dungeon/Scenes/StartRunLoading.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/HUDManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/HUDManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/MapManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/MapManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/Windows_QuestPointer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/Windows_QuestPointer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HUD/Sprites/Arrow.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/Arrow.psd.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -112,10 +53,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="11672">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="1252">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="11672" />
+      <option name="pid" value="1252" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -154,7 +95,8 @@
       <workItem from="1672140199479" duration="157000" />
       <workItem from="1672225409863" duration="144000" />
       <workItem from="1672263753023" duration="611000" />
-      <workItem from="1672655893162" duration="26522000" />
+      <workItem from="1672655893162" duration="26646000" />
+      <workItem from="1672736818543" duration="2316000" />
     </task>
     <servers />
   </component>
@@ -178,5 +120,24 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/HUD/Scripts/Windows_QuestPointer.cs</url>
+          <line>132</line>
+          <properties documentPath="C:\Users\mvv12\Desktop\FeedMeQuack\Assets\HUD\Scripts\Windows_QuestPointer.cs" initialLine="132" containingFunctionPresentation="method 'MoveToCanvasV2'">
+            <startOffsets>
+              <option value="5509" />
+            </startOffsets>
+            <endOffsets>
+              <option value="5538" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
