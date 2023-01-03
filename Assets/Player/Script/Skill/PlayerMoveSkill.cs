@@ -124,7 +124,10 @@ namespace Player
                 _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
             }
         }
-
+        public void MoveTo(Vector3 pos)
+        {
+            transform.position = pos;
+        }
         public void Move(float speed, bool moveForward = false)
         {
             // if (_moveForward || moveForward)

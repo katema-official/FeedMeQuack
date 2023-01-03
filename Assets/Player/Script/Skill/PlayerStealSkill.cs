@@ -275,6 +275,16 @@ namespace Player
                 {
                     _eatSkill.SetCaughtBread(breadForPlayer.GetComponent<BreadNamespace.BreadInMouthComponent>());  // this function allows the player to change from steal to eat or normal state and provides the resulting bread.
                 }
+
+                //bool toPlace = false;
+                //Vector3 newPos;
+                //(toPlace, newPos) = _controller.GetLake().AdjustPlacement(_controller.GetPosition());
+
+                //if (toPlace)
+                //{
+                //    _moveSkill.MoveTo(newPos);
+                //}
+
             }
             _enemyToSteal = null;
         }
