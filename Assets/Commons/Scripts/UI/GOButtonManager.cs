@@ -10,6 +10,9 @@ public class GOButtonManager : MonoBehaviour
     private int _currentIndex = 0;
     private int _maxIndex = 0;
     private GOButton _button = null;
+    bool _gamePadUp = false;
+    bool _gamePadDown = false;
+
 
     public virtual void OnButtonClick(FMQButtonType type)
     {
@@ -106,15 +109,53 @@ public class GOButtonManager : MonoBehaviour
                 OnButtonClick(_button.GetButtonType());
         }
 
-        //var gamepad = Gamepad.current;
-        //if (gamepad != null)
-        //{
-        //    Vector2 move = gamepad.leftStick.ReadValue();
+        var gamepad = Gamepad.current;
+        if (gamepad != null)
+        {
+            Vector2 move = gamepad.leftStick.ReadValue();
+            bool _switch = false;
 
-        //    if (keyboard.wKey.isPressed) SetCurrentButtonIndex(_currentIndex - 1);
-        //    if (keyboard.sKey.isPressed) SetCurrentButtonIndex(_currentIndex + 1);
-        //    if (keyboard.upArrowKey.isPressed) SetCurrentButtonIndex(_currentIndex - 1);
-        //    if (keyboard.downArrowKey.isPressed) SetCurrentButtonIndex(_currentIndex + 1);
-        //}
+            if (move.y > -0.4f && move.y < 0.4f)
+            {
+                _switch = false;
+                _gamePadUp = false;
+                _gamePadDown = false;
+            }
+
+            if (move.y>0.8f)
+            {
+               if (!_gamePadUp)
+               {
+                    _switch = true;
+                    _gamePadUp = true;
+               }
+            }
+            else if (move.y < -0.8f)
+            {
+                if (!_gamePadDown)
+                {
+                    _switch = true;
+                    _gamePadDown = true;
+                }
+            }
+
+
+
+            if (_switch)
+            {
+                if (_gamePadUp) SetCurrentButtonIndex(_currentIndex - 1);
+                if (_gamePadDown)  SetCurrentButtonIndex(_currentIndex + 1);
+                _switch = false;
+            }
+
+
+            if (gamepad.aButton.wasReleasedThisFrame)
+                OnButtonClick(_button.GetButtonType());
+
+            //    if (keyboard.wKey.isPressed) SetCurrentButtonIndex(_currentIndex - 1);
+            //    if (keyboard.sKey.isPressed) SetCurrentButtonIndex(_currentIndex + 1);
+            //    if (keyboard.upArrowKey.isPressed) SetCurrentButtonIndex(_currentIndex - 1);
+            //    if (keyboard.downArrowKey.isPressed) SetCurrentButtonIndex(_currentIndex + 1);
+        }
     }
 }

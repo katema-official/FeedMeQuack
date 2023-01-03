@@ -442,7 +442,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 230453116520876006, guid: 7ee065c1d558d3d46b0448f8aea6890b, type: 3}
       propertyPath: m_text
-      value: 'Give Up
+      value: 'Main Menu
 
 '
       objectReference: {fileID: 0}
@@ -484,7 +484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4349496498339697083, guid: 7ee065c1d558d3d46b0448f8aea6890b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 318.8878
+      value: 401.5283
       objectReference: {fileID: 0}
     - target: {fileID: 4349496498339697083, guid: 7ee065c1d558d3d46b0448f8aea6890b, type: 3}
       propertyPath: m_SizeDelta.y
@@ -558,7 +558,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 230453116520876006, guid: 7ee065c1d558d3d46b0448f8aea6890b, type: 3}
       propertyPath: m_text
-      value: Continue
+      value: Try again
       objectReference: {fileID: 0}
     - target: {fileID: 4349496498339697083, guid: 7ee065c1d558d3d46b0448f8aea6890b, type: 3}
       propertyPath: m_Pivot.x
@@ -590,7 +590,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4349496498339697083, guid: 7ee065c1d558d3d46b0448f8aea6890b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 318.8878
+      value: 401.5283
       objectReference: {fileID: 0}
     - target: {fileID: 4349496498339697083, guid: 7ee065c1d558d3d46b0448f8aea6890b, type: 3}
       propertyPath: m_SizeDelta.y
