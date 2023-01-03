@@ -139,8 +139,8 @@ public class Windows_QuestPointer : MonoBehaviour {
                 y = (float) (0.5f * (1 - tan) * rect.height)- 0.5f* rect.height;
             }
             else if (angle is >= 225 and < 315){ //bottom
-                y= rect.height* 0.05f;
-                x = (float) (rect.width*0.5-rect.width* 0.5 * cotan)* 0.95f;
+                y= rect.height* 0.05f- rect.height*0.5f;
+                x = (float) (rect.width*0.5-rect.width* 0.5 * cotan)* 0.95f- 0.5f* rect.width;
             }
             else { //right
                 x = rect.width* 0.95f * 0.5f;
@@ -153,22 +153,6 @@ public class Windows_QuestPointer : MonoBehaviour {
 
         public void DestroySelf() {
             Destroy(pointerGameObject);
-        }
-
-        private void MoveToCanvas(){
-            // Get the camera's viewport coordinates of the game object
-            Vector3 viewportPoint = uiCamera.WorldToViewportPoint(targetPosition);
-
-            Debug.Log(viewportPoint);
-
-            // Convert the viewport coordinates to canvas coordinates
-            Vector2 canvasPoint;
-            RectTransform canvasRectTransform = FindObjectOfType<Canvas>().GetComponent<RectTransform>();
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, viewportPoint, uiCamera, out canvasPoint);
-
-            // Set the position of the game object on the canvas
-            RectTransform rectTransform = pointerGameObject.GetComponent<RectTransform>();
-            rectTransform.anchoredPosition = canvasPoint;
         }
 
     }

@@ -93,7 +93,7 @@
       <workItem from="1672225409863" duration="144000" />
       <workItem from="1672263753023" duration="611000" />
       <workItem from="1672655893162" duration="26646000" />
-      <workItem from="1672736818543" duration="3468000" />
+      <workItem from="1672736818543" duration="3945000" />
     </task>
     <servers />
   </component>
@@ -117,24 +117,5 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/HUD/Scripts/Windows_QuestPointer.cs</url>
-          <line>132</line>
-          <properties documentPath="C:\Users\mvv12\Desktop\FeedMeQuack\Assets\HUD\Scripts\Windows_QuestPointer.cs" initialLine="132" containingFunctionPresentation="method 'MoveToCanvasV2'">
-            <startOffsets>
-              <option value="5509" />
-            </startOffsets>
-            <endOffsets>
-              <option value="5538" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
