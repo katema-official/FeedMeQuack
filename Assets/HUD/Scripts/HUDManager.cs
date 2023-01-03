@@ -22,7 +22,7 @@ namespace HUDNamespace
         [SerializeField] private GameObject ToggableHUD;
         [SerializeField]
         private TMP_Text speedValueText, eatingSpeedValueText, mouthSizeValueText, chewingRate,
-            dashCDValueText, stealCDValueText, spitCDValueText;
+            dashCDValueText, stealCDValueText, spitCDValueText, dashCDValueTextCopy, stealCDValueTextCopy, spitCDValueTextCopy;
 
         [SerializeField] private TMP_Text breadPointsValueText, digestedBreadPointsValueText, PressTabText, levelValueText, stageValueText;
 
@@ -64,32 +64,44 @@ namespace HUDNamespace
             {
                 case textFields.dashCD:
                     dashCDValueText.text = newValue.ToString()+" sec.";
+                    dashCDValueTextCopy.text = newValue.ToString()+" sec.";
                     if (newValue == 0){
                         dashCDValueText.text = "Available";
                         dashCDValueText.color= Color.green;
+                        dashCDValueTextCopy.text = "Available";
+                        dashCDValueTextCopy.color= Color.green;
                     }
                     else{
                         dashCDValueText.color= Color.white;
+                        dashCDValueTextCopy.color= Color.white;
                     }
                     break;
                 case textFields.stealCD:
                     stealCDValueText.text = newValue.ToString()+" sec.";
+                    stealCDValueTextCopy.text = newValue.ToString()+" sec.";
                     if (newValue == 0){
                         stealCDValueText.text = "Available";
                         stealCDValueText.color= Color.green;
+                        stealCDValueTextCopy.text = stealCDValueText.text;
+                        stealCDValueTextCopy.color= Color.green;
                     }
                     else{
                         stealCDValueText.color= Color.white;
+                        stealCDValueTextCopy.color= Color.white;
                     }
                     break;
                 case textFields.spitCD:
                     spitCDValueText.text = newValue.ToString()+" sec.";
+                    spitCDValueTextCopy.text = newValue.ToString()+" sec.";
                     if (newValue == 0){
                         spitCDValueText.text = "Available";
                         spitCDValueText.color= Color.green;
+                        spitCDValueTextCopy.text = "Available";
+                        spitCDValueTextCopy.color= Color.green;
                     }
                     else{
                         spitCDValueText.color= Color.white;
+                        spitCDValueTextCopy.color= Color.white;
                     }
                     break;
             }

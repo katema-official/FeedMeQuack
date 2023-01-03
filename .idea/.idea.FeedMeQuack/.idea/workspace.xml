@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="099dc64e-a604-4b85-85cc-6be12a6baf46" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/Windows_QuestPointer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/Windows_QuestPointer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/HUDManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/HUDManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +94,7 @@
       <workItem from="1672225409863" duration="144000" />
       <workItem from="1672263753023" duration="611000" />
       <workItem from="1672655893162" duration="26646000" />
-      <workItem from="1672736818543" duration="6892000" />
+      <workItem from="1672736818543" duration="7675000" />
     </task>
     <servers />
   </component>
@@ -118,24 +118,5 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/HUD/Scripts/Windows_QuestPointer.cs</url>
-          <line>135</line>
-          <properties documentPath="C:\Users\mvv12\Desktop\FeedMeQuack\Assets\HUD\Scripts\Windows_QuestPointer.cs" initialLine="135" containingFunctionPresentation="method 'MoveToCanvasV2'">
-            <startOffsets>
-              <option value="5649" />
-            </startOffsets>
-            <endOffsets>
-              <option value="5665" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
