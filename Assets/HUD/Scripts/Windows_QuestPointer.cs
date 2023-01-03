@@ -131,8 +131,8 @@ public class Windows_QuestPointer : MonoBehaviour {
             var rect = canvasRectTransform.rect;
             
             if (angle is >= 45 and < 135){ //top
-                y= rect.height* 0.95f;
-                x = (float) (rect.width*0.5+rect.width* 0.5 * cotan)* 0.95f;
+                y= rect.height* 0.95f- rect.height*0.5f;
+                x = (float) (rect.width* 0.5 * cotan)* 0.95f;
             }
             else if (angle is >= 135 and < 225){ //left
                 x = rect.width* 0.05f- rect.width * 0.5f;
