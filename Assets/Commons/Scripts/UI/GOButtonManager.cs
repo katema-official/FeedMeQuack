@@ -5,16 +5,28 @@ using UnityEngine.SceneManagement;
 
 public class GOButtonManager : MonoBehaviour
 {
-    public void OnButtonClick(GameOverButtonType type)
+    public void OnButtonClick(FMQButtonType type)
     {
-        if (type==GameOverButtonType.Continue)
-        {
-            SceneManager.LoadScene("StartRunLoading");
-        }
-        else if (type == GameOverButtonType.Menu)
-        {
-            SceneManager.LoadScene("MainMenu");
-        }
+        //if (type== FMQButtonType.Play)
+        //{
+        //    SceneManager.LoadScene("StartRunLoading");
+        //}
+        //else if (type == FMQButtonType.MainMenu)
+        //{
+        //    SceneManager.LoadScene("MainMenu");
+        //}
+        //else if (type == FMQButtonType.MainMenu)
+        //{
+        //    SceneManager.LoadScene("MainMenu");
+        //}
+        //else if (type == FMQButtonType.MainMenu)
+        //{
+        //    SceneManager.LoadScene("MainMenu");
+        //}
+        //else if (type == FMQButtonType.MainMenu)
+        //{
+        //    SceneManager.LoadScene("MainMenu");
+        //}
     }
 
 

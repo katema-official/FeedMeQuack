@@ -12,7 +12,8 @@ public class GOButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     private Image _image = null;
     private TextMeshProUGUI _text = null;
     private GOButtonManager _manager = null;
-    [SerializeField] private GameOverButtonType _type;
+    [SerializeField] private FMQButtonType _type;
+    [SerializeField] private int _index;
     public void OnPointerClick(PointerEventData eventData)
     {
         _manager.OnButtonClick(_type);
