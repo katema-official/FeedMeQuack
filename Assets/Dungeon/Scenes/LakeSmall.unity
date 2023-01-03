@@ -1733,10 +1733,10 @@ Tilemap:
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: d74b3fc55509aca47b2a9519d34112e2, type: 2}
+    m_Data: {fileID: 11400000, guid: faecce1e0c35a6443a93aaca3b7fa157, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1
-    m_Data: {fileID: 782074231, guid: c6a46311301f0ef49a1bddca6d228286, type: 3}
+    m_Data: {fileID: -2134876332, guid: a1f5a605d1598404f8745d86de9731b6, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 1
     m_Data:
@@ -4553,7 +4553,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1903556105780173411, guid: 0c5c15b77cc81154ead780d9432744b6, type: 3}
       propertyPath: m_ColliderPaths.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1903556105780173411, guid: 0c5c15b77cc81154ead780d9432744b6, type: 3}
       propertyPath: m_ColliderPaths.Array.data[1].m_Collider
@@ -22922,10 +22922,10 @@ Tilemap:
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: d74b3fc55509aca47b2a9519d34112e2, type: 2}
+    m_Data: {fileID: 11400000, guid: 447cd45392739e74daab1fc2b63d330f, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1
-    m_Data: {fileID: 782074231, guid: c6a46311301f0ef49a1bddca6d228286, type: 3}
+    m_Data: {fileID: -709414650, guid: a1f5a605d1598404f8745d86de9731b6, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 1
     m_Data:
@@ -27584,10 +27584,10 @@ Tilemap:
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: d74b3fc55509aca47b2a9519d34112e2, type: 2}
+    m_Data: {fileID: 11400000, guid: 447cd45392739e74daab1fc2b63d330f, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1
-    m_Data: {fileID: 782074231, guid: c6a46311301f0ef49a1bddca6d228286, type: 3}
+    m_Data: {fileID: -709414650, guid: a1f5a605d1598404f8745d86de9731b6, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 1
     m_Data:
@@ -28522,10 +28522,10 @@ Tilemap:
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: d74b3fc55509aca47b2a9519d34112e2, type: 2}
+    m_Data: {fileID: 11400000, guid: 447cd45392739e74daab1fc2b63d330f, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1
-    m_Data: {fileID: 782074231, guid: c6a46311301f0ef49a1bddca6d228286, type: 3}
+    m_Data: {fileID: -709414650, guid: a1f5a605d1598404f8745d86de9731b6, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 1
     m_Data:

@@ -33,8 +33,8 @@ namespace LevelStageNamespace {
         public float OffsetYLake;
 
         //offset for the spawn of the player
-        public float OffsetXPlayer;
-        public float OffsetYPlayer;
+        public float OffsetXPlayer = 0f;
+        public float OffsetYPlayer = 0f;
 
         //radius of area around the player in which we don't want enemies to spawn
         public float RadiusAroundPlayer;
@@ -183,16 +183,16 @@ namespace LevelStageNamespace {
                 switch (SpawnPlayer)
                 {
                     case EnumsDungeon.CompassDirection.North:
-                        _playerObject.transform.position = transform.Find(riversString + "/RiverNorth/Position").transform.position + new Vector3(0, -OffsetYPlayer, 0);
+                        _playerObject.transform.position = transform.Find(riversString + "/RiverNorth/Position").transform.position;// + new Vector3(0, -OffsetYPlayer, 0);
                         break;
                     case EnumsDungeon.CompassDirection.South:
-                        _playerObject.transform.position = transform.Find(riversString + "/RiverSouth/Position").transform.position + new Vector3(0, OffsetYPlayer, 0);
+                        _playerObject.transform.position = transform.Find(riversString + "/RiverSouth/Position").transform.position;// + new Vector3(0, OffsetYPlayer, 0);
                         break;
                     case EnumsDungeon.CompassDirection.West:
-                        _playerObject.transform.position = transform.Find(riversString + "/RiverWest/Position").transform.position + new Vector3(OffsetXPlayer, 0, 0);
+                        _playerObject.transform.position = transform.Find(riversString + "/RiverWest/Position").transform.position;// + new Vector3(OffsetXPlayer, 0, 0);
                         break;
                     case EnumsDungeon.CompassDirection.East:
-                        _playerObject.transform.position = transform.Find(riversString + "/RiverEast/Position").transform.position + new Vector3(-OffsetXPlayer, 0, 0);
+                        _playerObject.transform.position = transform.Find(riversString + "/RiverEast/Position").transform.position;// + new Vector3(-OffsetXPlayer, 0, 0);
                         break;
                 }
 
