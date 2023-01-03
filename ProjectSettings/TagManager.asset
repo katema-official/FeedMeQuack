@@ -25,8 +25,8 @@ TagManager:
   - TerrainLayer
   - EnemyLayer
   - PlayerLayer
-  - 
-  - 
+  - Background
+  - DuckFoot
   - 
   - 
   - 
@@ -50,4 +50,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: DuckFoot
+    uniqueID: 1142289697
+    locked: 0
+  - name: Background
+    uniqueID: 3102101969
     locked: 0

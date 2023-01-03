@@ -3,7 +3,30 @@
   <component name="ChangeListManager">
     <list default="true" id="0808f2d5-72ad-4799-babc-2a377af7996b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuackTrue/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuackTrue/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/AnimalSoundController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Scripts/AnimalSoundController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Dungeon/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dungeon/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Dungeon/Tilesets/Grasslands/SpriteAtlasGrasslands.spriteatlas" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dungeon/Tilesets/Grasslands/SpriteAtlasGrasslands.spriteatlas" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Feedback/SimplePrototypeSkeleton/Scripts/MenuManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Feedback/SimplePrototypeSkeleton/Scripts/MenuManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MainMenu.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MainMenu.zip.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MainMenu/Assets/Fonts/trebuc.ttf.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MainMenu/Assets/Fonts/trebuc.ttf.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/DisclaimerScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/DisclaimerScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/MainMenu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Prefabs/AudioManager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Prefabs/AudioManager.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Prefabs/AudioManager.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Prefabs/AudioManager.prefab.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Prefabs/MainMenuCanvas.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Prefabs/MainMenuCanvas.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Prefabs/MainMenuCanvas.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Prefabs/MainMenuCanvas.prefab.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/Songs/Combat.wav" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Resources/Songs/Combat.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/Songs/Shop.wav" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Resources/Songs/Shop.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/DisclaimerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Scripts/DisclaimerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/PoliMiArchiveController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Scripts/PoliMiArchiveController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tutorial/tutorial.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tutorial/tutorial.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,6 +124,8 @@
       <workItem from="1672328525659" duration="10047000" />
       <workItem from="1672339424695" duration="3212000" />
       <workItem from="1672387315316" duration="3783000" />
+      <workItem from="1672754218975" duration="5290000" />
+      <workItem from="1672782507552" duration="896000" />
     </task>
     <servers />
   </component>
