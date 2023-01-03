@@ -132,19 +132,19 @@ public class Windows_QuestPointer : MonoBehaviour {
             
             if (angle is >= 45 and < 135){ //top
                 y= rect.height* 0.95f- rect.height*0.5f;
-                x = (float) (rect.width* 0.5 * cotan)* 0.95f;
+                x = (float) (rect.width* 0.5 * cotan);
             }
             else if (angle is >= 135 and < 225){ //left
                 x = rect.width* 0.05f- rect.width * 0.5f;
-                y = (float) (0.5f * (1 - tan) * 0.95f * rect.height)- 0.5f* rect.height;
+                y = (float) (0.5f * (1 - tan) * rect.height)- 0.5f* rect.height;
             }
             else if (angle is >= 225 and < 315){ //bottom
                 y= rect.height* 0.05f;
                 x = (float) (rect.width*0.5-rect.width* 0.5 * cotan)* 0.95f;
             }
             else { //right
-                x = rect.width* 0.95f;
-                y= (float) (0.5f * (1 + tan) * 0.95f * rect.height);
+                x = rect.width* 0.95f * 0.5f;
+                y= (float) (0.5f * (1 + tan) * rect.height)- 0.5f* rect.height;
             }
             
             RectTransform rectTransform = pointerGameObject.GetComponent<RectTransform>();
