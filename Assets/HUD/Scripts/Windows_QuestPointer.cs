@@ -135,7 +135,7 @@ public class Windows_QuestPointer : MonoBehaviour {
             if (angle is >= 45 and < 135){ //top
                 lateral = false;
                 y= height* 0.96f;
-                x = (float) (width* cotan);
+                x = (float) (width* cotan)+ width/2;
             }
             else if (angle is >= 135 and < 225){ //left
                 lateral = true;
@@ -156,6 +156,8 @@ public class Windows_QuestPointer : MonoBehaviour {
             y -= height / 2;
             if (lateral)
                 y *= 1.25f;
+            else
+                x *= 0.375f;
             RectTransform rectTransform = pointerGameObject.GetComponent<RectTransform>();
             rectTransform.anchoredPosition = new Vector2(x,y);
         }
