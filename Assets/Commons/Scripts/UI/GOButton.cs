@@ -51,6 +51,10 @@ public class GOButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     {
         return _index;
     }
+    public FMQButtonType GetButtonType()
+    {
+        return _type;
+    }
     // Start is called before the first frame update
     void Awake()
     {

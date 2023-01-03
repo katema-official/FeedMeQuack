@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 5655982871408747356}
   - component: {fileID: 2041999772022137360}
   - component: {fileID: 716505547505599972}
-  - component: {fileID: 3802663967293059522}
+  - component: {fileID: 3945298088856135912}
   m_Layer: 5
   m_Name: GroupButtons
   m_TagString: Untagged
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &3802663967293059522
+--- !u!114 &3945298088856135912
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4833969684089252983}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1898c6aa5c3ea724d8074578b2f6c82a, type: 3}
+  m_Script: {fileID: 11500000, guid: 596ba3bb19cbbc84da02117eed32325e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6492977652557852099

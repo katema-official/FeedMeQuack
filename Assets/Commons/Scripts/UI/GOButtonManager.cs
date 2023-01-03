@@ -9,9 +9,9 @@ public class GOButtonManager : MonoBehaviour
 {
     private int _currentIndex = 0;
     private int _maxIndex = 0;
+    private GOButton _button = null;
 
-
-    public void OnButtonClick(FMQButtonType type)
+    public virtual void OnButtonClick(FMQButtonType type)
     {
         //if (type== FMQButtonType.Play)
         //{
@@ -60,7 +60,10 @@ public class GOButtonManager : MonoBehaviour
         foreach (Transform c in transform)
         {
             if (c.GetComponent<GOButton>().GetIndex() == _currentIndex)
+            { 
                 c.GetComponent<GOButton>().SetEnable(true);
+                _button = c.GetComponent<GOButton>();
+            }
             else
                 c.GetComponent<GOButton>().SetEnable(false);
         }
@@ -99,6 +102,8 @@ public class GOButtonManager : MonoBehaviour
             if (keyboard.sKey.wasReleasedThisFrame) SetCurrentButtonIndex(_currentIndex + 1);
             if (keyboard.upArrowKey.wasReleasedThisFrame) SetCurrentButtonIndex(_currentIndex - 1);
             if (keyboard.downArrowKey.wasReleasedThisFrame) SetCurrentButtonIndex(_currentIndex + 1);
+            if (keyboard.enterKey.wasReleasedThisFrame) 
+                OnButtonClick(_button.GetButtonType());
         }
 
         //var gamepad = Gamepad.current;
