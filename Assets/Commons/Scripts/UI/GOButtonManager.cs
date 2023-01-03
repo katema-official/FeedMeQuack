@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
+
 
 public class GOButtonManager : MonoBehaviour
 {
     private int _currentIndex = 0;
-
+    private int _maxIndex = 0;
 
 
     public void OnButtonClick(FMQButtonType type)
@@ -49,6 +51,12 @@ public class GOButtonManager : MonoBehaviour
     {
         _currentIndex = index;
 
+
+        if (index < 0)
+            _currentIndex = _maxIndex;
+        else if (index > _maxIndex)
+            _currentIndex = 0;
+
         foreach (Transform c in transform)
         {
             if (c.GetComponent<GOButton>().GetIndex() == _currentIndex)
@@ -72,14 +80,36 @@ public class GOButtonManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        foreach (Transform c in transform)
+        {
+            if (c.GetComponent<GOButton>().GetIndex() > _maxIndex)
+                _maxIndex = c.GetComponent<GOButton>().GetIndex();
+        }
+
         SetCurrentButtonIndex(0);
-        //SetEnableButtons(false);
-        // transform.GetChild(0).GetComponent<GOButton>().SetEnable(true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        var keyboard = Keyboard.current;
+        if (keyboard != null)
+        {
+            if (keyboard.wKey.wasReleasedThisFrame) SetCurrentButtonIndex(_currentIndex - 1);
+            if (keyboard.sKey.wasReleasedThisFrame) SetCurrentButtonIndex(_currentIndex + 1);
+            if (keyboard.upArrowKey.wasReleasedThisFrame) SetCurrentButtonIndex(_currentIndex - 1);
+            if (keyboard.downArrowKey.wasReleasedThisFrame) SetCurrentButtonIndex(_currentIndex + 1);
+        }
+
+        //var gamepad = Gamepad.current;
+        //if (gamepad != null)
+        //{
+        //    Vector2 move = gamepad.leftStick.ReadValue();
+
+        //    if (keyboard.wKey.isPressed) SetCurrentButtonIndex(_currentIndex - 1);
+        //    if (keyboard.sKey.isPressed) SetCurrentButtonIndex(_currentIndex + 1);
+        //    if (keyboard.upArrowKey.isPressed) SetCurrentButtonIndex(_currentIndex - 1);
+        //    if (keyboard.downArrowKey.isPressed) SetCurrentButtonIndex(_currentIndex + 1);
+        //}
     }
 }
