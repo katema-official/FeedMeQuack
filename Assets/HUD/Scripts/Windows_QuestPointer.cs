@@ -123,30 +123,39 @@ public class Windows_QuestPointer : MonoBehaviour {
             // Calculate the final position on the border
             //Vector2 finalPosition = center + dir * distance*0.9f;
 
-            float x,y;
 
             double angleRad = angle * Math.PI / 180;
             double tan = Math.Tan(angleRad);
             double cotan = 1/tan;
             var rect = canvasRectTransform.rect;
+            bool lateral = false;
+            
+            float x,y, width= rect.width, height= rect.height;
             
             if (angle is >= 45 and < 135){ //top
-                y= rect.height* 0.95f- rect.height*0.5f;
-                x = (float) (rect.width* 0.5 * cotan);
+                lateral = false;
+                y= height* 0.96f;
+                x = (float) (width* cotan);
             }
             else if (angle is >= 135 and < 225){ //left
-                x = rect.width* 0.05f- rect.width * 0.5f;
-                y = (float) (0.5f * (1 - tan) * rect.height)- 0.5f* rect.height;
+                lateral = true;
+                x = width* 0.04f;
+                y = (float) (0.5f * (1 - tan) * height);
             }
             else if (angle is >= 225 and < 315){ //bottom
-                y= rect.height* 0.05f- rect.height*0.5f;
-                x = (float) (rect.width*0.5-rect.width* 0.5 * cotan)* 0.95f- 0.5f* rect.width;
+                lateral = false;
+                y= height* 0.04f;
+                x = (float) (width*0.5-width* 0.5 * cotan)* 0.95f;
             }
             else { //right
-                x = rect.width* 0.95f * 0.5f;
-                y= (float) (0.5f * (1 + tan) * rect.height)- 0.5f* rect.height;
+                lateral = true;
+                x = width* 0.96f;
+                y= (float) (0.5f * (1 + tan) * height);
             }
-            
+            x -= width / 2;
+            y -= height / 2;
+            if (lateral)
+                y *= 1.25f;
             RectTransform rectTransform = pointerGameObject.GetComponent<RectTransform>();
             rectTransform.anchoredPosition = new Vector2(x,y);
         }
