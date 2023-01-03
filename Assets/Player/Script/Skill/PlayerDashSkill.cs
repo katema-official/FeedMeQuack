@@ -108,6 +108,9 @@ namespace Player
 
             if (_controller.GetState() == PlayerState.Dashing)
             {
+                _controller.GetAnimator().SetBool("Dash", true);
+
+
                 _controller.GetAnimalSoundController().Fly();
 
                 _moveSkill.EnableInput(false);
@@ -141,6 +144,8 @@ namespace Player
 
             if (_controller.GetState() == PlayerState.Normal)
             {
+                _controller.GetAnimator().SetBool("Dash", false);
+
                 _controller.GetAnimalSoundController().UnFly();
 
                 _controller.GetStatusView().SetInteractionActive(false, 1);
