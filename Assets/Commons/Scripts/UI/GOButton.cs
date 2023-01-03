@@ -14,6 +14,7 @@ public class GOButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     private GOButtonManager _manager = null;
     [SerializeField] private FMQButtonType _type;
     [SerializeField] private int _index;
+
     public void OnPointerClick(PointerEventData eventData)
     {
         _manager.OnButtonClick(_type);
@@ -21,8 +22,8 @@ public class GOButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        _manager.SetEnableButtons(false);
-        SetEnable(true);
+        _manager.SetCurrentButtonIndex(_index);
+        //SetEnable(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -46,7 +47,10 @@ public class GOButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         }
         _enable = enable;
     }
-
+    public int GetIndex()
+    {
+        return _index;
+    }
     // Start is called before the first frame update
     void Awake()
     {
