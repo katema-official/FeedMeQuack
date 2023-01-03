@@ -15,6 +15,7 @@ namespace Player
         private Camera _camera = null;
         private Transform _mouth = null;
 
+
         private LevelStageNamespace.LakeShopDescriptionComponent _currentLake = null;
 
         [SerializeField] private PlayerState _state = PlayerState.Normal;

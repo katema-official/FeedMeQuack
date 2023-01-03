@@ -108,6 +108,8 @@ namespace Player
 
             if (_controller.GetState() == PlayerState.Dashing)
             {
+                //_moveSkill.SetOffset(new Vector3(0, 1.5f, 0));
+                transform.Find("Body").gameObject.SetActive(true);
                 _controller.GetAnimator().SetBool("Dash", true);
 
 
@@ -144,6 +146,9 @@ namespace Player
 
             if (_controller.GetState() == PlayerState.Normal)
             {
+               // _moveSkill.SetOffset(new Vector3(0, 0, 0));
+                transform.Find("Body").gameObject.SetActive(false);
+
                 _controller.GetAnimator().SetBool("Dash", false);
 
                 _controller.GetAnimalSoundController().UnFly();
