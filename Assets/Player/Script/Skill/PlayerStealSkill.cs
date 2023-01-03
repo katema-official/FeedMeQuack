@@ -292,7 +292,7 @@ namespace Player
 
             if (enemyController)
             {
-                if (collision.gameObject.GetComponent<DuckEnemies.EatingComponent>().GetBreadInMouthComponent() &&  _controller.GetState() == PlayerState.Normal)
+                if (collision.gameObject.GetComponent<DuckEnemies.EatingComponent>().GetBreadInMouthComponent() &&  _controller.GetState() == PlayerState.Normal && _stealCoolDownElapsedSeconds <= 0)
                     _controller.GetStatusView().SetInteractionActive(true, 3);
                 else
                     _controller.GetStatusView().SetInteractionActive(false, 3);
@@ -314,7 +314,7 @@ namespace Player
 
             if (enemyController)
             {
-                if (collision.gameObject.GetComponent<DuckEnemies.EatingComponent>().GetBreadInMouthComponent() && _controller.GetState() == PlayerState.Normal)
+                if (collision.gameObject.GetComponent<DuckEnemies.EatingComponent>().GetBreadInMouthComponent() && _controller.GetState() == PlayerState.Normal && _stealCoolDownElapsedSeconds<=0)
                     _controller.GetStatusView().SetInteractionActive(true, 3);
                 else
                     _controller.GetStatusView().SetInteractionActive(false, 3);
