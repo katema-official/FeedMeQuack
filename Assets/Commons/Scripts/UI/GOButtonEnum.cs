@@ -10,6 +10,11 @@ public enum FMQButtonType
     Settings,
     Credits,
     Feedback,
-    Quit
+    Quit,
+    PauseSettings,
+    PauseBackToGame,
+    PauseBackToMainMenu,
+    PauseDefaultValues,
+    PauseBackToPauseMenu
 }
 

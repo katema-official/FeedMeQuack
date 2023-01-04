@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -17,15 +18,25 @@ namespace Music
 
       private void Update()
       {
-         if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "GameOverScreen")
+         var gamepad = Gamepad.current;
+         if (gamepad != null)
          {
-            canvasPauseMenu.SetActive(!canvasPauseMenu.activeInHierarchy);
+            if (gamepad.startButton.wasPressedThisFrame)
+            {
+               Pause();
+            }
+               
+         }
+         
+         if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "GameOverScreen" && SceneManager.GetActiveScene().name != "GameEnd")
+         {
             Pause();
          }
       }
 
-      private void Pause()
+      public void Pause()
       {
+         canvasPauseMenu.SetActive(!canvasPauseMenu.activeInHierarchy);
          Time.timeScale = Time.timeScale == 0 ? 1 : 0;
          Lowpass();
       }

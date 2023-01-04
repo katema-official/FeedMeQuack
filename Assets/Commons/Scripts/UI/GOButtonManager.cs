@@ -45,7 +45,7 @@ public class GOButtonManager : MonoBehaviour
 
         foreach (Transform c in transform)
         {
-            c.GetComponent<GOButton>().SetEnable(enable);
+            c.GetComponentInChildren<GOButton>(true).SetEnable(enable);
         }
     }
 
@@ -62,13 +62,13 @@ public class GOButtonManager : MonoBehaviour
 
         foreach (Transform c in transform)
         {
-            if (c.GetComponent<GOButton>().GetIndex() == _currentIndex)
+            if (c.GetComponentInChildren<GOButton>(true).GetIndex() == _currentIndex)
             { 
-                c.GetComponent<GOButton>().SetEnable(true);
-                _button = c.GetComponent<GOButton>();
+                c.GetComponentInChildren<GOButton>(true).SetEnable(true);
+                _button = c.GetComponentInChildren<GOButton>(true);
             }
             else
-                c.GetComponent<GOButton>().SetEnable(false);
+                c.GetComponentInChildren<GOButton>(true).SetEnable(false);
         }
     }
 
@@ -88,8 +88,8 @@ public class GOButtonManager : MonoBehaviour
     {
         foreach (Transform c in transform)
         {
-            if (c.GetComponent<GOButton>().GetIndex() > _maxIndex)
-                _maxIndex = c.GetComponent<GOButton>().GetIndex();
+            if (c.GetComponentInChildren<GOButton>(true).GetIndex() > _maxIndex)
+                _maxIndex = c.GetComponentInChildren<GOButton>(true).GetIndex();
         }
 
         SetCurrentButtonIndex(0);
