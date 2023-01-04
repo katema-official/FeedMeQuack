@@ -36,6 +36,7 @@ namespace DuckEnemies
         private Vector3 _foodObjectivePosition;     //...but just to make sure, I'll save it here
 
 
+        [SerializeField] private GameObject _shadowGO;
 
 
         private GameObject _obstaclesGO;
@@ -96,6 +97,12 @@ namespace DuckEnemies
         public void EnterDashing_PlaySound()
         {
             _animalSoundController.Fly();
+            transform.Find("Sprite").GetComponent<Animator>().SetBool("Dash", true);
+            Vector3 v = (_foodObjectivePosition - transform.position);
+            v.Normalize();
+            _movementSeekComponent.ComputeRotation(v);
+            _movementSeekComponent.SetRotation();
+            _shadowGO.SetActive(true);
         }
 
         public void ExitDashing_EnableCollisionsWithObstacles()
@@ -124,6 +131,8 @@ namespace DuckEnemies
         public void ExitDashing_StopSound()
         {
             _animalSoundController.UnFly();
+            transform.Find("Sprite").GetComponent<Animator>().SetBool("Dash", false);
+            _shadowGO.SetActive(false);
         }
 
 
@@ -168,6 +177,8 @@ namespace DuckEnemies
             StartCoroutine(UpdateObstacles());
 
             _animalSoundController = GetComponent<AnimalSoundController>();
+
+            _shadowGO.SetActive(false);
         }
 
         //I'm so sorry but rn I don't want to do anything difficult to do something so simple

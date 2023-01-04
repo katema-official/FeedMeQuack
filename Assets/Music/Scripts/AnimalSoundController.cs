@@ -159,7 +159,7 @@ namespace Music
                     case 0:
                         _audioSources[i].clip = Resources.Load<AudioClip>("SFX/Swimming");
                         _audioSources[i].loop = true;
-                        _audioSources[i].volume = MusicManagerComponent.GetSoundVolume() * (0.015f);
+                        _audioSources[i].volume = MusicManagerComponent.GetSoundVolume() * (0.01f);
                         _audioSources[i].time = Random.Range(0, _audioSources[i].clip.length);
                         _audioSources[i].Play();
                         _audioSources[i].Pause();
@@ -186,8 +186,9 @@ namespace Music
             }
         }
 
-        public void Swim()
+        public void Swim(float vol)
         {
+            _audioSources[0].volume = MusicManagerComponent.GetSoundVolume() * (0.01f) * vol;
             if (GetIsInSwimmingState() == true) return;
 
             _audioSources[0].UnPause();

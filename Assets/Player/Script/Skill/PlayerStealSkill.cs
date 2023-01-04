@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using HUDNamespace;
+using LevelStageNamespace;
 
 namespace Player
 {
@@ -276,14 +277,14 @@ namespace Player
                     _eatSkill.SetCaughtBread(breadForPlayer.GetComponent<BreadNamespace.BreadInMouthComponent>());  // this function allows the player to change from steal to eat or normal state and provides the resulting bread.
                 }
 
-                //bool toPlace = false;
-                //Vector3 newPos;
-                //(toPlace, newPos) = _controller.GetLake().AdjustPlacement(_controller.GetPosition());
+                bool toPlace = false;
+                Vector3 newPos;
+                (toPlace, newPos) = ((LakeDescriptionComponent) _controller.GetLake()).AdjustPlacement(_controller.GetPosition());
 
-                //if (toPlace)
-                //{
-                //    _moveSkill.MoveTo(newPos);
-                //}
+                if (toPlace)
+                {
+                    _moveSkill.MoveTo(newPos);
+                }
 
             }
             _enemyToSteal = null;
