@@ -2,22 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-public class LevelIntroUIController : MonoBehaviour
+
+namespace LevelStageNamespace
 {
-    public void ShowText(string str)
+    public class LevelIntroUIController : MonoBehaviour
     {
-        GetComponentInChildren<TextFadeInOut>().StartAnim(str);
-    }
+        public void ShowText(string str)
+        {
+            GetComponentInChildren<TextFadeInOut>().StartAnim(str);
+        }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+        // Start is called before the first frame update
+        void Start()
+        {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }

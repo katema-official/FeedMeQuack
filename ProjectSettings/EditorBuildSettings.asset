@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/Dungeon/Scenes/LakeLarge.unity
     guid: 9e3a3bca990e234489347f6760ef041c
   - enabled: 1
-    path: Assets/Dungeon/Scenes/GameOverScreen.unity
+    path: Assets/GameOver/Scenes/GameOverScreen.unity
     guid: 2cd4649608a677541b13ed94cebdbf90
   - enabled: 1
     path: Assets/Dungeon/Scenes/Shop1.unity
