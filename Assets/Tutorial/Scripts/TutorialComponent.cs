@@ -14,18 +14,16 @@ public class TutorialComponent : MonoBehaviour
     private const int _tutorialEat = 1;
     private const int _tutorialUI1 = 2;
     private const int _tutorialUI2 = 3;
-    private const int _tutorialUI3 = 4;
-    private const int _tutorialShop = 5;
-    private const int _tutorialCommands1 = 6;
-    private const int _tutorialAAA = 7;
+    private const int _tutorialShop = 4;
+    private const int _tutorialCommands1 = 5;
+    private const int _tutorialAAA = 6;
 
     private Dictionary<int, string> _tutorialText = new Dictionary<int, string>()
     {
         {_tutorialMovement, "Use WASD or the left analog stick to move. You can move from a lake to another through a " + ColorString("river.", "0045B7") },
         {_tutorialEat, "Bite the thrown " + ColorString("bread", "CD6E3B") + " with the " + ColorString("E", "494D42") + " key or " + ColorString("A", "00FD10") + " button when close enough." },
-        {_tutorialUI1, "Eating " + ColorString("bread", "CD6E3B") + " gives you " + ColorString("BP (Bread Points)", "CD6E3B") + ", shown in the " + ColorString("upper left corner", "FFFF00") + "."},
-        {_tutorialUI2, "The minimum number of " + ColorString("BP", "CD6E3B") + " required to access the next level are shown in the " + ColorString("bottom right corner", "FFFF00") + "."},
-        {_tutorialUI3, "Use the minimap in the " + ColorString("upper right corner", "FFFF00") + " to orient yourself. The " + ColorString("green square", "00FF00") + " is the lake containing a passage to the thext level: just follow the " + ColorString("brown sign", "A18534") + "..."},
+        {_tutorialUI1, "Eating " + ColorString("bread", "CD6E3B") + " gives you " + ColorString("BP (Bread Points)", "CD6E3B") + ", shown in the " + ColorString("upper left corner", "FFFF00") + ". Get enough of them to go to the next level!"},
+        {_tutorialUI2, "Use the minimap in the " + ColorString("upper right corner", "FFFF00") + " to orient yourself. The " + ColorString("green square", "00FF00") + " is the lake containing a passage to the thext level: just follow the " + ColorString("brown sign", "A18534") + "..."},
         {_tutorialShop, "In the " + ColorString("shop", "FF4301") + ", your " + ColorString("BP", "CD6E3B") + " in excess are converted in " + ColorString("DBP (Digested Bread Points)", "FF4301") + ", that you can use to purchase " + ColorString("Power Ups", "EAD200") + "."},
         {_tutorialCommands1, "Eating is not your only skill.\n Use " + ColorString("Shift", "494D42") + " or " + ColorString("B", "F80000") + " to dash. Press again to stop.\n"
         + "Use " + ColorString("Space", "494D42") + " or " + ColorString("Y", "F87700") + " to steal bread from an enemy. Your victim won't let it go that easily thought...\n" 
@@ -108,12 +106,6 @@ public class TutorialComponent : MonoBehaviour
             case _tutorialUI2:
                 textToShow = _tutorialText[_tutorialUI2];
                 StartCoroutine(DeleteText());
-                _tutorialIndex = _tutorialUI3;
-                break;
-
-            case _tutorialUI3:
-                textToShow = _tutorialText[_tutorialUI3];
-                StartCoroutine(DeleteText(12f));
                 _tutorialIndex = _tutorialShop;
                 break;
 
@@ -156,10 +148,6 @@ public class TutorialComponent : MonoBehaviour
         switch (_tutorialIndex)
         {
             case _tutorialUI1:
-                ChangeText();
-                break;
-
-            case _tutorialUI2:
                 ChangeText();
                 break;
 

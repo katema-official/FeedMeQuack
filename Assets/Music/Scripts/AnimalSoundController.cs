@@ -167,7 +167,7 @@ namespace Music
                     
                     case 1:
                         _audioSources[i].clip = Resources.Load<AudioClip>("SFX/Flying");
-                        _audioSources[i].volume = MusicManagerComponent.GetSoundVolume();
+                        _audioSources[i].volume = MusicManagerComponent.GetSoundVolume() * (0.3f);
                         break;
                     
                     case 2:

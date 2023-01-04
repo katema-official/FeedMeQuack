@@ -239,7 +239,7 @@ namespace Player
 
                 if (_stealCoolDownElapsedSeconds < 0)
                     _stealCoolDownElapsedSeconds = 0;
-                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.stealCD, (int) _stealCoolDownElapsedSeconds);
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.stealCD, _stealCoolDownElapsedSeconds);
             }
 
         }

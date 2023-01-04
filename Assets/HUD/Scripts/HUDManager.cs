@@ -60,11 +60,12 @@ namespace HUDNamespace
 
         public void UpdateSkillCooldown(textFields skillType, float newValue)
         {
+            string s = String.Format("{0:0.0}", newValue);
             switch (skillType)
             {
                 case textFields.dashCD:
-                    dashCDValueText.text = newValue.ToString()+" sec.";
-                    dashCDValueTextCopy.text = newValue.ToString()+" sec.";
+                    dashCDValueText.text = s + " sec.";
+                    dashCDValueTextCopy.text = s + " sec.";
                     if (newValue == 0){
                         dashCDValueText.text = "Available";
                         dashCDValueText.color= Color.green;
@@ -77,8 +78,8 @@ namespace HUDNamespace
                     }
                     break;
                 case textFields.stealCD:
-                    stealCDValueText.text = newValue.ToString()+" sec.";
-                    stealCDValueTextCopy.text = newValue.ToString()+" sec.";
+                    stealCDValueText.text = s + " sec.";
+                    stealCDValueTextCopy.text = s + " sec.";
                     if (newValue == 0){
                         stealCDValueText.text = "Available";
                         stealCDValueText.color= Color.green;
@@ -91,8 +92,8 @@ namespace HUDNamespace
                     }
                     break;
                 case textFields.spitCD:
-                    spitCDValueText.text = newValue.ToString()+" sec.";
-                    spitCDValueTextCopy.text = newValue.ToString()+" sec.";
+                    spitCDValueText.text = s + " sec.";
+                    spitCDValueTextCopy.text = s + " sec.";
                     if (newValue == 0){
                         spitCDValueText.text = "Available";
                         spitCDValueText.color= Color.green;

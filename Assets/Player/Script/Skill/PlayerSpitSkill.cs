@@ -260,7 +260,7 @@ namespace Player
 
                 if (_spitCoolDownElapsedSeconds < 0)
                     _spitCoolDownElapsedSeconds = 0;
-                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.spitCD, (int)_spitCoolDownElapsedSeconds);
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.spitCD, _spitCoolDownElapsedSeconds);
             }
         }
     }

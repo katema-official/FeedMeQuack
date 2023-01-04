@@ -234,7 +234,7 @@ namespace Player
 
                 if (_dashCoolDownElapsedSeconds < 0)
                     _dashCoolDownElapsedSeconds = 0;
-                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, (int) _dashCoolDownElapsedSeconds);
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
             }
         }
 
