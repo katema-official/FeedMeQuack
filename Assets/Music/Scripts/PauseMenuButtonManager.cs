@@ -15,8 +15,7 @@ public class PauseMenuButtonManager : GOButtonManager
     {
         if (type == FMQButtonType.PauseBackToMainMenu)
         {
-            FindObjectOfType<PauseManager>().Pause();
-            SceneManager.LoadScene("MainMenu");
+            FindObjectOfType<PauseManager>().BackToMainMenu();
         }
         else if (type == FMQButtonType.PauseSettings)
         {

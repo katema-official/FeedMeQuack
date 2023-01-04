@@ -33,7 +33,7 @@ namespace Music
         private void Start()
         {
             
-            var buttons = GameObject.Find("MainMenuCanvas").transform
+            /*var buttons = GameObject.Find("MainMenuCanvas").transform
                 .GetComponentsInChildren<Button>(true);
             foreach (var button in buttons)
             {
@@ -42,9 +42,9 @@ namespace Music
                     _defaultButton = button;
                     break;
                 }
-            }
+            }*/
 
-            _defaultButton.onClick.AddListener(DefaultVolumes);
+            //defaultButton.onClick.AddListener(DefaultVolumes);
 
             InitAnimalsSound();
             UniversalAudio.PlayMusic("Swimming", false);
