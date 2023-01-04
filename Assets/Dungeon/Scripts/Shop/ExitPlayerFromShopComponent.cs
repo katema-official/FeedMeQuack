@@ -14,11 +14,9 @@ namespace ShopNamespace
         {
             if (collider.gameObject.tag == "Player")
             {
+                _levelStageManager.ExitShop();
 
-                
-                    _levelStageManager.ExitShop();
-                
-
+                Music.UniversalAudio.PlayMusic("Swimming", true);
             }
         }
 
