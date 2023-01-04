@@ -65,12 +65,20 @@ namespace DuckEnemies
 
         public void EnterBite_BiteBreadInWater()
         {
-            //last check: is the bread I was pointing at still there?
+            //last check: is the bread I was pointing at still there? Or at least, there is a bread near enough to me?
             if (_identifyFoodComponent.IsThereAnObjectiveFood())
             {
                 //if so, bite it
-                _myFoodInMouthGO = _identifyFoodComponent.GetObjectiveFood().GetComponent<BreadInWaterComponent>().GenerateNewBreadInMouth(_mouthSize);
-                _myBreadInMouthComponent = _myFoodInMouthGO.GetComponent<BreadInMouthComponent>();
+                GameObject objectiveFood = _identifyFoodComponent.GetObjectiveFood();
+
+                //is this food really close to me?
+                CircleCollider2D collider = GetComponent<CircleCollider2D>();
+                if (Physics2D.IsTouching(collider, objectiveFood.GetComponent<CircleCollider2D>()))
+                {
+                    _myFoodInMouthGO = objectiveFood.GetComponent<BreadInWaterComponent>().GenerateNewBreadInMouth(_mouthSize);
+                    _myBreadInMouthComponent = _myFoodInMouthGO.GetComponent<BreadInMouthComponent>();
+                }
+
             }
         }
 

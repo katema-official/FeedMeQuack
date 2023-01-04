@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2367e82b6f1397f4e9420ea9b270d24c, type: 3}
   m_Name: Mallard
   m_EditorClassIdentifier: 
+  Type: 0
   SpeedRoaming: 10
   AccelerationRoaming: 10
   DecelerationRoaming: 10
@@ -36,14 +37,14 @@ MonoBehaviour:
   Circle1PlayerProbability: 1
   Circle2PlayerProbability: 0.5
   Circle3PlayerProbability: 0.25
-  DashTriggerProbability: 0.1
+  DashTriggerProbability: 0.05
   SpeedDash: 20
   AccelerationDash: 10
   DecelerationDash: 40
   SteerDash: 20
   DistanceToDash: 10
-  StealTriggerProbability: 0.1
-  SpeedChasing: 13
+  StealTriggerProbability: 0.05
+  SpeedChasing: 16
   AccelerationChasing: 5
   DecelerationChasing: 30
   SteerChasing: 20

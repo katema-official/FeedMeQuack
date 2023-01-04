@@ -146,7 +146,6 @@ namespace LevelStageNamespace
             {
                 if (GameObject.FindWithTag("Player").GetComponent<Player.PlayerController>().GetBreadPoints() >= GetStage(GetLevel(_currentLevel), _currentStage).BreadPointsRequiredToCompleteStage)
                 {
-                    Debug.Log("CE L'HAI FATTA, HAI MANGIATO ABBASTANZA!");
                     GameObject.FindWithTag("Player").GetComponent<Player.PlayerController>().NotifyStageCompleted(GetStage(GetLevel(_currentLevel), _currentStage).BreadPointsRequiredToCompleteStage);
                     FadeOutGoToShop();
                     return;
@@ -154,8 +153,6 @@ namespace LevelStageNamespace
                 }
                 else
                 {
-                    Debug.Log("COMPLIMENTI, SEI MORTO DI FAME!");
-                    //Destroy(this.gameObject);
                     SceneManager.LoadScene("GameOverScreen");
                     return;
                 }
@@ -240,7 +237,8 @@ namespace LevelStageNamespace
 
         public void ExitShop()
         {
-            GoToNextStage();
+            _blackSquare = Instantiate(_blackSquarePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            _blackSquare.GetComponent<FadeBlackComponent>().fadeToBlackAndGoToNextStage();  //-> will call EnterLake when it's done
         }
 
 
@@ -262,7 +260,7 @@ namespace LevelStageNamespace
         public void FadeIn()
         {
             _blackSquare = Instantiate(_blackSquarePrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            _blackSquare.GetComponent<FadeBlackComponent>().fadeFromBlack();  //-> will call EnterLake when it's done
+            _blackSquare.GetComponent<FadeBlackComponent>().fadeFromBlack();
         }
 
 

@@ -18,4 +18,4 @@ MonoBehaviour:
   Cost: 5
   PowerUpKinds: 01000000
   amountForPowerUpKind:
-  - 2
+  - 1.5

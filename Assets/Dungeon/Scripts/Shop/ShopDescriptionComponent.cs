@@ -27,7 +27,7 @@ namespace LevelStageNamespace
             player.transform.position = new Vector3(0, 0, 0);
             _levelStageManager = GameObject.Find("LevelStageManagerObject").GetComponent<LevelStageManagerComponent>();
             _platformsForPowerUpsGameobject = GameObject.Find("PlatformsForPowerUps");
-
+            _levelStageManager.FadeIn();
             InitializeShop();
         }
 

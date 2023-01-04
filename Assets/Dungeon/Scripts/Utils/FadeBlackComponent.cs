@@ -50,6 +50,13 @@ public class FadeBlackComponent : MonoBehaviour
     }
 
 
+    public void fadeToBlackAndGoToNextStage()
+    {
+        var color = _sprite.color;
+        color.a = 0f;
+        _sprite.color = color;
+        StartCoroutine(fadeToBlackAndGoToNextStageCoroutine());
+    }
 
 
 
@@ -104,6 +111,25 @@ public class FadeBlackComponent : MonoBehaviour
         }
         c.a = 1f;
         _levelStageManager.EnterShop();
+
+        yield return null;
+    }
+
+
+    private IEnumerator fadeToBlackAndGoToNextStageCoroutine()
+    {
+        Color c;
+
+        for (float i = 0; i < _fadeOutDuration; i += Time.deltaTime)
+        {
+            float normalizedTime = i / _fadeOutDuration;
+            c = _sprite.color;
+            c.a = Mathf.Lerp(0f, 1f, normalizedTime);
+            _sprite.color = c;
+            yield return null;
+        }
+        c.a = 1f; 
+        _levelStageManager.GoToNextStage();
 
         yield return null;
     }

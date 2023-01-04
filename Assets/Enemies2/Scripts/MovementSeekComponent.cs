@@ -119,8 +119,7 @@ namespace SteeringBehaviourNamespace
 
             if (IsDestinationValid)
             {
-                float angle = Mathf.Atan2(-_directionToMoveNormalized.x, _directionToMoveNormalized.y) * Mathf.Rad2Deg;
-                _currentRotation = angle;
+                ComputeRotation(_directionToMoveNormalized);
                 SetRotation();
                 if (Vector2.Distance(transform.position, FinalDestination) <= StopAt)
                 {
@@ -135,6 +134,11 @@ namespace SteeringBehaviourNamespace
 
         }
 
+        public void ComputeRotation(Vector2 dir)
+        {
+            float angle = Mathf.Atan2(-dir.x, dir.y) * Mathf.Rad2Deg;
+            _currentRotation = angle;
+        }
 
 
 
@@ -185,7 +189,7 @@ namespace SteeringBehaviourNamespace
             _stopForReal = false;
             IsDestinationValid = true;
             HasStartedDecelerating = false;
-            _animalSoundController.Swim();
+            _animalSoundController.Swim(1f);
         }
 
         //method to call when we don't want the duck to move anymore

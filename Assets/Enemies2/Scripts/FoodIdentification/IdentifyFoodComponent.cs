@@ -133,6 +133,7 @@ namespace DuckEnemies
             {
                 return false;
             }
+
             return true;
 
         }
@@ -171,6 +172,8 @@ namespace DuckEnemies
                 }
 
             }
+
+
 
             return foodClosest;
 

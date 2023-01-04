@@ -25,9 +25,9 @@ TagManager:
   - TerrainLayer
   - EnemyLayer
   - PlayerLayer
-  - 
-  - 
-  - 
+  - FoodColliderLayer
+  - PlayerColliderLayer
+  - BreadInWaterLayer
   - 
   - 
   - 

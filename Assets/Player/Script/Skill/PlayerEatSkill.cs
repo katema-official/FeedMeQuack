@@ -99,6 +99,8 @@ namespace Player
                 if (_controller.GetState() == PlayerState.Eating)
                 {
                     _moveSkill.EnableInput(true);
+                    _controller.GetStatusView().SetMiniStatusActive(true);
+                   _controller.GetStatusView().SetInteractionActive(false, 0);
                     _controller.GetStatusView().SetVisible(true);
                     _controller.GetStatusView().SetText("");
                 }
@@ -113,7 +115,8 @@ namespace Player
                 if (_controller.GetState() == PlayerState.Normal)
                 {
                     _moveSkill.EnableInput(true);
-                    _controller.GetStatusView().SetVisible(false);
+                    _controller.GetStatusView().SetMiniStatusActive(false);
+                    _controller.GetStatusView().SetInteractionActive(false, 0);
                     _controller.GetStatusView().SetText("");
                     _controller.GetAnimalSoundController().UnEat();
                 }
@@ -278,7 +281,9 @@ namespace Player
             int a;
             
             _mustStopEating = false;
-           
+
+            _controller.GetStatusView().SetMiniStatusActive(true);
+            _controller.GetStatusView().SetInteractionActive(false, 0);
             _controller.GetStatusView().SetVisible(true);
             _controller.GetStatusView().SetText("");
             _controller.GetStatusView().SetIcon(_eatDesc.EatingStatusIcon);
@@ -299,8 +304,8 @@ namespace Player
                 }
             }
             _controller.GetStatusView().SetText("" + _caughtBread.GetBreadPoints());
-            _controller.GetStatusView().SetVisible(false);
-
+            _controller.GetStatusView().SetMiniStatusActive(false);
+            _controller.GetStatusView().SetInteractionActive(false, 0);
             _controller.GetAnimalSoundController().UnEat();
 
             //Debug.Log("Bread eaten after");
@@ -319,6 +324,11 @@ namespace Player
             powerup = ((collision.gameObject)?.transform.parent)?.gameObject.GetComponent<PowerUpsNamespace.PowerUpComponent>();
             if (powerup)
             {
+                if (_controller.GetState() == PlayerState.Normal)
+                    _controller.GetStatusView().SetInteractionActive(true, 4);
+                else
+                    _controller.GetStatusView().SetInteractionActive(false, 4);
+
                 _locatedPowerUp = powerup;
             }
 
@@ -331,32 +341,58 @@ namespace Player
             
 
 
-            //var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
-            //if (breadController)
-            //{
-            //    _locatedBreads.Add(breadController);
-            //    _locatedBread = FindClosestBread();
-            //}
+            var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
+            if (breadController)
+            {
+
+
+                if (_controller.GetState() == PlayerState.Normal)
+                    _controller.GetStatusView().SetInteractionActive(true, 0);
+                else
+                    _controller.GetStatusView().SetInteractionActive(false, 0);
+                //  _controller.GetStatusView().SetVisible(true);
+                //    _locatedBreads.Add(breadController);
+                //    _locatedBread = FindClosestBread();
+            }
 
         }
 
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
+            if (breadController)
+            {
+                if (_controller.GetState() == PlayerState.Normal)
+                    _controller.GetStatusView().SetInteractionActive(true, 0);
+                else
+                    _controller.GetStatusView().SetInteractionActive(false, 0);
+            }
+
+        }
         private void OnTriggerExit2D(Collider2D collision)
         {
+            var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
+
+            if (breadController)
+            {
+                _controller.GetStatusView().SetInteractionActive(false,0);
+               // _controller.GetStatusView().SetVisible(true);
+                //    _locatedBreads.Remove(breadController);
+                //    _locatedBread = FindClosestBread();
+            }
+
+
             if (!collision.gameObject.transform.parent) return;
 
             var powerup = collision.gameObject.transform.parent.gameObject.GetComponent<PowerUpsNamespace.PowerUpComponent>();
             if (powerup)
             {
+
+                _controller.GetStatusView().SetInteractionActive(false, 4);
                 _locatedPowerUp = null;
             }
 
-            //var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
-
-            //if (breadController)
-            //{
-            //    _locatedBreads.Remove(breadController);
-            //    _locatedBread = FindClosestBread();
-            //}
+            
         }
 
 

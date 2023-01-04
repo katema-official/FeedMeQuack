@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemySpawnLakeMedium2.3
   m_EditorClassIdentifier: 
   MinNumberOfEnemiesPerLake: 6
-  MaxNumberOfEnemiesPerLake: 7
+  MaxNumberOfEnemiesPerLake: 6
   ProbabilitiesOfEnemies:
   - 0.25
   - 0.65

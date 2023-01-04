@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using HUDNamespace;
+using LevelStageNamespace;
 
 namespace Player
 {
@@ -218,6 +219,7 @@ namespace Player
                     LevelStageNamespace.LakeDescriptionComponent lakeDescriptionComponent = (LevelStageNamespace.LakeDescriptionComponent)_controller.GetLake();
                     if (lakeDescriptionComponent)
                     {
+                        _controller.GetStatusView().SetInteractionActive(false, 3);
                         lakeDescriptionComponent.PlayerStartStealFromEnemy(_controller.gameObject, breadContended.gameObject, playerPos.x, playerPos.y + 3f);
                         _controller.GetAnimalSoundController().UnSwim();
                     }                 
@@ -274,6 +276,16 @@ namespace Player
                 {
                     _eatSkill.SetCaughtBread(breadForPlayer.GetComponent<BreadNamespace.BreadInMouthComponent>());  // this function allows the player to change from steal to eat or normal state and provides the resulting bread.
                 }
+
+                bool toPlace = false;
+                Vector3 newPos;
+                (toPlace, newPos) = ((LakeDescriptionComponent) _controller.GetLake()).AdjustPlacement(_controller.GetPosition());
+
+                if (toPlace)
+                {
+                    _moveSkill.MoveTo(newPos);
+                }
+
             }
             _enemyToSteal = null;
         }
@@ -291,6 +303,11 @@ namespace Player
 
             if (enemyController)
             {
+                if (collision.gameObject.GetComponent<DuckEnemies.EatingComponent>().GetBreadInMouthComponent() &&  _controller.GetState() == PlayerState.Normal && _stealCoolDownElapsedSeconds <= 0)
+                    _controller.GetStatusView().SetInteractionActive(true, 3);
+                else
+                    _controller.GetStatusView().SetInteractionActive(false, 3);
+
                 _locatedEnemies.Add(enemyController);
                 _locatedEnemy = FindClosestEnemy();
                 
@@ -302,12 +319,28 @@ namespace Player
 
         }
 
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            var enemyController = collision.gameObject.GetComponent<DuckEnemies.StealingComponent>();
+
+            if (enemyController)
+            {
+                if (collision.gameObject.GetComponent<DuckEnemies.EatingComponent>().GetBreadInMouthComponent() && _controller.GetState() == PlayerState.Normal && _stealCoolDownElapsedSeconds<=0)
+                    _controller.GetStatusView().SetInteractionActive(true, 3);
+                else
+                    _controller.GetStatusView().SetInteractionActive(false, 3);
+            }
+        }
+
+
         private void OnTriggerExit2D(Collider2D collision)
         {
             var enemyController = collision.gameObject.GetComponent<DuckEnemies.StealingComponent>();
 
             if (enemyController)
             {
+                _controller.GetStatusView().SetInteractionActive(false, 3);
+
                 _locatedEnemies.Remove(enemyController);
                 _locatedEnemy = FindClosestEnemy();
                

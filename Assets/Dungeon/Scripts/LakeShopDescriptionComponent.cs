@@ -32,12 +32,12 @@ namespace LevelStageNamespace
                 return false;
             }
 
-
             if (terrainTilemap.HasTile(localPoint))
             {
                 //Debug.Log("point in terrain");
                 return false;
             }
+
 
             //if there are no obstacles, the only check that needed to be done was against the external terrain
             if (_obstacles)
