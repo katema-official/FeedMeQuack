@@ -44,7 +44,7 @@ namespace LevelStageNamespace
                 _numberOfStagesPerLevel.Add(i, level.Stages.Count);
             }
 
-            _currentLevel = 2;  //level 0 and stage 0 DO NO EXIST. Only levels and stages with 1+ index are ok.
+            _currentLevel = 0;  //level 0 and stage 0 DO NO EXIST. Only levels and stages with 1+ index are ok.
             _currentStage = 0;
             GoToNextLevel();
         }

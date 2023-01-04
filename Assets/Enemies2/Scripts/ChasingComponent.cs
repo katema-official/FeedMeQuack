@@ -232,7 +232,7 @@ namespace DuckEnemies {
         {
             bool callCoroutine = false;
             if(_actualStealCooldown == 0) callCoroutine = true;
-            _actualStealCooldown += 2f;
+            _actualStealCooldown += 3f;
             if (callCoroutine) StartCoroutine(DecreaseCooldown());
         }
 

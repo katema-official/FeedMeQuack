@@ -286,11 +286,11 @@ namespace Player
                     _moveSkill.MoveTo(newPos);
                 }
 
-                //var enemies = GameObject.FindGameObjectsWithTag("Enemy");
-                //foreach(var e in enemies)
-                //{
-                //    e.GetComponent<DuckEnemies.ChasingComponent>().NotifyPlayerJustRobbed();
-                //}
+                var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                foreach(var e in enemies)
+                {
+                    e.GetComponent<DuckEnemies.ChasingComponent>().NotifyPlayerJustRobbed();
+                }
 
             }
             _enemyToSteal = null;

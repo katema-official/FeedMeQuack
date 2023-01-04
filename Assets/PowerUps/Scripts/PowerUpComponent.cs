@@ -75,16 +75,17 @@ namespace PowerUpsNamespace
 
         public void Initialize(PowerUpSO powerUpSO)
         {
-            this.Initialize(powerUpSO.Name, powerUpSO.Description, powerUpSO.Cost, powerUpSO.PowerUpKinds, powerUpSO.amountForPowerUpKind);
+            this.Initialize(powerUpSO.Name, powerUpSO.Description, powerUpSO.Cost, powerUpSO.PowerUpKinds, powerUpSO.amountForPowerUpKind, powerUpSO.Sprite);
         }
 
-        public void Initialize(string name, string description, int cost, List<PlayerSkillAttribute> powerUpKinds, List<float> amountForPowerUpKind)
+        public void Initialize(string name, string description, int cost, List<PlayerSkillAttribute> powerUpKinds, List<float> amountForPowerUpKind, Sprite sprite)
         {
             _costDigestedbreadPoints = cost;
             _name = name;
             _description = description;
             _powerUpKinds = powerUpKinds;
             _amountForPowerUpKind = amountForPowerUpKind;
+            _spriteGameobject.GetComponent<SpriteRenderer>().sprite = sprite;
             UpdateTexts();
         }
 
