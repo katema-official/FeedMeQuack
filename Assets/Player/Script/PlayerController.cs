@@ -15,6 +15,7 @@ namespace Player
         private Camera _camera = null;
         private Transform _mouth = null;
 
+
         private LevelStageNamespace.LakeShopDescriptionComponent _currentLake = null;
 
         [SerializeField] private PlayerState _state = PlayerState.Normal;
@@ -57,7 +58,10 @@ namespace Player
         {
             return (int) _breadPoints;
         }
-
+        public Bounds GetCameraBounds()
+        {
+            return CameraUtility.OrthographicBounds(_camera);
+        }
         public Animator GetAnimator()
         {
             return _animator;

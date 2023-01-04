@@ -124,7 +124,10 @@ namespace Player
                 _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
             }
         }
-
+        public void MoveTo(Vector3 pos)
+        {
+            transform.position = pos;
+        }
         public void Move(float speed, bool moveForward = false)
         {
             // if (_moveForward || moveForward)
@@ -315,17 +318,46 @@ namespace Player
             }
 
 
+            var mag = (_rigidBody.velocity).magnitude;
 
-            if ((_rigidBody.velocity - _oldVelocity).magnitude < speed-2.0f)
-                _oldVelocity = _rigidBody.velocity;
 
-          //  Debug.Log("_rigidBody.velocity " + _oldVelocity);
+            //if (mag>= _speed*0.8f)
+            //{
+            //    if (_controller.GetState() == PlayerState.Normal)
+            //        _controller.GetStatusView().SetInteractionActive(true, 5);
+            //    else
+            //        _controller.GetStatusView().SetInteractionActive(false, 5);
+            //}
+            //else
+            //{
+            //    _controller.GetStatusView().SetInteractionActive(false, 5);
+            //}
+
+
+            //if (mag < speed*0.8f)
+            //    _oldVelocity = _rigidBody.velocity;
+      
+
+            //Debug.Log("_rigidBody.velocity " + _oldVelocity);
 
             // _rigidBody.SetRotation(Quaternion.AngleAxis(_rotationMovement, Vector3.forward));
 
             // MoveCamera();
 
         }
+        public void SetOldVelocity(Vector2 oldVelocity)
+        {
+            _oldVelocity = oldVelocity;
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.name == "TriggerExitedCollider")
+            {
+                SetOldVelocity(_rigidBody.velocity);
+            }
+        }
+
 
         private void MoveCamera()
         {
@@ -435,24 +467,17 @@ namespace Player
             _rigidBody = GetComponent<Rigidbody2D>();
             _controller = GetComponent<PlayerController>();
             _camera = transform.parent.GetComponentInChildren<Camera>();
-            
 
             var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
-           // SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.activeSceneChanged += OnSceneLoaded;
-
-
         }
 
         // called second
-        void OnSceneLoaded(Scene scene, Scene scene2)
+        void OnSceneLoaded(Scene scene, Scene mode)
         {
-            _lockMovement = true;
-            _initLock = true;
             _rigidBody = GetComponent<Rigidbody2D>();
             _rigidBody.velocity = _oldVelocity;
         }
-
 
 
         // Start is called before the first frame update
@@ -471,7 +496,12 @@ namespace Player
         void Update()
         {
             if (!_enableInput) return;
-
+            if (_lockMovement)
+            {
+                _rigidBody = GetComponent<Rigidbody2D>();
+                _rigidBody.velocity = new Vector2(0,0);
+                return;
+            }
 
             //var h = Input.GetAxisRaw("Horizontal");
             //var v = Input.GetAxisRaw("Vertical");
@@ -497,31 +527,48 @@ namespace Player
                 v += move.y;
             }
 
+
+
+
+
+
             _moveForward = false;
             _forwardAxis = new Vector3(h, v);
 
             if (_forwardAxis.x != 0 || _forwardAxis.y != 0)
             {
                 _moveForward = true;
-                _controller.GetAnimalSoundController().Swim();
+               // _controller.GetAnimalSoundController().Swim();
             }
             else
             {
-                _controller.GetAnimalSoundController().UnSwim();
+               // _controller.GetAnimalSoundController().UnSwim();
             }
         }
 
 
         private void FixedUpdate()
         {
-           // _oldVelocity = _rigidBody.velocity;
+            // _oldVelocity = _rigidBody.velocity;
+
+
+            var mag = (_rigidBody.velocity).magnitude/_speed;
+
+            _controller.GetAnimalSoundController().Swim(mag);
+
+
             MoveCamera();
             // var screenPos = _camera.WorldToScreenPoint(_rigidBody.position) + new Vector3(-45f, 80f, 0);
             //Debug.Log("screen: " + screenPos);
             //screenPos.y += 80;
             //screenPos.x -= 20;
 
-            
+            if (_lockMovement)
+            {
+                _rigidBody = GetComponent<Rigidbody2D>();
+                _rigidBody.velocity = new Vector2(0, 0);
+                return;
+            }
 
             var pos = _rigidBody.position + new Vector2(0, 3);
             _controller.GetStatusView().SetPosition(pos);

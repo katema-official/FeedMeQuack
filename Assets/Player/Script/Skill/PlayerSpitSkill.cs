@@ -150,7 +150,9 @@ namespace Player
                     //_eatSkill.StopEating();
 
                     _moveSkill.EnableInput(true);
-                   
+
+                    _controller.GetStatusView().SetMiniStatusActive(true);
+                    _controller.GetStatusView().SetInteractionActive(true,2);
                     _controller.GetStatusView().SetVisible(true);
                     _controller.GetStatusView().SetText("");
                     _controller.GetStatusView().SetIcon(_spitDesc.CarryingStatusIcon); 
@@ -162,7 +164,8 @@ namespace Player
                 {
                     //also interrupt the eating coroutine
                     // _eatSkill.StopEating();
-                    _controller.GetStatusView().SetVisible(false);
+                    _controller.GetStatusView().SetInteractionActive(false, 2);
+                    _controller.GetStatusView().SetMiniStatusActive(false);
                     _moveSkill.EnableInput(true);
                     _spitArrow.SetActive(true);
                     _spitProgressBar.gameObject.SetActive(true);
@@ -190,7 +193,8 @@ namespace Player
 
                    _spitProgressBar.SetProgress(0);
                     _spitProgressBar.gameObject.SetActive(false);
-                    _controller.GetStatusView().SetVisible(false);
+                    _controller.GetStatusView().SetInteractionActive(false, 2);
+                    _controller.GetStatusView().SetMiniStatusActive(false);
 
                     _moveSkill.EnableInput(true);
                     _spitCoolDownElapsedSeconds = _coolDown;

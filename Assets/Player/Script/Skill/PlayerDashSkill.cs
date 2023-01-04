@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using HUDNamespace;
+using UnityEngine.SceneManagement;
 
 namespace Player
 {
@@ -18,12 +19,14 @@ namespace Player
         private float _noDashArea = 10.0f;
         //-------------------------------------
 
-
         private PlayerController _controller = null;
         private PlayerMoveSkill _moveSkill = null;
         private PlayerDashSkillDescriptionSO _dashDesc = null;
-        
-        
+
+        private GameObject _obstaclesGO;
+        private List<GameObject> _obstaclesList;
+        private List<GameObject> _enemies;
+
         public override void SetDescription(PlayerSkillDescriptionSO desc)
         {
             _description = desc;
@@ -65,18 +68,123 @@ namespace Player
                 _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
             }
         }
+        //I'm so sorry but rn I don't want to do anything difficult to do something so simple
+        private IEnumerator UpdateObstacles()
+        {
+            yield return new WaitForSeconds(0.05f);
+            _obstaclesList.RemoveAll(x => !x.activeSelf);
+            //In this way I only work with active obstacles
+            yield return null;
+        }
+
+        private void GetAllObstaclesGameObjects(GameObject obstacleGO, List<GameObject> ret)
+        {
+            if (obstacleGO.transform.childCount == 0)
+            {
+                ret.Add(obstacleGO);
+            }
+
+            foreach (Transform child in obstacleGO.transform)
+            {
+                GetAllObstaclesGameObjects(child.gameObject, ret);
+            }
+        }
+        
+        // called second
+        void OnSceneLoaded(Scene scene, LoadSceneMode  scene2)
+        {
+            _enemies.Clear();
+            _obstaclesList.Clear();
+            _obstaclesGO = GameObject.Find("Obstacles").transform.GetChild(0).gameObject;
+            GetAllObstaclesGameObjects(_obstaclesGO, _obstaclesList);
+            _obstaclesList.RemoveAll(x => !x.activeSelf);
+            _enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+        }
+    
+
+        void OnEnterDashingState()
+        {
+            _controller.ChangeState(PlayerState.Dashing);
+
+            if (_controller.GetState() == PlayerState.Dashing)
+            {
+                //_moveSkill.SetOffset(new Vector3(0, 1.5f, 0));
+                transform.Find("Body").gameObject.SetActive(true);
+                _controller.GetAnimator().SetBool("Dash", true);
+
+
+                _controller.GetAnimalSoundController().Fly();
+
+                _moveSkill.EnableInput(false);
+
+                
+                _controller.GetStatusView().SetInteractionActive(true, 1);
+                
+
+                foreach (GameObject obstacle in _obstaclesList)
+                {
+                    Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), true);
+                }
+
+                foreach (GameObject enemy in _enemies)
+                {
+                    Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), true);
+                }
+            }
+
+        }
+
+        void OnExitDashingState(bool externalTerrain = false)
+        {
+            var p = _controller.GetPosition();
+
+            if (!_controller.GetLake().Contains(p) && !externalTerrain) return;
+
+
+
+            _controller.ChangeState(PlayerState.Normal);
+
+            if (_controller.GetState() == PlayerState.Normal)
+            {
+               // _moveSkill.SetOffset(new Vector3(0, 0, 0));
+                transform.Find("Body").gameObject.SetActive(false);
+
+                _controller.GetAnimator().SetBool("Dash", false);
+
+                _controller.GetAnimalSoundController().UnFly();
+
+                _controller.GetStatusView().SetInteractionActive(false, 1);
+                _moveSkill.EnableInput(true);
+                _dashElapsedSeconds = 0.0f;
+                _dashCoolDownElapsedSeconds = _coolDown;
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
+
+                foreach (GameObject obstacle in _obstaclesList)
+                {
+                    Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), false);
+                }
+
+                foreach (GameObject enemy in _enemies)
+                {
+                    Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), false);
+                }
+            }
+            CheckData();
+        }
 
 
         void Awake()
         {
             _controller = GetComponent<PlayerController>();
             _moveSkill = GetComponent<PlayerMoveSkill>();
+            _obstaclesList = new List<GameObject>();
+            _enemies = new List<GameObject>();
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         // Start is called before the first frame update
         void Start()
         {
-        
         }
 
         // Update is called once per frame
@@ -86,40 +194,24 @@ namespace Player
             {
                 if (_controller.GetState() == PlayerState.Dashing)
                 {
-                    _controller.ChangeState(PlayerState.Normal);
-
-                    if (_controller.GetState() == PlayerState.Normal)
-                    {
-                        _moveSkill.EnableInput(true);
-                        _dashElapsedSeconds = 0.0f;
-                        _dashCoolDownElapsedSeconds = _coolDown;
-                        _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
-                    }
+                    _dashElapsedSeconds = _maxDuration;
+                    OnExitDashingState();
+                    
                 }
                 else
                 {
-                    var p = _controller.GetPosition() + _moveSkill.GetDirection() * _noDashArea;
-
-                    if (_controller.GetLake().Contains(p))
-                    {
-                        _controller.ChangeState(PlayerState.Dashing);
-                    }
+                    //var p = _controller.GetPosition() + _moveSkill.GetDirection() * _noDashArea;
+                    //if (_controller.GetLake().Contains(p))
+                    //{
+                    //    _controller.ChangeState(PlayerState.Dashing);
+                    //}
+                    OnEnterDashingState();
                 }
-
-                if (_controller.GetState() == PlayerState.Dashing)
-                    _moveSkill.EnableInput(false);
-
             }
-
 
             if (_controller.GetState() == PlayerState.Dashing && _dashElapsedSeconds >= _maxDuration && _dashCoolDownElapsedSeconds <= 0)
             {
-                _controller.ChangeState(PlayerState.Normal);
-
-                if (_controller.GetState() == PlayerState.Normal)
-                    _moveSkill.EnableInput(true);
-
-                CheckData();
+                OnExitDashingState();
             }
         }
 
@@ -130,6 +222,11 @@ namespace Player
                 _dashElapsedSeconds += Time.deltaTime;
                 _moveSkill.Move(_maxSpeed, true);
             }
+            else if (_controller.GetState() == PlayerState.Dashing && _dashElapsedSeconds >= _maxDuration)
+            {
+                _moveSkill.Move(_maxSpeed, true);
+            }
+
 
             if (_controller.GetState() != PlayerState.Dashing && _dashCoolDownElapsedSeconds > 0)
             {
@@ -145,21 +242,12 @@ namespace Player
         {
             if (_controller.GetState() == PlayerState.Dashing)
             {
-                _controller.ChangeState(PlayerState.Normal);
-
-                if (_controller.GetState() == PlayerState.Normal)
-                {
-                    _moveSkill.EnableInput(true);
-                    _dashElapsedSeconds = 0.0f;
-                    _dashCoolDownElapsedSeconds = _coolDown;
-                }
+                OnExitDashingState(true);
             }
         }
 
         void OnCollisionExit2D(Collision2D other)
         {
         }
-
-
     }
 }
