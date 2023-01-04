@@ -80,10 +80,10 @@ namespace LevelStageNamespace
             }
             int setIndex = idx + 1; //because our sets go from 1 to n
 
-            //then, I have to choose which quadrants do I want to activate (at least one, ok?)
+            //then, I have to choose which quadrants do I want to activate (at least one, ok?) [No, all of them]
             Dictionary<int, List<int>> quadrantsDict = _obstacleSetsDictionary[setIndex];
-            List<int> quadrantsKeys = quadrantsDict.Keys.ToList<int>();
-            List<int> quadrantsActiveIndexes = quadrantsKeys.OrderBy(x => Random.Range(0f, 1f)).Take(Random.Range(1, quadrantsKeys.Count + 1)).ToList<int>();
+            List<int> quadrantsActiveIndexes = quadrantsDict.Keys.ToList<int>();
+            //List<int> quadrantsActiveIndexes = quadrantsKeys.OrderBy(x => Random.Range(0f, 1f)).Take(Random.Range(1, quadrantsKeys.Count + 1)).ToList<int>();
 
             //for each of these quadrants, I have to choose one Obs
             List<int> obsChosenInOrder = new List<int>();

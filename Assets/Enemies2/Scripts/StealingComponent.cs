@@ -194,7 +194,7 @@ namespace DuckEnemies
 
         public bool IsPlayerVictimOfStealing()
         {
-            return _chasingComponent.GetPlayer().GetState() == PlayerState.GettingRobbed;
+            return _chasingComponent.GetPlayer().GetState() == PlayerState.GettingRobbed || _chasingComponent.GetActualStealCooldown() > 0f;
         }
 
 

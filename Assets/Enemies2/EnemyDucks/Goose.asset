@@ -18,7 +18,7 @@ MonoBehaviour:
   DecelerationRoaming: 17
   SteerRoaming: 17
   ChillingTime: 1
-  DesiredRoamingDistance: 45
+  DesiredRoamingDistance: 33
   StopAtRoaming: 3
   SpeedFoodSeeking: 20
   AccelerationFoodSeeking: 14
@@ -37,12 +37,12 @@ MonoBehaviour:
   Circle1PlayerProbability: 1
   Circle2PlayerProbability: 0.5
   Circle3PlayerProbability: 0.25
-  DashTriggerProbability: 0.3
+  DashTriggerProbability: 0.2
   SpeedDash: 40
   AccelerationDash: 20
-  DecelerationDash: 40
+  DecelerationDash: 80
   SteerDash: 20
-  DistanceToDash: 15
+  DistanceToDash: 12.5
   StealTriggerProbability: 0
   SpeedChasing: 16
   AccelerationChasing: 7
