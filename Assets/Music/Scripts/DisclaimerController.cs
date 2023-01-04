@@ -6,7 +6,7 @@ namespace Music
 
     public class DisclaimerController : MonoBehaviour
     {
-        private const float TimeForMainMenu = 5f;
+        private const float TimeForMainMenu = 8f;
 
         // Update is called once per frame
         private void Update()

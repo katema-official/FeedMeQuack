@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - FoodThrown
+  - FoodInWater
+  - FoodInMouth
+  - Bread
+  - Water
+  - DuckMouth
+  - QuickTimeEventManager
+  - MainMenuCanvas
+  - AudioManager
+  - Enemy
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - WaterLayer
+  - TerrainLayer
+  - EnemyLayer
+  - PlayerLayer
+<<<<<<< HEAD
+  - FoodColliderLayer
+  - PlayerColliderLayer
+  - BreadInWaterLayer
+=======
+  - Background
+  - DuckFoot
+  - 
+>>>>>>> feature/mainmenu1
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: DuckFoot
+    uniqueID: 1142289697
+    locked: 0
+  - name: Background
+    uniqueID: 3102101969
+    locked: 0

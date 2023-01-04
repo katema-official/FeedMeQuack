@@ -5,7 +5,7 @@ namespace Music
 {
     public class PoliMiArchiveController : MonoBehaviour
     {
-        private const float TimeToDestroyPoliMi = 8.9f;
+        private const float TimeToDestroyPoliMi = 9.55f;
         private static AudioSource _audioSource;
         private float _lifeTime;
 
