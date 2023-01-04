@@ -18,8 +18,8 @@ MonoBehaviour:
   - 0.9
   - 0.1
   - 0
-  MinSpawnTime: 4
-  MaxSpawnTime: 6
+  MinSpawnTime: 6
+  MaxSpawnTime: 8
   MinGravity: 100
   MaxGravity: 100
   MinInitialVelocity: 75

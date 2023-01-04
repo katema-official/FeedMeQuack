@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EatingSpeed
   m_EditorClassIdentifier: 
   Sprite: {fileID: -2413806693520163455, guid: 637a81a34705686479534b18f7c9104d, type: 3}
-  Name: Resilient Throat
+  Name: Careful Munching
   Description: Eating Speed up
   Cost: 5
   PowerUpKinds: 01000000
