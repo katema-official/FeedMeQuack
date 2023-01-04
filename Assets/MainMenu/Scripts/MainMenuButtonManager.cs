@@ -8,6 +8,12 @@ using UnityEditor;
 
 public class MainMenuButtonManager : GOButtonManager
 {
+    public GameObject MainMenu;
+    public GameObject SettingsMenu;
+    public GameObject MainMenuButtons;
+    public GameObject FeedbackMenu;
+    public GameObject AboutMenu;
+    
     public override void OnButtonClick(FMQButtonType type)
     {
         if (type== FMQButtonType.Play)
@@ -16,18 +22,22 @@ public class MainMenuButtonManager : GOButtonManager
         }
         else if (type == FMQButtonType.MainMenu)
         {
-            SceneManager.LoadScene("MainMenu");
+            MainMenuButtons.SetActive(true);
+            //SceneManager.LoadScene("MainMenu");
         }
         else if (type == FMQButtonType.Settings)
         {
+            MainMenuButtons.SetActive(false);
             SetMenu(Menu.Settings);
         }
         else if (type == FMQButtonType.Credits)
         {
+            MainMenuButtons.SetActive(false);
             SetMenu(Menu.About);
         }
         else if (type == FMQButtonType.Feedback)
         {
+            MainMenuButtons.SetActive(false);
             SetMenu(Menu.Feedback);
         }
         else if (type == FMQButtonType.Quit)
@@ -53,12 +63,6 @@ public class MainMenuButtonManager : GOButtonManager
         Feedback,
         About
     };
-    
-    public GameObject MainMenu;
-    public GameObject SettingsMenu;
-    public GameObject LevelsMenu;
-    public GameObject FeedbackMenu;
-    public GameObject AboutMenu;
 
     private void SetMenu(Menu menu)
     {
@@ -75,9 +79,6 @@ public class MainMenuButtonManager : GOButtonManager
                 break;
             case Menu.Settings:
                 SettingsMenu.SetActive(true);
-                break;
-            case Menu.Levels:
-                LevelsMenu.SetActive(true);
                 break;
             case Menu.Feedback:
                 FeedbackMenu.SetActive(true);
