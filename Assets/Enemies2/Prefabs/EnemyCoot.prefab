@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5752818651182031547}
   - component: {fileID: 9199695255296371306}
   - component: {fileID: 7589914270819933481}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: FoodCollider2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ MonoBehaviour:
   _mouthSize: 0
   _chewingRate: 0
   _digestingTime: 0
-  _myEnemyDuckDescription: {fileID: 11400000, guid: aa9b6961286ad034dbc9bb4a0ded93c1, type: 2}
+  _myEnemyDuckDescription: {fileID: 11400000, guid: c4de5eca6e6249c4899296e0c6342b80, type: 2}
   _state: 0
 --- !u!58 &1758801312685362606
 CircleCollider2D:
@@ -414,7 +414,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 40
-  m_Sprite: {fileID: -532916494, guid: 357894d1325c33b42b45007a80aac5f5, type: 3}
+  m_Sprite: {fileID: -2143704156, guid: f635790670ad32d4ea80c0fbfe609fbf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -435,7 +435,7 @@ Animator:
   m_GameObject: {fileID: 1758801313041092808}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 693ae72fac5e629428affb3f23469f15, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4e4f7ac87f388f64e83ba914b2b827a1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -456,7 +456,7 @@ GameObject:
   - component: {fileID: 9062316846765613191}
   - component: {fileID: 3156228438536913363}
   - component: {fileID: 5920658745868377779}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: PlayerCollider1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -518,7 +518,7 @@ GameObject:
   - component: {fileID: 7528561058932933809}
   - component: {fileID: 7666657950311281358}
   - component: {fileID: 6206879204625072158}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: PlayerCollider3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -580,7 +580,7 @@ GameObject:
   - component: {fileID: 3950267246223638872}
   - component: {fileID: 4604584234216466401}
   - component: {fileID: 3222954611505738465}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: PlayerCollider2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -642,7 +642,7 @@ GameObject:
   - component: {fileID: 1810251744743779629}
   - component: {fileID: 3082132160318803605}
   - component: {fileID: 7691587044160769360}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: FoodCollider3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -704,7 +704,7 @@ GameObject:
   - component: {fileID: 3525119631585101411}
   - component: {fileID: 1572621774556376618}
   - component: {fileID: 3366117125588145404}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: FoodCollider1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

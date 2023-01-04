@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 477859776105704451}
   - component: {fileID: -55700907750927919}
   - component: {fileID: -8029163909807919281}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BreadInWater
   m_TagString: FoodInWater
   m_Icon: {fileID: 0}
@@ -106,6 +106,7 @@ MonoBehaviour:
   _breadMediumSO: {fileID: 11400000, guid: cf9b1ab0c7073284e9c459a4e306116a, type: 2}
   _breadLargeSO: {fileID: 11400000, guid: 857c5e16b78696243bf3faa32c995886, type: 2}
   BreadInMouthPrefab: {fileID: 8860026179006951707, guid: 9becfb6c6edd26f4d982233c04656fd5, type: 3}
+  _breadPoints: 0
 --- !u!50 &-55700907750927919
 Rigidbody2D:
   serializedVersion: 4

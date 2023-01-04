@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: -2413806693520163455, guid: 637a81a34705686479534b18f7c9104d, type: 3}
   Name: Extra Feather
-  Description: Speed up
+  Description: Speed & Dash speed up
   Cost: 10
-  PowerUpKinds: 00000000
+  PowerUpKinds: 0000000004000000
   amountForPowerUpKind:
-  - 3
+  - 2
+  - 4

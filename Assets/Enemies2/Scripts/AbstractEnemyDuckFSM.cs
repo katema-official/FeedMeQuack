@@ -230,6 +230,7 @@ namespace DuckEnemies
             stealingPassive.enterActions.Add(_stealingComponent.EnterStealingActive_PlaySound);
             stealingPassive.exitActions.Add(_stealingComponent.ExitStealingPassive_ResetVariables);
             stealingPassive.exitActions.Add(_stealingComponent.ExitStealingActive_StopSound);
+            stealingPassive.exitActions.Add(_stealingComponent.ExitStealing_MoveIfNecessary);
 
             FSMState chasing = new FSMState();
             chasing.enterActions.Add(_chasingComponent.EnterChasing_StartPathFinderCoroutine);
@@ -247,7 +248,7 @@ namespace DuckEnemies
             stealingActive.exitActions.Add(_chasingComponent.ResetStealingCooldown);
             stealingActive.exitActions.Add(_stealingComponent.ExitStealingActive_StopSound);
             stealingActive.exitActions.Add(_identifyFoodComponent.ForgetAboutAllFood);
-
+            stealingActive.exitActions.Add(_stealingComponent.ExitStealing_MoveIfNecessary);
 
 
             //SECOND: define the transition between states

@@ -20,5 +20,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a578678db6bc8d249a04ff56d4372af4, type: 2}
   - {fileID: 11400000, guid: cad10aa58eec6c243a2bcc56d8887e3d, type: 2}
   - {fileID: 11400000, guid: 71163059f9bc63841a6f96f538f32b13, type: 2}
-  MinAmountOfPowerUpsToSell: 4
-  MaxAmountOfPowerUpsToSell: 4
+  MinAmountOfPowerUpsToSell: 7
+  MaxAmountOfPowerUpsToSell: 8

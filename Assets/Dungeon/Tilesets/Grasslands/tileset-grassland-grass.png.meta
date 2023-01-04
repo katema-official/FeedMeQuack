@@ -101,6 +101,18 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -640,8 +652,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      tileset-grassland-grass_8: -1318056893
       tileset-grassland-grass_22: 214353255
+      tileset-grassland-grass_6: -1148297496
       tileset-grassland-grass_10: 990320074
       tileset-grassland-grass_18: 1813734806
       tileset-grassland-grass_24: 2117150395
@@ -664,7 +676,7 @@ TextureImporter:
       tileset-grassland-grass_0: 5393817
       tileset-grassland-grass_19: -273150803
       tileset-grassland-grass_7: 569793650
-      tileset-grassland-grass_6: -1148297496
+      tileset-grassland-grass_8: -1318056893
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

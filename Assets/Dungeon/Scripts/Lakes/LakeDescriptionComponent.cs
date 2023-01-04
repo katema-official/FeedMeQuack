@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Player;
 using HUDNamespace;
+using System.Linq;
+using GraphLakeNamespace;
 
 namespace LevelStageNamespace {
     public class LakeDescriptionComponent : LakeShopDescriptionComponent
@@ -31,8 +33,8 @@ namespace LevelStageNamespace {
         public float OffsetYLake;
 
         //offset for the spawn of the player
-        public float OffsetXPlayer;
-        public float OffsetYPlayer;
+        public float OffsetXPlayer = 0f;
+        public float OffsetYPlayer = 0f;
 
         //radius of area around the player in which we don't want enemies to spawn
         public float RadiusAroundPlayer;
@@ -181,16 +183,16 @@ namespace LevelStageNamespace {
                 switch (SpawnPlayer)
                 {
                     case EnumsDungeon.CompassDirection.North:
-                        _playerObject.transform.position = transform.Find(riversString + "/RiverNorth/Position").transform.position + new Vector3(0, -OffsetYPlayer, 0);
+                        _playerObject.transform.position = transform.Find(riversString + "/RiverNorth/Position").transform.position;// + new Vector3(0, -OffsetYPlayer, 0);
                         break;
                     case EnumsDungeon.CompassDirection.South:
-                        _playerObject.transform.position = transform.Find(riversString + "/RiverSouth/Position").transform.position + new Vector3(0, OffsetYPlayer, 0);
+                        _playerObject.transform.position = transform.Find(riversString + "/RiverSouth/Position").transform.position;// + new Vector3(0, OffsetYPlayer, 0);
                         break;
                     case EnumsDungeon.CompassDirection.West:
-                        _playerObject.transform.position = transform.Find(riversString + "/RiverWest/Position").transform.position + new Vector3(OffsetXPlayer, 0, 0);
+                        _playerObject.transform.position = transform.Find(riversString + "/RiverWest/Position").transform.position;// + new Vector3(OffsetXPlayer, 0, 0);
                         break;
                     case EnumsDungeon.CompassDirection.East:
-                        _playerObject.transform.position = transform.Find(riversString + "/RiverEast/Position").transform.position + new Vector3(-OffsetXPlayer, 0, 0);
+                        _playerObject.transform.position = transform.Find(riversString + "/RiverEast/Position").transform.position;// + new Vector3(-OffsetXPlayer, 0, 0);
                         break;
                 }
 
@@ -1088,10 +1090,18 @@ namespace LevelStageNamespace {
                 breadInMouthForEnemy
             );
 
-            Debug.Log("BP FOR ENEMY = " + bpForEnemy + ", BP FOR PLAYER = " + bpForPlayer);
+            //Debug.Log("BP FOR ENEMY = " + bpForEnemy + ", BP FOR PLAYER = " + bpForPlayer);
 
 
         }
+
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+        //####################################################################### MINIMAP ########################################################################
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+
+
 
         //Minimap management
         private int GetValueForMinimap(LakeDescriptionSO lake)
@@ -1119,6 +1129,259 @@ namespace LevelStageNamespace {
             }
             return ret;
         }
+
+
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+        //############################################################# CORRECTION OF DUCK PLACEMENT #############################################################
+        //########################################################################################################################################################
+        //########################################################################################################################################################
+
+        //the upper left, lower etc.. are referred to where the grass is in that tileset
+        private const string tilesetTerrainUpperLeft = "tileset-grassland-water_0";
+        private const string tilesetTerrainUpper = "tileset-grassland-water_1";
+        private const string tilesetTerrainUpperRight = "tileset-grassland-water_2";
+        private const string tilesetIslandLowerRight = "tileset-grassland-water_3";
+        private const string tilesetIslandLowerLeft = "tileset-grassland-water_4";
+        private const string tilesetTerrainLeft = "tileset-grassland-water_6";
+        private const string tilesetTerrainRight = "tileset-grassland-water_8";
+        private const string tilesetIslandUpperRight = "tileset-grassland-water_9";
+        private const string tilesetIslandUpperLeft = "tileset-grassland-water_10";
+        private const string tilesetTerrainLowerLeft = "tileset-grassland-water_12";
+        private const string tilesetTerrainLower = "tileset-grassland-water_13";
+        private const string tilesetTerrainLowerRight = "tileset-grassland-water_14";
+
+        private float xLenTile = 1.5f;
+        private float yLenTile = 1.5f;
+
+        //function that, given the current position of an objects, positions it inside the lake, in the closest possible
+        //water tile
+        //if the first return value is "false", the currentPos is already in water.
+        //if the first return value is "true, the new position in which the object must be positioned is given in the second return value.
+        public (bool, Vector3) AdjustPlacement(Vector3 currentPos)
+        {
+            //simple case
+            if (base.Contains(currentPos)) return (false, Vector3.zero);
+
+            //we must now return the closes point inside the lake
+            Tilemap terrainTilemap = _terrain.GetComponent<Tilemap>();
+            Vector3Int localPoint = terrainTilemap.WorldToCell(currentPos);
+
+            /*
+            List<Vector3Int> nearbyPoints = new List<Vector3Int>();
+            nearbyPoints.Add(localPoint + new Vector3Int(1, 0, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(-1, 0, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(0, 1, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(0, -1, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(1, 1, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(1, -1, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(-1, 1, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(-1, -1, 0));
+            Tilemap waterCenterTilemap = _water.transform.Find("WaterCenter").GetComponent<Tilemap>();
+            nearbyPoints.RemoveAll(x => !waterCenterTilemap.HasTile(x));
+            */
+
+            string tileName = "";
+            Vector3 pointCenter = Vector3.zero;
+
+            Tilemap waterBorderTilemap = _water.transform.Find("WaterBorder").GetComponent<Tilemap>();
+            Tilemap borderWest = waterBorderTilemap.transform.Find("Rivers/RiverWest/0").GetComponent<Tilemap>();
+            Tilemap borderEast = waterBorderTilemap.transform.Find("Rivers/RiverEast/0").GetComponent<Tilemap>();
+            Tilemap borderNorth = waterBorderTilemap.transform.Find("Rivers/RiverNorth/0").GetComponent<Tilemap>();
+            Tilemap borderSouth = waterBorderTilemap.transform.Find("Rivers/RiverSouth/0").GetComponent<Tilemap>();
+
+            if (waterBorderTilemap.HasTile(localPoint))
+            {
+                //Debug.Log("Tile type: " + terrainTilemap.GetTile(localPoint));
+                tileName = waterBorderTilemap.GetTile(localPoint).ToString();
+                pointCenter = waterBorderTilemap.GetCellCenterWorld(localPoint);
+                //pointCenter = terrainTilemap.CellToWorld(localPoint) + new Vector3(xLenTile, yLenTile);
+            }else if (borderWest.HasTile(localPoint))
+            {
+                tileName = borderWest.GetTile(localPoint).ToString();
+                pointCenter = borderWest.GetCellCenterWorld(localPoint);
+            }
+            else if (borderEast.HasTile(localPoint))
+            {
+                tileName = borderEast.GetTile(localPoint).ToString();
+                pointCenter = borderEast.GetCellCenterWorld(localPoint);
+            }
+            else if (borderNorth.HasTile(localPoint))
+            {
+                tileName = borderNorth.GetTile(localPoint).ToString();
+                pointCenter = borderNorth.GetCellCenterWorld(localPoint);
+            }
+            else if (borderSouth.HasTile(localPoint))
+            {
+                tileName = borderSouth.GetTile(localPoint).ToString();
+                pointCenter = borderSouth.GetCellCenterWorld(localPoint);
+            }
+            else
+            {
+                (int, List<(int, int)>) obstacles = _levelStageManager.GetLakeDescriptionSO().ObstaclesDescription;
+                List<Tilemap> tilemapsObstacles = _obstacles.GetComponent<ObstaclesLakeComponent>().GetAllActiveObs(obstacles.Item1, obstacles.Item2);
+                foreach (Tilemap t in tilemapsObstacles)
+                {
+                    if (t.HasTile(localPoint))
+                    {
+                        //Debug.Log("Tile type: " + t.GetTile(localPoint));
+                        tileName = t.GetTile(localPoint).ToString();
+                        pointCenter = t.GetCellCenterWorld(localPoint);
+                        //pointCenter = t.CellToWorld(localPoint) + new Vector3(xLenTile, yLenTile);
+                    }
+                }
+            }
+
+            Vector3 newPoint = GetTilePointInsideLake(tileName, currentPos, pointCenter);
+
+            if (newPoint == currentPos) return (false, Vector3.zero);
+
+            /*
+
+
+            List<Vector3> trueNearbyPoints = new List<Vector3>();
+            foreach(Vector3Int point in nearbyPoints)
+            {
+                trueNearbyPoints.Add(waterCenterTilemap.CellToWorld(point) + new Vector3(1.5f, 1.5f));
+            }
+
+            Vector3 newPoint;
+
+            newPoint = trueNearbyPoints.OrderByDescending(adj => Vector3.Distance(currentPos, adj)).Last();
+
+            foreach(Vector3 p in trueNearbyPoints)
+            {
+                TileGraphComponent.DrawRayPointToPoint(currentPos, p);
+            }
+
+            */
+
+            return (true, newPoint);
+        }
+
+
+        private Vector3 GetTilePointInsideLake(string tileName, Vector3 currentPosOfObj, Vector3 pointCenterOfTile)
+        {
+            tileName = tileName.Split(" ")[0];
+            Debug.Log("tileName = " + tileName);
+            Vector3 ret = currentPosOfObj;
+            switch (tileName)
+            {
+                case tilesetTerrainUpperLeft:
+                    //this if (and the following ones) mean: "if you are not inside the water..."
+                    if(!(currentPosOfObj.x > pointCenterOfTile.x && currentPosOfObj.y < pointCenterOfTile.y))
+                    {
+                        ret = pointCenterOfTile + new Vector3(xLenTile/4, -yLenTile/4, 0);
+                    }
+                    break;
+                case tilesetTerrainUpper:
+                    if(!(currentPosOfObj.y < pointCenterOfTile.y))
+                    {
+                        ret = pointCenterOfTile;
+                    }
+                    break;
+                case tilesetTerrainUpperRight:
+                    if (!(currentPosOfObj.x < pointCenterOfTile.x && currentPosOfObj.y < pointCenterOfTile.y))
+                    {
+                        ret = pointCenterOfTile + new Vector3(-xLenTile / 4, -yLenTile / 4, 0);
+                    }
+                    break;
+                case tilesetIslandLowerRight:
+                    //here it's easier to say: "if you are inside the terrain..."
+                    if ((currentPosOfObj.x > pointCenterOfTile.x && currentPosOfObj.y < pointCenterOfTile.y))
+                    {
+                        ret = pointCenterOfTile;
+                    }
+                    break;
+                case tilesetIslandLowerLeft:
+                    if ((currentPosOfObj.x < pointCenterOfTile.x && currentPosOfObj.y < pointCenterOfTile.y))
+                    {
+                        ret = pointCenterOfTile;
+                    }
+                    break;
+                case tilesetTerrainLeft:
+                    Debug.Log("LEFT: currentPosOfObj = " + currentPosOfObj + ", pointCenterOfTile: " + pointCenterOfTile);
+                    if(!(currentPosOfObj.x > pointCenterOfTile.x))
+                    {
+                        ret = pointCenterOfTile + new Vector3(xLenTile / 4, 0, 0);
+                    }
+                    break;
+                case tilesetTerrainRight:
+                    if (!(currentPosOfObj.x < pointCenterOfTile.x))
+                    {
+                        ret = pointCenterOfTile + new Vector3(-xLenTile / 4, 0, 0);
+                    }
+                    break;
+                case tilesetIslandUpperRight:
+                    if ((currentPosOfObj.x > pointCenterOfTile.x && currentPosOfObj.y > pointCenterOfTile.y))
+                    {
+                        ret = pointCenterOfTile;
+                    }
+                    break;
+                case tilesetIslandUpperLeft:
+                    if ((currentPosOfObj.x < pointCenterOfTile.x && currentPosOfObj.y > pointCenterOfTile.y))
+                    {
+                        ret = pointCenterOfTile;
+                    }
+                    break;
+                case tilesetTerrainLowerLeft:
+                    if (!(currentPosOfObj.x > pointCenterOfTile.x && currentPosOfObj.y > pointCenterOfTile.y))
+                    {
+                        ret = pointCenterOfTile + new Vector3(xLenTile / 4 + xLenTile / 6, yLenTile / 4 + yLenTile / 6, 0);
+                    }
+                    break;
+                case tilesetTerrainLower:
+                    if(!(currentPosOfObj.y > pointCenterOfTile.y))
+                    {
+                        ret = pointCenterOfTile + new Vector3(0, yLenTile / 4, 0);
+                    }
+                    break;
+                case tilesetTerrainLowerRight:
+                    if (!(currentPosOfObj.x < pointCenterOfTile.x && currentPosOfObj.y > pointCenterOfTile.y))
+                    {
+                        ret = pointCenterOfTile + new Vector3(-xLenTile / 4, yLenTile / 4, 0);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+
+            Debug.Log("CORRECTION APPLIED. OLD POINT WAS " + currentPosOfObj + ", NEW POINT IS " + ret);
+
+            return ret;
+        }
+
+
+
+
+
+        //check if a point is in a terrain tile, and around it there are terrain tiles
+        public bool IsEntityInTerrain(Vector3 point)
+        {
+            //simple case
+            if (base.Contains(point)) return false;
+
+            Tilemap terrainTilemap = _terrain.GetComponent<Tilemap>();
+            Vector3Int localPoint = terrainTilemap.WorldToCell(point);
+
+            List<Vector3Int> nearbyPoints = new List<Vector3Int>();
+            nearbyPoints.Add(localPoint + new Vector3Int(1, 0, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(-1, 0, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(0, 1, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(0, -1, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(1, 1, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(1, -1, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(-1, 1, 0));
+            nearbyPoints.Add(localPoint + new Vector3Int(-1, -1, 0));
+            nearbyPoints.RemoveAll(x => terrainTilemap.HasTile(x));
+
+            if (nearbyPoints.Count > 0) return true;
+
+            return false;
+
+        }
+
 
 
 
