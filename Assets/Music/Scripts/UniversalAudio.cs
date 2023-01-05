@@ -249,7 +249,8 @@ namespace Music // To change correctly
         public static void PlaySound(string clipName, Transform thisTransform, AnimalSoundController animalSoundController = null)
         {
             if (clipName.Equals(
-                    "GameOver")) // The GameOver is treated as a Sound that obliterate all other AudioSources
+                    "GameOver") || clipName.Equals(
+                    "GameEnd")) // The GameOver is treated as a Sound that obliterate all other AudioSources
             {
                 StopAllMusic();
             }
