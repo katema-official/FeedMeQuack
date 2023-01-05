@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce54f9cfa58679442877e4b05fdb83b3, type: 3}
   m_Name: DashCooldown
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: 6ba63841e33bc5844985d38e8e8776d5, type: 3}
+  Sprite: {fileID: 21300000, guid: 731eafd642a914c4ab477811b6ec35f4, type: 3}
   Name: Wings Workout
   Description: Dash Cooldown up
   Cost: 8
