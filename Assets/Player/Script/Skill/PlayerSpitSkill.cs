@@ -85,7 +85,8 @@ namespace Player
             for (int i = 0; i < breads.Length; i++)
             {
                 var dist = Vector3.Distance(breads[i].transform.position, _controller.gameObject.transform.position);
-                if (dist <= 3f)
+
+                if (dist <= breads[i].GetComponent<CircleCollider2D>().radius + 2.0f)
                 {
                     if (dist <= minDistance)
                     {
@@ -273,5 +274,44 @@ namespace Player
                 _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.spitCD, _spitCoolDownElapsedSeconds);
             }
         }
+
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
+            if (breadController)
+            {
+                if (_controller.GetState() == PlayerState.Normal && _spitCoolDownElapsedSeconds <= 0)
+                    _controller.GetStatusView().SetInteractionActive(true, 6);
+                else
+                    _controller.GetStatusView().SetInteractionActive(false, 6);
+            }
+
+        }
+
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
+            if (breadController)
+            {
+                if (_controller.GetState() == PlayerState.Normal && _spitCoolDownElapsedSeconds <= 0)
+                    _controller.GetStatusView().SetInteractionActive(true, 6);
+                else
+                    _controller.GetStatusView().SetInteractionActive(false, 6);
+            }
+
+        }
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
+
+            if (breadController)
+            {
+                _controller.GetStatusView().SetInteractionActive(false, 6);
+            }
+        }
+
+
+
     }
 }
