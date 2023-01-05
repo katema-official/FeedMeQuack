@@ -95,10 +95,14 @@ namespace Player
         {
             _enemies.Clear();
             _obstaclesList.Clear();
-            _obstaclesGO = GameObject.Find("Obstacles").transform.GetChild(0).gameObject;
-            GetAllObstaclesGameObjects(_obstaclesGO, _obstaclesList);
-            _obstaclesList.RemoveAll(x => !x.activeSelf);
-            _enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+            var obstacles = GameObject.Find("Obstacles");
+            if (obstacles)
+            { 
+                _obstaclesGO = obstacles.transform.GetChild(0).gameObject;
+                GetAllObstaclesGameObjects(_obstaclesGO, _obstaclesList);
+                _obstaclesList.RemoveAll(x => !x.activeSelf);
+                _enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+            }
         }
     
 

@@ -41,8 +41,16 @@ namespace Player
         }
         public LevelStageNamespace.LakeShopDescriptionComponent GetLake()
         {
-            _currentLake = GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeShopDescriptionComponent>();
-            return _currentLake;
+            var g = GameObject.Find("WholeLake");
+            if (g)
+            {
+                _currentLake = g.GetComponent<LevelStageNamespace.LakeShopDescriptionComponent>();
+                return _currentLake;
+            }
+            return null;
+
+            //_currentLake = GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeShopDescriptionComponent>();
+            //return _currentLake;
         }
         public Vector3 GetPosition()
         {
