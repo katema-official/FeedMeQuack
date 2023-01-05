@@ -39,7 +39,7 @@ public class Windows_QuestPointer : MonoBehaviour {
     }
 
     public QuestPointer CreatePointer(Vector3 targetPosition) {
-        GameObject pointerGameObject = Instantiate(transform.Find("pointerTemplate").gameObject);
+        GameObject pointerGameObject = Instantiate(transform.Find("pointerTemplate").gameObject,new Vector3(10000,10000), Quaternion.identity);
         pointerGameObject.SetActive(true);
         pointerGameObject.transform.SetParent(transform, false);
         QuestPointer questPointer = new QuestPointer(targetPosition, pointerGameObject, uiCamera, arrowSprite);
@@ -162,37 +162,37 @@ public class Windows_QuestPointer : MonoBehaviour {
                 x *= 0.375f;
             RectTransform rectTransform = pointerGameObject.GetComponent<RectTransform>();
             rectTransform.anchoredPosition = new Vector2(x,y);
-          /*  
+          /*
             float pad = 0.04f;
             //todo: se sopra/sotto, la x è cos(ang)/ cos(45), mentre la y per le laterali dovrebbe essere sin(ang)/sin(45)
-            if (angle is >= 45 and < 135){ //top
+            if (angle >= limitAngle && angle< 180-limitAngle){ //top
                 lateral = false;
                 y= 1-pad;
-                x = (float) (cos/ Math.Cos(45));
+                x = (float) (-cos/ Math.Cos(limitAngle));
             }
-            else if (angle is >= 135 and < 225){ //left
+            else if (angle >= 180-limitAngle && angle< 180+limitAngle){ //left
                 lateral = true;
                 x =pad;
-                y = (float) (sin/Math.Sin(45));
+                y = (float) (sin/Math.Sin(limitAngle));
             }
-            else if (angle is >= 225 and < 315){ //bottom
+            else if (angle >= 180+limitAngle && angle< 360-limitAngle){ //bottom
                 lateral = false;
                 y= pad;
-                x = (float) (cos/ Math.Cos(45));
+                x = (float) (cos/ Math.Cos(limitAngle));
             }
             else { //right
                 lateral = true;
                 x = 1-pad;
-                y = (float) (sin/Math.Sin(45));
+                y = (float) (sin/Math.Sin(limitAngle));
             }
 
             x *= width;
             y *= height;
 
-            x += center.x;
-            y += center.y;
+            x -= width/2;
+            y -= height/2;
             
-            rectTransform = pointerGameObject.GetComponent<RectTransform>();
+            RectTransform rectTransform = pointerGameObject.GetComponent<RectTransform>();
             rectTransform.anchoredPosition = new Vector2(x,y);*/
         }
 
