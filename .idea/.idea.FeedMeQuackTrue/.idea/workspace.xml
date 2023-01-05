@@ -3,11 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="0808f2d5-72ad-4799-babc-2a377af7996b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuackTrue/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuackTrue/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/SFX/Won.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/SFX/Won.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/Songs/Shop.wav" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Resources/Songs/Shop.wav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/Songs/Swimming.wav" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Resources/Songs/Swimming.wav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/UniversalAudio.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Scripts/UniversalAudio.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Dungeon/Tilesets/Grasslands/SpriteAtlasGrasslands.spriteatlas" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dungeon/Tilesets/Grasslands/SpriteAtlasGrasslands.spriteatlas" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Music/Scripts/PoliMiArchiveController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Scripts/PoliMiArchiveController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +20,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Music/Scripts/PauseMenuButtonManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Music/Scripts/PauseSettingsButtonManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Music/Scripts/PoliMiArchiveController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/GraphicRaycaster.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -112,6 +112,7 @@
       <workItem from="1672754218975" duration="5290000" />
       <workItem from="1672782507552" duration="896000" />
       <workItem from="1672840977483" duration="14892000" />
+      <workItem from="1672940127512" duration="313000" />
     </task>
     <servers />
   </component>
