@@ -29,18 +29,18 @@ MonoBehaviour:
   Circle2FoodRadius: 31
   Circle3FoodRadius: 37
   Circle1FoodProbability: 1
-  Circle2FoodProbability: 0.7
-  Circle3FoodProbability: 0.4
+  Circle2FoodProbability: 0.5
+  Circle3FoodProbability: 0.25
   Circle1PlayerRadius: 40
   Circle2PlayerRadius: 43
   Circle3PlayerRadius: 46
   Circle1PlayerProbability: 1
   Circle2PlayerProbability: 0.5
   Circle3PlayerProbability: 0.25
-  DashTriggerProbability: 0.3
+  DashTriggerProbability: 0.2
   SpeedDash: 40
   AccelerationDash: 20
-  DecelerationDash: 160
+  DecelerationDash: 120
   SteerDash: 20
   DistanceToDash: 12.5
   StealTriggerProbability: 0

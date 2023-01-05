@@ -42,7 +42,8 @@ namespace HUDNamespace
                     mouthSizeValueText.text = value.ToString()+ " BP/Bite";
                     break;
                 case textFields.chewingRate:
-                    chewingRate.text = value.ToString()+ " BP/s";
+                    string s = String.Format("{0:0.00}", value);
+                    chewingRate.text = s + " BP/s";
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(field), field, null);
