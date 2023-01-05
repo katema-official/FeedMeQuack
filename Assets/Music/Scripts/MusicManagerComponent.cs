@@ -32,7 +32,7 @@ namespace Music
 
         private void Start()
         {
-            
+
             /*var buttons = GameObject.Find("MainMenuCanvas").transform
                 .GetComponentsInChildren<Button>(true);
             foreach (var button in buttons)
@@ -80,17 +80,17 @@ namespace Music
                 foreach (var gO in GameObject.FindGameObjectsWithTag("AudioManager"))
                 {
                     i++;
-                    
+
                     if (i == 2)
                     {
                         DestroyImmediate(gO);
                         break;
                     }
-                    
+
                 }
 
                 SetRightSliders();
-                
+
                 var buttons = GameObject.Find("MainMenuCanvas").transform
                     .GetComponentsInChildren<Button>(true);
                 foreach (var button in buttons)
@@ -102,7 +102,7 @@ namespace Music
                     }
                 }
                 _defaultButton.onClick.AddListener(DefaultVolumes);
-                
+
                 UniversalAudio.PlayMusic("Swimming", false);
                 if (audioSource1.isPlaying)
                 {
@@ -268,12 +268,12 @@ namespace Music
         {
             return _soundVolume;
         }
-        
+
         public static float GetDefaultAudioSourceVolume()
         {
             return DefaultMusicValue;
         }
 
     }
-    
+
 }

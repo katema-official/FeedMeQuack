@@ -59,6 +59,7 @@ namespace Player
             else if (attrib == PlayerSkillAttribute.SpitSkill_CoolDown)
             {
                 _coolDown += value;
+                _coolDown = Mathf.Max(_coolDown, 1);
             }
             else if (attrib == PlayerSkillAttribute.SpitSkill_MaxPower)
             {

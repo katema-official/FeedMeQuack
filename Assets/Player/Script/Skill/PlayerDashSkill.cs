@@ -43,6 +43,7 @@ namespace Player
             if (attrib == PlayerSkillAttribute.DashSkill_CoolDown)
             {
                 _coolDown += value;
+                _coolDown = Mathf.Max(_coolDown, 1);
             }
             else if (attrib == PlayerSkillAttribute.DashSkill_MaxDuration)
             {

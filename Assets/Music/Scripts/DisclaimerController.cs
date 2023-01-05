@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 namespace Music
 {
@@ -15,6 +16,18 @@ namespace Music
                 Input.GetKeyDown(KeyCode.Insert))
             {
                 SceneManager.LoadScene("PolimiLogo");
+            }
+
+            
+
+            var gamepad = Gamepad.current;
+            if (gamepad != null)
+            {
+                if (gamepad.startButton.wasPressedThisFrame || gamepad.aButton.wasPressedThisFrame)
+                {
+                    SceneManager.LoadScene("PolimiLogo");
+                }
+                    
             }
         }
     }

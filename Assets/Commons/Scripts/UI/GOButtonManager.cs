@@ -105,7 +105,7 @@ public class GOButtonManager : MonoBehaviour
             if (keyboard.sKey.wasReleasedThisFrame) SetCurrentButtonIndex(_currentIndex + 1);
             if (keyboard.upArrowKey.wasReleasedThisFrame) SetCurrentButtonIndex(_currentIndex - 1);
             if (keyboard.downArrowKey.wasReleasedThisFrame) SetCurrentButtonIndex(_currentIndex + 1);
-            if (keyboard.enterKey.wasReleasedThisFrame) 
+            if (keyboard.enterKey.wasReleasedThisFrame || keyboard.spaceKey.wasReleasedThisFrame) 
                 OnButtonClick(_button.GetButtonType());
         }
 

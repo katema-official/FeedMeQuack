@@ -521,10 +521,10 @@ namespace Player
             var keyboard = Keyboard.current;
             if (keyboard != null)
             {
-                if (keyboard.wKey.isPressed) v = 1;
-                if (keyboard.sKey.isPressed)  v = -1;  
-                if (keyboard.aKey.isPressed)  h = -1;
-                if (keyboard.dKey.isPressed) h = 1;
+                if (keyboard.wKey.isPressed || keyboard.upArrowKey.isPressed) v = 1;
+                if (keyboard.sKey.isPressed || keyboard.downArrowKey.isPressed)  v = -1;  
+                if (keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed)  h = -1;
+                if (keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed) h = 1;
             }
 
             var gamepad = Gamepad.current;

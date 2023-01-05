@@ -1426,7 +1426,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -226.25, y: -179}
+  m_AnchoredPosition: {x: -226.25, y: -239}
   m_SizeDelta: {x: 285.49, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1610439595526210469
@@ -1772,7 +1772,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -269, y: -34}
+  m_AnchoredPosition: {x: -269, y: -76}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1610439595552647615
@@ -2575,7 +2575,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Alessio L. G.
+  m_text: Alessio L.G.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2512eff8b027c354a92ea3c524b65be5, type: 2}
   m_sharedMaterial: {fileID: 7534405097686390839, guid: 2512eff8b027c354a92ea3c524b65be5, type: 2}
@@ -3125,7 +3125,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Marco D.
+  m_text: 'Alessio L.G.
+
+    Marco D.
 
     Lorenzo V.
 
@@ -4427,7 +4429,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -188.44, y: -141.5}
+  m_AnchoredPosition: {x: -188.44, y: -201}
   m_SizeDelta: {x: 361.116, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1610439596147185373
@@ -7724,8 +7726,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -269, y: -84}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -188.44, y: -131}
+  m_SizeDelta: {x: 361.12, y: 86}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1610439597220340831
 CanvasRenderer:
@@ -7755,7 +7757,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Stefano C.
+  m_text: 'Stefano C.
+
+    El Sans Que Gira'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2512eff8b027c354a92ea3c524b65be5, type: 2}
   m_sharedMaterial: {fileID: 7534405097686390839, guid: 2512eff8b027c354a92ea3c524b65be5, type: 2}

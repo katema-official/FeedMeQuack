@@ -15,10 +15,10 @@ namespace Music
 
         private const float _flyTime = 1.5f;
         private const float _spitTime = 1.5f;
-        
+
         private const float MinTimeBetweenQuackSteal = 0.5f;
         private const float MaxTimeBetweenQuackSteal = 1f;
-        
+
         private bool _isInSwimmingState;
         private bool _isInStealingState;
         private bool _isInFlyingState;
@@ -76,7 +76,7 @@ namespace Music
         {
             return _isInSwimmingState;
         }
-        
+
         public void SetIsInFlyingState(bool isNewState)
         {
             _isInFlyingState = isNewState;
@@ -96,7 +96,7 @@ namespace Music
         {
             return _isInSpittingState;
         }
-        
+
         public void SetIsInEatingState(bool isStateChanged)
         {
             _isInEatingState = isStateChanged;
@@ -106,7 +106,7 @@ namespace Music
         {
             return _isInEatingState;
         }
-        
+
         public void SetIsInAnimalCall(bool isNewState)
         {
             _isInAnimalCall = isNewState;
@@ -116,7 +116,7 @@ namespace Music
         {
             return _isInAnimalCall;
         }
-        
+
         public void SetIsEnemy(bool isNewState)
         {
             _isEnemy = isNewState;
@@ -135,7 +135,7 @@ namespace Music
             }
 
             _eatSoundName = GetIsEnemy() ? "EnemyEating" : "PlayerEating";
-            
+
         }
 
         // Start is called before the first frame update
@@ -159,25 +159,22 @@ namespace Music
                     case 0:
                         _audioSources[i].clip = Resources.Load<AudioClip>("SFX/Swimming");
                         _audioSources[i].loop = true;
-                        _audioSources[i].volume = MusicManagerComponent.GetSoundVolume() * (0.01f);
+                        _audioSources[i].volume = 0f;// UniversalAudio.GetSoundValue() * (0.01f);
                         _audioSources[i].time = Random.Range(0, _audioSources[i].clip.length);
                         _audioSources[i].Play();
                         _audioSources[i].Pause();
                         break;
-                    
+
                     case 1:
                         _audioSources[i].clip = Resources.Load<AudioClip>("SFX/Flying");
-                        _audioSources[i].volume = MusicManagerComponent.GetSoundVolume() * (0.3f);
                         break;
-                    
+
                     case 2:
                         _audioSources[i].clip = Resources.Load<AudioClip>("SFX/SpittingSoundUp");
-                        _audioSources[i].volume = MusicManagerComponent.GetSoundVolume() * (0.5f);
                         break;
-                    
+
                     case 3:
                         _audioSources[i].clip = Resources.Load<AudioClip>("SFX/" + _eatSoundName);
-                        _audioSources[i].volume = MusicManagerComponent.GetSoundVolume() * 0.05f;
                         _audioSources[i].loop = true;
                         _audioSources[i].Play();
                         _audioSources[i].Pause();
@@ -188,40 +185,42 @@ namespace Music
 
         public void Swim(float vol)
         {
-            _audioSources[0].volume = MusicManagerComponent.GetSoundVolume() * (0.01f) * vol;
+            _audioSources[0].volume = UniversalAudio.GetSoundValue() * (0.01f) * vol;
             if (GetIsInSwimmingState() == true) return;
 
             _audioSources[0].UnPause();
             SetIsInSwimmingState(true);
         }
-        
+
         public void UnSwim()
         {
-            if(GetIsInSwimmingState() == false) return;
+            if (GetIsInSwimmingState() == false) return;
 
             _audioSources[0].Pause();
             SetIsInSwimmingState(false);
         }
-        
+
         public void Fly(float flyTime = _flyTime)
         {
+            _audioSources[1].volume = UniversalAudio.GetSoundValue();
             if (GetIsInFlyingState() == true) return;
             _audioSources[1].pitch = Resources.Load<AudioClip>("SFX/Flying").length / flyTime;
             _audioSources[1].Play();
             SetIsInFlyingState(true);
         }
-        
+
         public void UnFly()
         {
-            if(GetIsInFlyingState() == false) return;
+            if (GetIsInFlyingState() == false) return;
 
             _audioSources[1].Stop();
             SetIsInFlyingState(false);
         }
-        
+
         public void Spit(float maxTime = _spitTime)
         {
             _audioSources[2].pitch = Resources.Load<AudioClip>("SFX/SpittingSoundUp").length / maxTime;
+            _audioSources[2].volume = UniversalAudio.GetSoundValue() * (0.5f);
             SetIsInSpittingState(true);
             _audioSources[2].Play();
             StartCoroutine(CheckSpitSoundClipState());
@@ -247,7 +246,7 @@ namespace Music
             UniversalAudio.PlaySound("SpitBreakSound", transform);
             yield return null;
         }
-        
+
         private IEnumerator EmitSound(Transform thisTransform)
         {
             var random = new Unity.Mathematics.Random((uint)DateTime.Now.Ticks);
@@ -301,18 +300,18 @@ namespace Music
         public void Eat()
         {
             if (GetIsInEatingState() == true) return;
-
+            _audioSources[3].volume = UniversalAudio.GetSoundValue() * 0.05f;
             _audioSources[3].UnPause();
             SetIsInEatingState(true);
         }
-        
+
         public void UnEat()
         {
-            if(GetIsInEatingState() == false) return;
+            if (GetIsInEatingState() == false) return;
 
             _audioSources[3].Pause();
             SetIsInEatingState(false);
         }
-        
+
     }
 }

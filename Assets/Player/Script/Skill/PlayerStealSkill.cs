@@ -118,6 +118,7 @@ namespace Player
             if (attrib == PlayerSkillAttribute.StealSkill_CoolDown)
             {
                 _coolDown += value;
+                _coolDown = Mathf.Max(_coolDown, 1);
             }
         }
         public DuckEnemies.StealingComponent FindClosestEnemy()

@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace Music
@@ -29,12 +31,13 @@ namespace Music
         private void Update()
         {
             _lifeTime += Time.deltaTime;
-            
-            if (Input.GetKeyDown(KeyCode.Space) || _lifeTime >= TimeToDestroyPoliMi)
+            var gamepad = Gamepad.current;
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return) ||
+                    (gamepad != null && (gamepad.startButton.wasPressedThisFrame || gamepad.aButton.wasPressedThisFrame)) || _lifeTime >= TimeToDestroyPoliMi)
             {
                 SceneManager.LoadScene("MainMenu");
             }
         }
-        
+
     }
 }

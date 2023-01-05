@@ -8,6 +8,7 @@ using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 namespace HUDNamespace
 {
@@ -136,7 +137,9 @@ namespace HUDNamespace
         
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Tab)){
+            var gamepad = Gamepad.current;
+            if (Input.GetKeyDown(KeyCode.Tab) || (gamepad != null && gamepad.selectButton.wasPressedThisFrame))
+            {
                 isTabPressed = !isTabPressed;
             }
 

@@ -13,9 +13,23 @@ public class MainMenuButtonManager : GOButtonManager
     public GameObject MainMenuButtons;
     public GameObject FeedbackMenu;
     public GameObject AboutMenu;
-    
+
+    private bool ok = false;
+    private IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(0.1f);
+        ok = true;
+        yield return null;
+    }
+
+    void Awake()
+    {
+        StartCoroutine(Wait());
+    }
+
     public override void OnButtonClick(FMQButtonType type)
     {
+        if (!ok) return;
         if (type== FMQButtonType.Play)
         {
             SceneManager.LoadScene("StartRunLoading");

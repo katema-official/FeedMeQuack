@@ -232,6 +232,7 @@ namespace Player
             if (attrib == PlayerSkillAttribute.EatSkill_ChewingRate)
             {
                 _chewingRate += value;
+                _chewingRate = Mathf.Max(_chewingRate, 0.05f);
                 _controller.GetHUDManager().ChangeText(HUDManager.textFields.chewingRate, _chewingRate);
             }
             else if (attrib == PlayerSkillAttribute.EatSkill_EatingSpeed)
