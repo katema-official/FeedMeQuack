@@ -426,7 +426,13 @@ MonoBehaviour:
   m_text: 'This game depicts a simpler version of reality.
 
     Don''t actually feed
-    ducks with bread, since carbohydrates could be harmful for them, leading to malnutrition.'
+    ducks with <color=red>bread</color>, since carbohydrates could be <color=red>harmful</color>
+    for them, leading to <color=red>malnutrition</color>, <color=red>diseases</color>
+    and <color=red>bad behaviour</color>.
+
+    Give <color=green>grapes</color>,
+    <color=green>cracked corn</color> or <color=green>duck feed pellets</color> available
+    from farm supply stores, instead'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

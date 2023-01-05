@@ -16,4 +16,4 @@ MonoBehaviour:
   EnabledByDefault: 1
   MaxSpeed: 40
   MaxDuration: 2
-  CoolDown: 5
+  CoolDown: 8
