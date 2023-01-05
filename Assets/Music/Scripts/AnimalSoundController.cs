@@ -200,9 +200,9 @@ namespace Music
             SetIsInSwimmingState(false);
         }
 
-        public void Fly(float flyTime = _flyTime)
+        public void Fly(float flyTime = _flyTime, float volume = 0.1f)
         {
-            _audioSources[1].volume = UniversalAudio.GetSoundValue();
+            _audioSources[1].volume = UniversalAudio.GetSoundValue() * (volume);
             if (GetIsInFlyingState() == true) return;
             _audioSources[1].pitch = Resources.Load<AudioClip>("SFX/Flying").length / flyTime;
             _audioSources[1].Play();

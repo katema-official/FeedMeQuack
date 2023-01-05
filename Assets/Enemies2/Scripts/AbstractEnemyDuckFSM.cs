@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using BreadNamespace;
 using FSMNamespace;
+using LevelStageNamespace;
 
 
 namespace DuckEnemies
@@ -95,6 +96,7 @@ namespace DuckEnemies
         protected IdentifyPlayerComponent _identifyPlayerComponent;
         protected ChasingComponent _chasingComponent;
 
+        protected LevelStageManagerComponent _levelStageManagerComponent;
 
 
         void Start()
@@ -168,6 +170,8 @@ namespace DuckEnemies
             _identifyPlayerComponent.Initialize(_circle1PlayerRadius, _circle2PlayerRadius, _circle3PlayerRadius, _circle1PlayerProbability, _circle2PlayerProbability, _circle3PlayerProbability);
             _chasingComponent = GetComponent<ChasingComponent>();
             _chasingComponent.Initialize(_stealTriggerProbability, _speedChasing, _accelerationChasing, _decelerationChasing, _steerChasing, _wantsToStealCooldown);
+
+            _levelStageManagerComponent = GameObject.Find("LevelStageManagerObject").GetComponent<LevelStageManagerComponent>();
 
             //Initialization of the FSM
 
@@ -250,15 +254,22 @@ namespace DuckEnemies
             stealingActive.exitActions.Add(_identifyFoodComponent.ForgetAboutAllFood);
             stealingActive.exitActions.Add(_stealingComponent.ExitStealing_MoveIfNecessary);
 
+            FSMState exiting = new FSMState();
+            exiting.enterActions.Add(_dashingComponent.FlyAwayFromLake);
+
 
             //SECOND: define the transition between states
             FSMTransition chilling_to_roaming = new FSMTransition(_roamingComponent.GetChillEnded, 
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Roaming });
+            FSMTransition chilling_to_exiting = new FSMTransition(_levelStageManagerComponent.IsCurrentLakeCleared,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Exiting });
 
 
             FSMTransition roaming_to_hubState = new FSMTransition(_roamingComponent.DestinationReachedRoaming, 
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.HubState });
-            
+            FSMTransition roaming_to_exiting = new FSMTransition(_levelStageManagerComponent.IsCurrentLakeCleared,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Exiting });
+
 
             FSMTransition x_to_foodSeen = new FSMTransition(_identifyFoodComponent.IsThereAnObjectiveFood, 
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.FoodSeen });
@@ -326,6 +337,9 @@ namespace DuckEnemies
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Eating });
 
 
+            FSMTransition hubState_to_exiting = new FSMTransition(_levelStageManagerComponent.IsCurrentLakeCleared,
+                new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Exiting });
+
             //actually, this is the last transition for hubState. If it isn't possible to go in any other state, go in this
             FSMTransition hubState_to_chilling = new FSMTransition(GoToChill, 
                 new FSMAction[] { () => _state = EnemyDuckFSMEnumState.State.Chilling });
@@ -333,14 +347,17 @@ namespace DuckEnemies
 
             hubState.AddTransition(x_to_foodSeen, foodSeen);
             hubState.AddTransition(x_to_Chasing, chasing);
+            hubState.AddTransition(hubState_to_exiting, exiting);
             hubState.AddTransition(hubState_to_chilling, chilling);
 
             chilling.AddTransition(x_to_foodSeen, foodSeen);
             chilling.AddTransition(x_to_Chasing, chasing);
+            chilling.AddTransition(chilling_to_exiting, exiting);
             chilling.AddTransition(chilling_to_roaming, roaming);
 
             roaming.AddTransition(x_to_foodSeen, foodSeen);
             roaming.AddTransition(x_to_Chasing, chasing);
+            roaming.AddTransition(roaming_to_exiting, exiting);
             roaming.AddTransition(roaming_to_hubState, hubState);
 
             foodSeen.AddTransition(foodSeen_to_dashing, dashing);

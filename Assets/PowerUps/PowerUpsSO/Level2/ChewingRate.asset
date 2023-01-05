@@ -15,7 +15,7 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: 4cbfe7910dc64ff4e8bfdf1f43e1dcf3, type: 3}
   Name: Stronger Beak
   Description: Chewing Rate up+
-  Cost: 10
+  Cost: 8
   PowerUpKinds: 02000000
   amountForPowerUpKind:
   - -0.08

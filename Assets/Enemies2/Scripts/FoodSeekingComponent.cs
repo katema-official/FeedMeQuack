@@ -118,6 +118,7 @@ namespace DuckEnemies
         {
             StopCoroutine(_checkIfPathIsFollowedCoroutine);
             _checkIfPathIsFollowedCoroutine = null;
+
         }
 
 

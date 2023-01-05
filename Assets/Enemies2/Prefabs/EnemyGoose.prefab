@@ -264,6 +264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shadowGO: {fileID: 7941774197881396249}
+  _shadowExitPrefab: {fileID: 7781512875191114978, guid: 3051983cd88a52049b1c9a644ba97711, type: 3}
 --- !u!114 &5071184019180501057
 MonoBehaviour:
   m_ObjectHideFlags: 0

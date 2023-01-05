@@ -164,7 +164,7 @@ namespace LevelStageNamespace {
             //now we have to place the player in the correct spot
             _playerObject = GameObject.FindWithTag("Player");     //TODO: change in actual player when you have it
 
-            //if the
+            //if the lake
             //is the initial one and the player just arrived in the stage, we want it to be on the center of the room
             if (!_lakeDescriptionForThisLake.IsLakeCleared && _lakeDescriptionForThisLake.IsStartingRoom)
             {
@@ -224,6 +224,9 @@ namespace LevelStageNamespace {
                 //not too close to the player
                 GenerateEnemies();
 
+                //disable the exit triggers
+                EnableExitTriggers(false);
+
                 //the setup of the lake is done. Now we wait until the player enters in the actual lake from the river. To do so, he will need
                 //to pass through the TriggerEnteredCollider of the river in which he is.
 
@@ -232,6 +235,8 @@ namespace LevelStageNamespace {
             //generate all the obstacles
             _obstacles.GetComponent<ObstaclesLakeComponent>().
                 SetObstacles(_lakeDescriptionForThisLake.ObstaclesDescription.Item1, _lakeDescriptionForThisLake.ObstaclesDescription.Item2);
+
+            
 
         }
 
@@ -339,6 +344,14 @@ namespace LevelStageNamespace {
             }
         }
 
+        private void EnableExitTriggers(bool b)
+        {
+            _northRiver.transform.Find("TriggerExitedCollider").gameObject.SetActive(b);
+            _southRiver.transform.Find("TriggerExitedCollider").gameObject.SetActive(b);
+            _westRiver.transform.Find("TriggerExitedCollider").gameObject.SetActive(b);
+            _eastRiver.transform.Find("TriggerExitedCollider").gameObject.SetActive(b);
+        }
+
         //########################################################## CLOSE RIVER MANAGEMENT ##########################################################
 
         //called by EnterPlayerInLakeComponent to signal that the player entered the lake, and the rivers must be closed
@@ -437,6 +450,8 @@ namespace LevelStageNamespace {
                 _eastRiver.transform.Find("CloseCollider").gameObject.SetActive(false);
                 StartCoroutine(OpenLakeCoroutine(_eastRiver, EnumsDungeon.CompassDirection.East));
             }
+
+            EnableExitTriggers(true);
         }
 
         private IEnumerator OpenLakeCoroutine(GameObject river, EnumsDungeon.CompassDirection direction)

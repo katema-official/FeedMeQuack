@@ -184,6 +184,8 @@ namespace DuckEnemies
         {
             StopCoroutine(_checkIfPathIsFollowedCoroutine);
             _checkIfPathIsFollowedCoroutine = null;
+
+            _movementSeekComponent.StopMoving();
         }
 
 
