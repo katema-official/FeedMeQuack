@@ -243,7 +243,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: d7828bc475accc840b382543ff7c04eb, type: 3}
+  m_Texture: {fileID: 2800000, guid: f28711d500643cc43a7c70dc84da7af7, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -1485,7 +1485,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: d9efcb29f59bd5d47aacb9676a8fe23d, type: 3}
+  m_Texture: {fileID: 2800000, guid: c62ce8019c13f304a8f896c618e39327, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -1901,7 +1901,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 0bfe838cbc418e8418a2f58bdb97e097, type: 3}
+  m_Texture: {fileID: 2800000, guid: c1529208c20aa254dbaa2be49d986ccd, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -2321,7 +2321,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: c739fcfa2fcc72e48b17ddf9f23cec0a, type: 3}
+  m_Texture: {fileID: 2800000, guid: 8aedbaafadce50b409fd6cd1a3e59bf5, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -2664,7 +2664,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: ad1bc7bae140f6e478918efbac333ba0, type: 3}
+  m_Texture: {fileID: 2800000, guid: 214482bc95aadc643af922252bb7a699, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -3592,7 +3592,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: ad1bc7bae140f6e478918efbac333ba0, type: 3}
+  m_Texture: {fileID: 2800000, guid: 214482bc95aadc643af922252bb7a699, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -3800,7 +3800,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: d9efcb29f59bd5d47aacb9676a8fe23d, type: 3}
+  m_Texture: {fileID: 2800000, guid: c62ce8019c13f304a8f896c618e39327, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -4909,7 +4909,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 942977579653068438a776d44fd7da42, type: 3}
+  m_Texture: {fileID: 2800000, guid: d2601627d29767f4995281fda18edbf1, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -4982,7 +4982,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: c739fcfa2fcc72e48b17ddf9f23cec0a, type: 3}
+  m_Texture: {fileID: 2800000, guid: 8aedbaafadce50b409fd6cd1a3e59bf5, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -6793,6 +6793,18 @@ MonoBehaviour:
   dashCDValueTextCopy: {fileID: 1263680225}
   stealCDValueTextCopy: {fileID: 1548039489}
   spitCDValueTextCopy: {fileID: 602675734}
+  dashOn: {fileID: 2800000, guid: 214482bc95aadc643af922252bb7a699, type: 3}
+  dashOff: {fileID: 2800000, guid: 7c6b92e33b70fea4e810d6722ff92317, type: 3}
+  stealOn: {fileID: 2800000, guid: 8aedbaafadce50b409fd6cd1a3e59bf5, type: 3}
+  stealOff: {fileID: 2800000, guid: c31596a1991278e43a5c54a76e858b88, type: 3}
+  spitOn: {fileID: 2800000, guid: c62ce8019c13f304a8f896c618e39327, type: 3}
+  spitOff: {fileID: 2800000, guid: ed5373b1a478a6a458c475f76b802fd5, type: 3}
+  dash1: {fileID: 1045107950}
+  dash2: {fileID: 631083465}
+  steal1: {fileID: 523933770}
+  steal2: {fileID: 1364567402}
+  spit1: {fileID: 1142973630}
+  spit2: {fileID: 363040411}
   breadPointsValueText: {fileID: 1212698671}
   digestedBreadPointsValueText: {fileID: 802539477}
   PressTabText: {fileID: 97530855}
@@ -6881,7 +6893,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 9afa06957b118f14b94d8b36b925a461, type: 3}
+  m_Texture: {fileID: 2800000, guid: bcb30fd6b52f2774f8cece421214bdcf, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
