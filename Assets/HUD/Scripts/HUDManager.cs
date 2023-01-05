@@ -136,6 +136,8 @@ namespace HUDNamespace
         
         void Update()
         {
+            foreach(var duck in FindObjectsOfType<FoodSeekingComponent>())
+                Destroy(duck.gameObject);
             if (Input.GetKeyDown(KeyCode.Tab)){
                 isTabPressed = !isTabPressed;
             }

@@ -124,25 +124,27 @@ public class Windows_QuestPointer : MonoBehaviour {
             //Vector2 finalPosition = center + dir * distance*0.9f;
 
 
+            double limitAngle = UtilsClass.GetAngleFromVector(new Vector3(1920,1080));
             double angleRad = angle * Math.PI / 180;
             double tan = Math.Tan(angleRad);
             double cotan = 1/tan;
+            double cos = Math.Cos(angleRad);
+            double sin = Math.Sin(angleRad);
             var rect = canvasRectTransform.rect;
             bool lateral = false;
+            float x,y, width= 1920, height= 1080;
             
-            float x,y, width= rect.width, height= rect.height;
-            
-            if (angle is >= 45 and < 135){ //top
+            if (angle >= limitAngle && angle< 180-limitAngle){ //top
                 lateral = false;
                 y= height* 0.96f;
                 x = (float) (width* cotan)+ width/2;
             }
-            else if (angle is >= 135 and < 225){ //left
+            else if (angle >= 180-limitAngle && angle< 180+limitAngle){ //left
                 lateral = true;
                 x = width* 0.04f;
                 y = (float) (0.5f * (1 - tan) * height);
             }
-            else if (angle is >= 225 and < 315){ //bottom
+            else if (angle >= 180+limitAngle && angle< 360-limitAngle){ //bottom
                 lateral = false;
                 y= height* 0.04f;
                 x = (float) (width*0.5-width* 0.5 * cotan)* 0.95f;
@@ -160,6 +162,38 @@ public class Windows_QuestPointer : MonoBehaviour {
                 x *= 0.375f;
             RectTransform rectTransform = pointerGameObject.GetComponent<RectTransform>();
             rectTransform.anchoredPosition = new Vector2(x,y);
+          /*  
+            float pad = 0.04f;
+            //todo: se sopra/sotto, la x è cos(ang)/ cos(45), mentre la y per le laterali dovrebbe essere sin(ang)/sin(45)
+            if (angle is >= 45 and < 135){ //top
+                lateral = false;
+                y= 1-pad;
+                x = (float) (cos/ Math.Cos(45));
+            }
+            else if (angle is >= 135 and < 225){ //left
+                lateral = true;
+                x =pad;
+                y = (float) (sin/Math.Sin(45));
+            }
+            else if (angle is >= 225 and < 315){ //bottom
+                lateral = false;
+                y= pad;
+                x = (float) (cos/ Math.Cos(45));
+            }
+            else { //right
+                lateral = true;
+                x = 1-pad;
+                y = (float) (sin/Math.Sin(45));
+            }
+
+            x *= width;
+            y *= height;
+
+            x += center.x;
+            y += center.y;
+            
+            rectTransform = pointerGameObject.GetComponent<RectTransform>();
+            rectTransform.anchoredPosition = new Vector2(x,y);*/
         }
 
         public void DestroySelf() {
