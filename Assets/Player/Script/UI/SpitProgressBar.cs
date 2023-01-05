@@ -13,9 +13,9 @@ namespace Player
         public void SetProgress(float value)
         {
             var pos = _bar.transform.localPosition;
-            pos.Set(-1.92f * (1.0f-value), pos.y, pos.z);
-            _bar.transform.localPosition = pos;
-            _bar.transform.localScale = new Vector3(3.842767f * value, 0.8766861f, 1);
+            pos.Set(-1.6892f * (1.0f-value), pos.y, pos.z);
+            _bar.transform.localPosition = pos; //0.007148883
+            _bar.transform.localScale = new Vector3(1.232566f * value, 1.232566f, 1);
         }
 
         void Awake()

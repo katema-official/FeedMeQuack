@@ -109,6 +109,7 @@ namespace Player
             _spitProgressBar = GameObject.FindObjectOfType<SpitProgressBar>();
             _spitArrow.SetActive(false);
             _spitProgressBar.gameObject.SetActive(false);
+            _spitProgressBar.gameObject.transform.position = new Vector3(10000, 10000, -83);
         }
         // Start is called before the first frame update
         void Start()
@@ -174,6 +175,7 @@ namespace Player
                     _controller.GetStatusView().SetMiniStatusActive(false);
                     _moveSkill.EnableInput(true);
                     _spitArrow.SetActive(true);
+                    _spitProgressBar.gameObject.transform.position = new Vector3(10000, 10000, -83);
                     _spitProgressBar.gameObject.SetActive(true);
                     //Music.UniversalAudio.GetSpitBarSoundController().Spit(_maxPower/_chargeSpeed, GetComponent<AudioSource>());
                     _controller.GetAnimalSoundController().Spit(_maxPower / _chargeSpeed);
@@ -197,8 +199,10 @@ namespace Player
                 {
                     _spitArrow.SetActive(false);
 
-                   _spitProgressBar.SetProgress(0);
+                    _spitProgressBar.SetProgress(0);
+
                     _spitProgressBar.gameObject.SetActive(false);
+                    _spitProgressBar.gameObject.transform.position = new Vector3(10000, 10000, -83);
                     _controller.GetStatusView().SetInteractionActive(false, 2);
                     _controller.GetStatusView().SetMiniStatusActive(false);
 
