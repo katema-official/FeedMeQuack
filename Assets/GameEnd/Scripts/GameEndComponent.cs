@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class GameOverComponent : MonoBehaviour
+public class GameEndComponent : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        Music.UniversalAudio.PlaySound("GameOver", transform);
+       // Music.UniversalAudio.PlayMusic("GameOver",true);
     }
 
 }
