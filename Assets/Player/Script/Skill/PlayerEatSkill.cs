@@ -74,7 +74,7 @@ namespace Player
             for (int i = 0; i < breads.Length; i++)
             {
                 var dist = Vector3.Distance(breads[i].transform.position, _controller.gameObject.transform.position);
-                if (dist <= breads[i].GetComponent<CircleCollider2D>().radius)
+                if (dist <= breads[i].GetComponent<CircleCollider2D>().radius+2.0f)
                 {
                     if (dist <= minDistance)
                     {
