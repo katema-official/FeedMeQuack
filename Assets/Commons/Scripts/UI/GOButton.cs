@@ -36,13 +36,13 @@ public class GOButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         if (enable)
         {
             _image.gameObject.SetActive(true);
-            _text.fontStyle = FontStyles.Underline | FontStyles.Bold;
+            _text.fontStyle = FontStyles.Underline;
             _text.color = new Color(255.0f / 255.0f, 157.0f / 255.0f, 58.0f / 255.0f);
         }
         else
         {
             _image.gameObject.SetActive(false);
-            _text.fontStyle = FontStyles.Bold;
+            _text.fontStyle = FontStyles.Normal;
             _text.color = Color.white;
         }
         _enable = enable;

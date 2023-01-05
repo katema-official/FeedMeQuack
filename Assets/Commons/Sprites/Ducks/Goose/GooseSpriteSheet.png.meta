@@ -452,6 +452,174 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: GooseSpriteSheet_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 839b1be7e041e1047b7a9e59343515df
+      internalID: -290503530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GooseSpriteSheet_17
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d98674723c8f1c469d9672496687ea0
+      internalID: 1799013333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GooseSpriteSheet_18
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89cfc979710ea524da8e0185268b9fba
+      internalID: -1656712940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GooseSpriteSheet_19
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37e6f8062b9bee14fa0b14fb92711571
+      internalID: 1263483679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GooseSpriteSheet_20
+      rect:
+        serializedVersion: 2
+        x: 1264
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 545a9339cd76f78419d7b3c93bb96f0b
+      internalID: 1777716667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GooseSpriteSheet_21
+      rect:
+        serializedVersion: 2
+        x: 1580
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8464d937cdb096142a01d48738029ce9
+      internalID: -1269319411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GooseSpriteSheet_22
+      rect:
+        serializedVersion: 2
+        x: 1896
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7ad1723973741d4a92f6bb508639cf9
+      internalID: 1481598709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GooseSpriteSheet_23
+      rect:
+        serializedVersion: 2
+        x: 2212
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 399ca3dc7e43fe747bcf6bde833ac0f2
+      internalID: 769328259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -465,19 +633,27 @@ TextureImporter:
     nameFileIdTable:
       GooseSpriteSheet_10: 622265179
       GooseSpriteSheet_13: 1498178554
+      GooseSpriteSheet_21: -1269319411
       GooseSpriteSheet_11: -1715235218
+      GooseSpriteSheet_17: 1799013333
       GooseSpriteSheet_5: 1413007488
       GooseSpriteSheet_2: -1449852425
+      GooseSpriteSheet_16: -290503530
       GooseSpriteSheet_12: 819948908
+      GooseSpriteSheet_18: -1656712940
       GooseSpriteSheet_3: 203538470
+      GooseSpriteSheet_23: 769328259
+      GooseSpriteSheet_20: 1777716667
       GooseSpriteSheet_9: -1336109370
       GooseSpriteSheet_6: -1084237695
       GooseSpriteSheet_15: -1006367672
       GooseSpriteSheet_1: 2013607126
       GooseSpriteSheet_7: -582476280
       GooseSpriteSheet_4: 530931706
+      GooseSpriteSheet_19: 1263483679
       GooseSpriteSheet_14: 979049391
       GooseSpriteSheet_8: 509478709
+      GooseSpriteSheet_22: 1481598709
       GooseSpriteSheet_0: 1382497355
   spritePackingTag: 
   pSDRemoveMatte: 0
