@@ -120,14 +120,15 @@ namespace Player
         void Update()
         {
             if (Input.GetButtonDown("SpitButton") /*&& !_caughtBread*//*_eatSkill.GetCaughtBread()*/ && _spitCoolDownElapsedSeconds <= 0)
-            {
+            { 
+                var locatedBread = FindClosestBread();
+
                 if (_controller.GetState() != PlayerState.Spitting && _controller.GetState() != PlayerState.Carrying && !_caughtBread)
                 {
-                    var locatedBread = FindClosestBread();
-
+                   
                     if (locatedBread)
                     {
-                        _caughtBread = locatedBread.GenerateNewBreadInMouth(locatedBread.GetBreadPoints()).GetComponent<BreadNamespace.BreadInMouthComponent>();
+                       // _caughtBread = locatedBread.GenerateNewBreadInMouth(locatedBread.GetBreadPoints()).GetComponent<BreadNamespace.BreadInMouthComponent>();
                         _controller.ChangeState(PlayerState.Carrying);
                     } 
                     else
@@ -149,6 +150,10 @@ namespace Player
                 {
                     //also interrupt the eating coroutine
                     //_eatSkill.StopEating();
+                    if (locatedBread)
+                    {
+                        _caughtBread = locatedBread.GenerateNewBreadInMouth(locatedBread.GetBreadPoints()).GetComponent<BreadNamespace.BreadInMouthComponent>();
+                    }
 
                     _moveSkill.EnableInput(true);
 
