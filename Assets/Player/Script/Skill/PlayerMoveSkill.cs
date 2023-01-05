@@ -347,13 +347,17 @@ namespace Player
         }
         public void SetOldVelocity(Vector2 oldVelocity)
         {
-            _oldVelocity = oldVelocity;
+            if (oldVelocity.magnitude>0)
+                _oldVelocity = oldVelocity;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            if (_lockMovement) return;
+
             if (collision.name == "TriggerExitedCollider")
             {
+                Debug.Log("TriggerExitedCollider Entered with vel: "+ _rigidBody.velocity);
                 SetOldVelocity(_rigidBody.velocity);
             }
         }
@@ -469,14 +473,16 @@ namespace Player
             _camera = transform.parent.GetComponentInChildren<Camera>();
 
             var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
-            SceneManager.activeSceneChanged += OnSceneLoaded;
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         // called second
-        void OnSceneLoaded(Scene scene, Scene mode)
+        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            _rigidBody = GetComponent<Rigidbody2D>();
-            _rigidBody.velocity = _oldVelocity;
+            //_rigidBody = GetComponent<Rigidbody2D>();
+            //_rigidBody.velocity = _oldVelocity;
+            _lockMovement = true;
+            Debug.Log("Sceneloaded");
         }
 
 
@@ -499,8 +505,10 @@ namespace Player
             if (_lockMovement)
             {
                 _rigidBody = GetComponent<Rigidbody2D>();
-                _rigidBody.velocity = new Vector2(0,0);
-                return;
+                _rigidBody.velocity = _oldVelocity; 
+                Debug.Log("Velocity set at: " + _rigidBody.velocity);
+                _lockMovement = false;
+               
             }
 
             //var h = Input.GetAxisRaw("Horizontal");
@@ -563,12 +571,12 @@ namespace Player
             //screenPos.y += 80;
             //screenPos.x -= 20;
 
-            if (_lockMovement)
-            {
-                _rigidBody = GetComponent<Rigidbody2D>();
-                _rigidBody.velocity = new Vector2(0, 0);
-                return;
-            }
+            //if (_lockMovement)
+            //{
+            //    _rigidBody = GetComponent<Rigidbody2D>();
+            //    _rigidBody.velocity = new Vector2(0, 0);
+            //    return;
+            //}
 
             var pos = _rigidBody.position + new Vector2(0, 3);
             _controller.GetStatusView().SetPosition(pos);
