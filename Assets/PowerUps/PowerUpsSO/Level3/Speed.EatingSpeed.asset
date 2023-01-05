@@ -15,7 +15,7 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: 245bdaab6c8b2204a816bc291834b44a, type: 3}
   Name: Fins Workout
   Description: Speed & Eating Speed up+
-  Cost: 12
+  Cost: 10
   PowerUpKinds: 0000000001000000
   amountForPowerUpKind:
   - 4

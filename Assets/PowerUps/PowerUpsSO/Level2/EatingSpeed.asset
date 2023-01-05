@@ -15,7 +15,7 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: 3d502beb6518a884cbdb7b86d5cb99ef, type: 3}
   Name: Careful Munching++
   Description: Eating Speed up+
-  Cost: 5
+  Cost: 4
   PowerUpKinds: 01000000
   amountForPowerUpKind:
   - 1.5

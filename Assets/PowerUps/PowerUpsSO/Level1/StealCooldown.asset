@@ -15,7 +15,7 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: e0fc7baf996245c49969456c580ca8ed, type: 3}
   Name: Aggressive Attitude
   Description: Steal Cooldown up
-  Cost: 8
+  Cost: 9
   PowerUpKinds: 0c000000
   amountForPowerUpKind:
   - -1

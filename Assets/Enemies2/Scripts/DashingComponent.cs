@@ -283,5 +283,53 @@ namespace DuckEnemies
 
 
 
+
+        //part for the exit state
+        public void FlyAwayFromLake()
+        {
+            GetComponent<CircleCollider2D>().enabled = false;
+            _animalSoundController.Fly(1.5f, 1f);
+            transform.Find("Sprite").GetComponent<Animator>().SetBool("Dash", true);
+            Vector3 v;
+            Vector2 orientation;
+
+
+            int i = Random.Range(0, 2);
+            if(i == 0)
+            {
+                //left
+                v = new Vector3(-3, 1.5f, 0);
+                orientation = Vector2.left;
+                orientation.Normalize();
+            }
+            else
+            {
+                //right
+                v = new Vector3(3, 1.5f, 0);
+                orientation = Vector2.right;
+                orientation.Normalize();
+            }
+
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            //rb.bodyType = RigidbodyType2D.Kinematic;
+            _movementSeekComponent.CompletelyStopMoving();
+            rb.drag = 0;
+            rb.velocity = v * Random.Range(7f,12f);
+            _movementSeekComponent.ComputeRotation(orientation);
+            _movementSeekComponent.SetRotation();
+
+            StartCoroutine(DestroyDuck());
+
+        }
+
+        private IEnumerator DestroyDuck()
+        {
+            
+            yield return new WaitForSeconds(10f);
+            _animalSoundController.UnFly();
+            Destroy(this.gameObject);
+        }
+
+
     }
 }
