@@ -22,7 +22,7 @@ public class TextFadeInOut : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1.5f);
 
         i.color = new Color(i.color.r, i.color.g, i.color.b, 1);
 
