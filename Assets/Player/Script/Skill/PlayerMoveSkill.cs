@@ -583,6 +583,7 @@ namespace Player
             //_rigidBody = GetComponent<Rigidbody2D>();
             //_rigidBody.velocity = _oldVelocity;
             _lockMovement = true;
+            Cursor.visible = false;
             Debug.Log("Sceneloaded");
         }
 
@@ -596,7 +597,11 @@ namespace Player
         }
 
 
-        
+        private void OnDestroy()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+            Cursor.visible = true;
+        }
 
 
         // Update is called once per frame
