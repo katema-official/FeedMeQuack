@@ -42,6 +42,8 @@ namespace DuckEnemies
         private GameObject _obstaclesGO;
         private List<GameObject> _obstaclesList;
 
+        [SerializeField] private GameObject _shadowExitPrefab;
+
 
         public void Initialize(float dashTriggerProbability, float speed, float acceleration, float deceleration, float steer, float distanceToDash)
         {
@@ -283,7 +285,8 @@ namespace DuckEnemies
 
 
 
-
+        private GameObject _shadowExitGO;
+        private bool _exit = false;
         //part for the exit state
         public void FlyAwayFromLake()
         {
@@ -318,6 +321,12 @@ namespace DuckEnemies
             _movementSeekComponent.ComputeRotation(orientation);
             _movementSeekComponent.SetRotation();
 
+            _shadowExitGO = Instantiate(_shadowExitPrefab);
+            //_shadowExitGO.transform.SetParent(transform);
+            _shadowExitGO.transform.position = transform.position + new Vector3(0f, -2.06f, 0);
+            _shadowExitGO.transform.localScale = new Vector3(3f, 1.11f, 0);
+            _exit = true;
+
             StartCoroutine(DestroyDuck());
 
         }
@@ -327,7 +336,19 @@ namespace DuckEnemies
             
             yield return new WaitForSeconds(10f);
             _animalSoundController.UnFly();
+            _exit = false;
+            Destroy(_shadowExitGO);
             Destroy(this.gameObject);
+
+        }
+
+        private void Update()
+        {
+            if (_exit)
+            {
+                _shadowExitGO.transform.position = new Vector3(transform.position.x, _shadowExitGO.transform.position.y, 0f);
+                _shadowExitGO.transform.localScale = _shadowExitGO.transform.localScale * 0.999f;
+            }
         }
 
 

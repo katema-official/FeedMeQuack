@@ -94,7 +94,8 @@ namespace LevelStageNamespace
             }
             else
             {
-                Debug.Log("No more levels!!!");
+                //Debug.Log("No more levels!!!");
+                SceneManager.LoadScene("GameEnd");
             }
             
 

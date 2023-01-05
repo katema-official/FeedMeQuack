@@ -25,9 +25,9 @@ MonoBehaviour:
   DecelerationFoodSeeking: 40
   SteerFoodSeeking: 28
   StopAtFoodSeeking: 2
-  Circle1FoodRadius: 35
-  Circle2FoodRadius: 41
-  Circle3FoodRadius: 47
+  Circle1FoodRadius: 25
+  Circle2FoodRadius: 31
+  Circle3FoodRadius: 37
   Circle1FoodProbability: 1
   Circle2FoodProbability: 0.7
   Circle3FoodProbability: 0.4
@@ -37,7 +37,7 @@ MonoBehaviour:
   Circle1PlayerProbability: 1
   Circle2PlayerProbability: 0.5
   Circle3PlayerProbability: 0.25
-  DashTriggerProbability: 1
+  DashTriggerProbability: 0.3
   SpeedDash: 40
   AccelerationDash: 20
   DecelerationDash: 160
