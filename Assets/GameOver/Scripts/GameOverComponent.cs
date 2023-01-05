@@ -7,7 +7,7 @@ public class GameOverComponent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Music.UniversalAudio.PlayMusic("GameOver", true);
+        Music.UniversalAudio.PlaySound("GameOver", transform);
         //Music.UniversalAudio.PlaySound("GameEnd", transform);
     }
 
