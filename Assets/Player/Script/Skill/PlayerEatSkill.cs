@@ -345,7 +345,7 @@ namespace Player
             var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
             if (breadController)
             {
-
+                _controller.GetStatusView().SetExtraText("<color=\"yellow\"><size=8px>Bread Points: <color=\"white\"><size=8px>" + breadController.GetBreadPoints());
 
                 if (_controller.GetState() == PlayerState.Normal)
                     _controller.GetStatusView().SetInteractionActive(true, 0);
@@ -363,6 +363,8 @@ namespace Player
             var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
             if (breadController)
             {
+                _controller.GetStatusView().SetExtraText("<size=8px><color=\"yellow\">Bread Points: <color=\"white\">" + breadController.GetBreadPoints()+ "</size>");
+               
                 if (_controller.GetState() == PlayerState.Normal)
                     _controller.GetStatusView().SetInteractionActive(true, 0);
                 else
@@ -376,6 +378,8 @@ namespace Player
 
             if (breadController)
             {
+                _controller.GetStatusView().SetExtraText("");
+
                 _controller.GetStatusView().SetInteractionActive(false,0);
                // _controller.GetStatusView().SetVisible(true);
                 //    _locatedBreads.Remove(breadController);

@@ -14,6 +14,7 @@ public class StatusViewController : MonoBehaviour
     bool _miniStatusActive = false;
     bool _interactionActive = false;
 
+    string _extraText = "";
     bool[] _messagesA  = new bool[7];
     string[] _messages = { 
         "<color=\"yellow\">E: <color=\"white\">Eat", 
@@ -87,7 +88,11 @@ public class StatusViewController : MonoBehaviour
     {
         GetComponent<Transform>().position = new Vector3(pos.x,pos.y, 3);
     }
-
+    public void SetExtraText(string extraText)
+    {
+      //  _extraText = extraText;
+      //  Active();
+    }
     public void SetVisible(bool visible)
     {
         //if (!visible)
@@ -116,6 +121,14 @@ public class StatusViewController : MonoBehaviour
 
         string text = "";
         int lines = 0;
+        int max = 1;
+
+        if(_extraText.Length>0)
+        { 
+            text += _extraText;
+            lines++;
+            // max = 0;
+        }
         for (int i = 0; i < 7; i++)
         {   
             var gamepad = Gamepad.current;
@@ -123,7 +136,7 @@ public class StatusViewController : MonoBehaviour
             {
                 if (_messagesA[i])
                 {
-                    if (lines >= 1) text += "\n";
+                    if (lines >= max) text += "\n";
                     text += _messagesXbox[i];
                     lines++;
                 }
@@ -132,7 +145,7 @@ public class StatusViewController : MonoBehaviour
 
             if (_messagesA[i])
             {
-                if (lines >= 1) text += "\n";
+                if (lines >= max) text += "\n";
                 text += _messages[i];
                 lines++;
             }
