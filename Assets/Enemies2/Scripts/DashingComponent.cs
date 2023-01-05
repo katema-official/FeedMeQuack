@@ -347,7 +347,7 @@ namespace DuckEnemies
             if (_exit)
             {
                 _shadowExitGO.transform.position = new Vector3(transform.position.x, _shadowExitGO.transform.position.y, 0f);
-                _shadowExitGO.transform.localScale = _shadowExitGO.transform.localScale * 0.999f;
+                _shadowExitGO.transform.localScale = _shadowExitGO.transform.localScale * 0.998f;
             }
         }
 
