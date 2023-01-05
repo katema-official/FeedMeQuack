@@ -35,6 +35,7 @@ public class StatusViewController : MonoBehaviour
     public void SetMiniStatusActive(bool active)
     {
         _miniStatusActive = active;
+        transform.Find("MiniStatus").gameObject.transform.position = new Vector3(1000000, 100000, 0);
         transform.Find("MiniStatus").gameObject.SetActive(active);
         Active();
     }
