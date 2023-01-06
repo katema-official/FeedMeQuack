@@ -18,16 +18,16 @@ MonoBehaviour:
   DecelerationRoaming: 17
   SteerRoaming: 17
   ChillingTime: 1
-  DesiredRoamingDistance: 33
+  DesiredRoamingDistance: 27
   StopAtRoaming: 3
   SpeedFoodSeeking: 20
   AccelerationFoodSeeking: 14
   DecelerationFoodSeeking: 40
   SteerFoodSeeking: 28
   StopAtFoodSeeking: 2
-  Circle1FoodRadius: 25
-  Circle2FoodRadius: 31
-  Circle3FoodRadius: 37
+  Circle1FoodRadius: 23
+  Circle2FoodRadius: 29
+  Circle3FoodRadius: 35
   Circle1FoodProbability: 1
   Circle2FoodProbability: 0.5
   Circle3FoodProbability: 0.25

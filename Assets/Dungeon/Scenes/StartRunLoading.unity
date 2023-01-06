@@ -1535,8 +1535,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 19, y: 150.54}
-  m_SizeDelta: {x: 284.833, y: 50}
+  m_AnchoredPosition: {x: 14.5845, y: 150.54}
+  m_SizeDelta: {x: 293.6639, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &405789013
 MonoBehaviour:
@@ -1693,7 +1693,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '    Current Level'
+  m_text: Current Level
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2512eff8b027c354a92ea3c524b65be5, type: 2}
   m_sharedMaterial: {fileID: 7534405097686390839, guid: 2512eff8b027c354a92ea3c524b65be5, type: 2}
@@ -2766,8 +2766,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 12.184, y: 150.54}
-  m_SizeDelta: {x: 284.833, y: 50}
+  m_AnchoredPosition: {x: 4.0627, y: 150.54}
+  m_SizeDelta: {x: 301.0706, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &765194422
 MonoBehaviour:

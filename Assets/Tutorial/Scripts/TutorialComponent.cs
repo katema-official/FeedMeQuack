@@ -165,14 +165,14 @@ public class TutorialComponent : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         _sceneCount++;
-        if (scene.name == "LakeSmall" && _sceneCount == 3)
+        if (scene.name == "LakeSmall" && _sceneCount == 3 && !_shopSeen)
         {
             _tutorialIndex = _tutorialEat;
             StopCoroutine(_deleteTextCoroutine);
             //StartCoroutine(DeleteText(0f));
             ChangeText();
         }
-        if(scene.name == "LakeSmall" && _sceneCount == 4)
+        if(scene.name == "LakeSmall" && _sceneCount == 4 && !_shopSeen)
         {
             _tutorialIndex = _tutorialUI1;
             StopCoroutine(_deleteTextCoroutine);

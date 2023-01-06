@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stage1.1
   m_EditorClassIdentifier: 
   MinNumberOfLakes: 4
-  MaxNumberOfLakes: 5
+  MaxNumberOfLakes: 4
   ProbabilitiesOfLake:
   - 1
   - 0
