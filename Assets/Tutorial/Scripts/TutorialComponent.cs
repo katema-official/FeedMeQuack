@@ -58,7 +58,7 @@ public class TutorialComponent : MonoBehaviour
     void Start()
     {
         //read if the tutorial must be carried out or not
-        StreamReader reader = new StreamReader(_tutorialPath);
+        StreamReader reader = new StreamReader(Application.dataPath + "/" + "tutorial.txt");
         string lineA = reader.ReadLine();
         string[] splitA = lineA.Split(',');
         int tutorial = int.Parse(splitA[1]);
@@ -199,7 +199,7 @@ public class TutorialComponent : MonoBehaviour
 
     private void EndTutorial()
     {
-        StreamWriter writer = new StreamWriter(_tutorialPath, false);
+        StreamWriter writer = new StreamWriter(Application.dataPath + "/" + "tutorial.txt", false);
         writer.Write("tutorial, 0\n");
         writer.Close();
     }
