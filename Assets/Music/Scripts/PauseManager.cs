@@ -19,16 +19,16 @@ namespace Music
       private void Update()
       {
          var gamepad = Gamepad.current;
-         if (gamepad != null)
-         {
-            if (gamepad.startButton.wasPressedThisFrame)
-            {
-               Pause();
-            }
+         //if (gamepad != null)
+         //{
+         //   if (gamepad.startButton.wasPressedThisFrame)
+         //   {
+         //      Pause();
+         //   }
                
-         }
+         //}
          
-         if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "GameOverScreen" && SceneManager.GetActiveScene().name != "GameEnd")
+         if ((Input.GetKeyDown(KeyCode.Escape) || (gamepad != null  && gamepad.startButton.wasPressedThisFrame )) && SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "GameOverScreen" && SceneManager.GetActiveScene().name != "GameEnd")
          {
             Pause();
          }
