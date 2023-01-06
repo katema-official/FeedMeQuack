@@ -93,19 +93,19 @@ public class TutorialComponent : MonoBehaviour
 
             case _tutorialEat:
                 textToShow = _tutorialText[_tutorialEat];
-                StartCoroutine(DeleteText());
+                _deleteTextCoroutine = StartCoroutine(DeleteText());
                 _tutorialIndex = _tutorialUI1;
                 break;
 
             case _tutorialUI1:
                 textToShow = _tutorialText[_tutorialUI1];
-                StartCoroutine(DeleteText());
+                _deleteTextCoroutine = StartCoroutine(DeleteText());
                 _tutorialIndex = _tutorialUI2;
                 break;
 
             case _tutorialUI2:
                 textToShow = _tutorialText[_tutorialUI2];
-                StartCoroutine(DeleteText());
+                _deleteTextCoroutine = StartCoroutine(DeleteText());
                 _tutorialIndex = _tutorialShop;
                 break;
 
@@ -147,7 +147,7 @@ public class TutorialComponent : MonoBehaviour
 
         switch (_tutorialIndex)
         {
-            case _tutorialUI1:
+            case _tutorialUI2:
                 ChangeText();
                 break;
 
@@ -167,22 +167,31 @@ public class TutorialComponent : MonoBehaviour
         _sceneCount++;
         if (scene.name == "LakeSmall" && _sceneCount == 3)
         {
+            _tutorialIndex = _tutorialEat;
             StopCoroutine(_deleteTextCoroutine);
+            //StartCoroutine(DeleteText(0f));
             ChangeText();
         }
         if(scene.name == "LakeSmall" && _sceneCount == 4)
         {
+            _tutorialIndex = _tutorialUI1;
+            StopCoroutine(_deleteTextCoroutine);
             ChangeText();
         }
         if(scene.name == "Shop1" && !_shopSeen)
         {
+            _tutorialIndex = _tutorialShop;
+            //StartCoroutine(DeleteText(0f));
+            StopCoroutine(_deleteTextCoroutine);
             _shopSeen = true;
             ChangeText();
             _sceneCount = 0;
         }
         if(scene.name == "LakeSmall" && _shopSeen && _sceneCount == 1)
         {
+            _tutorialIndex = _tutorialCommands1;
             StopCoroutine(_deleteTextCoroutine);
+            //StartCoroutine(DeleteText(0f));
             ChangeText();
         }
 
