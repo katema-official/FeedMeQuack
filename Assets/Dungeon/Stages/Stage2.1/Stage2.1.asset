@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c1c01b7bb633cf48b41a367dcf8bc20, type: 3}
   m_Name: Stage2.1
   m_EditorClassIdentifier: 
-  MinNumberOfLakes: 4
-  MaxNumberOfLakes: 4
+  MinNumberOfLakes: 5
+  MaxNumberOfLakes: 5
   ProbabilitiesOfLake:
   - 0.7
   - 0.3

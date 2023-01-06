@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 697fc0091b001c348adba09492053db1, type: 3}
   m_Name: BreadSpawnLakeSmall2.1
   m_EditorClassIdentifier: 
-  MinNumberOfBreadPerLake: 3
+  MinNumberOfBreadPerLake: 4
   MaxNumberOfBreadPerLake: 5
   ProbabilitiesOfBread:
   - 0.85
