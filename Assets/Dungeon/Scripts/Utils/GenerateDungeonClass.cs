@@ -114,7 +114,7 @@ namespace LevelStageNamespace
 
             }
 
-            debugGeneratedStageBitmap(currentStageBitMap);
+            //debugGeneratedStageBitmap(currentStageBitMap);
 
             return currentStageBitMap;
 
@@ -250,7 +250,7 @@ namespace LevelStageNamespace
                             finalMap[i, j].HasEastRiver = true;
                         }
 
-                        debugGeneratedLake(finalMap[i, j], i, j);
+                        //debugGeneratedLake(finalMap[i, j], i, j);
                         
                     }
                 }

@@ -59,8 +59,6 @@ namespace Player
         public void AddBreadPoints(float points)
         {
             _breadPoints += points;
-
-            Debug.Log("Current player bread points: " + _breadPoints);
         }
         public int GetBreadPoints()
         {

@@ -109,7 +109,7 @@ public class Windows_QuestPointer : MonoBehaviour {
             Vector3 toPosition = targetPosition;
             Vector3 fromPosition = uiCamera.transform.position;
 
-            Debug.Log("Quest pointers: BreadPos" + toPosition + " - CameraPos" + fromPosition);
+            //Debug.Log("Quest pointers: BreadPos" + toPosition + " - CameraPos" + fromPosition);
 
             Vector3 dir = (fromPosition-toPosition).normalized;
             float angle = UtilsClass.GetAngleFromVectorFloat(dir);

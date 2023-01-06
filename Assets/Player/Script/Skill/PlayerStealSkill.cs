@@ -318,8 +318,8 @@ namespace Player
                 _locatedEnemies.Add(enemyController);
                 _locatedEnemy = FindClosestEnemy();
                 
-                if (_locatedEnemy)
-                    Debug.Log("Enemy located");
+                //if (_locatedEnemy)
+                    //Debug.Log("Enemy located");
             }
 
 
@@ -351,8 +351,8 @@ namespace Player
                 _locatedEnemies.Remove(enemyController);
                 _locatedEnemy = FindClosestEnemy();
                
-                if (!_locatedEnemy)
-                    Debug.Log("Enemy missed");
+                //if (!_locatedEnemy)
+                    //Debug.Log("Enemy missed");
             }
         }
 

@@ -358,7 +358,7 @@ namespace Player
 
             if (collision.name == "TriggerExitedCollider")
             {
-                Debug.Log("TriggerExitedCollider Entered with vel: "+ _rigidBody.velocity);
+                //Debug.Log("TriggerExitedCollider Entered with vel: "+ _rigidBody.velocity);
                 SetOldVelocity(_rigidBody.velocity);
               //  _lockMovement = true;
             }
@@ -587,7 +587,6 @@ namespace Player
             //_rigidBody.velocity = _oldVelocity;
             _lockMovement = true;
             Cursor.visible = false;
-            Debug.Log("Sceneloaded");
         }
 
 
@@ -616,7 +615,7 @@ namespace Player
             {
                 _rigidBody = GetComponent<Rigidbody2D>();
                 _rigidBody.velocity = _oldVelocity; 
-                Debug.Log("Velocity set at: " + _rigidBody.velocity);
+                //Debug.Log("Velocity set at: " + _rigidBody.velocity);
                 _lockMovement = false;
                
             }

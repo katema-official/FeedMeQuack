@@ -276,7 +276,6 @@ namespace DuckEnemies
                     _destinationReached = true;
                     _movementSeekComponent.Deceleration = _decelerationDashing;
                     _movementSeekComponent.StopMoving();
-                    Debug.Log("HI");
                 }
 
 
