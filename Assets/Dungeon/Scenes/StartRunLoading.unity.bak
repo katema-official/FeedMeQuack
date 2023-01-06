@@ -429,6 +429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89dcda98b0ed4564ea4b181a097d06a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
 --- !u!1 &349542539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,6 +1189,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 501691835}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> feature/polishing2
 --- !u!1 &505563692
 GameObject:
   m_ObjectHideFlags: 0
@@ -1323,6 +1326,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 505563692}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
 --- !u!1 &514854936
 GameObject:
   m_ObjectHideFlags: 0
@@ -3222,6 +3226,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1169629907}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> feature/polishing2
 --- !u!1 &1192878456
 GameObject:
   m_ObjectHideFlags: 0

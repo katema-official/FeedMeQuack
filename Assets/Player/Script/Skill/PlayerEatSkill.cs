@@ -293,7 +293,7 @@ namespace Player
 
             while (!_hasBreadBeenFullyEaten && !_mustStopEating)
             {
-                _controller.GetStatusView().SetText("" + _caughtBread.GetBreadPoints());
+                _controller.GetStatusView().SetText("" + _caughtBread.GetBreadPoints() + " BP");
                 yield return new WaitForSeconds(_chewingRate);
                 if (!_mustStopEating)
                 {
@@ -304,7 +304,7 @@ namespace Player
 
                 }
             }
-            _controller.GetStatusView().SetText("" + _caughtBread.GetBreadPoints());
+            _controller.GetStatusView().SetText("" + _caughtBread.GetBreadPoints() + " BP");
             _controller.GetStatusView().SetMiniStatusActive(false);
             _controller.GetStatusView().SetInteractionActive(false, 0);
             _controller.GetAnimalSoundController().UnEat();
