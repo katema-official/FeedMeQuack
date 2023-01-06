@@ -49,6 +49,6 @@ MonoBehaviour:
   DecelerationChasing: 35
   SteerChasing: 30
   WantsToStealCooldown: 10
-  MouthSize: 6
+  MouthSize: 7
   ChewingRate: 0.8
   DigestingTime: 0.4
