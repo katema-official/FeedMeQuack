@@ -55,7 +55,7 @@ namespace PowerUpsNamespace
         {
             _nameTextMesh.text = _name;
             _descriptionTextMesh.text = _description;
-            _costTextMesh.text = "Cost: " + _costDigestedbreadPoints;
+            _costTextMesh.text = "Cost: " + _costDigestedbreadPoints + " DBP";
         }
 
         // Update is called once per frame

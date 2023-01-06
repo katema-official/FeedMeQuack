@@ -55,12 +55,12 @@ namespace HUDNamespace
 
         public void ChangeBreadPointsCollectedText(int value){
             Color orange = new Color(255, 169, 106);
-            breadPointsValueText.text = value.ToString()+"/"+ "<color=orange>"+goal.ToString()+"</color>";
+            breadPointsValueText.text = value.ToString()+"/"+ "<color=orange>"+goal.ToString() + " BP"+"</color>";
         }
 
         public void ChangeDigestedBreadPointsCollectedText(int value)
         {
-            digestedBreadPointsValueText.text = value.ToString();
+            digestedBreadPointsValueText.text = value.ToString() + " DBP";
         }
 
         public void UpdateSkillCooldown(textFields skillType, float newValue)
