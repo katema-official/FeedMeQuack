@@ -25,6 +25,9 @@ namespace HUDNamespace
         private TMP_Text speedValueText, eatingSpeedValueText, mouthSizeValueText, chewingRate,
             dashCDValueText, stealCDValueText, spitCDValueText, dashCDValueTextCopy, stealCDValueTextCopy, spitCDValueTextCopy;
 
+        [SerializeField] private Texture dashOn, dashOff, stealOn, stealOff, spitOn, spitOff;
+        [SerializeField] private RawImage dash1, dash2, steal1, steal2, spit1, spit2;
+
         [SerializeField] private TMP_Text breadPointsValueText, digestedBreadPointsValueText, PressTabText, levelValueText, stageValueText;
 
         public void ChangeText(textFields field, float value)
@@ -73,10 +76,15 @@ namespace HUDNamespace
                         dashCDValueText.color= Color.green;
                         dashCDValueTextCopy.text = "Available";
                         dashCDValueTextCopy.color= Color.green;
+                        dash1.texture = spitOn;
+                        dash2.texture = spitOn;
+
                     }
                     else{
                         dashCDValueText.color= Color.white;
                         dashCDValueTextCopy.color= Color.white;
+                        dash1.texture = spitOff;
+                        dash2.texture = spitOff;
                     }
                     break;
                 case textFields.stealCD:
@@ -87,10 +95,14 @@ namespace HUDNamespace
                         stealCDValueText.color= Color.green;
                         stealCDValueTextCopy.text = stealCDValueText.text;
                         stealCDValueTextCopy.color= Color.green;
+                        steal1.texture = stealOn;
+                        steal2.texture = stealOn;
                     }
                     else{
                         stealCDValueText.color= Color.white;
                         stealCDValueTextCopy.color= Color.white;
+                        steal1.texture = stealOff;
+                        steal2.texture = stealOff;
                     }
                     break;
                 case textFields.spitCD:
@@ -101,10 +113,14 @@ namespace HUDNamespace
                         spitCDValueText.color= Color.green;
                         spitCDValueTextCopy.text = "Available";
                         spitCDValueTextCopy.color= Color.green;
+                        spit1.texture = spitOn;
+                        spit2.texture = spitOn;
                     }
                     else{
                         spitCDValueText.color= Color.white;
                         spitCDValueTextCopy.color= Color.white;
+                        spit1.texture = spitOff;
+                        spit2.texture = spitOff;
                     }
                     break;
             }
