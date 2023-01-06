@@ -35,7 +35,7 @@ public class Windows_QuestPointer : MonoBehaviour {
     }
 
     private void Start(){
-        uiCamera = FindObjectOfType<Camera>();
+        uiCamera = FindObjectOfType<Player.PlayerController>().GetCamera();
     }
 
     public QuestPointer CreatePointer(Vector3 targetPosition) {
@@ -108,6 +108,9 @@ public class Windows_QuestPointer : MonoBehaviour {
         private void MoveToCanvasV2(){
             Vector3 toPosition = targetPosition;
             Vector3 fromPosition = uiCamera.transform.position;
+
+            Debug.Log("Quest pointers: BreadPos" + toPosition + " - CameraPos" + fromPosition);
+
             Vector2 dir = (toPosition - fromPosition).normalized;
             float angle = UtilsClass.GetAngleFromVectorFloat(dir);
             // Get the center position of the canvas
