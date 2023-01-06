@@ -26,7 +26,7 @@ namespace Player
 
         private void Awake()
         {
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
     }
 }
