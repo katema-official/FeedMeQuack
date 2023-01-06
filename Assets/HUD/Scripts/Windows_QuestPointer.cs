@@ -111,7 +111,7 @@ public class Windows_QuestPointer : MonoBehaviour {
 
             Debug.Log("Quest pointers: BreadPos" + toPosition + " - CameraPos" + fromPosition);
 
-            Vector2 dir = (toPosition - fromPosition).normalized;
+            Vector3 dir = (fromPosition-toPosition).normalized;
             float angle = UtilsClass.GetAngleFromVectorFloat(dir);
             // Get the center position of the canvas
             RectTransform canvasRectTransform = FindObjectOfType<Canvas>().GetComponent<RectTransform>();
@@ -119,6 +119,21 @@ public class Windows_QuestPointer : MonoBehaviour {
 
             // Calculate the direction vector
             dir.Normalize();
+
+
+            var ray = new Ray(fromPosition, dir);
+            var outDistance = 0.0f;
+            FindObjectOfType<Player.PlayerController>().GetCameraBounds().IntersectRay(ray, out outDistance);
+            Vector3 finalPosition = fromPosition + dir * (outDistance -1.0f);
+            Vector3 screenPosition = FindObjectOfType<Player.PlayerController>().GetCamera().WorldToScreenPoint(finalPosition);
+
+
+            //Debug.Log("Quest pointer finalPosition: " + finalPosition);
+            //Debug.Log("Quest pointer screenPosition: " + screenPosition);
+
+
+           // screenPosition.x =
+
 
             // Calculate the distance from the center to the border
             //float distance = Mathf.Max(canvasRectTransform.rect.width, canvasRectTransform.rect.height) * 0.90f;
@@ -163,8 +178,10 @@ public class Windows_QuestPointer : MonoBehaviour {
                 y *= 1.25f;
             else
                 x *= 0.375f;
+
+
             RectTransform rectTransform = pointerGameObject.GetComponent<RectTransform>();
-            rectTransform.anchoredPosition = new Vector2(x,y);
+            rectTransform.anchoredPosition = new Vector2(screenPosition.x, screenPosition.y);
           /*
             float pad = 0.04f;
             //todo: se sopra/sotto, la x è cos(ang)/ cos(45), mentre la y per le laterali dovrebbe essere sin(ang)/sin(45)
