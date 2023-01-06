@@ -7,8 +7,11 @@ namespace Music
         // Start is called before the first frame update
         private void Start()
         {
-            PoliMiArchiveController.GetAudioSource().Stop();
-            Destroy(GameObject.Find("AudioSource"));
+            if (GameObject.Find("AudioSource"))
+            {
+                PoliMiArchiveController.GetAudioSource().Stop();
+                Destroy(GameObject.Find("AudioSource"));
+            }
         }
 
     }

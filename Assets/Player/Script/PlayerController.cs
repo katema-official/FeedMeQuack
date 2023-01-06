@@ -66,6 +66,10 @@ namespace Player
         {
             return (int) _breadPoints;
         }
+        public Camera GetCamera()
+        {
+            return _camera;
+        }
         public Bounds GetCameraBounds()
         {
             return CameraUtility.OrthographicBounds(_camera);
@@ -197,7 +201,7 @@ namespace Player
 
         private void Awake()
         {
-            DontDestroyOnLoad(this.transform.parent.gameObject);
+            //DontDestroyOnLoad(this.transform.parent.gameObject);
 
             _rigidBody = GetComponent<Rigidbody2D>();
             if (_rigidBody)

@@ -360,7 +360,10 @@ namespace Player
             {
                 Debug.Log("TriggerExitedCollider Entered with vel: "+ _rigidBody.velocity);
                 SetOldVelocity(_rigidBody.velocity);
+              //  _lockMovement = true;
             }
+
+            
         }
 
 
@@ -574,7 +577,7 @@ namespace Player
             _camera = transform.parent.GetComponentInChildren<Camera>();
 
             var duckTypeManager = GameObject.FindObjectOfType<DuckTypeManager>();
-            SceneManager.sceneLoaded += OnSceneLoaded;
+           
         }
 
         // called second
@@ -591,7 +594,8 @@ namespace Player
         // Start is called before the first frame update
         void Start()
         {
-            _controller.GetAnimator().SetFloat("Blend", 0.1428571f);
+            _controller.GetAnimator().SetFloat("Blend", 0.1428571f); 
+            SceneManager.sceneLoaded += OnSceneLoaded;
         //    _rigidBody.velocity = _oldVelocity;
             MoveCamera();
         }

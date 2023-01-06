@@ -230,7 +230,7 @@ namespace HUDNamespace
         void Start(){
             breadsOutsideScreen = new List<GameObject>();
             _windowQuestPointer = FindObjectOfType<Windows_QuestPointer>();
-            camera = FindObjectOfType<Camera>();
+            camera = FindObjectOfType<Player.PlayerController>().GetCamera();
         }
     }
 }

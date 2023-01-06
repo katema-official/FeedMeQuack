@@ -101,7 +101,9 @@ namespace Music
                         break;
                     }
                 }
-                _defaultButton.onClick.AddListener(DefaultVolumes);
+
+                if (_defaultButton)
+                    _defaultButton.onClick.AddListener(DefaultVolumes);
 
                 UniversalAudio.PlayMusic("Swimming", false);
                 if (audioSource1.isPlaying)
