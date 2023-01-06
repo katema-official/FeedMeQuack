@@ -36,6 +36,7 @@ namespace Music
 
       public void Pause()
       {
+         Cursor.visible = !canvasPauseMenu.activeInHierarchy;
          canvasPauseMenu.SetActive(!canvasPauseMenu.activeInHierarchy);
          Time.timeScale = Time.timeScale == 0 ? 1 : 0;
          Lowpass();
