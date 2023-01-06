@@ -72,29 +72,29 @@ namespace HUDNamespace
                     dashCDValueText.text = s + " sec.";
                     dashCDValueTextCopy.text = s + " sec.";
                     if (newValue == 0){
-                        dashCDValueText.text = "Available";
-                        dashCDValueText.color= Color.green;
-                        dashCDValueTextCopy.text = "Available";
-                        dashCDValueTextCopy.color= Color.green;
-                        dash1.texture = spitOn;
-                        dash2.texture = spitOn;
+                        dashCDValueText.text = "Ready";
+                        dashCDValueTextCopy.text = dashCDValueText.text;
+                        dashCDValueText.color = Color.green;
+                        dashCDValueTextCopy.color = Color.green;
+                        dash1.texture = dashOn;
+                        dash2.texture = dashOn;
 
                     }
                     else{
                         dashCDValueText.color= Color.white;
                         dashCDValueTextCopy.color= Color.white;
-                        dash1.texture = spitOff;
-                        dash2.texture = spitOff;
+                        dash1.texture = dashOff;
+                        dash2.texture = dashOff;
                     }
                     break;
                 case textFields.stealCD:
                     stealCDValueText.text = s + " sec.";
                     stealCDValueTextCopy.text = s + " sec.";
                     if (newValue == 0){
-                        stealCDValueText.text = "Available";
-                        stealCDValueText.color= Color.green;
+                        stealCDValueText.text = "Ready";
                         stealCDValueTextCopy.text = stealCDValueText.text;
-                        stealCDValueTextCopy.color= Color.green;
+                        stealCDValueText.color = Color.green;
+                        stealCDValueTextCopy.color = Color.green;
                         steal1.texture = stealOn;
                         steal2.texture = stealOn;
                     }
@@ -109,10 +109,10 @@ namespace HUDNamespace
                     spitCDValueText.text = s + " sec.";
                     spitCDValueTextCopy.text = s + " sec.";
                     if (newValue == 0){
-                        spitCDValueText.text = "Available";
-                        spitCDValueText.color= Color.green;
-                        spitCDValueTextCopy.text = "Available";
-                        spitCDValueTextCopy.color= Color.green;
+                        spitCDValueText.text = "Ready";
+                        spitCDValueTextCopy.text = spitCDValueText.text;
+                        spitCDValueText.color = Color.green;
+                        spitCDValueTextCopy.color = Color.green;
                         spit1.texture = spitOn;
                         spit2.texture = spitOn;
                     }
