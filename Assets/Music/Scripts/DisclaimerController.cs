@@ -15,7 +15,7 @@ namespace Music
             if (Time.time >= TimeForMainMenu || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape) || 
                 Input.GetKeyDown(KeyCode.Insert))
             {
-                SceneManager.LoadScene("PolimiLogo");
+                SceneManager.LoadScene("XboxController");
             }
 
             
@@ -25,7 +25,7 @@ namespace Music
             {
                 if (gamepad.startButton.wasPressedThisFrame || gamepad.aButton.wasPressedThisFrame)
                 {
-                    SceneManager.LoadScene("PolimiLogo");
+                    SceneManager.LoadScene("XboxController");
                 }
                     
             }
