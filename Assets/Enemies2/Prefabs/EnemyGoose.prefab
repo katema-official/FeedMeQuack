@@ -353,6 +353,7 @@ GameObject:
   - component: {fileID: 1758801313041092809}
   - component: {fileID: 1758801313041092815}
   - component: {fileID: 1758801313041092814}
+  - component: {fileID: 5300916003667198569}
   m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
@@ -448,6 +449,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!58 &5300916003667198569
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758801313041092808}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 4
 --- !u!1 &2487406527107467155
 GameObject:
   m_ObjectHideFlags: 0
