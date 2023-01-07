@@ -74,7 +74,7 @@ namespace Player
             for (int i = 0; i < breads.Length; i++)
             {
                 var dist = Vector3.Distance(breads[i].transform.position, _controller.gameObject.transform.position);
-                if (dist <= breads[i].GetComponent<CircleCollider2D>().radius+2.0f)
+                if (dist <= breads[i].GetComponent<CircleCollider2D>().radius+1.7f)
                 {
                     if (dist <= minDistance)
                     {
@@ -200,14 +200,14 @@ namespace Player
                         _controller.ChangeState(PlayerState.Eating);
 
                         if (_controller.GetState() == PlayerState.Eating)
+                        { 
                             _moveSkill.EnableInput(true);
-
-               
-                        //take a piece of the located bread, or the entire located bread based on mouth size
-                        _caughtBread = locatedBread.GenerateNewBreadInMouth(_mouthSize).GetComponent<BreadNamespace.BreadInMouthComponent>();
-                        _eatCoroutine = EatCoroutine();
-                        _mustStopEating = false;
-                        StartCoroutine(_eatCoroutine);
+                            //take a piece of the located bread, or the entire located bread based on mouth size
+                            _caughtBread = locatedBread.GenerateNewBreadInMouth(_mouthSize).GetComponent<BreadNamespace.BreadInMouthComponent>();
+                            _eatCoroutine = EatCoroutine();
+                            _mustStopEating = false;
+                            StartCoroutine(_eatCoroutine);
+                        }
                     }
                 }
             }
