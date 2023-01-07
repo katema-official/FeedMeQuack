@@ -109,6 +109,10 @@ namespace Player
 
         void OnEnterDashingState()
         {
+            var p = _controller.GetPosition();
+
+            if (!_controller.GetLake().Contains(p)) return;
+
             _controller.ChangeState(PlayerState.Dashing);
 
             if (_controller.GetState() == PlayerState.Dashing)
