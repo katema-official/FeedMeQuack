@@ -45,6 +45,7 @@ namespace HUDNamespace
                     mouthSizeValueText.text = value.ToString()+ " BP/Bite";
                     break;
                 case textFields.chewingRate:
+                    value = 1f / value;
                     string s = String.Format("{0:0.00}", value);
                     chewingRate.text = s + " BP/s";
                     break;
