@@ -35,7 +35,14 @@ namespace LevelStageNamespace
                 //MUSIC: since this is a new "combat" room, reproduce combat music
                 
                 string musicName = "Combat" + _levelStageManagerComponent.GetCurrentLevelIndex().ToString();
-                Music.UniversalAudio.PlayMusic(musicName, false);
+
+                if (!(_levelStageManagerComponent.GetCurrentLevelIndex() == 3 && _levelStageManagerComponent.GetCurrentStageIndex() == 3)){
+                    Music.UniversalAudio.PlayMusic(musicName, false);
+                }
+                else
+                {
+                    Music.UniversalAudio.PlayMusic("CombatFinal", false);
+                }
                 
             }
         }
