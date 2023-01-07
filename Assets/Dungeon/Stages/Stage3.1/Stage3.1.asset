@@ -18,7 +18,7 @@ MonoBehaviour:
   - 0.2
   - 0.6
   - 0.2
-  BreadPointsRequiredToCompleteStage: 60
+  BreadPointsRequiredToCompleteStage: 150
   ListBreadSpawnSO:
   - {fileID: 11400000, guid: 4a899be127d24ae4e8566fc316ff99e0, type: 2}
   - {fileID: 11400000, guid: b35537ae59d4afd41941a27e6099669f, type: 2}
