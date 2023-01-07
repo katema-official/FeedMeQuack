@@ -7,12 +7,14 @@ namespace Music
 
     public class XboxSceneController : MonoBehaviour
     {
-        private const float TimeForMainMenu = 5f;
+        private const float _timeForMainMenu = 5f;
+        private float _time;
 
         // Update is called once per frame
         private void Update()
         {
-            if (Time.time >= TimeForMainMenu || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape) || 
+            _time += Time.deltaTime;
+            if (_time >= _timeForMainMenu || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape) || 
                 Input.GetKeyDown(KeyCode.Insert))
             {
                 SceneManager.LoadScene("PolimiLogo");
