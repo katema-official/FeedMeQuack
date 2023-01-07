@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Music/DisclaimerScene.unity
     guid: f2f9f646ed66e4f46b2f4eb4a891a35f
   - enabled: 1
+    path: Assets/Music/XboxController.unity
+    guid: 249985f10062a23499c868e7ee635c76
+  - enabled: 1
     path: Assets/Music/PolimiLogo.unity
     guid: c954cf9707475b84da7b99d85f072f88
   - enabled: 1

@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 namespace Music
 {
 
-    public class DisclaimerController : MonoBehaviour
+    public class XboxSceneController : MonoBehaviour
     {
-        private const float TimeForMainMenu = 15f;
+        private const float TimeForMainMenu = 5f;
 
         // Update is called once per frame
         private void Update()
@@ -15,7 +15,7 @@ namespace Music
             if (Time.time >= TimeForMainMenu || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape) || 
                 Input.GetKeyDown(KeyCode.Insert))
             {
-                SceneManager.LoadScene("XboxController");
+                SceneManager.LoadScene("PolimiLogo");
             }
 
             
@@ -25,7 +25,7 @@ namespace Music
             {
                 if (gamepad.startButton.wasPressedThisFrame || gamepad.aButton.wasPressedThisFrame)
                 {
-                    SceneManager.LoadScene("XboxController");
+                    SceneManager.LoadScene("PolimiLogo");
                 }
                     
             }
