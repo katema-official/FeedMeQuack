@@ -97,7 +97,7 @@ namespace DuckEnemies
             _eatingStatusGO.transform.SetParent(transform);
             _eatingStatusGO.transform.localPosition = new Vector3(0f, 2.25f, 0);
             _eatingStatusGO.transform.localScale = new Vector3(0.35f, 0.35f, 0);
-            _eatingStatusGO.transform.Find("ValueText").GetComponent<TextMeshPro>().text = "" + _myBreadInMouthComponent.GetBreadPoints();
+            _eatingStatusGO.transform.Find("ValueText").GetComponent<TextMeshPro>().text = "" + _myBreadInMouthComponent.GetBreadPoints() + " BP";
         }
 
         //I try to model the eating procedure as a coroutine and not as a stayAction for efficiency reasons
@@ -121,7 +121,7 @@ namespace DuckEnemies
                 bool completelyEaten;
                 (eatenBP, completelyEaten) = _myBreadInMouthComponent.SubtractBreadPoints(1);
                 //Debug.Log("eatenBP = " + eatenBP + ", completelyEaten = " + completelyEaten);
-                _eatingStatusGO.transform.Find("ValueText").GetComponent<TextMeshPro>().text = "" + _myBreadInMouthComponent.GetBreadPoints();
+                _eatingStatusGO.transform.Find("ValueText").GetComponent<TextMeshPro>().text = "" + _myBreadInMouthComponent.GetBreadPoints() + " BP";
                 if (!completelyEaten)
                 {
                     yield return new WaitForSeconds(_chewingRate);
