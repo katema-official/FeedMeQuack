@@ -129,7 +129,7 @@ namespace SteeringBehaviourNamespace
 
             if (HasStartedDecelerating)
             {
-                _stopForReal = _rigidbody2D.velocity.x * _xComponentSpeed < 0 && _rigidbody2D.velocity.y * _yComponentSpeed < 0;
+                _stopForReal = _rigidbody2D.velocity.x * _xComponentSpeed < 0 || _rigidbody2D.velocity.y * _yComponentSpeed < 0;    //should be &&, but for now it should work
             }
 
         }

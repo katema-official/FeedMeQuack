@@ -154,7 +154,7 @@ namespace PowerUpsNamespace
 
             float duration = 1f;
             string textToWrite = _feedbackMessages[Random.Range(0, _feedbackMessages.Count)];
-            float probabilityEasterEgg = 0.1f;
+            float probabilityEasterEgg = 0.002f;
             if(Random.Range(0f, 1f) < probabilityEasterEgg)
             {
                 textToWrite = "amogus";
