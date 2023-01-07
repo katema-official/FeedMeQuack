@@ -514,11 +514,14 @@ namespace LevelStageNamespace {
             while(_levelStageManager.IsCurrentLakeCleared() == false)
             {
                 //Debug.Log("Emergence: START WAITING 3 SECONDS");
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForSeconds(2.5f);
+                PlayerState playerState = _playerObject.GetComponent<PlayerController>().GetState();
 
                 if (GameObject.FindGameObjectsWithTag("FoodThrown").Length > 0 ||
                     GameObject.FindGameObjectsWithTag("FoodInWater").Length > 0 ||
-                    _playerObject.GetComponent<PlayerController>().GetState() == PlayerState.Carrying)
+                    playerState == PlayerState.Carrying ||
+                    playerState == PlayerState.Stealing ||
+                    playerState == PlayerState.GettingRobbed)
                 {
                     yield return null;
                 }
