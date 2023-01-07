@@ -279,6 +279,7 @@ namespace Player
             _controller.GetAnimalSoundController().SetIsInStealingState(false);
 
             if (((_controller.GetState() == PlayerState.Stealing && _stealCoolDownElapsedSeconds <= 0) 
+
                 || _controller.GetState() == PlayerState.GettingRobbed) && 
                 _enemyToSteal)
             {
