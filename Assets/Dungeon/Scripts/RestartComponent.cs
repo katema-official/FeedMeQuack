@@ -16,6 +16,7 @@ public class RestartComponent : MonoBehaviour
         Destroy(GameObject.Find("HUD"));
         Destroy(GameObject.Find("Minimap"));
         Destroy(GameObject.Find("LevelIntroUI"));
+        Destroy(GameObject.Find("Tutorial"));
 
     }
 }
