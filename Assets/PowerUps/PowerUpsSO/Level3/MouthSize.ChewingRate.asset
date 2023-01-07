@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce54f9cfa58679442877e4b05fdb83b3, type: 3}
   m_Name: MouthSize.ChewingRate
   m_EditorClassIdentifier: 
-  Sprite: {fileID: -2413806693520163455, guid: 637a81a34705686479534b18f7c9104d, type: 3}
+  Sprite: {fileID: 21300000, guid: bd522f9289f27b04d96a48a6f9d1eb00, type: 3}
   Name: Tooth 'n Jowl
   Description: Mouth Size & Chewing Rate up+
-  Cost: 20
+  Cost: 16
   PowerUpKinds: 0300000002000000
   amountForPowerUpKind:
-  - 2
+  - 1
   - -0.1

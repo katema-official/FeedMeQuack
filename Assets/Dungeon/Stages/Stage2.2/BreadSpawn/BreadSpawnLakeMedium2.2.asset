@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 697fc0091b001c348adba09492053db1, type: 3}
   m_Name: BreadSpawnLakeMedium2.2
   m_EditorClassIdentifier: 
-  MinNumberOfBreadPerLake: 7
-  MaxNumberOfBreadPerLake: 8
+  MinNumberOfBreadPerLake: 4
+  MaxNumberOfBreadPerLake: 5
   ProbabilitiesOfBread:
   - 0.65
   - 0.35
   - 0
-  MinSpawnTime: 5
-  MaxSpawnTime: 7
+  MinSpawnTime: 4
+  MaxSpawnTime: 6
   MinGravity: 100
   MaxGravity: 100
   MinInitialVelocity: 75

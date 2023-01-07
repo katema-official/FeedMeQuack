@@ -154,7 +154,7 @@ namespace DuckEnemies {
 
         public bool MustStopChasing()
         {
-            return _playerController.GetState() != PlayerState.Eating;
+            return _playerController.GetState() != PlayerState.Eating || _actualStealCooldown > 0f;
         }
 
         public bool PlayerReached()
@@ -221,6 +221,19 @@ namespace DuckEnemies {
         public PlayerController GetPlayer()
         {
             return _playerController;
+        }
+
+        public float GetActualStealCooldown()
+        {
+            return _actualStealCooldown;
+        }
+
+        public void NotifyPlayerJustRobbed()
+        {
+            bool callCoroutine = false;
+            if(_actualStealCooldown == 0) callCoroutine = true;
+            _actualStealCooldown += 3f;
+            if (callCoroutine) StartCoroutine(DecreaseCooldown());
         }
 
 

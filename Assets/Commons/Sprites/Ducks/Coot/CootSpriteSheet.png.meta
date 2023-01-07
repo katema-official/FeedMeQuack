@@ -121,7 +121,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 632
         width: 316
         height: 316
       alignment: 0
@@ -142,7 +142,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 316
-        y: 0
+        y: 632
         width: 316
         height: 316
       alignment: 0
@@ -163,7 +163,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 632
-        y: 0
+        y: 632
         width: 316
         height: 316
       alignment: 0
@@ -184,7 +184,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 948
-        y: 0
+        y: 632
         width: 316
         height: 316
       alignment: 0
@@ -205,7 +205,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1264
-        y: 0
+        y: 632
         width: 316
         height: 316
       alignment: 0
@@ -226,7 +226,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1580
-        y: 0
+        y: 632
         width: 316
         height: 316
       alignment: 0
@@ -247,7 +247,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1896
-        y: 0
+        y: 632
         width: 316
         height: 316
       alignment: 0
@@ -268,7 +268,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2212
-        y: 0
+        y: 632
         width: 316
         height: 316
       alignment: 0
@@ -284,6 +284,342 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: CootSpriteSheet_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 316
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 766e1385bbc92c54fafff0bff71b449d
+      internalID: -1744160740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CootSpriteSheet_9
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 316
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 917ed5e124186e24ba7328c096f5d6f2
+      internalID: 1247583577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CootSpriteSheet_10
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 316
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fe3fa56076175e489f3767f37a92c8a
+      internalID: 432276488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CootSpriteSheet_11
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 316
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d858ccec1ed5a340ae3e9de34330b39
+      internalID: 260613986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CootSpriteSheet_12
+      rect:
+        serializedVersion: 2
+        x: 1264
+        y: 316
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad3ba7b91339b5c459b874243e8b895d
+      internalID: 220263497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CootSpriteSheet_13
+      rect:
+        serializedVersion: 2
+        x: 1580
+        y: 316
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f482e5e006df75642b9f311abe74e170
+      internalID: 1317076314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CootSpriteSheet_14
+      rect:
+        serializedVersion: 2
+        x: 1896
+        y: 316
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5aa092bfc72d7304885e0629a1e4e734
+      internalID: -378227033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CootSpriteSheet_15
+      rect:
+        serializedVersion: 2
+        x: 2212
+        y: 316
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a168347e2c0fe88459aac8e5c07de091
+      internalID: 325475213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CootSpriteSheet_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae199867ba8399748be3ae03f5931528
+      internalID: 720918006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CootSpriteSheet_17
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa8f5a9e567d2e44b9a257e14e96bfd6
+      internalID: -934995996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CootSpriteSheet_18
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5985921beb960844ea0aca75b318eb5e
+      internalID: 43435986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CootSpriteSheet_19
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 459fd3d73cadd23448aace0dd045e477
+      internalID: 1915948510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CootSpriteSheet_20
+      rect:
+        serializedVersion: 2
+        x: 1264
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c50d04aeabc5df14082425bfa96c90a7
+      internalID: -328278628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CootSpriteSheet_21
+      rect:
+        serializedVersion: 2
+        x: 1580
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4afed915e1620c442a3552f870adbb8c
+      internalID: -884588313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CootSpriteSheet_22
+      rect:
+        serializedVersion: 2
+        x: 1896
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73193e9652d2e614f86e337c99972e50
+      internalID: 664026204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CootSpriteSheet_23
+      rect:
+        serializedVersion: 2
+        x: 2212
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b71c24572e54a9641999f3d9ed2bb3d3
+      internalID: 863544662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -295,14 +631,30 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      CootSpriteSheet_23: 863544662
       CootSpriteSheet_5: 131668579
       CootSpriteSheet_7: 1992584514
+      CootSpriteSheet_22: 664026204
+      CootSpriteSheet_10: 432276488
+      CootSpriteSheet_12: 220263497
+      CootSpriteSheet_13: 1317076314
+      CootSpriteSheet_21: -884588313
+      CootSpriteSheet_14: -378227033
+      CootSpriteSheet_16: 720918006
+      CootSpriteSheet_8: -1744160740
       CootSpriteSheet_6: 2030636259
+      CootSpriteSheet_17: -934995996
       CootSpriteSheet_0: -2007649259
       CootSpriteSheet_4: 1934372382
+      CootSpriteSheet_18: 43435986
       CootSpriteSheet_1: 953516686
       CootSpriteSheet_3: -2143704156
+      CootSpriteSheet_15: 325475213
+      CootSpriteSheet_19: 1915948510
+      CootSpriteSheet_9: 1247583577
+      CootSpriteSheet_20: -328278628
       CootSpriteSheet_2: -579113895
+      CootSpriteSheet_11: 260613986
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

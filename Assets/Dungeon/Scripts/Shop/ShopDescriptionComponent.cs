@@ -36,6 +36,23 @@ namespace LevelStageNamespace
             base.Awake();
             _mapManager = GameObject.FindObjectOfType<MapManager>();
             _mapManager.StartNewLevel();    //reset the minimap
+
+            switch (_levelStageManager.GetCurrentLevelIndex())
+            {
+                case 1:
+                    Music.UniversalAudio.PlayMusic("Shop1", false);
+                    break;
+                case 2:
+                    Music.UniversalAudio.PlayMusic("Shop2", false);
+                    break;
+                case 3:
+                    Music.UniversalAudio.PlayMusic("Shop2", false);
+                    break;
+                default:
+                    break;
+            }
+
+            
         }
 
 

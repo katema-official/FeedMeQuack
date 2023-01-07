@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c1c01b7bb633cf48b41a367dcf8bc20, type: 3}
   m_Name: Stage1.2
   m_EditorClassIdentifier: 
-  MinNumberOfLakes: 5
-  MaxNumberOfLakes: 6
+  MinNumberOfLakes: 4
+  MaxNumberOfLakes: 4
   ProbabilitiesOfLake:
   - 0.9
   - 0.1
   - 0
-  BreadPointsRequiredToCompleteStage: 25
+  BreadPointsRequiredToCompleteStage: 10
   ListBreadSpawnSO:
   - {fileID: 11400000, guid: 199312a56be575d4cbfb03b1b20db9dc, type: 2}
   - {fileID: 11400000, guid: fa06a10ebc6719d48b86dac614f018f8, type: 2}

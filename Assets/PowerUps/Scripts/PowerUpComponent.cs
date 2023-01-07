@@ -55,7 +55,7 @@ namespace PowerUpsNamespace
         {
             _nameTextMesh.text = _name;
             _descriptionTextMesh.text = _description;
-            _costTextMesh.text = "Cost: " + _costDigestedbreadPoints;
+            _costTextMesh.text = "Cost: " + _costDigestedbreadPoints + " DBP";
         }
 
         // Update is called once per frame
@@ -75,16 +75,17 @@ namespace PowerUpsNamespace
 
         public void Initialize(PowerUpSO powerUpSO)
         {
-            this.Initialize(powerUpSO.Name, powerUpSO.Description, powerUpSO.Cost, powerUpSO.PowerUpKinds, powerUpSO.amountForPowerUpKind);
+            this.Initialize(powerUpSO.Name, powerUpSO.Description, powerUpSO.Cost, powerUpSO.PowerUpKinds, powerUpSO.amountForPowerUpKind, powerUpSO.Sprite);
         }
 
-        public void Initialize(string name, string description, int cost, List<PlayerSkillAttribute> powerUpKinds, List<float> amountForPowerUpKind)
+        public void Initialize(string name, string description, int cost, List<PlayerSkillAttribute> powerUpKinds, List<float> amountForPowerUpKind, Sprite sprite)
         {
             _costDigestedbreadPoints = cost;
             _name = name;
             _description = description;
             _powerUpKinds = powerUpKinds;
             _amountForPowerUpKind = amountForPowerUpKind;
+            _spriteGameobject.GetComponent<SpriteRenderer>().sprite = sprite;
             UpdateTexts();
         }
 
@@ -153,7 +154,7 @@ namespace PowerUpsNamespace
 
             float duration = 1f;
             string textToWrite = _feedbackMessages[Random.Range(0, _feedbackMessages.Count)];
-            float probabilityEasterEgg = 0.1f;
+            float probabilityEasterEgg = 0.002f;
             if(Random.Range(0f, 1f) < probabilityEasterEgg)
             {
                 textToWrite = "amogus";

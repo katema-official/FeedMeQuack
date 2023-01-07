@@ -42,6 +42,8 @@ namespace DuckEnemies
         private GameObject _obstaclesGO;
         private List<GameObject> _obstaclesList;
 
+        [SerializeField] private GameObject _shadowExitPrefab;
+
 
         public void Initialize(float dashTriggerProbability, float speed, float acceleration, float deceleration, float steer, float distanceToDash)
         {
@@ -274,13 +276,79 @@ namespace DuckEnemies
                     _destinationReached = true;
                     _movementSeekComponent.Deceleration = _decelerationDashing;
                     _movementSeekComponent.StopMoving();
-                    Debug.Log("HI");
                 }
 
 
             }
         }
 
+
+
+        private GameObject _shadowExitGO;
+        private bool _exit = false;
+        //part for the exit state
+        public void FlyAwayFromLake()
+        {
+            GetComponent<CircleCollider2D>().enabled = false;
+            _animalSoundController.Fly(1.5f, 1f);
+            transform.Find("Sprite").GetComponent<Animator>().SetBool("Dash", true);
+            Vector3 v;
+            Vector2 orientation;
+
+
+            int i = Random.Range(0, 2);
+            if(i == 0)
+            {
+                //left
+                v = new Vector3(-3, 1.5f, 0);
+                orientation = Vector2.left;
+                orientation.Normalize();
+            }
+            else
+            {
+                //right
+                v = new Vector3(3, 1.5f, 0);
+                orientation = Vector2.right;
+                orientation.Normalize();
+            }
+
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            //rb.bodyType = RigidbodyType2D.Kinematic;
+            _movementSeekComponent.CompletelyStopMoving();
+            rb.drag = 0;
+            rb.velocity = v * Random.Range(7f,12f);
+            _movementSeekComponent.ComputeRotation(orientation);
+            _movementSeekComponent.SetRotation();
+
+            _shadowExitGO = Instantiate(_shadowExitPrefab);
+            //_shadowExitGO.transform.SetParent(transform);
+            _shadowExitGO.transform.position = transform.position + new Vector3(0f, -2.06f, 0);
+            _shadowExitGO.transform.localScale = new Vector3(3f, 1.11f, 0);
+            _exit = true;
+
+            StartCoroutine(DestroyDuck());
+
+        }
+
+        private IEnumerator DestroyDuck()
+        {
+            
+            yield return new WaitForSeconds(10f);
+            _animalSoundController.UnFly();
+            _exit = false;
+            Destroy(_shadowExitGO);
+            Destroy(this.gameObject);
+
+        }
+
+        private void Update()
+        {
+            if (_exit)
+            {
+                _shadowExitGO.transform.position = new Vector3(transform.position.x, _shadowExitGO.transform.position.y, 0f);
+                _shadowExitGO.transform.localScale = _shadowExitGO.transform.localScale * 0.998f;
+            }
+        }
 
 
     }

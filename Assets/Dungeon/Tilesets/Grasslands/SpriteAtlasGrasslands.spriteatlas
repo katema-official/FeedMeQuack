@@ -48,6 +48,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 9b0ebb8f6fcb6f44baf1e97d75e4e129, type: 3}
     - {fileID: 2800000, guid: c6a46311301f0ef49a1bddca6d228286, type: 3}
     - {fileID: 2800000, guid: b04f8b61c0dfdef439181c6d2d389f19, type: 3}
+    - {fileID: 2800000, guid: a1f5a605d1598404f8745d86de9731b6, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -76,6 +77,13 @@ SpriteAtlas:
   - {fileID: 1839765314, guid: b04f8b61c0dfdef439181c6d2d389f19, type: 3}
   - {fileID: -408497606, guid: b04f8b61c0dfdef439181c6d2d389f19, type: 3}
   - {fileID: -1813726866, guid: b04f8b61c0dfdef439181c6d2d389f19, type: 3}
+  - {fileID: 1395509572, guid: a1f5a605d1598404f8745d86de9731b6, type: 3}
+  - {fileID: -709414650, guid: a1f5a605d1598404f8745d86de9731b6, type: 3}
+  - {fileID: -1064973919, guid: a1f5a605d1598404f8745d86de9731b6, type: 3}
+  - {fileID: 1613651428, guid: a1f5a605d1598404f8745d86de9731b6, type: 3}
+  - {fileID: -1232877349, guid: a1f5a605d1598404f8745d86de9731b6, type: 3}
+  - {fileID: 168559338, guid: a1f5a605d1598404f8745d86de9731b6, type: 3}
+  - {fileID: -2134876332, guid: a1f5a605d1598404f8745d86de9731b6, type: 3}
   - {fileID: -334920356, guid: 1b526c68afc05fe468727698062b3ea6, type: 3}
   - {fileID: 257118891, guid: 1b526c68afc05fe468727698062b3ea6, type: 3}
   - {fileID: -800979947, guid: 1b526c68afc05fe468727698062b3ea6, type: 3}
@@ -167,6 +175,13 @@ SpriteAtlas:
   - tileset-grassland-water_12
   - tileset-grassland-water_11
   - tileset-grassland-water_10
+  - tileset-grassland-props-ivan_2
+  - tileset-grassland-props-ivan_3
+  - tileset-grassland-props-ivan_0
+  - tileset-grassland-props-ivan_1
+  - tileset-grassland-props-ivan_6
+  - tileset-grassland-props-ivan_4
+  - tileset-grassland-props-ivan_5
   - tileset-grassland-grass_3
   - tileset-grassland-grass_2
   - tileset-grassland-grass_1

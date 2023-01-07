@@ -30,6 +30,8 @@ namespace Music // To change correctly
         // _startFadeOutVolume and _finalFadeInVolume are essentially the max volume of the AudioListener (1 is 100% of the
         // AudioListener volume intensity). So, in the options these values will be set as the component value of the Slider 
 
+        private static float _soundValue = MusicManagerComponent.GetSoundVolume();
+
         private static float _finalFadeInVolume = MusicManagerComponent.GetAudioSourceVolume();
 
         private static float _startFadeOutVolume = _finalFadeInVolume;
@@ -43,7 +45,7 @@ namespace Music // To change correctly
 
         private const string
             PathFromSourcesForSound = "SFX/"; // Inside folder "Resources", if there is a relative path, write it here
-        
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -123,7 +125,13 @@ namespace Music // To change correctly
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Getter and Setter of the variables
-        
+
+        public static float GetSoundValue()
+        {
+            SetRightVolumes();
+            return _soundValue;
+        }
+
         private static void SetTrueTimeOfFading()
         {
             _timeOfFading = SceneManager.GetActiveScene().name == "MainMenu" ? 0 : 1;
@@ -135,6 +143,10 @@ namespace Music // To change correctly
                 ? _finalFadeInVolume
                 : MusicManagerComponent.GetAudioSourceVolume();
             _startFadeOutVolume = _finalFadeInVolume;
+
+            _soundValue = _soundValue.Equals(MusicManagerComponent.GetSoundVolume()) ?
+                _soundValue :
+                MusicManagerComponent.GetSoundVolume();
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -157,12 +169,12 @@ namespace Music // To change correctly
                 {
                     // It's the same of (AudioClip)Resources.Load(pathFromSourcesForMusic + clipName, typeof(AudioClip));
                     _audioSource2.clip = Resources.Load<AudioClip>(PathFromSourcesForMusic + clipName);
-                    
+
                     if (_audioSource1.clip.Equals(_audioSource2.clip))
                     {
                         yield break;
                     }
-                    
+
                     _audioSource2.time =
                         _audioClipTimerDictionary[clipName]; // (The incoming track starts from the value
                     // displayed in _audioClipTimerDictionary)
@@ -191,12 +203,12 @@ namespace Music // To change correctly
                     // If it's the second AudioSource that's playing, do as above but swapped
                     {
                         _audioSource1.clip = Resources.Load<AudioClip>(PathFromSourcesForMusic + clipName);
-                        
+
                         if (_audioSource1.clip.Equals(_audioSource2.clip))
                         {
                             yield break;
                         }
-                        
+
                         _audioSource1.time = _audioClipTimerDictionary[clipName];
                         _audioSource1.Play();
                         while (timeElapsed < _timeOfFading)
@@ -249,7 +261,8 @@ namespace Music // To change correctly
         public static void PlaySound(string clipName, Transform thisTransform, AnimalSoundController animalSoundController = null)
         {
             if (clipName.Equals(
-                    "GameOver")) // The GameOver is treated as a Sound that obliterate all other AudioSources
+                    "GameOver") || clipName.Equals(
+                    "GameEnd")) // The GameOver is treated as a Sound that obliterate all other AudioSources
             {
                 StopAllMusic();
             }
@@ -293,9 +306,8 @@ namespace Music // To change correctly
             audioSource.transform.position = position;
             audioSource.maxDistance =
                 float.MaxValue; // Just to be sure that we can hear all the sounds at the same volume
-            audioSource.volume =
-                MusicManagerComponent
-                    .GetSoundVolume();
+            audioSource.volume = GetSoundValue();
+
             audioSource.Play();
 
             Object.Destroy(gameObject, clip.length *

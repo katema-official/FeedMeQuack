@@ -19,5 +19,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2c9faf612411a1643b0b878ceffea650, type: 2}
   - {fileID: 11400000, guid: 6d07225724021e94fbc8f751658eadfc, type: 2}
   - {fileID: 11400000, guid: c66c29202c757c648abe4a471c2c1ec8, type: 2}
-  MinAmountOfPowerUpsToSell: 5
-  MaxAmountOfPowerUpsToSell: 6
+  - {fileID: 11400000, guid: e97d5df0759d65342abc2bb8936891f9, type: 2}
+  - {fileID: 11400000, guid: 7bea65d1e82e1d04cb69f622b9ddbf41, type: 2}
+  - {fileID: 11400000, guid: bf4ebca7254f45d4799448936c851ef1, type: 2}
+  MinAmountOfPowerUpsToSell: 8
+  MaxAmountOfPowerUpsToSell: 8

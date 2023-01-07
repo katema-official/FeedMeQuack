@@ -452,6 +452,174 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: MallardSpriteSheet_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 360c6f7b329f74547a00a48493ea13ff
+      internalID: -1740877586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MallardSpriteSheet_17
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 934bdc6e7cf645f4497dcbd30ad6fff0
+      internalID: 1773765494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MallardSpriteSheet_18
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c57146e2e3a979243a859f3284ab138a
+      internalID: 176836349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MallardSpriteSheet_19
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b875083d67bebe4f8fb122c50ae2d85
+      internalID: 1338587043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MallardSpriteSheet_20
+      rect:
+        serializedVersion: 2
+        x: 1264
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f04bcb6f687fd54386286b42db0b793
+      internalID: 912634361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MallardSpriteSheet_21
+      rect:
+        serializedVersion: 2
+        x: 1580
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f075fe6968b17b48a0646bb8faa7fb5
+      internalID: 27072552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MallardSpriteSheet_22
+      rect:
+        serializedVersion: 2
+        x: 1896
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b8f9b60601abd44583ff0671746d926
+      internalID: 1349331636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MallardSpriteSheet_23
+      rect:
+        serializedVersion: 2
+        x: 2212
+        y: 0
+        width: 316
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c66de79541d66f479e77c7b9a35bacc
+      internalID: -573499747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -469,16 +637,24 @@ TextureImporter:
       MallardSpriteSheet_3: 1982668603
       MallardSpriteSheet_11: 850591651
       MallardSpriteSheet_9: 10546808
+      MallardSpriteSheet_17: 1773765494
       MallardSpriteSheet_10: 1162421568
       MallardSpriteSheet_13: 1717440181
       MallardSpriteSheet_8: 908220789
+      MallardSpriteSheet_18: 176836349
       MallardSpriteSheet_0: 1418941793
+      MallardSpriteSheet_21: 27072552
+      MallardSpriteSheet_20: 912634361
       MallardSpriteSheet_4: 1101193385
       MallardSpriteSheet_15: -1645866777
       MallardSpriteSheet_2: -699677049
+      MallardSpriteSheet_23: -573499747
       MallardSpriteSheet_1: -1721381762
       MallardSpriteSheet_5: -1771414723
       MallardSpriteSheet_12: -1241880022
+      MallardSpriteSheet_19: 1338587043
+      MallardSpriteSheet_16: -1740877586
+      MallardSpriteSheet_22: 1349331636
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

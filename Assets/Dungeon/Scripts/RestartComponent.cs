@@ -8,24 +8,15 @@ public class RestartComponent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Music.UniversalAudio.PlaySound("GameOver", transform);
         //DISTRUGGI IL GIOCATORE E IL LEVEL STAGE MANAGER
         Destroy(GameObject.Find("LevelStageManagerObject"));
         Destroy(GameObject.Find("DuckPlayer"));
         Destroy(GameObject.Find("DuckTypeManager"));
         Destroy(GameObject.Find("HUD"));
-        Music.UniversalAudio.PlaySound("GameOver", transform);
-    }
+        Destroy(GameObject.Find("Minimap"));
+        Destroy(GameObject.Find("LevelIntroUI"));
+        Destroy(GameObject.Find("Tutorial"));
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene("StartRunLoading");
-        }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene("MainMenu");
-        }
     }
 }

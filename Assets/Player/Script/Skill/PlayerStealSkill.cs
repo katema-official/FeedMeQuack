@@ -104,6 +104,28 @@ namespace Player
         }
 
 
+        public DuckEnemies.StealingComponent FindClosestEnemy()
+        {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            float minDistance = 10000000;
+            DuckEnemies.StealingComponent enemy = null;
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                var dist = Vector3.Distance(enemies[i].transform.position, _controller.gameObject.transform.position);
+                if (dist <= enemies[i].transform.Find("Sprite").GetComponent<CircleCollider2D>().radius + 1.7f)
+                {
+                    if (dist <= minDistance)
+                    {
+                        minDistance = dist;
+                        enemy = enemies[i].GetComponent<DuckEnemies.StealingComponent>();
+                    }
+                }
+            }
+
+            return enemy;
+        }
+
+
         public override void SetDescription(PlayerSkillDescriptionSO desc)
         {
             _description = desc;
@@ -118,23 +140,24 @@ namespace Player
             if (attrib == PlayerSkillAttribute.StealSkill_CoolDown)
             {
                 _coolDown += value;
+                _coolDown = Mathf.Max(_coolDown, 1);
             }
         }
-        public DuckEnemies.StealingComponent FindClosestEnemy()
-        {
-            float _minDistance = 10000000;
-            DuckEnemies.StealingComponent res = null;
-            foreach (var b in _locatedEnemies)
-            {
-                var dist = b.gameObject.transform.position - _controller.gameObject.transform.position;
-                if (dist.magnitude < _minDistance)
-                {
-                    _minDistance = dist.magnitude;
-                    res = b;
-                }
-            }
-            return res;
-        }
+        //public DuckEnemies.StealingComponent FindClosestEnemy()
+        //{
+        //    float _minDistance = 10000000;
+        //    DuckEnemies.StealingComponent res = null;
+        //    foreach (var b in _locatedEnemies)
+        //    {
+        //        var dist = b.gameObject.transform.position - _controller.gameObject.transform.position;
+        //        if (dist.magnitude < _minDistance)
+        //        {
+        //            _minDistance = dist.magnitude;
+        //            res = b;
+        //        }
+        //    }
+        //    return res;
+        //}
         void Awake()
         {
             _controller = GetComponent<PlayerController>();
@@ -152,77 +175,83 @@ namespace Player
         {
 
             if (Input.GetButtonDown("StealButton") && 
-                _locatedEnemy && _locatedEnemy.IsEating() &&
-                !_enemyToSteal &&
+                //_locatedEnemy && _locatedEnemy.IsEating() &&
+                //!_enemyToSteal &&
 
                 _stealCoolDownElapsedSeconds <= 0)
             {
-                _controller.ChangeState(PlayerState.Stealing);
+                var locatedEnemy = FindClosestEnemy();
 
-                if (_controller.GetState() == PlayerState.Stealing)
+                if (locatedEnemy && locatedEnemy.IsEating() &&
+                !_enemyToSteal)
                 {
-                    _moveSkill.EnableInput(false, true);
-                    _enemyToSteal = _locatedEnemy;
-                    //_controller.GetAnimalSoundController().PlayStealing("Mallard", transform);
+                    _controller.ChangeState(PlayerState.Stealing);
+
+                    if (_controller.GetState() == PlayerState.Stealing)
+                    {
+                        _moveSkill.EnableInput(false, true);
+                        _enemyToSteal = locatedEnemy;
+                        //_controller.GetAnimalSoundController().PlayStealing("Mallard", transform);
                   
-                    //find the point between ducks
-                    var playerPos = _controller.gameObject.transform.position;
-                    var enemyPos = _enemyToSteal.gameObject.transform.position;
-                    var dir = (enemyPos - playerPos);
-                    var len = dir.magnitude;
-                    dir.Normalize();
-                    var middlePos = playerPos + dir * (len * 0.5f);
+                        //find the point between ducks
+                        var playerPos = _controller.gameObject.transform.position;
+                        var enemyPos = _enemyToSteal.gameObject.transform.position;
+                        var dir = (enemyPos - playerPos);
+                        var len = dir.magnitude;
+                        dir.Normalize();
+                        var middlePos = playerPos + dir * (len * 0.5f);
 
-                    var distance = 1.5f;
-                    var enemyDir = 0;
-                    Vector3 enemyFinalPos;
-                    //place the ducks face to face
-                    if (middlePos.x < playerPos.x)
-                    {
-                        //player on the right
-                        var pos = middlePos;
-                        pos.x += distance;
-                        _controller.gameObject.transform.position = pos;
-                        //_controller.gameObject.transform.rotation = Quaternion.AngleAxis(90.0f,new Vector3(0,0,1));
-                        _moveSkill.SetRotation(90.0f);
+                        var distance = 1.5f;
+                        var enemyDir = 0;
+                        Vector3 enemyFinalPos;
+                        //place the ducks face to face
+                        if (middlePos.x < playerPos.x)
+                        {
+                            //player on the right
+                            var pos = middlePos;
+                            pos.x += distance;
+                            _controller.gameObject.transform.position = pos;
+                            //_controller.gameObject.transform.rotation = Quaternion.AngleAxis(90.0f,new Vector3(0,0,1));
+                            _moveSkill.SetRotation(90.0f);
 
-                        playerPos = pos;
-                        //enemy on the left
-                        pos = middlePos;
-                        pos.x -= distance;
-                        enemyDir = 0;
-                        enemyFinalPos = pos;
+                            playerPos = pos;
+                            //enemy on the left
+                            pos = middlePos;
+                            pos.x -= distance;
+                            enemyDir = 0;
+                            enemyFinalPos = pos;
 
+                        }
+                        else
+                        {
+                            //player on the left
+                            var pos = middlePos;
+                            pos.x -= distance;
+                            _controller.gameObject.transform.position = pos;
+                            //_controller.gameObject.transform.rotation = Quaternion.AngleAxis(-90.0f, new Vector3(0, 0, 1));
+                            _moveSkill.SetRotation(-90.0f);
+                            playerPos = pos;
+                            //enemy on the right
+                            pos = middlePos;
+                            pos.x += distance;
+                            enemyDir = 1;
+                            enemyFinalPos = pos;
+                        }
+
+                        //this function should allow the enemy to pass to passive steal state and to displace it in the correct position/direction
+                        // enemyDir: 0 left | 1 right
+                        BreadNamespace.BreadInMouthComponent breadContended = _enemyToSteal.StartGettingRobbed(enemyFinalPos);//and also enemyDir for the sprite
+                        _controller.GetAnimalSoundController().PlayStealing(transform);
+
+                        //let's active the Quick Time Event.
+                        LevelStageNamespace.LakeDescriptionComponent lakeDescriptionComponent = (LevelStageNamespace.LakeDescriptionComponent)_controller.GetLake();
+                        if (lakeDescriptionComponent)
+                        {
+                            _controller.GetStatusView().SetInteractionActive(false, 3);
+                            lakeDescriptionComponent.PlayerStartStealFromEnemy(_controller.gameObject, breadContended.gameObject, playerPos.x, playerPos.y + 3f);
+                            _controller.GetAnimalSoundController().UnSwim();
+                        }
                     }
-                    else
-                    {
-                        //player on the left
-                        var pos = middlePos;
-                        pos.x -= distance;
-                        _controller.gameObject.transform.position = pos;
-                        //_controller.gameObject.transform.rotation = Quaternion.AngleAxis(-90.0f, new Vector3(0, 0, 1));
-                        _moveSkill.SetRotation(-90.0f);
-                        playerPos = pos;
-                        //enemy on the right
-                        pos = middlePos;
-                        pos.x += distance;
-                        enemyDir = 1;
-                        enemyFinalPos = pos;
-                    }
-
-                    //this function should allow the enemy to pass to passive steal state and to displace it in the correct position/direction
-                    // enemyDir: 0 left | 1 right
-                    BreadNamespace.BreadInMouthComponent breadContended = _enemyToSteal.StartGettingRobbed(enemyFinalPos);//and also enemyDir for the sprite
-                    _controller.GetAnimalSoundController().PlayStealing(transform);
-
-                    //let's active the Quick Time Event.
-                    LevelStageNamespace.LakeDescriptionComponent lakeDescriptionComponent = (LevelStageNamespace.LakeDescriptionComponent)_controller.GetLake();
-                    if (lakeDescriptionComponent)
-                    {
-                        _controller.GetStatusView().SetInteractionActive(false, 3);
-                        lakeDescriptionComponent.PlayerStartStealFromEnemy(_controller.gameObject, breadContended.gameObject, playerPos.x, playerPos.y + 3f);
-                        _controller.GetAnimalSoundController().UnSwim();
-                    }                 
                 }
             }
 
@@ -239,7 +268,7 @@ namespace Player
 
                 if (_stealCoolDownElapsedSeconds < 0)
                     _stealCoolDownElapsedSeconds = 0;
-                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.stealCD, (int) _stealCoolDownElapsedSeconds);
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.stealCD, _stealCoolDownElapsedSeconds);
             }
 
         }
@@ -286,6 +315,12 @@ namespace Player
                     _moveSkill.MoveTo(newPos);
                 }
 
+                var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                foreach(var e in enemies)
+                {
+                    e.GetComponent<DuckEnemies.ChasingComponent>().NotifyPlayerJustRobbed();
+                }
+
             }
             _enemyToSteal = null;
         }
@@ -299,20 +334,23 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            var enemyController = collision.gameObject.GetComponent<DuckEnemies.StealingComponent>();
+            if (collision.transform.parent)
+            { 
+                var enemyController = collision.transform.parent.gameObject.GetComponent<DuckEnemies.EatingComponent>();
 
-            if (enemyController)
-            {
-                if (collision.gameObject.GetComponent<DuckEnemies.EatingComponent>().GetBreadInMouthComponent() &&  _controller.GetState() == PlayerState.Normal && _stealCoolDownElapsedSeconds <= 0)
-                    _controller.GetStatusView().SetInteractionActive(true, 3);
-                else
-                    _controller.GetStatusView().SetInteractionActive(false, 3);
+                if (enemyController)
+                {
+                    if (enemyController.GetBreadInMouthComponent() && _controller.GetState() == PlayerState.Normal && _stealCoolDownElapsedSeconds <= 0)
+                        _controller.GetStatusView().SetInteractionActive(true, 3);
+                    else
+                        _controller.GetStatusView().SetInteractionActive(false, 3);
 
-                _locatedEnemies.Add(enemyController);
-                _locatedEnemy = FindClosestEnemy();
-                
-                if (_locatedEnemy)
-                    Debug.Log("Enemy located");
+                    //_locatedEnemies.Add(enemyController);
+                    //_locatedEnemy = FindClosestEnemy();
+
+                    //if (_locatedEnemy)
+                    //Debug.Log("Enemy located");
+                }
             }
 
 
@@ -321,31 +359,56 @@ namespace Player
 
         private void OnTriggerStay2D(Collider2D collision)
         {
-            var enemyController = collision.gameObject.GetComponent<DuckEnemies.StealingComponent>();
+            //var enemyController = collision.gameObject.GetComponent<DuckEnemies.StealingComponent>();
 
-            if (enemyController)
+            //if (enemyController)
+            //{
+            //    if (collision.gameObject.GetComponent<DuckEnemies.EatingComponent>().GetBreadInMouthComponent() && _controller.GetState() == PlayerState.Normal && _stealCoolDownElapsedSeconds<=0)
+            //        _controller.GetStatusView().SetInteractionActive(true, 3);
+            //    else
+            //        _controller.GetStatusView().SetInteractionActive(false, 3);
+            //}
+
+
+
+            if (collision.transform.parent)
             {
-                if (collision.gameObject.GetComponent<DuckEnemies.EatingComponent>().GetBreadInMouthComponent() && _controller.GetState() == PlayerState.Normal && _stealCoolDownElapsedSeconds<=0)
-                    _controller.GetStatusView().SetInteractionActive(true, 3);
-                else
-                    _controller.GetStatusView().SetInteractionActive(false, 3);
+                var enemyController = collision.transform.parent.gameObject.GetComponent<DuckEnemies.EatingComponent>();
+
+                if (enemyController)
+                {
+                    if (enemyController.GetBreadInMouthComponent() && _controller.GetState() == PlayerState.Normal && _stealCoolDownElapsedSeconds <= 0)
+                        _controller.GetStatusView().SetInteractionActive(true, 3);
+                    else
+                        _controller.GetStatusView().SetInteractionActive(false, 3);
+                }
             }
         }
 
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            var enemyController = collision.gameObject.GetComponent<DuckEnemies.StealingComponent>();
+            //var enemyController = collision.gameObject.GetComponent<DuckEnemies.StealingComponent>();
 
-            if (enemyController)
+            //if (enemyController)
+            //{
+            //    _controller.GetStatusView().SetInteractionActive(false, 3);
+
+            //   // _locatedEnemies.Remove(enemyController);
+            //  //  _locatedEnemy = FindClosestEnemy();
+
+            //    //if (!_locatedEnemy)
+            //    //Debug.Log("Enemy missed");
+            //}
+
+            if (collision.transform.parent)
             {
-                _controller.GetStatusView().SetInteractionActive(false, 3);
+                var enemyController = collision.transform.parent.gameObject.GetComponent<DuckEnemies.EatingComponent>();
 
-                _locatedEnemies.Remove(enemyController);
-                _locatedEnemy = FindClosestEnemy();
-               
-                if (!_locatedEnemy)
-                    Debug.Log("Enemy missed");
+                if (enemyController)
+                {
+                    _controller.GetStatusView().SetInteractionActive(false, 3);
+                }
             }
         }
 

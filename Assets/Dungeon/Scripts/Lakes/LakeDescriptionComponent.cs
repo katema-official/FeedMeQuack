@@ -164,7 +164,7 @@ namespace LevelStageNamespace {
             //now we have to place the player in the correct spot
             _playerObject = GameObject.FindWithTag("Player");     //TODO: change in actual player when you have it
 
-            //if the
+            //if the lake
             //is the initial one and the player just arrived in the stage, we want it to be on the center of the room
             if (!_lakeDescriptionForThisLake.IsLakeCleared && _lakeDescriptionForThisLake.IsStartingRoom)
             {
@@ -224,6 +224,9 @@ namespace LevelStageNamespace {
                 //not too close to the player
                 GenerateEnemies();
 
+                //disable the exit triggers
+                EnableExitTriggers(false);
+
                 //the setup of the lake is done. Now we wait until the player enters in the actual lake from the river. To do so, he will need
                 //to pass through the TriggerEnteredCollider of the river in which he is.
 
@@ -232,6 +235,8 @@ namespace LevelStageNamespace {
             //generate all the obstacles
             _obstacles.GetComponent<ObstaclesLakeComponent>().
                 SetObstacles(_lakeDescriptionForThisLake.ObstaclesDescription.Item1, _lakeDescriptionForThisLake.ObstaclesDescription.Item2);
+
+            
 
         }
 
@@ -339,6 +344,14 @@ namespace LevelStageNamespace {
             }
         }
 
+        private void EnableExitTriggers(bool b)
+        {
+            _northRiver.transform.Find("TriggerExitedCollider").gameObject.SetActive(b);
+            _southRiver.transform.Find("TriggerExitedCollider").gameObject.SetActive(b);
+            _westRiver.transform.Find("TriggerExitedCollider").gameObject.SetActive(b);
+            _eastRiver.transform.Find("TriggerExitedCollider").gameObject.SetActive(b);
+        }
+
         //########################################################## CLOSE RIVER MANAGEMENT ##########################################################
 
         //called by EnterPlayerInLakeComponent to signal that the player entered the lake, and the rivers must be closed
@@ -437,6 +450,8 @@ namespace LevelStageNamespace {
                 _eastRiver.transform.Find("CloseCollider").gameObject.SetActive(false);
                 StartCoroutine(OpenLakeCoroutine(_eastRiver, EnumsDungeon.CompassDirection.East));
             }
+
+            EnableExitTriggers(true);
         }
 
         private IEnumerator OpenLakeCoroutine(GameObject river, EnumsDungeon.CompassDirection direction)
@@ -498,7 +513,7 @@ namespace LevelStageNamespace {
 
             while(_levelStageManager.IsCurrentLakeCleared() == false)
             {
-                Debug.Log("Emergence: START WAITING 3 SECONDS");
+                //Debug.Log("Emergence: START WAITING 3 SECONDS");
                 yield return new WaitForSeconds(3f);
 
                 if (GameObject.FindGameObjectsWithTag("FoodThrown").Length > 0 ||
@@ -533,7 +548,7 @@ namespace LevelStageNamespace {
                                         //there is a piece of bread (in mouth) that in three seconds wasn't eaten by a bit. Right now, this cannot happen.
                                         //So, open the rivers
                                         CompleteLake();
-                                        Debug.Log("Emergence: EMERGENCE PROCEDURE ACTIVATED 1");
+                                        //Debug.Log("Emergence: EMERGENCE PROCEDURE ACTIVATED 1");
                                     }
                                 }
                             }
@@ -558,12 +573,12 @@ namespace LevelStageNamespace {
                         if (breadsInMouth.Length == 0)
                         {
                             CompleteLake();
-                            Debug.Log("Emergence: EMERGENCE PROCEDURE ACTIVATED 2");
+                            //Debug.Log("Emergence: EMERGENCE PROCEDURE ACTIVATED 2");
                         }
                     }
                 }
             }
-            Debug.Log("Emergence: EXIT");
+            //Debug.Log("Emergence: EXIT");
             yield return null;
         }
 
@@ -661,7 +676,7 @@ namespace LevelStageNamespace {
         private void CompleteLake()
         {
             //CALL A FUNCTION THAT ENDS THE LAKE
-            Debug.Log("ALL BREAD EATEN; OPEN THE GATES!");
+            //Debug.Log("ALL BREAD EATEN; OPEN THE GATES!");
             OpenLakesWithAnimation();
             _levelStageManager.SetLakeAsCleared();
 
@@ -1263,7 +1278,7 @@ namespace LevelStageNamespace {
         private Vector3 GetTilePointInsideLake(string tileName, Vector3 currentPosOfObj, Vector3 pointCenterOfTile)
         {
             tileName = tileName.Split(" ")[0];
-            Debug.Log("tileName = " + tileName);
+            //Debug.Log("tileName = " + tileName);
             Vector3 ret = currentPosOfObj;
             switch (tileName)
             {
@@ -1300,7 +1315,6 @@ namespace LevelStageNamespace {
                     }
                     break;
                 case tilesetTerrainLeft:
-                    Debug.Log("LEFT: currentPosOfObj = " + currentPosOfObj + ", pointCenterOfTile: " + pointCenterOfTile);
                     if(!(currentPosOfObj.x > pointCenterOfTile.x))
                     {
                         ret = pointCenterOfTile + new Vector3(xLenTile / 4, 0, 0);
@@ -1347,7 +1361,7 @@ namespace LevelStageNamespace {
                     break;
             }
 
-            Debug.Log("CORRECTION APPLIED. OLD POINT WAS " + currentPosOfObj + ", NEW POINT IS " + ret);
+            //Debug.Log("CORRECTION APPLIED. OLD POINT WAS " + currentPosOfObj + ", NEW POINT IS " + ret);
 
             return ret;
         }

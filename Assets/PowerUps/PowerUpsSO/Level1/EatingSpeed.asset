@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce54f9cfa58679442877e4b05fdb83b3, type: 3}
   m_Name: EatingSpeed
   m_EditorClassIdentifier: 
-  Sprite: {fileID: -2413806693520163455, guid: 637a81a34705686479534b18f7c9104d, type: 3}
-  Name: Resilient Throat
-  Description: Eating Speed up
-  Cost: 5
+  Sprite: {fileID: 21300000, guid: 3d502beb6518a884cbdb7b86d5cb99ef, type: 3}
+  Name: Careful Munching
+  Description: Speed while Eating up
+  Cost: 4
   PowerUpKinds: 01000000
   amountForPowerUpKind:
   - 1

@@ -43,6 +43,7 @@ namespace Player
             if (attrib == PlayerSkillAttribute.DashSkill_CoolDown)
             {
                 _coolDown += value;
+                _coolDown = Mathf.Max(_coolDown, 1);
             }
             else if (attrib == PlayerSkillAttribute.DashSkill_MaxDuration)
             {
@@ -95,10 +96,14 @@ namespace Player
         {
             _enemies.Clear();
             _obstaclesList.Clear();
-            _obstaclesGO = GameObject.Find("Obstacles").transform.GetChild(0).gameObject;
-            GetAllObstaclesGameObjects(_obstaclesGO, _obstaclesList);
-            _obstaclesList.RemoveAll(x => !x.activeSelf);
-            _enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+            var obstacles = GameObject.Find("Obstacles");
+            if (obstacles)
+            { 
+                _obstaclesGO = obstacles.transform.GetChild(0).gameObject;
+                GetAllObstaclesGameObjects(_obstaclesGO, _obstaclesList);
+                _obstaclesList.RemoveAll(x => !x.activeSelf);
+                _enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+            }
         }
     
 
@@ -109,6 +114,7 @@ namespace Player
             if (_controller.GetState() == PlayerState.Dashing)
             {
                 //_moveSkill.SetOffset(new Vector3(0, 1.5f, 0));
+                //transform.Find("Body").localPosition = new Vector3(0, -2.24f, 0);
                 transform.Find("Body").gameObject.SetActive(true);
                 _controller.GetAnimator().SetBool("Dash", true);
 
@@ -146,7 +152,8 @@ namespace Player
 
             if (_controller.GetState() == PlayerState.Normal)
             {
-               // _moveSkill.SetOffset(new Vector3(0, 0, 0));
+                // _moveSkill.SetOffset(new Vector3(0, 0, 0));
+                //transform.Find("Body").localPosition = new Vector3(0, -1.18f, 0);
                 transform.Find("Body").gameObject.SetActive(false);
 
                 _controller.GetAnimator().SetBool("Dash", false);
@@ -234,7 +241,7 @@ namespace Player
 
                 if (_dashCoolDownElapsedSeconds < 0)
                     _dashCoolDownElapsedSeconds = 0;
-                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, (int) _dashCoolDownElapsedSeconds);
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
             }
         }
 

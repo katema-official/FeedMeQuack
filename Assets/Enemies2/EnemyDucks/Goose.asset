@@ -18,37 +18,37 @@ MonoBehaviour:
   DecelerationRoaming: 17
   SteerRoaming: 17
   ChillingTime: 1
-  DesiredRoamingDistance: 45
+  DesiredRoamingDistance: 27
   StopAtRoaming: 3
   SpeedFoodSeeking: 20
   AccelerationFoodSeeking: 14
   DecelerationFoodSeeking: 40
   SteerFoodSeeking: 28
   StopAtFoodSeeking: 2
-  Circle1FoodRadius: 35
-  Circle2FoodRadius: 41
-  Circle3FoodRadius: 47
+  Circle1FoodRadius: 23
+  Circle2FoodRadius: 29
+  Circle3FoodRadius: 35
   Circle1FoodProbability: 1
-  Circle2FoodProbability: 0.7
-  Circle3FoodProbability: 0.4
+  Circle2FoodProbability: 0.5
+  Circle3FoodProbability: 0.25
   Circle1PlayerRadius: 40
   Circle2PlayerRadius: 43
   Circle3PlayerRadius: 46
   Circle1PlayerProbability: 1
   Circle2PlayerProbability: 0.5
   Circle3PlayerProbability: 0.25
-  DashTriggerProbability: 0.3
+  DashTriggerProbability: 0.25
   SpeedDash: 40
   AccelerationDash: 20
-  DecelerationDash: 40
+  DecelerationDash: 120
   SteerDash: 20
-  DistanceToDash: 15
+  DistanceToDash: 12.5
   StealTriggerProbability: 0
   SpeedChasing: 16
   AccelerationChasing: 7
   DecelerationChasing: 35
   SteerChasing: 30
   WantsToStealCooldown: 10
-  MouthSize: 6
+  MouthSize: 7
   ChewingRate: 0.8
   DigestingTime: 0.4

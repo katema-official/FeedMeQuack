@@ -74,7 +74,7 @@ namespace Player
             for (int i = 0; i < breads.Length; i++)
             {
                 var dist = Vector3.Distance(breads[i].transform.position, _controller.gameObject.transform.position);
-                if (dist <= breads[i].GetComponent<CircleCollider2D>().radius)
+                if (dist <= breads[i].GetComponent<CircleCollider2D>().radius + 2.5f)
                 {
                     if (dist <= minDistance)
                     {
@@ -200,14 +200,14 @@ namespace Player
                         _controller.ChangeState(PlayerState.Eating);
 
                         if (_controller.GetState() == PlayerState.Eating)
+                        { 
                             _moveSkill.EnableInput(true);
-
-               
-                        //take a piece of the located bread, or the entire located bread based on mouth size
-                        _caughtBread = locatedBread.GenerateNewBreadInMouth(_mouthSize).GetComponent<BreadNamespace.BreadInMouthComponent>();
-                        _eatCoroutine = EatCoroutine();
-                        _mustStopEating = false;
-                        StartCoroutine(_eatCoroutine);
+                            //take a piece of the located bread, or the entire located bread based on mouth size
+                            _caughtBread = locatedBread.GenerateNewBreadInMouth(_mouthSize).GetComponent<BreadNamespace.BreadInMouthComponent>();
+                            _eatCoroutine = EatCoroutine();
+                            _mustStopEating = false;
+                            StartCoroutine(_eatCoroutine);
+                        }
                     }
                 }
             }
@@ -232,6 +232,7 @@ namespace Player
             if (attrib == PlayerSkillAttribute.EatSkill_ChewingRate)
             {
                 _chewingRate += value;
+                _chewingRate = Mathf.Max(_chewingRate, 0.05f);
                 _controller.GetHUDManager().ChangeText(HUDManager.textFields.chewingRate, _chewingRate);
             }
             else if (attrib == PlayerSkillAttribute.EatSkill_EatingSpeed)
@@ -292,7 +293,7 @@ namespace Player
 
             while (!_hasBreadBeenFullyEaten && !_mustStopEating)
             {
-                _controller.GetStatusView().SetText("" + _caughtBread.GetBreadPoints());
+                _controller.GetStatusView().SetText("" + _caughtBread.GetBreadPoints() + " BP");
                 yield return new WaitForSeconds(_chewingRate);
                 if (!_mustStopEating)
                 {
@@ -303,7 +304,7 @@ namespace Player
 
                 }
             }
-            _controller.GetStatusView().SetText("" + _caughtBread.GetBreadPoints());
+            _controller.GetStatusView().SetText("" + _caughtBread.GetBreadPoints() + " BP");
             _controller.GetStatusView().SetMiniStatusActive(false);
             _controller.GetStatusView().SetInteractionActive(false, 0);
             _controller.GetAnimalSoundController().UnEat();
@@ -344,7 +345,7 @@ namespace Player
             var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
             if (breadController)
             {
-
+                _controller.GetStatusView().SetExtraText("<color=\"yellow\"><size=8px>Bread Points: <color=\"white\"><size=8px>" + breadController.GetBreadPoints());
 
                 if (_controller.GetState() == PlayerState.Normal)
                     _controller.GetStatusView().SetInteractionActive(true, 0);
@@ -362,6 +363,8 @@ namespace Player
             var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
             if (breadController)
             {
+                _controller.GetStatusView().SetExtraText("<size=8px><color=\"yellow\">Bread Points: <color=\"white\">" + breadController.GetBreadPoints()+ "</size>");
+               
                 if (_controller.GetState() == PlayerState.Normal)
                     _controller.GetStatusView().SetInteractionActive(true, 0);
                 else
@@ -375,6 +378,8 @@ namespace Player
 
             if (breadController)
             {
+                _controller.GetStatusView().SetExtraText("");
+
                 _controller.GetStatusView().SetInteractionActive(false,0);
                // _controller.GetStatusView().SetVisible(true);
                 //    _locatedBreads.Remove(breadController);

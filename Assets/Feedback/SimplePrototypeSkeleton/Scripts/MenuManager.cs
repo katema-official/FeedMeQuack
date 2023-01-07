@@ -24,7 +24,7 @@ public class MenuManager : Singleton<MenuManager>
 
     private void SetMenu(Menu menu)
     {
-        MainMenu.SetActive(false);
+       // MainMenu.SetActive(false);
         LevelsMenu.SetActive(false);
         SettingsMenu.SetActive(false);
         FeedbackMenu.SetActive(false);
@@ -62,10 +62,10 @@ public class MenuManager : Singleton<MenuManager>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        /*if (Input.GetKeyDown(KeyCode.Escape))
         {
             SetMenu(Menu.Main);
-        }
+        }*/
 
 
     }

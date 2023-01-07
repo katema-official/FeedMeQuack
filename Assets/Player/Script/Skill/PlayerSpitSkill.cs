@@ -59,6 +59,7 @@ namespace Player
             else if (attrib == PlayerSkillAttribute.SpitSkill_CoolDown)
             {
                 _coolDown += value;
+                _coolDown = Mathf.Max(_coolDown, 1);
             }
             else if (attrib == PlayerSkillAttribute.SpitSkill_MaxPower)
             {
@@ -84,7 +85,8 @@ namespace Player
             for (int i = 0; i < breads.Length; i++)
             {
                 var dist = Vector3.Distance(breads[i].transform.position, _controller.gameObject.transform.position);
-                if (dist <= 3f)
+
+                if (dist <= breads[i].GetComponent<CircleCollider2D>().radius + 2.0f)
                 {
                     if (dist <= minDistance)
                     {
@@ -108,6 +110,7 @@ namespace Player
             _spitProgressBar = GameObject.FindObjectOfType<SpitProgressBar>();
             _spitArrow.SetActive(false);
             _spitProgressBar.gameObject.SetActive(false);
+            _spitProgressBar.gameObject.transform.position = new Vector3(10000, 10000, -83);
         }
         // Start is called before the first frame update
         void Start()
@@ -119,14 +122,15 @@ namespace Player
         void Update()
         {
             if (Input.GetButtonDown("SpitButton") /*&& !_caughtBread*//*_eatSkill.GetCaughtBread()*/ && _spitCoolDownElapsedSeconds <= 0)
-            {
+            { 
+                var locatedBread = FindClosestBread();
+
                 if (_controller.GetState() != PlayerState.Spitting && _controller.GetState() != PlayerState.Carrying && !_caughtBread)
                 {
-                    var locatedBread = FindClosestBread();
-
+                   
                     if (locatedBread)
                     {
-                        _caughtBread = locatedBread.GenerateNewBreadInMouth(locatedBread.GetBreadPoints()).GetComponent<BreadNamespace.BreadInMouthComponent>();
+                       // _caughtBread = locatedBread.GenerateNewBreadInMouth(locatedBread.GetBreadPoints()).GetComponent<BreadNamespace.BreadInMouthComponent>();
                         _controller.ChangeState(PlayerState.Carrying);
                     } 
                     else
@@ -148,6 +152,10 @@ namespace Player
                 {
                     //also interrupt the eating coroutine
                     //_eatSkill.StopEating();
+                    if (locatedBread)
+                    {
+                        _caughtBread = locatedBread.GenerateNewBreadInMouth(locatedBread.GetBreadPoints()).GetComponent<BreadNamespace.BreadInMouthComponent>();
+                    }
 
                     _moveSkill.EnableInput(true);
 
@@ -168,6 +176,7 @@ namespace Player
                     _controller.GetStatusView().SetMiniStatusActive(false);
                     _moveSkill.EnableInput(true);
                     _spitArrow.SetActive(true);
+                    _spitProgressBar.gameObject.transform.position = new Vector3(10000, 10000, -83);
                     _spitProgressBar.gameObject.SetActive(true);
                     //Music.UniversalAudio.GetSpitBarSoundController().Spit(_maxPower/_chargeSpeed, GetComponent<AudioSource>());
                     _controller.GetAnimalSoundController().Spit(_maxPower / _chargeSpeed);
@@ -191,8 +200,10 @@ namespace Player
                 {
                     _spitArrow.SetActive(false);
 
-                   _spitProgressBar.SetProgress(0);
+                    _spitProgressBar.SetProgress(0);
+
                     _spitProgressBar.gameObject.SetActive(false);
+                    _spitProgressBar.gameObject.transform.position = new Vector3(10000, 10000, -83);
                     _controller.GetStatusView().SetInteractionActive(false, 2);
                     _controller.GetStatusView().SetMiniStatusActive(false);
 
@@ -260,8 +271,47 @@ namespace Player
 
                 if (_spitCoolDownElapsedSeconds < 0)
                     _spitCoolDownElapsedSeconds = 0;
-                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.spitCD, (int)_spitCoolDownElapsedSeconds);
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.spitCD, _spitCoolDownElapsedSeconds);
             }
         }
+
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
+            if (breadController)
+            {
+                if (_controller.GetState() == PlayerState.Normal && _spitCoolDownElapsedSeconds <= 0)
+                    _controller.GetStatusView().SetInteractionActive(true, 6);
+                else
+                    _controller.GetStatusView().SetInteractionActive(false, 6);
+            }
+
+        }
+
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
+            if (breadController)
+            {
+                if (_controller.GetState() == PlayerState.Normal && _spitCoolDownElapsedSeconds <= 0)
+                    _controller.GetStatusView().SetInteractionActive(true, 6);
+                else
+                    _controller.GetStatusView().SetInteractionActive(false, 6);
+            }
+
+        }
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
+
+            if (breadController)
+            {
+                _controller.GetStatusView().SetInteractionActive(false, 6);
+            }
+        }
+
+
+
     }
 }

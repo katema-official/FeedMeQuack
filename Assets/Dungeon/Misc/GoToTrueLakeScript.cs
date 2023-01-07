@@ -17,6 +17,7 @@ public class GoToTrueLakeScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        return;
         if (Input.GetKeyDown("space"))
         {
             SceneManager.LoadScene("StartRunLoading");

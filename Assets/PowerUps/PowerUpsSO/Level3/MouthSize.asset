@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce54f9cfa58679442877e4b05fdb83b3, type: 3}
   m_Name: MouthSize
   m_EditorClassIdentifier: 
-  Sprite: {fileID: -2413806693520163455, guid: 637a81a34705686479534b18f7c9104d, type: 3}
+  Sprite: {fileID: 21300000, guid: 95955a867f52a77489401ed5045ad826, type: 3}
   Name: Big Cheeks
-  Description: Mouth Size up+
-  Cost: 15
+  Description: Mouth Size up
+  Cost: 12
   PowerUpKinds: 03000000
   amountForPowerUpKind:
-  - 2
+  - 1

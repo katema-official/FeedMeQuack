@@ -28,6 +28,7 @@ namespace LevelStageNamespace
 
         private HUDManager _hudManager;
         private MapManager _mapManager;
+        private LevelIntroUIController _levelIntroUIController;
 
 
         // Start is called before the first frame update
@@ -35,8 +36,9 @@ namespace LevelStageNamespace
         {
             _hudManager = GameObject.FindObjectOfType<HUDManager>();
             _mapManager = GameObject.FindObjectOfType<MapManager>();
+            _levelIntroUIController = GameObject.FindObjectOfType<LevelIntroUIController>();
 
-            for(int i = 1; i < Levels.Count + 1; i++)
+            for (int i = 1; i < Levels.Count + 1; i++)
             {
                 LevelSO level = Levels[i-1];
                 _numberOfStagesPerLevel.Add(i, level.Stages.Count);
@@ -92,7 +94,8 @@ namespace LevelStageNamespace
             }
             else
             {
-                Debug.Log("No more levels!!!");
+                //Debug.Log("No more levels!!!");
+                SceneManager.LoadScene("GameEnd");
             }
             
 
@@ -119,6 +122,8 @@ namespace LevelStageNamespace
 
                 //MUSIC: Reproduce calm music when entering new stage
                 Music.UniversalAudio.PlayMusic("Swimming", false);
+
+                _levelIntroUIController.ShowText("Level " + GetCurrentLevelIndex() + "." + GetCurrentStageIndex());
 
                 _hudManager.ChangeGoalText(GetStage(GetLevel(_currentLevel), _currentStage).BreadPointsRequiredToCompleteStage);
                 _hudManager.ChangeLevelText("" + GetCurrentLevelIndex() + "." + GetCurrentStageIndex());
@@ -233,6 +238,7 @@ namespace LevelStageNamespace
         public void EnterShop()
         {
             SceneManager.LoadScene("Shop1");
+            _levelIntroUIController.ShowText("Shop");
         }
 
         public void ExitShop()

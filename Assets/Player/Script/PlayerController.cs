@@ -41,8 +41,16 @@ namespace Player
         }
         public LevelStageNamespace.LakeShopDescriptionComponent GetLake()
         {
-            _currentLake = GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeShopDescriptionComponent>();
-            return _currentLake;
+            var g = GameObject.Find("WholeLake");
+            if (g)
+            {
+                _currentLake = g.GetComponent<LevelStageNamespace.LakeShopDescriptionComponent>();
+                return _currentLake;
+            }
+            return null;
+
+            //_currentLake = GameObject.Find("WholeLake").GetComponent<LevelStageNamespace.LakeShopDescriptionComponent>();
+            //return _currentLake;
         }
         public Vector3 GetPosition()
         {
@@ -51,12 +59,14 @@ namespace Player
         public void AddBreadPoints(float points)
         {
             _breadPoints += points;
-
-            Debug.Log("Current player bread points: " + _breadPoints);
         }
         public int GetBreadPoints()
         {
             return (int) _breadPoints;
+        }
+        public Camera GetCamera()
+        {
+            return _camera;
         }
         public Bounds GetCameraBounds()
         {
@@ -189,7 +199,7 @@ namespace Player
 
         private void Awake()
         {
-            DontDestroyOnLoad(this.transform.parent.gameObject);
+            //DontDestroyOnLoad(this.transform.parent.gameObject);
 
             _rigidBody = GetComponent<Rigidbody2D>();
             if (_rigidBody)
