@@ -67,12 +67,15 @@ namespace LevelStageNamespace
             }
             else
             {
-                Debug.Log("Name = " + currentStage.name);
-                for (int i = 0; i < nLakes; i++)
+                if (currentStage.name == "Stage1.1")
                 {
-                    currentStageBitMap[StartMapX, StartMapY + i + 1] = true;
+                        Debug.Log("Name = " + currentStage.name);
+                        for (int i = 0; i < nLakes; i++)
+                        {
+                            currentStageBitMap[StartMapX, StartMapY + i + 1] = true;
+                        }
+                        return currentStageBitMap;
                 }
-                return currentStageBitMap;
             }
 
             //3) now, to explain how we will generate the dungeon, let's use a metaphore:
