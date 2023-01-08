@@ -25,7 +25,7 @@ namespace LevelStageNamespace
 
         public static bool[,] GenerateStageLayout(StageSO currentStage)
         {
-
+            
             int randomSeed = (int)System.DateTime.Now.Ticks;
             UnityEngine.Random.InitState(randomSeed);
 
@@ -50,6 +50,21 @@ namespace LevelStageNamespace
             int totalNumberOfLakes = nLakes;
 
             nLakes -= 1;        //since we already fixed the initial room.
+
+            //if the tutorial must be carried out, we generate an alternative dungeon
+            if (PlayerPrefs.HasKey("Tutorial"))
+            {
+                var tutorialEnabled = PlayerPrefs.GetInt("Tutorial");
+                if (tutorialEnabled == 1 && currentStage.name == "Stage1.1")
+                {
+                    Debug.Log("Name = " + currentStage.name);
+                    for(int i = 0; i < nLakes; i++)
+                    {
+                        currentStageBitMap[StartMapX, StartMapY + i + 1] = true;
+                    }
+                    return currentStageBitMap;
+                }
+            }
 
             //3) now, to explain how we will generate the dungeon, let's use a metaphore:
             //there is a miner, that is inside a cave. He wants to find diamonds. Do to so, he wants to explore as much as possible

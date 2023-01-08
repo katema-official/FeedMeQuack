@@ -82,8 +82,8 @@ public class TutorialComponent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //PlayerPrefs.SetInt("Tutorial", 1);
-        //PlayerPrefs.Save();
+        PlayerPrefs.SetInt("Tutorial", 1);
+        PlayerPrefs.Save();
         //read if the tutorial must be carried out or not
         if (PlayerPrefs.HasKey("Tutorial"))
         {
