@@ -50,7 +50,7 @@ public class TutorialComponent : MonoBehaviour
         
         {_tutorialEat2,
             "Each piece of bread has a certain amount of Bread Points (BP).\n"+
-            "When you start to eat a piece of bread, its BPs are shown at the top of the duck player, with a spoon/knife icon on its left.\n" +
+            "When you start to eat a piece of bread, its BPs are shown at the top of your duck, with a fork/knife icon on its left.\n" +
             "Since you eat BPs, you'll see the number placed above your duck shrink more and more.\n"},
         {_tutorialEat3,
             "Generally, you " + ColorString("can't eat", "FF0000") + " a " + ColorString("whole bread", "CD6E3B") + ".\n"+
