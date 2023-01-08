@@ -157,7 +157,10 @@ public class TutorialComponent : MonoBehaviour
             var tutorialEnabled = PlayerPrefs.GetInt("Tutorial");
             if (tutorialEnabled == 1) SceneManager.sceneLoaded += OnSceneLoaded;
         }
-        
+        else
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
     }
 
     // Start is called before the first frame update

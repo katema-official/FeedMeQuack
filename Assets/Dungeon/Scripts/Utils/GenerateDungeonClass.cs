@@ -65,6 +65,18 @@ namespace LevelStageNamespace
                     return currentStageBitMap;
                 }
             }
+            else
+            {
+                if (currentStage.name == "Stage1.1")
+                {
+                        Debug.Log("Name = " + currentStage.name);
+                        for (int i = 0; i < nLakes; i++)
+                        {
+                            currentStageBitMap[StartMapX, StartMapY + i + 1] = true;
+                        }
+                        return currentStageBitMap;
+                }
+            }
 
             //3) now, to explain how we will generate the dungeon, let's use a metaphore:
             //there is a miner, that is inside a cave. He wants to find diamonds. Do to so, he wants to explore as much as possible
