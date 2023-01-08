@@ -1075,6 +1075,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7691356721664014002, guid: a1b73455e90c8f345bd69c14704fa002, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 294.68994
+      objectReference: {fileID: 0}
+    - target: {fileID: 7691356721664014002, guid: a1b73455e90c8f345bd69c14704fa002, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 34.930054
+      objectReference: {fileID: 0}
     - target: {fileID: 7691356723048196241, guid: a1b73455e90c8f345bd69c14704fa002, type: 3}
       propertyPath: m_Name
       value: HUD

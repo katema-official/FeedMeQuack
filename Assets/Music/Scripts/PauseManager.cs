@@ -19,21 +19,24 @@ namespace Music
       private void Update()
       {
          var gamepad = Gamepad.current;
-         //if (gamepad != null)
-         //{
-         //   if (gamepad.startButton.wasPressedThisFrame)
-         //   {
-         //      Pause();
-         //   }
-               
-         //}
-         
+            //if (gamepad != null)
+            //{
+            //   if (gamepad.startButton.wasPressedThisFrame)
+            //   {
+            //      Pause();
+            //   }
+
+            //}
+         if (Time.timeScale == 0 && !canvasPauseMenu.active) return;
          if ((Input.GetKeyDown(KeyCode.Escape) || (gamepad != null  && gamepad.startButton.wasPressedThisFrame )) && SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "GameOverScreen" && SceneManager.GetActiveScene().name != "GameEnd")
          {
             Pause();
          }
       }
-
+        public bool IsActive()
+        {
+            return canvasPauseMenu.activeInHierarchy;
+        }
       public void Pause()
       {
          Cursor.visible = !canvasPauseMenu.activeInHierarchy;
