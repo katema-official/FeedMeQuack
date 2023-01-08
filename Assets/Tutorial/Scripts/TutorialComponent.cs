@@ -71,7 +71,12 @@ public class TutorialComponent : MonoBehaviour
 
     void Awake()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        if (PlayerPrefs.HasKey("Tutorial"))
+        {
+            var tutorialEnabled = PlayerPrefs.GetInt("Tutorial");
+            if (tutorialEnabled == 1) SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+        
     }
 
     // Start is called before the first frame update
@@ -91,7 +96,7 @@ public class TutorialComponent : MonoBehaviour
             PlayerPrefs.Save();
         }
 
-       
+
         //StreamReader reader = new StreamReader(Application.dataPath + "/" + "tutorial.txt");
         //string lineA = reader.ReadLine();
         //string[] splitA = lineA.Split(',');
@@ -104,7 +109,11 @@ public class TutorialComponent : MonoBehaviour
         //}
 
         // _camera = GameObject.FindGameObjectWithTag("Player").transform.parent.Find("Camera").gameObject;
-        StartCoroutine(StartTutorial());
+        if (PlayerPrefs.HasKey("Tutorial"))
+        {
+            var tutorialEnabled = PlayerPrefs.GetInt("Tutorial");
+            if(tutorialEnabled == 1) StartCoroutine(StartTutorial());
+        }
     }
 
 
