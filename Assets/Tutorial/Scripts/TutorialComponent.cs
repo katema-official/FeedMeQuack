@@ -129,6 +129,12 @@ public class TutorialComponent : MonoBehaviour
     }
 
 
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+
     private IEnumerator StartTutorial(float time = 3f)
     { 
         yield return new WaitForSecondsRealtime(time);
