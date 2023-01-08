@@ -270,7 +270,7 @@ public class TutorialComponent : MonoBehaviour
         if (scene.name == "LakeSmall" && _sceneCount == 3 && !_shopSeen)
         {
             _tutorialIndex = _tutorialEat1;
-            StopCoroutine(_deleteTextCoroutine);
+            if (_deleteTextCoroutine != null) StopCoroutine(_deleteTextCoroutine);
             //StartCoroutine(DeleteText(0f));
             StartCoroutine(StartTutorial());
            // ChangeText();
@@ -278,14 +278,14 @@ public class TutorialComponent : MonoBehaviour
         if(scene.name == "LakeSmall" && _sceneCount == 4 && !_shopSeen)
         {
             _tutorialIndex = _tutorialUI1;
-            StopCoroutine(_deleteTextCoroutine);
+            if (_deleteTextCoroutine != null)  StopCoroutine(_deleteTextCoroutine);
             StartCoroutine(StartTutorial());
         }
         if(scene.name == "Shop1" && !_shopSeen)
         {
             _tutorialIndex = _tutorialShop;
             //StartCoroutine(DeleteText(0f));
-            StopCoroutine(_deleteTextCoroutine);
+            if (_deleteTextCoroutine != null) StopCoroutine(_deleteTextCoroutine);
             _shopSeen = true;
             StartCoroutine(StartTutorial());
           //  ChangeText();
