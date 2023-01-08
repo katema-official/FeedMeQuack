@@ -3945,7 +3945,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '(Restart required)
+  m_text: '(Restart of the run required)
 
 '
   m_isRightToLeft: 0
