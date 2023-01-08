@@ -127,6 +127,7 @@ public class TutorialComponent : MonoBehaviour
 
         if (Time.timeScale == 0 && (Input.GetKeyDown(KeyCode.Return) || (gamepad != null && gamepad.aButton.wasPressedThisFrame)))
         {
+            if (FindObjectOfType<Music.PauseManager>().IsActive()) return;
             if (_deleteTextCoroutine != null) StopCoroutine(_deleteTextCoroutine);
             OtherTutorials();
         }
