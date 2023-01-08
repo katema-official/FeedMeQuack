@@ -84,7 +84,7 @@ public class TutorialComponent : MonoBehaviour
         {_tutorialUI2, 
             "Check the status of your skills in the" + ColorString("lower left corner panel.", "D7C36A")+"\n"+
             "The skills are listed in this order from the top: Dash - Steal - Catch/Spit.\n"+
-            "Press Tab or the View Button to show more statistics."},
+            "Press Tab or the View Button to open the Statistics View."},
 
           {_tutorialUI3,
             "Use the minimap in the " + ColorString("upper right corner", "D7C36A") + " to orient yourself.\n"+
@@ -118,7 +118,7 @@ public class TutorialComponent : MonoBehaviour
         {_tutorialCommands3,"Use " + ColorString("Q", "494D42") + "/" + ColorString("Right Mouse Button", "494D42") + " or " + ColorString("X", "0068FF") + " to grab a piece of bread.\nThen, keep it pressed to charge and spit it!\n"},
         {_tutorialCommands4,
             "All your skills have a cooldown.\n"+
-            "Check them on the statistics menu (the one in the lower left corner)."
+            "Check them on the Statistics View (the one in the lower left corner)."
         }
     };
 

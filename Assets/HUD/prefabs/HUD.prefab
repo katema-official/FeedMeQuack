@@ -1548,7 +1548,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press Tab or       to see your Statistics
+  m_text: Press Tab or       to open Statistics View
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2512eff8b027c354a92ea3c524b65be5, type: 2}
   m_sharedMaterial: {fileID: 7534405097686390839, guid: 2512eff8b027c354a92ea3c524b65be5, type: 2}
@@ -1722,7 +1722,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press Tab or       to hide the Stats again
+  m_text: Press Tab or       to hide Statistics View
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2512eff8b027c354a92ea3c524b65be5, type: 2}
   m_sharedMaterial: {fileID: 7534405097686390839, guid: 2512eff8b027c354a92ea3c524b65be5, type: 2}
