@@ -115,7 +115,11 @@ public class TutorialComponent : MonoBehaviour
             if(tutorialEnabled == 1) StartCoroutine(StartTutorial());
         }
     }
-
+   public void Enable()
+    {
+        PlayerPrefs.SetInt("Tutorial", 1);
+        PlayerPrefs.Save();
+    }
 
     void Update()
     {
