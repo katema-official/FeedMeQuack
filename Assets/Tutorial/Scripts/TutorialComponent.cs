@@ -63,6 +63,12 @@ public class TutorialComponent : MonoBehaviour
     private Coroutine _deleteTextCoroutine;
 
 
+
+    public bool IsActive()
+    {
+        return _tutorialRootCanvas.active;
+    }
+
     void Awake()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -108,7 +114,7 @@ public class TutorialComponent : MonoBehaviour
 
         if (Time.timeScale == 0 && (Input.GetKeyDown(KeyCode.Return) || (gamepad != null && gamepad.aButton.wasPressedThisFrame)))
         {
-            StopCoroutine(_deleteTextCoroutine);
+            if (_deleteTextCoroutine != null) StopCoroutine(_deleteTextCoroutine);
             OtherTutorials();
         }
     }

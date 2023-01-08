@@ -17,7 +17,7 @@ public class MainMenuButtonManager : GOButtonManager
     private bool ok = false;
     private IEnumerator Wait()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
         ok = true;
         yield return null;
     }
@@ -29,6 +29,7 @@ public class MainMenuButtonManager : GOButtonManager
 
     public override void OnButtonClick(FMQButtonType type)
     {
+
         if (!ok) return;
         if (type== FMQButtonType.Play)
         {

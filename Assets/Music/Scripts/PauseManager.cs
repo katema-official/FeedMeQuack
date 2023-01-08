@@ -27,7 +27,15 @@ namespace Music
             //   }
 
             //}
-         if (Time.timeScale == 0 && !canvasPauseMenu.active) return;
+         var tut = FindObjectOfType<TutorialComponent>();
+         if (tut)
+         {
+            if (tut.IsActive()) 
+                    return;
+         }
+
+
+
          if ((Input.GetKeyDown(KeyCode.Escape) || (gamepad != null  && gamepad.startButton.wasPressedThisFrame )) && SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "GameOverScreen" && SceneManager.GetActiveScene().name != "GameEnd")
          {
             Pause();
@@ -41,13 +49,15 @@ namespace Music
       {
          Cursor.visible = !canvasPauseMenu.activeInHierarchy;
          canvasPauseMenu.SetActive(!canvasPauseMenu.activeInHierarchy);
-         Time.timeScale = Time.timeScale == 0 ? 1 : 0;
-         Lowpass();
+            if (canvasPauseMenu.activeInHierarchy) Time.timeScale = 0;
+            else Time.timeScale = 1;
+
+            Lowpass();
       }
 
       private void Lowpass()
       {
-         if (Time.timeScale == 0)
+         if (canvasPauseMenu.activeInHierarchy)
          {
             paused.TransitionTo(0.001f);
          }
@@ -76,7 +86,7 @@ namespace Music
             Destroy(GameObject.Find("DuckTypeManager"));
             Destroy(GameObject.Find("HUD"));
             Destroy(GameObject.Find("Minimap"));
-            
+            if (GameObject.Find("Tutorial")) Destroy(GameObject.Find("Tutorial"));
             SceneManager.LoadScene("Music/MainMenu");
          
         }
