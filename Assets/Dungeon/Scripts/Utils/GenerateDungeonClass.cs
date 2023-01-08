@@ -69,12 +69,12 @@ namespace LevelStageNamespace
             {
                 if (currentStage.name == "Stage1.1")
                 {
-                        Debug.Log("Name = " + currentStage.name);
-                        for (int i = 0; i < nLakes; i++)
-                        {
-                            currentStageBitMap[StartMapX, StartMapY + i + 1] = true;
-                        }
-                        return currentStageBitMap;
+                    Debug.Log("Name = " + currentStage.name);
+                    for (int i = 0; i < nLakes; i++)
+                    {
+                        currentStageBitMap[StartMapX, StartMapY + i + 1] = true;
+                    }
+                    return currentStageBitMap;
                 }
             }
 
