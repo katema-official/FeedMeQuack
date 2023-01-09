@@ -44,7 +44,7 @@ namespace Player
             _chargeSpeed = _spitDesc.ChargeSpeed;
             _carryingSpeed = _spitDesc.CarryingSpeed;
 
-            _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.spitCD, _spitCoolDownElapsedSeconds);
+            _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.spitCD, _spitCoolDownElapsedSeconds, _coolDown);
         }
         public override void applyPowerUp(PlayerSkillAttribute attrib, float value)
         {
@@ -60,6 +60,7 @@ namespace Player
             {
                 _coolDown += value;
                 _coolDown = Mathf.Max(_coolDown, 1);
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.spitCD, _spitCoolDownElapsedSeconds, _coolDown);
             }
             else if (attrib == PlayerSkillAttribute.SpitSkill_MaxPower)
             {
@@ -209,7 +210,7 @@ namespace Player
 
                     _moveSkill.EnableInput(true);
                     _spitCoolDownElapsedSeconds = _coolDown;
-                    _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.spitCD, _spitCoolDownElapsedSeconds);
+                    _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.spitCD, _spitCoolDownElapsedSeconds, _coolDown);
                 }
                 CheckData();
             }
@@ -271,7 +272,7 @@ namespace Player
 
                 if (_spitCoolDownElapsedSeconds < 0)
                     _spitCoolDownElapsedSeconds = 0;
-                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.spitCD, _spitCoolDownElapsedSeconds);
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.spitCD, _spitCoolDownElapsedSeconds, _coolDown);
             }
         }
 

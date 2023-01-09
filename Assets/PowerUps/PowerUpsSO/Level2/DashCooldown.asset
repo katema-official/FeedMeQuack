@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: 731eafd642a914c4ab477811b6ec35f4, type: 3}
   Name: Wings Workout
-  Description: Dash Cooldown up
+  Description: Faster Dash Recharge
   Cost: 9
   PowerUpKinds: 06000000
   amountForPowerUpKind:
