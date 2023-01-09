@@ -19,10 +19,11 @@ namespace Music
         private static int _slidersIndex;
         private static float _musicVolumeAudioSource1, _soundVolume;
         private const string Duck = "Duck", Goose = "Goose", Coot = "Coot";
-        public static Dictionary<string, int> stringAndNumberDictionary;
-        private const float DefaultMusicValue = 0.5f, DefaultSoundValue = 0.95f;
-        private static Button _defaultButton;
-        private static float _timeAlive;
+        private static Dictionary<string, int> _stringAndNumberDictionary;
+        private static readonly float DefaultMusicValue = PlayerPrefs.GetFloat("MusicVolume", 0.5f);
+        private static readonly float DefaultSoundValue = PlayerPrefs.GetFloat("SoundVolume", 0.95f);
+        /*private static Button _defaultButton;
+        private static float _timeAlive;*/
         private void Awake()
         {
             InitMusicSliders();
@@ -60,7 +61,7 @@ namespace Music
 
         private void Update()
         {
-            _timeAlive += Time.deltaTime;
+            //_timeAlive += Time.deltaTime;
             if (!SceneManager.GetActiveScene().name.Equals("MainMenu") && musicSliders[0] != musicSliders[1])
             {
                 musicSliders[0] = musicSliders[1];
@@ -91,7 +92,7 @@ namespace Music
 
                 SetRightSliders();
 
-                var buttons = GameObject.Find("MainMenuCanvas").transform
+                /*var buttons = GameObject.Find("MainMenuCanvas").transform
                     .GetComponentsInChildren<Button>(true);
                 foreach (var button in buttons)
                 {
@@ -103,7 +104,7 @@ namespace Music
                 }
 
                 if (_defaultButton)
-                    _defaultButton.onClick.AddListener(DefaultVolumes);
+                    _defaultButton.onClick.AddListener(DefaultVolumes);*/
 
                 UniversalAudio.PlayMusic("Swimming", false);
                 if (audioSource1.isPlaying)
@@ -120,12 +121,17 @@ namespace Music
 
         private static void InitAnimalsSound()
         {
-            stringAndNumberDictionary ??= new Dictionary<string, int>()
+            _stringAndNumberDictionary ??= new Dictionary<string, int>()
             {
                 [Duck] = 19,
                 [Goose] = 32,
                 [Coot] = 8
             };
+        }
+
+        public static int GetAnimalNumberSounds(string animalName)
+        {
+            return _stringAndNumberDictionary[animalName];
         }
 
         private void UpdateRightSoundSliders(int sliderIndex)
@@ -162,7 +168,7 @@ namespace Music
             musicSliders[0].minValue = 0.0001f;
             musicSliders[0].maxValue = 1;
             musicSliders[0].wholeNumbers = false;
-            musicSliders[0].value = PlayerPrefs.GetFloat("MusicValue", DefaultMusicValue);
+            musicSliders[0].value = PlayerPrefs.GetFloat("MusicVolume", DefaultMusicValue);
             SetMusicVolume(musicSliders[0].value);
 
             musicSliders[1].minValue = 0.0001f;
@@ -184,7 +190,7 @@ namespace Music
             soundSliders[0].minValue = 0.0001f;
             soundSliders[0].maxValue = 1;
             soundSliders[0].wholeNumbers = false;
-            soundSliders[0].value = PlayerPrefs.GetFloat("SoundValue", DefaultSoundValue);
+            soundSliders[0].value = PlayerPrefs.GetFloat("SoundVolume", DefaultSoundValue);
 
             SetSoundVolume(soundSliders[0].value);
 
@@ -241,11 +247,11 @@ namespace Music
         {
             mixer.ClearFloat("soundVolume");
             mixer.ClearFloat("musicVolume");
-            SetMusicVolume(DefaultMusicValue);
-            SetSoundVolume(DefaultSoundValue);
+            SetMusicVolume(0.5f);
+            SetSoundVolume(0.95f);
 
-            soundSliders[0].value = DefaultSoundValue;
-            musicSliders[0].value = DefaultMusicValue;
+            soundSliders[0].value = 0.95f;
+            musicSliders[0].value = 0.5f;
 
             musicSliders[1].value = SceneManager.GetActiveScene().name.Equals("MainMenu")
                 ? musicSliders[0].value

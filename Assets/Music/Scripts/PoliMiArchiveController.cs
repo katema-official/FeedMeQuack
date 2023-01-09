@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -7,7 +6,7 @@ namespace Music
 {
     public class PoliMiArchiveController : MonoBehaviour
     {
-        private const float TimeToDestroyPoliMi = 8.04f;
+        private const float TimeToDestroyPoliMi = 7.7f;
         private static AudioSource _audioSource;
         private float _lifeTime;
 

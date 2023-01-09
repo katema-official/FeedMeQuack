@@ -13,8 +13,8 @@ namespace Music
         private const string AudioMixerPath = "Mixers/GameAudioMixer";
         private string _animalName = "Mallard";
 
-        private const float _flyTime = 1.5f;
-        private const float _spitTime = 1.5f;
+        private const float FlyTime = 1.5f;
+        private const float SpitTime = 1.5f;
 
         private const float MinTimeBetweenQuackSteal = 0.5f;
         private const float MaxTimeBetweenQuackSteal = 1f;
@@ -26,7 +26,7 @@ namespace Music
         private bool _isInEatingState;
         private bool _isInAnimalCall;
 
-        private bool _isEnemy = false;
+        private bool _isEnemy;
         private string _eatSoundName;
 
         public void SetAnimalName(char[] newName)
@@ -200,7 +200,7 @@ namespace Music
             SetIsInSwimmingState(false);
         }
 
-        public void Fly(float flyTime = _flyTime, float volume = 0.1f)
+        public void Fly(float flyTime = FlyTime, float volume = 0.1f)
         {
             _audioSources[1].volume = UniversalAudio.GetSoundValue() * (volume);
             if (GetIsInFlyingState() == true) return;
@@ -217,7 +217,7 @@ namespace Music
             SetIsInFlyingState(false);
         }
 
-        public void Spit(float maxTime = _spitTime)
+        public void Spit(float maxTime = SpitTime)
         {
             _audioSources[2].pitch = Resources.Load<AudioClip>("SFX/SpittingSoundUp").length / maxTime;
             _audioSources[2].volume = UniversalAudio.GetSoundValue() * (0.5f);
@@ -252,7 +252,7 @@ namespace Music
             var random = new Unity.Mathematics.Random((uint)DateTime.Now.Ticks);
             while (GetIsInStealingState())
             {
-                var numberOfClip = random.NextInt(0, MusicManagerComponent.stringAndNumberDictionary[GetAnimalName()]);
+                var numberOfClip = random.NextInt(0, MusicManagerComponent.GetAnimalNumberSounds(GetAnimalName()));
                 switch (numberOfClip)
                 {
                     case 0:
@@ -281,7 +281,7 @@ namespace Music
         {
             if (GetIsInAnimalCall())
             {
-                var numberOfClip = new Unity.Mathematics.Random((uint)DateTime.Now.Ticks).NextInt(0, MusicManagerComponent.stringAndNumberDictionary[GetAnimalName()]);
+                var numberOfClip = new Unity.Mathematics.Random((uint)DateTime.Now.Ticks).NextInt(0, MusicManagerComponent.GetAnimalNumberSounds(GetAnimalName()));
                 switch (numberOfClip)
                 {
                     case 0:
