@@ -104,7 +104,8 @@ public class TutorialComponent : MonoBehaviour
 
           {_tutorialShop2,
                  "Press the E key or the A button to buy a power up.\n"+
-                 "Check carefully its description and, most of all, its cost."
+                 "Check carefully its description and, most of all, its cost.\n"+
+                 "Open the Statistics View with Tab or View button to see how your skills and statistics change when you buy a power-up."
                 },
 
          {_tutorialShop3,
