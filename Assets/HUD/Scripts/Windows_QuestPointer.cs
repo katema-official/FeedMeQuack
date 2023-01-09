@@ -124,8 +124,10 @@ public class Windows_QuestPointer : MonoBehaviour {
             var ray = new Ray(fromPosition, dir);
             var outDistance = 0.0f;
             FindObjectOfType<Player.PlayerController>().GetCameraBounds().IntersectRay(ray, out outDistance);
-            Vector3 finalPosition = fromPosition + dir * (outDistance -1.0f);
-            Vector3 screenPosition = FindObjectOfType<Player.PlayerController>().GetCamera().WorldToScreenPoint(finalPosition);
+            Vector3 finalPosition = fromPosition + dir * (outDistance);
+            Vector3 screenPosition = FindObjectOfType<Player.PlayerController>().GetCamera().WorldToViewportPoint(finalPosition);
+            screenPosition.x = Mathf.Clamp(screenPosition.x*1920.0f, 0, 1920.0f);
+            screenPosition.y = Mathf.Clamp(screenPosition.y*1080.0f, 0, 1080.0f);
 
 
             //Debug.Log("Quest pointer finalPosition: " + finalPosition);
