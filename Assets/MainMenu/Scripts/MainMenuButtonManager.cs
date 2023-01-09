@@ -52,8 +52,11 @@ public class MainMenuButtonManager : GOButtonManager
         }
         else if (type == FMQButtonType.Feedback)
         {
-            MainMenuButtons.SetActive(false);
-            SetMenu(Menu.Feedback);
+            //MainMenuButtons.SetActive(false);
+            //SetMenu(Menu.Feedback);
+            Application.OpenURL("https://discord.gg/bHkUNf8E3k");
+
+
         }
         else if (type == FMQButtonType.Quit)
         {
