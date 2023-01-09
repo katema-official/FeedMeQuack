@@ -88,11 +88,8 @@ namespace Player
 
                 //this function should allow the enemy to pass to passive steal state and to displace it in the correct position/direction
                 // enemyDir: 0 left | 1 right
-                BreadNamespace.BreadInMouthComponent breadContended = _eatSkill.GetCaughtBread();//_enemyToSteal.StartGettingRobbed(enemyFinalPos);//and also enemyDir for the sprite
-                                                                                                 // _enemyToSteal.SetPosition(enemyFinalPos);
-                                                                                                 // _enemyToSteal.SetRotation(enemyAngle);
+                BreadNamespace.BreadInMouthComponent breadContended = _eatSkill.GetCaughtBread();
                 _controller.GetAnimalSoundController().PlayStealing(transform);
-
                 //let's active the Quick Time Event.
                 LevelStageNamespace.LakeDescriptionComponent lakeDescriptionComponent = (LevelStageNamespace.LakeDescriptionComponent)_controller.GetLake();
                 if (lakeDescriptionComponent)
@@ -143,21 +140,6 @@ namespace Player
                 _coolDown = Mathf.Max(_coolDown, 1);
             }
         }
-        //public DuckEnemies.StealingComponent FindClosestEnemy()
-        //{
-        //    float _minDistance = 10000000;
-        //    DuckEnemies.StealingComponent res = null;
-        //    foreach (var b in _locatedEnemies)
-        //    {
-        //        var dist = b.gameObject.transform.position - _controller.gameObject.transform.position;
-        //        if (dist.magnitude < _minDistance)
-        //        {
-        //            _minDistance = dist.magnitude;
-        //            res = b;
-        //        }
-        //    }
-        //    return res;
-        //}
         void Awake()
         {
             _controller = GetComponent<PlayerController>();
@@ -175,9 +157,6 @@ namespace Player
         {
 
             if (Input.GetButtonDown("StealButton") && 
-                //_locatedEnemy && _locatedEnemy.IsEating() &&
-                //!_enemyToSteal &&
-
                 _stealCoolDownElapsedSeconds <= 0)
             {
                 var locatedEnemy = FindClosestEnemy();
@@ -191,8 +170,7 @@ namespace Player
                     {
                         _moveSkill.EnableInput(false, true);
                         _enemyToSteal = locatedEnemy;
-                        //_controller.GetAnimalSoundController().PlayStealing("Mallard", transform);
-                  
+
                         //find the point between ducks
                         var playerPos = _controller.gameObject.transform.position;
                         var enemyPos = _enemyToSteal.gameObject.transform.position;
@@ -345,12 +323,6 @@ namespace Player
                         _controller.GetStatusView().SetInteractionActive(true, 3);
                     else
                         _controller.GetStatusView().SetInteractionActive(false, 3);
-
-                    //_locatedEnemies.Add(enemyController);
-                    //_locatedEnemy = FindClosestEnemy();
-
-                    //if (_locatedEnemy)
-                    //Debug.Log("Enemy located");
                 }
             }
 
@@ -360,18 +332,6 @@ namespace Player
 
         private void OnTriggerStay2D(Collider2D collision)
         {
-            //var enemyController = collision.gameObject.GetComponent<DuckEnemies.StealingComponent>();
-
-            //if (enemyController)
-            //{
-            //    if (collision.gameObject.GetComponent<DuckEnemies.EatingComponent>().GetBreadInMouthComponent() && _controller.GetState() == PlayerState.Normal && _stealCoolDownElapsedSeconds<=0)
-            //        _controller.GetStatusView().SetInteractionActive(true, 3);
-            //    else
-            //        _controller.GetStatusView().SetInteractionActive(false, 3);
-            //}
-
-
-
             if (collision.transform.parent)
             {
                 var enemyController = collision.transform.parent.gameObject.GetComponent<DuckEnemies.EatingComponent>();
@@ -389,19 +349,6 @@ namespace Player
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            //var enemyController = collision.gameObject.GetComponent<DuckEnemies.StealingComponent>();
-
-            //if (enemyController)
-            //{
-            //    _controller.GetStatusView().SetInteractionActive(false, 3);
-
-            //   // _locatedEnemies.Remove(enemyController);
-            //  //  _locatedEnemy = FindClosestEnemy();
-
-            //    //if (!_locatedEnemy)
-            //    //Debug.Log("Enemy missed");
-            //}
-
             if (collision.transform.parent)
             {
                 var enemyController = collision.transform.parent.gameObject.GetComponent<DuckEnemies.EatingComponent>();

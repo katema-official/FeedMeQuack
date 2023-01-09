@@ -52,22 +52,6 @@ namespace Player
 
         public BreadNamespace.BreadInWaterComponent FindClosestBread()
         {
-            //float _minDistance = 10000000;
-            //BreadNamespace.BreadInWaterComponent res = null;
-
-            //_locatedBreads.RemoveWhere(s => s == null);
-
-            //foreach (var b in _locatedBreads)
-            //{
-            //    var dist = b.gameObject.transform.position - _controller.gameObject.transform.position;
-            //    if (dist.magnitude < _minDistance)
-            //    {
-            //        _minDistance = dist.magnitude;
-            //        res = b;
-            //    }
-            //}
-            //return res;
-
             GameObject[] breads = GameObject.FindGameObjectsWithTag("FoodInWater");
             float minDistance = 10000000;
             BreadNamespace.BreadInWaterComponent bread = null;
@@ -83,7 +67,6 @@ namespace Player
                     }
                 }
             }
-
             return bread;
         }
 
@@ -129,7 +112,6 @@ namespace Player
         {
             if (_controller.GetState() != PlayerState.Eating && _caughtBread)
             {
-                // Destroy(_caughtBread.gameObject);
                 _breadManager.ReleaseBread(_caughtBread);
                 _caughtBread = null;
             }
@@ -174,8 +156,6 @@ namespace Player
                     //call here buyPowerUp
                     (spentDBP, listAttribs, listValues) = _locatedPowerUp.BuyPowerUp(_controller.GetDigestedBreadPoints());
 
-
-
                     _controller.applyPowerUp(spentDBP, listAttribs, listValues);
                     _controller.GetHUDManager().ChangeDigestedBreadPointsCollectedText(_controller.GetDigestedBreadPoints());
 
@@ -187,7 +167,6 @@ namespace Player
                     {
                         Music.UniversalAudio.PlaySound("Bought", transform);
                     }
-                  //  if(spentDBP > 0) _locatedPowerUp = null;
                     return;
                 }
 
@@ -216,14 +195,9 @@ namespace Player
 
             if (_controller.GetState() == PlayerState.Eating && _hasBreadBeenFullyEaten)
             {
-                //if (/*_caughtBread.GetPoints() <= 0*/ _hasBreadBeenFullyEaten)
-                //{
-                    //_controller.GetLake().DestroyBread(_caughtBread);// the removing of bread should be handled by lake or other manaager
                     _caughtBread = null;
                     _controller.ChangeState(PlayerState.Normal);
                     _hasBreadBeenFullyEaten = false;
-
-                //}
             }
         }
 
@@ -254,26 +228,6 @@ namespace Player
             {
                 _moveSkill.Move(_eatingSpeed);
                 _caughtBread.Move(_controller.GetMouthTransform().position);
-                //_chewingElapsedSeconds += Time.deltaTime;
-
-                //if (/*_chewingElapsedSeconds >= _chewingRate &&*/ !_hasBreadBeenFullyEaten)
-                //{
-                //    // int a;
-                //    // (a, _hasBreadBeenFullyEaten) = _caughtBread.SubtractBreadPoints(1);//eat a point each chewingRate seconds
-                //    // _controller.AddBreadPoints(1);
-                //    // _chewingElapsedSeconds = 0;
-
-                //    StartCoroutine(MyCoroutine());
-                //}
-
-                //if (_chewingElapsedSeconds >= _chewingRate && !_hasBreadBeenFullyEaten)
-                //{
-                //    int a;
-                //    (a, _hasBreadBeenFullyEaten) = _caughtBread.SubtractBreadPoints(1);//eat a point each chewingRate seconds
-                //    _controller.AddBreadPoints(1);
-                //    _chewingElapsedSeconds = 0;
-                //}
-
             }
         }
 
@@ -298,7 +252,6 @@ namespace Player
                 if (!_mustStopEating)
                 {
                     (a, _hasBreadBeenFullyEaten) = _caughtBread.SubtractBreadPoints(1);//eat a point each chewingRate seconds
-                    // Debug.Log("Bread eaten before");
                     _controller.AddBreadPoints(1);
                     _controller.GetHUDManager().ChangeBreadPointsCollectedText(_controller.GetBreadPoints());
 
@@ -308,8 +261,6 @@ namespace Player
             _controller.GetStatusView().SetMiniStatusActive(false);
             _controller.GetStatusView().SetInteractionActive(false, 0);
             _controller.GetAnimalSoundController().UnEat();
-
-            //Debug.Log("Bread eaten after");
             yield break;
         }
 
@@ -333,15 +284,6 @@ namespace Player
                 _locatedPowerUp = powerup;
             }
 
-
-
-
-
-
-            //var powerup = collision.gameObject.transform.parent.gameObject.GetComponent<PowerUpsNamespace.PowerUpComponent>();
-            
-
-
             var breadController = collision.gameObject.GetComponent<BreadNamespace.BreadInWaterComponent>();
             if (breadController)
             {
@@ -351,9 +293,6 @@ namespace Player
                     _controller.GetStatusView().SetInteractionActive(true, 0);
                 else
                     _controller.GetStatusView().SetInteractionActive(false, 0);
-                //  _controller.GetStatusView().SetVisible(true);
-                //    _locatedBreads.Add(breadController);
-                //    _locatedBread = FindClosestBread();
             }
 
         }
@@ -379,11 +318,7 @@ namespace Player
             if (breadController)
             {
                 _controller.GetStatusView().SetExtraText("");
-
                 _controller.GetStatusView().SetInteractionActive(false,0);
-               // _controller.GetStatusView().SetVisible(true);
-                //    _locatedBreads.Remove(breadController);
-                //    _locatedBread = FindClosestBread();
             }
 
 
@@ -392,18 +327,10 @@ namespace Player
             var powerup = collision.gameObject.transform.parent.gameObject.GetComponent<PowerUpsNamespace.PowerUpComponent>();
             if (powerup)
             {
-
                 _controller.GetStatusView().SetInteractionActive(false, 4);
                 _locatedPowerUp = null;
             }
-
-            
         }
-
-
-
-
-
 
         public int GetMouthSize()
         {
