@@ -36,7 +36,7 @@ namespace Player
             _maxDuration = _dashDesc.MaxDuration;
             _coolDown = _dashDesc.CoolDown;
 
-            _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
+            _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds, _coolDown);
         }
         public override void applyPowerUp(PlayerSkillAttribute attrib, float value)
         {
@@ -44,6 +44,7 @@ namespace Player
             {
                 _coolDown += value;
                 _coolDown = Mathf.Max(_coolDown, 1);
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds, _coolDown);
             }
             else if (attrib == PlayerSkillAttribute.DashSkill_MaxDuration)
             {
@@ -60,13 +61,13 @@ namespace Player
             if (_controller.GetState() == PlayerState.Dashing)
             {
                 _dashCoolDownElapsedSeconds = 0;
-                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds, _coolDown);
             }
             else
             {
                 _dashElapsedSeconds = 0.0f;
                 _dashCoolDownElapsedSeconds = _coolDown;
-                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds, _coolDown);
             }
         }
         //I'm so sorry but rn I don't want to do anything difficult to do something so simple
@@ -168,7 +169,7 @@ namespace Player
                 _moveSkill.EnableInput(true);
                 _dashElapsedSeconds = 0.0f;
                 _dashCoolDownElapsedSeconds = _coolDown;
-                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds, _coolDown);
 
                 foreach (GameObject obstacle in _obstaclesList)
                 {
@@ -245,7 +246,7 @@ namespace Player
 
                 if (_dashCoolDownElapsedSeconds < 0)
                     _dashCoolDownElapsedSeconds = 0;
-                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds, _coolDown);
             }
         }
 

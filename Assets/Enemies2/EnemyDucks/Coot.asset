@@ -37,17 +37,17 @@ MonoBehaviour:
   Circle1PlayerProbability: 1
   Circle2PlayerProbability: 0.25
   Circle3PlayerProbability: 0.05
-  DashTriggerProbability: 0
-  SpeedDash: 20
-  AccelerationDash: 10
-  DecelerationDash: 40
+  DashTriggerProbability: 0.05
+  SpeedDash: 32
+  AccelerationDash: 15
+  DecelerationDash: 60
   SteerDash: 20
-  DistanceToDash: 10
+  DistanceToDash: 11
   StealTriggerProbability: 0.45
   SpeedChasing: 21
   AccelerationChasing: 7
   DecelerationChasing: 35
-  SteerChasing: 30
+  SteerChasing: 45
   WantsToStealCooldown: 10
   MouthSize: 4
   ChewingRate: 1.2

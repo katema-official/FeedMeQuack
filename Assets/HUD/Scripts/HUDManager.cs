@@ -64,7 +64,7 @@ namespace HUDNamespace
             digestedBreadPointsValueText.text = value.ToString() + " DBP";
         }
 
-        public void UpdateSkillCooldown(textFields skillType, float newValue)
+        public void UpdateSkillCooldown(textFields skillType, float newValue, float maxDuration = 0f)
         {
             string s = String.Format("{0:0.0}", newValue);
             switch (skillType)
@@ -73,8 +73,8 @@ namespace HUDNamespace
                     dashCDValueText.text = s + " sec.";
                     dashCDValueTextCopy.text = s + " sec.";
                     if (newValue == 0){
-                        dashCDValueText.text = "Ready";
-                        dashCDValueTextCopy.text = dashCDValueText.text;
+                        dashCDValueText.text = "Ready (" + maxDuration + "s)";
+                        dashCDValueTextCopy.text = "Ready";
                         dashCDValueText.color = Color.green;
                         dashCDValueTextCopy.color = Color.green;
                         dash1.texture = dashOn;
@@ -92,8 +92,8 @@ namespace HUDNamespace
                     stealCDValueText.text = s + " sec.";
                     stealCDValueTextCopy.text = s + " sec.";
                     if (newValue == 0){
-                        stealCDValueText.text = "Ready";
-                        stealCDValueTextCopy.text = stealCDValueText.text;
+                        stealCDValueText.text = "Ready (" + maxDuration + "s)";
+                        stealCDValueTextCopy.text = "Ready";
                         stealCDValueText.color = Color.green;
                         stealCDValueTextCopy.color = Color.green;
                         steal1.texture = stealOn;
@@ -110,8 +110,8 @@ namespace HUDNamespace
                     spitCDValueText.text = s + " sec.";
                     spitCDValueTextCopy.text = s + " sec.";
                     if (newValue == 0){
-                        spitCDValueText.text = "Ready";
-                        spitCDValueTextCopy.text = spitCDValueText.text;
+                        spitCDValueText.text = "Ready (" + maxDuration + "s)";
+                        spitCDValueTextCopy.text = "Ready";
                         spitCDValueText.color = Color.green;
                         spitCDValueTextCopy.color = Color.green;
                         spit1.texture = spitOn;

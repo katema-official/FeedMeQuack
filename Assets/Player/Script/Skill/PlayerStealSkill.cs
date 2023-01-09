@@ -132,7 +132,7 @@ namespace Player
             _stealDesc = (PlayerStealSkillDescriptionSO)_description;
 
             _coolDown = _stealDesc.CoolDown;
-            _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.stealCD, _stealCoolDownElapsedSeconds);
+            _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.stealCD, _stealCoolDownElapsedSeconds, _coolDown);
 
         }
         public override void applyPowerUp(PlayerSkillAttribute attrib, float value)
@@ -141,6 +141,7 @@ namespace Player
             {
                 _coolDown += value;
                 _coolDown = Mathf.Max(_coolDown, 1);
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.stealCD, _stealCoolDownElapsedSeconds, _coolDown);
             }
         }
         //public DuckEnemies.StealingComponent FindClosestEnemy()
@@ -268,7 +269,7 @@ namespace Player
 
                 if (_stealCoolDownElapsedSeconds < 0)
                     _stealCoolDownElapsedSeconds = 0;
-                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.stealCD, _stealCoolDownElapsedSeconds);
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.stealCD, _stealCoolDownElapsedSeconds, _coolDown);
             }
 
         }
@@ -286,7 +287,7 @@ namespace Player
                 if (_controller.GetState() == PlayerState.Stealing)
                 {
                     _stealCoolDownElapsedSeconds = _coolDown;
-                    _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.stealCD, _stealCoolDownElapsedSeconds);
+                    _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.stealCD, _stealCoolDownElapsedSeconds, _coolDown);
                 }
 
                 if (breadForEnemy == null)
