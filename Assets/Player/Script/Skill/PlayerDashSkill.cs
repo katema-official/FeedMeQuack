@@ -36,7 +36,7 @@ namespace Player
             _maxDuration = _dashDesc.MaxDuration;
             _coolDown = _dashDesc.CoolDown;
 
-            _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
+            _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds, _coolDown);
         }
         public override void applyPowerUp(PlayerSkillAttribute attrib, float value)
         {
@@ -44,6 +44,7 @@ namespace Player
             {
                 _coolDown += value;
                 _coolDown = Mathf.Max(_coolDown, 1);
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds, _coolDown);
             }
             else if (attrib == PlayerSkillAttribute.DashSkill_MaxDuration)
             {
@@ -60,13 +61,13 @@ namespace Player
             if (_controller.GetState() == PlayerState.Dashing)
             {
                 _dashCoolDownElapsedSeconds = 0;
-                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds, _coolDown);
             }
             else
             {
                 _dashElapsedSeconds = 0.0f;
                 _dashCoolDownElapsedSeconds = _coolDown;
-                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds, _coolDown);
             }
         }
         //I'm so sorry but rn I don't want to do anything difficult to do something so simple
@@ -109,29 +110,24 @@ namespace Player
 
         void OnEnterDashingState()
         {
+            var p = _controller.GetPosition();
+
+            if (!_controller.GetLake().Contains(p)) return;
+
             _controller.ChangeState(PlayerState.Dashing);
 
             if (_controller.GetState() == PlayerState.Dashing)
             {
-                //_moveSkill.SetOffset(new Vector3(0, 1.5f, 0));
-                //transform.Find("Body").localPosition = new Vector3(0, -2.24f, 0);
                 transform.Find("Body").gameObject.SetActive(true);
                 _controller.GetAnimator().SetBool("Dash", true);
-
-
                 _controller.GetAnimalSoundController().Fly();
-
                 _moveSkill.EnableInput(false);
-
-                
                 _controller.GetStatusView().SetInteractionActive(true, 1);
-                
 
                 foreach (GameObject obstacle in _obstaclesList)
                 {
                     Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), obstacle.GetComponent<CompositeCollider2D>(), true);
                 }
-
                 foreach (GameObject enemy in _enemies)
                 {
                     Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), enemy.GetComponent<CircleCollider2D>(), true);
@@ -146,25 +142,19 @@ namespace Player
 
             if (!_controller.GetLake().Contains(p) && !externalTerrain) return;
 
-
-
             _controller.ChangeState(PlayerState.Normal);
 
             if (_controller.GetState() == PlayerState.Normal)
             {
-                // _moveSkill.SetOffset(new Vector3(0, 0, 0));
-                //transform.Find("Body").localPosition = new Vector3(0, -1.18f, 0);
                 transform.Find("Body").gameObject.SetActive(false);
-
                 _controller.GetAnimator().SetBool("Dash", false);
-
                 _controller.GetAnimalSoundController().UnFly();
 
                 _controller.GetStatusView().SetInteractionActive(false, 1);
                 _moveSkill.EnableInput(true);
                 _dashElapsedSeconds = 0.0f;
                 _dashCoolDownElapsedSeconds = _coolDown;
-                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds, _coolDown);
 
                 foreach (GameObject obstacle in _obstaclesList)
                 {
@@ -207,11 +197,6 @@ namespace Player
                 }
                 else
                 {
-                    //var p = _controller.GetPosition() + _moveSkill.GetDirection() * _noDashArea;
-                    //if (_controller.GetLake().Contains(p))
-                    //{
-                    //    _controller.ChangeState(PlayerState.Dashing);
-                    //}
                     OnEnterDashingState();
                 }
             }
@@ -241,7 +226,7 @@ namespace Player
 
                 if (_dashCoolDownElapsedSeconds < 0)
                     _dashCoolDownElapsedSeconds = 0;
-                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds);
+                _controller.GetHUDManager().UpdateSkillCooldown(HUDManager.textFields.dashCD, _dashCoolDownElapsedSeconds, _coolDown);
             }
         }
 

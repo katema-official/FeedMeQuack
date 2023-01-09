@@ -28,6 +28,13 @@ public class PauseMenuButtonManager : GOButtonManager
             PauseSettings.SetActive(false);
             FindObjectOfType<PauseManager>().Pause();
         }
+        else if (type == FMQButtonType.EnableTutorial)
+        {
+            FindObjectOfType<TutorialComponent>().Enable();
+            BackToPauseMenu.SetActive(true);
+            PauseSettings.SetActive(false);
+            FindObjectOfType<PauseManager>().Pause();
+        }
     }
     
 }

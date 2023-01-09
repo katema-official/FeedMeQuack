@@ -21,16 +21,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 30
-    width: 1536
-    height: 722.8
+    width: 1280
+    height: 579.3333
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-<<<<<<< HEAD
-  controlID: 694
-=======
-  controlID: 7636
->>>>>>> feature/musicnew2
+  controlID: 11369
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -52,15 +48,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-<<<<<<< HEAD
     y: 369.33334
-    width: 467
+    width: 429
     height: 261.66666
-=======
-    y: 444
-    width: 505.4
-    height: 331.4
->>>>>>> feature/musicnew2
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -86,10 +76,10 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -768
-    m_HBaseRangeMax: 768
-    m_VBaseRangeMin: -432
-    m_VBaseRangeMax: 432
+    m_HBaseRangeMin: -640
+    m_HBaseRangeMax: 640
+    m_VBaseRangeMin: -360
+    m_VBaseRangeMax: 360
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -107,40 +97,23 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-<<<<<<< HEAD
-      width: 467
+      width: 429
       height: 240.66666
     m_Scale: {x: 0.33425924, y: 0.33425924}
-    m_Translation: {x: 233.49998, y: 120.33333}
-=======
-      width: 505.4
-      height: 310.4
-    m_Scale: {x: 0.32903644, y: 0.32903644}
-    m_Translation: {x: 252.69998, y: 155.2}
->>>>>>> feature/musicnew2
+    m_Translation: {x: 214.5, y: 120.33333}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-<<<<<<< HEAD
-      x: -698.5596
+      x: -641.71747
       y: -360
-      width: 1397.1191
+      width: 1283.4349
       height: 720
     m_MinimalGUI: 1
   m_defaultScale: 0.33425924
-  m_LastWindowPixelSize: {x: 700.5, y: 392.5}
-=======
-      x: -768
-      y: -471.68027
-      width: 1536
-      height: 943.36053
-    m_MinimalGUI: 1
-  m_defaultScale: 0.32903644
-  m_LastWindowPixelSize: {x: 631.75, y: 414.25}
->>>>>>> feature/musicnew2
+  m_LastWindowPixelSize: {x: 643.5, y: 392.5}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 00000000000000000000
@@ -165,16 +138,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 506.4
-    height: 722.8
+    width: 430
+    height: 579.3333
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-<<<<<<< HEAD
-  controlID: 606
-=======
-  controlID: 7637
->>>>>>> feature/musicnew2
+  controlID: 11271
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -192,8 +161,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 506.4
-    height: 370.4
+    width: 430
+    height: 296.66666
   m_MinSize: {x: 201, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 5}
@@ -222,9 +191,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 73.6
-    width: 505.4
-    height: 349.4
+    y: 72.66667
+    width: 429
+    height: 275.66666
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -235,7 +204,7 @@ MonoBehaviour:
       collapsed: 0
       displayed: 1
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: -100, y: -25.600006}
+      snapOffsetDelta: {x: -98.66666, y: -26}
       snapCorner: 3
       id: Tool Settings
       index: 0
@@ -300,7 +269,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: 0, y: 0}
+      snapOffset: {x: 0, y: 24.666666}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: unity-transform-toolbar
@@ -438,7 +407,7 @@ MonoBehaviour:
       id: Scene View/Particles
       index: 10
       layout: 4
-  m_WindowGUID: d033221d644026d4c9f5f49d13998492
+  m_WindowGUID: 28405141531f2c3488705450b9f33f52
   m_Gizmos: 1
   m_OverrideSceneCullingMask: 6917529027641081856
   m_SceneIsLit: 1
@@ -448,9 +417,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 755.91223, y: 588.48315, z: -6.5273314}
+    m_Target: {x: 92.263535, y: 327.39822, z: 7.9479694}
     speed: 2
-    m_Value: {x: 755.91223, y: 588.48315, z: -6.5273314}
+    m_Value: {x: 92.263535, y: 327.39822, z: 7.9479694}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -501,9 +470,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 817.2082
+    m_Target: 360.45007
     speed: 2
-    m_Value: 817.2082
+    m_Value: 360.45007
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -544,19 +513,11 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-<<<<<<< HEAD
     y: 296.66666
-    width: 468
+    width: 430
     height: 282.66666
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
-=======
-    y: 370.4
-    width: 506.4
-    height: 352.4
   m_MinSize: {x: 201, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
->>>>>>> feature/musicnew2
   m_ActualView: {fileID: 2}
   m_Panes:
   - {fileID: 2}
@@ -584,9 +545,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 444
-    width: 560.6
-    height: 331.4
+    y: 369.33334
+    width: 429
+    height: 261.66666
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -606,19 +567,12 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 506.4
+    x: 430
     y: 0
-<<<<<<< HEAD
-    width: 178.66669
+    width: 230.66669
     height: 579.3333
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
-=======
-    width: 269.6
-    height: 722.8
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
->>>>>>> feature/musicnew2
   m_ActualView: {fileID: 9}
   m_Panes:
   - {fileID: 9}
@@ -644,10 +598,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 506.4
-    y: 73.6
-    width: 267.6
-    height: 701.8
+    x: 430
+    y: 72.66667
+    width: 228.66669
+    height: 558.3333
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -657,11 +611,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-<<<<<<< HEAD
-      m_ExpandedIDs: 14c3ffff54c3ffffdcc7ffff1eccffff1cfbffff
-=======
-      m_ExpandedIDs: 9ed0ffff60d7ffff22d8ffff68d8ffffa8e8ffff14f8ffff5cf8ffffb4f8fffff4f8ffff4af9ffff8af9ffff24fbffff74a50000b0a50000
->>>>>>> feature/musicnew2
+      m_ExpandedIDs: 104affff84e7ffffe0e7ffffe4e7ffff68e8ffff86e8ffff96e8ffffdce9ffff26fbfffff4ffffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -684,7 +634,7 @@ MonoBehaviour:
     m_LockTracker:
       m_IsLocked: 0
     m_CurrentSortingName: TransformSorting
-  m_WindowGUID: d49aecda6816d62468794c71d1ae8b5c
+  m_WindowGUID: e3122498f09a57b4faf0434f311ec383
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -700,12 +650,12 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 776
+    x: 660.6667
     y: 0
-    width: 448.80005
-    height: 722.8
-  m_MinSize: {x: 230, y: 250}
-  m_MaxSize: {x: 10000, y: 10000}
+    width: 358.66663
+    height: 579.3333
+  m_MinSize: {x: 232, y: 271}
+  m_MaxSize: {x: 10002, y: 10021}
   m_ActualView: {fileID: 11}
   m_Panes:
   - {fileID: 11}
@@ -731,16 +681,16 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 776
-    y: 73.6
-    width: 446.80005
-    height: 701.8
+    x: 660.6667
+    y: 72.66667
+    width: 356.66663
+    height: 558.3333
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
     m_SaveData: []
   m_SearchFilter:
-    m_NameFilter: main
+    m_NameFilter: disc
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -752,38 +702,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-<<<<<<< HEAD
-    - Assets/Dungeon/Stages/Stage3.3
-=======
-    - Assets/Music
->>>>>>> feature/musicnew2
+    - Assets/PowerUps/PowerUpsSO/Level3
     m_Globs: []
-    m_OriginalText: main
+    m_OriginalText: disc
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-<<<<<<< HEAD
-  - Assets/Dungeon/Stages/Stage3.3
-=======
-  - Assets/Music
->>>>>>> feature/musicnew2
+  - Assets/PowerUps/PowerUpsSO/Level3
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\verga\OneDrive\Desktop\Magistral\VIDEOGAME DESIGN AND
-    PROGRAMMING\FeedMeQuackTrue
+  m_LastProjectPath: C:\Users\aless\Desktop\FeedMeQuack
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-<<<<<<< HEAD
-    scrollPos: {x: 0, y: 403}
-    m_SelectedIDs: 4c6b0000
-    m_LastClickedID: 27468
-    m_ExpandedIDs: 00000000326b0000346b0000366b0000386b00003a6b00003c6b00003e6b0000406b0000426b0000446b0000466b0000486b00004a6b00004c6b00004e6b0000506b0000526b0000546b0000566b000000ca9a3b
-=======
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: ee660000
-    m_LastClickedID: 26350
-    m_ExpandedIDs: 00000000c6660000c8660000ca66000000ca9a3b
->>>>>>> feature/musicnew2
+    scrollPos: {x: 0, y: 945.6667}
+    m_SelectedIDs: 386d0000
+    m_LastClickedID: 27960
+    m_ExpandedIDs: 00000000526b0000546b0000566b0000586b00005a6b00005c6b00005e6b0000606b0000626b0000646b0000666b0000686b00006a6b00006c6b00006e6b0000706b0000726b0000746b0000766b0000f86b000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -811,11 +745,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-<<<<<<< HEAD
-    m_ExpandedIDs: 00000000326b0000346b0000366b0000386b00003a6b00003c6b00003e6b0000406b0000426b0000446b0000466b0000486b00004a6b00004c6b00004e6b0000506b0000526b0000546b0000566b000000ca9a3b
-=======
-    m_ExpandedIDs: 00000000c6660000c8660000ca66000000ca9a3b
->>>>>>> feature/musicnew2
+    m_ExpandedIDs: 00000000526b0000546b0000566b0000586b00005a6b00005c6b00005e6b0000606b0000626b0000646b0000666b0000686b00006a6b00006c6b00006e6b0000706b0000726b0000746b0000766b000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -840,16 +770,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-<<<<<<< HEAD
-    m_SelectedInstanceIDs: d48f0000
-    m_LastClickedInstanceID: 36820
-    m_HadKeyboardFocusLastEvent: 1
-=======
-    m_SelectedInstanceIDs: fc660000
-    m_LastClickedInstanceID: 26364
+    m_SelectedInstanceIDs: 9a740000
+    m_LastClickedInstanceID: 29850
     m_HadKeyboardFocusLastEvent: 0
->>>>>>> feature/musicnew2
-    m_ExpandedInstanceIDs: 00000000
+    m_ExpandedInstanceIDs: 
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -876,7 +800,7 @@ MonoBehaviour:
     m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 64
   m_SkipHiddenPackages: 0
-  m_DirectoriesAreaWidth: 181
+  m_DirectoriesAreaWidth: 149
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -892,19 +816,12 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 1224.8
+    x: 1019.3333
     y: 0
-<<<<<<< HEAD
-    width: 259.3333
+    width: 260.6667
     height: 579.3333
   m_MinSize: {x: 275, y: 50}
   m_MaxSize: {x: 4000, y: 4000}
-=======
-    width: 311.19995
-    height: 722.8
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
->>>>>>> feature/musicnew2
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -930,10 +847,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1224.8
-    y: 73.6
-    width: 310.19995
-    height: 701.8
+    x: 1019.3334
+    y: 72.66667
+    width: 259.6667
+    height: 558.3333
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -944,11 +861,7 @@ MonoBehaviour:
     m_CachedPref: -160
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-<<<<<<< HEAD
-  m_LastInspectedObjectInstanceID: 36820
-=======
-  m_LastInspectedObjectInstanceID: 26364
->>>>>>> feature/musicnew2
+  m_LastInspectedObjectInstanceID: 29850
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0

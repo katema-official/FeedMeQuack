@@ -15,6 +15,7 @@ public enum FMQButtonType
     PauseBackToGame,
     PauseBackToMainMenu,
     PauseDefaultValues,
-    PauseBackToPauseMenu
+    PauseBackToPauseMenu,
+    EnableTutorial
 }
 

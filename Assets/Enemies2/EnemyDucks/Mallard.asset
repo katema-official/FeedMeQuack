@@ -38,8 +38,8 @@ MonoBehaviour:
   Circle2PlayerProbability: 0.5
   Circle3PlayerProbability: 0.25
   DashTriggerProbability: 0.05
-  SpeedDash: 20
-  AccelerationDash: 10
+  SpeedDash: 25
+  AccelerationDash: 12
   DecelerationDash: 40
   SteerDash: 20
   DistanceToDash: 10

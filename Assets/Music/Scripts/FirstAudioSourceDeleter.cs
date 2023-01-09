@@ -11,6 +11,7 @@ namespace Music
             {
                 PoliMiArchiveController.GetAudioSource().Stop();
                 Destroy(GameObject.Find("AudioSource"));
+                Time.timeScale = 1;
             }
         }
 
