@@ -88,7 +88,7 @@ public class TutorialComponent : MonoBehaviour
 
           {_tutorialUI3,
             "Use the minimap in the " + ColorString("upper right corner", "D7C36A") + " to orient yourself.\n"+
-            "The " + ColorString("yellow square", "FFFF00") + " is the lake you are currently in.\n"+
+            "The " + ColorString("small duck", "FFFF00") + " tells you in which lake you are currently.\n"+
             "The " + ColorString("green square", "00FF00") + " is the lake containing a passage to the shop: just follow the " + ColorString("End Brown Sign", "A18534") + " on its shore..."
             },
 

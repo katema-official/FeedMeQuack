@@ -417,6 +417,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellSize: 15
   squarePrefab: {fileID: 7064466828822472568, guid: 8abcac768ea1ec5409fc9c0e8751b9ae, type: 3}
+  _miniDuckPrefab: {fileID: 1253946078215300976, guid: 602ba459d8810ae45be0cc84c023edef, type: 3}
 --- !u!114 &345128691
 MonoBehaviour:
   m_ObjectHideFlags: 0
