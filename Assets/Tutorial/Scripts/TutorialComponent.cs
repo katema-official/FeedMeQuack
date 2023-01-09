@@ -83,7 +83,6 @@ public class TutorialComponent : MonoBehaviour
 
         {_tutorialUI2, 
             "Check the status of your skills in the " + ColorString("lower left corner panel.", "D7C36A")+"\n"+
-            "The skills are listed in this order from the top: Dash - Steal - Catch/Spit.\n"+
             "Press Tab or the View Button to open the Statistics View."},
 
           {_tutorialUI3,
