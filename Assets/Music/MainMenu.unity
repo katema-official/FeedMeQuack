@@ -924,8 +924,12 @@ PrefabInstance:
       value: Updated version available on <color=blue><u><link=https://polimi-game-collective.itch.io/feed-me-quack>site</link></u></color>
       objectReference: {fileID: 0}
     - target: {fileID: 7919254494958878379, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 196.2492
+      objectReference: {fileID: 0}
+    - target: {fileID: 7919254494958878379, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1777.9
+      value: 1821.8964
       objectReference: {fileID: 0}
     - target: {fileID: 7919254494958878379, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
       propertyPath: m_AnchoredPosition.y
