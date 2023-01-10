@@ -22,7 +22,7 @@ public class UpdateAvailableController : MonoBehaviour
             var www = UnityWebRequest.Get("https://polimi-game-collective.itch.io/feed-me-quack");
             yield return www.SendWebRequest();
 
-            if (!www.downloadHandler.text.Contains(PlayerPrefs.GetString("Version", DisclaimerController.GetGameVersion())))
+            if (!www.downloadHandler.text.Contains("Latest Version: " + PlayerPrefs.GetString("Version", DisclaimerController.GetGameVersion())))
             {
                 textMeshProUGUI.SetActive(!textMeshProUGUI.activeInHierarchy);
                 //Application.OpenURL("https://polimi-game-collective.itch.io/feed-me-quack");
