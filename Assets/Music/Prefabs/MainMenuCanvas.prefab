@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8083649190454548606}
   - component: {fileID: 3000769987546568791}
   - component: {fileID: 3446598711541416936}
-  - component: {fileID: 7068313578990617269}
   - component: {fileID: 3263403854310840156}
   m_Layer: 5
   m_Name: SiteButton
@@ -136,20 +135,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7068313578990617269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 773823412487988068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7212c26a086b494799a72a5e0c15c8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _type: 12
-  _index: 5
 --- !u!114 &3263403854310840156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3981,7 +3966,6 @@ MonoBehaviour:
   MainMenuButtons: {fileID: 1610439595909661075}
   FeedbackMenu: {fileID: 1610439595826261692}
   AboutMenu: {fileID: 1610439595952867625}
-  SiteButtonGO: {fileID: 0}
 --- !u!1 &1610439595952867625
 GameObject:
   m_ObjectHideFlags: 0
