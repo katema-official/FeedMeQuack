@@ -20,12 +20,14 @@ namespace Music
         private static float _musicVolumeAudioSource1, _soundVolume;
         private const string Duck = "Duck", Goose = "Goose", Coot = "Coot";
         private static Dictionary<string, int> _stringAndNumberDictionary;
-        private static readonly float DefaultMusicValue = PlayerPrefs.GetFloat("MusicVolume", 0.5f);
-        private static readonly float DefaultSoundValue = PlayerPrefs.GetFloat("SoundVolume", 0.95f);
+        private const float _defaultMusicValue =  0.5f;
+        private const float _defaultSoundValue =  0.95f;
         /*private static Button _defaultButton;
         private static float _timeAlive;*/
         private void Awake()
         {
+            _soundVolume = PlayerPrefs.GetFloat("SoundVolume", GetDefaultSoundVolume());
+            _musicVolumeAudioSource1 = PlayerPrefs.GetFloat("MusicVolume", GetDefaultAudioSourceVolume());
             InitMusicSliders();
             InitSoundSliders();
             UniversalAudio.InitAll(gameObject);
@@ -51,11 +53,11 @@ namespace Music
             UniversalAudio.PlayMusic("Swimming", false);
             if (audioSource1.isPlaying)
             {
-                audioSource1.time = 9.96f;
+                audioSource1.time = 9.87f;
             }
             else
             {
-                audioSource2.time = 9.96f;
+                audioSource2.time = 9.87f;
             }
         }
 
@@ -168,7 +170,7 @@ namespace Music
             musicSliders[0].minValue = 0.0001f;
             musicSliders[0].maxValue = 1;
             musicSliders[0].wholeNumbers = false;
-            musicSliders[0].value = PlayerPrefs.GetFloat("MusicVolume", DefaultMusicValue);
+            musicSliders[0].value = PlayerPrefs.GetFloat("MusicVolume", GetDefaultAudioSourceVolume());
             SetMusicVolume(musicSliders[0].value);
 
             musicSliders[1].minValue = 0.0001f;
@@ -190,7 +192,7 @@ namespace Music
             soundSliders[0].minValue = 0.0001f;
             soundSliders[0].maxValue = 1;
             soundSliders[0].wholeNumbers = false;
-            soundSliders[0].value = PlayerPrefs.GetFloat("SoundVolume", DefaultSoundValue);
+            soundSliders[0].value = PlayerPrefs.GetFloat("SoundVolume", GetDefaultSoundVolume());
 
             SetSoundVolume(soundSliders[0].value);
 
@@ -279,7 +281,12 @@ namespace Music
 
         public static float GetDefaultAudioSourceVolume()
         {
-            return DefaultMusicValue;
+            return _defaultMusicValue;
+        }
+        
+        public static float GetDefaultSoundVolume()
+        {
+            return _defaultSoundValue;
         }
 
     }

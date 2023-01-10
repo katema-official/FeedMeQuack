@@ -13,11 +13,11 @@ namespace Music
         private const string AudioMixerPath = "Mixers/GameAudioMixer";
         private string _animalName = "Mallard";
 
-        private const float FlyTime = 1.5f;
-        private const float SpitTime = 1.5f;
+        private const float _flyTime = 1.5f;
+        private const float _spitTime = 1.5f;
 
-        private const float MinTimeBetweenQuackSteal = 0.5f;
-        private const float MaxTimeBetweenQuackSteal = 1f;
+        private const float _minTimeBetweenQuackSteal = 0.5f;
+        private const float _maxTimeBetweenQuackSteal = 1f;
 
         private bool _isInSwimmingState;
         private bool _isInStealingState;
@@ -200,7 +200,7 @@ namespace Music
             SetIsInSwimmingState(false);
         }
 
-        public void Fly(float flyTime = FlyTime, float volume = 0.1f)
+        public void Fly(float flyTime = _flyTime, float volume = 0.1f)
         {
             _audioSources[1].volume = UniversalAudio.GetSoundValue() * (volume);
             if (GetIsInFlyingState() == true) return;
@@ -217,7 +217,7 @@ namespace Music
             SetIsInFlyingState(false);
         }
 
-        public void Spit(float maxTime = SpitTime)
+        public void Spit(float maxTime = _spitTime)
         {
             _audioSources[2].pitch = Resources.Load<AudioClip>("SFX/SpittingSoundUp").length / maxTime;
             _audioSources[2].volume = UniversalAudio.GetSoundValue() * (0.5f);
@@ -265,7 +265,7 @@ namespace Music
                         UniversalAudio.PlaySound(GetAnimalName() + " " + numberOfClip, thisTransform);
                         break;
                 }
-                yield return new WaitForSeconds(random.NextFloat(MinTimeBetweenQuackSteal, MaxTimeBetweenQuackSteal));
+                yield return new WaitForSeconds(random.NextFloat(_minTimeBetweenQuackSteal, _maxTimeBetweenQuackSteal));
             }
 
             yield return null;

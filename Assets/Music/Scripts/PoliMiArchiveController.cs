@@ -6,7 +6,7 @@ namespace Music
 {
     public class PoliMiArchiveController : MonoBehaviour
     {
-        private const float TimeToDestroyPoliMi = 7.7f;
+        private const float _timeToDestroyPoliMi = 7.9f;
         private static AudioSource _audioSource;
         private float _lifeTime;
 
@@ -19,7 +19,8 @@ namespace Music
         private void Awake()
         {
             _audioSource = GameObject.Find("AudioSource").GetComponent<AudioSource>();
-            _audioSource.volume = MusicManagerComponent.GetDefaultAudioSourceVolume();
+            _audioSource.volume =
+                PlayerPrefs.GetFloat("MusicVolume", MusicManagerComponent.GetDefaultAudioSourceVolume());
         }
 
         private void Start()
@@ -32,7 +33,7 @@ namespace Music
             _lifeTime += Time.deltaTime;
             var gamepad = Gamepad.current;
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return) ||
-                    (gamepad != null && (gamepad.startButton.wasPressedThisFrame || gamepad.aButton.wasPressedThisFrame)) || _lifeTime >= TimeToDestroyPoliMi)
+                    (gamepad != null && (gamepad.startButton.wasPressedThisFrame || gamepad.aButton.wasPressedThisFrame)) || _lifeTime >= _timeToDestroyPoliMi)
             {
                 SceneManager.LoadScene("MainMenu");
             }

@@ -1,15 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Music;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class UpdateAvailableController : MonoBehaviour
 {
-    public GameObject _textMeshProUGUI;
-    private const string _version = "1.0.1", _latestUpdateDay = "08/01/2023";
-    private bool _isLatestVersion;
-    
+    [SerializeField] private GameObject textMeshProUGUI;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,10 +22,9 @@ public class UpdateAvailableController : MonoBehaviour
             var www = UnityWebRequest.Get("https://polimi-game-collective.itch.io/feed-me-quack");
             yield return www.SendWebRequest();
 
-            if (!www.downloadHandler.text.Contains(_latestUpdateDay))
+            if (!www.downloadHandler.text.Contains(PlayerPrefs.GetString("Version", DisclaimerController.GetGameVersion())))
             {
-                _isLatestVersion = true;
-                _textMeshProUGUI.SetActive(!_textMeshProUGUI.activeInHierarchy);
+                textMeshProUGUI.SetActive(!textMeshProUGUI.activeInHierarchy);
                 Application.OpenURL("https://polimi-game-collective.itch.io/feed-me-quack");
             }
             /*if (www.result != UnityWebRequest.Result.Success)
