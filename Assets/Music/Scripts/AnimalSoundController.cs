@@ -16,8 +16,8 @@ namespace Music
         private const float _flyTime = 1.5f;
         private const float _spitTime = 1.5f;
 
-        private const float MinTimeBetweenQuackSteal = 0.5f;
-        private const float MaxTimeBetweenQuackSteal = 1f;
+        private const float _minTimeBetweenQuackSteal = 0.5f;
+        private const float _maxTimeBetweenQuackSteal = 1f;
 
         private bool _isInSwimmingState;
         private bool _isInStealingState;
@@ -26,7 +26,7 @@ namespace Music
         private bool _isInEatingState;
         private bool _isInAnimalCall;
 
-        private bool _isEnemy = false;
+        private bool _isEnemy;
         private string _eatSoundName;
 
         public void SetAnimalName(char[] newName)
@@ -252,7 +252,7 @@ namespace Music
             var random = new Unity.Mathematics.Random((uint)DateTime.Now.Ticks);
             while (GetIsInStealingState())
             {
-                var numberOfClip = random.NextInt(0, MusicManagerComponent.stringAndNumberDictionary[GetAnimalName()]);
+                var numberOfClip = random.NextInt(0, MusicManagerComponent.GetAnimalNumberSounds(GetAnimalName()));
                 switch (numberOfClip)
                 {
                     case 0:
@@ -265,7 +265,7 @@ namespace Music
                         UniversalAudio.PlaySound(GetAnimalName() + " " + numberOfClip, thisTransform);
                         break;
                 }
-                yield return new WaitForSeconds(random.NextFloat(MinTimeBetweenQuackSteal, MaxTimeBetweenQuackSteal));
+                yield return new WaitForSeconds(random.NextFloat(_minTimeBetweenQuackSteal, _maxTimeBetweenQuackSteal));
             }
 
             yield return null;
@@ -281,7 +281,7 @@ namespace Music
         {
             if (GetIsInAnimalCall())
             {
-                var numberOfClip = new Unity.Mathematics.Random((uint)DateTime.Now.Ticks).NextInt(0, MusicManagerComponent.stringAndNumberDictionary[GetAnimalName()]);
+                var numberOfClip = new Unity.Mathematics.Random((uint)DateTime.Now.Ticks).NextInt(0, MusicManagerComponent.GetAnimalNumberSounds(GetAnimalName()));
                 switch (numberOfClip)
                 {
                     case 0:

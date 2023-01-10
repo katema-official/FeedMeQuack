@@ -15,13 +15,17 @@ MonoBehaviour:
   m_PixelRect:
     serializedVersion: 2
     x: 0
-    y: 42.666668
-    width: 1280
-    height: 629.3334
+    y: 43.2
+    width: 1536
+    height: 772.8
   m_ShowMode: 4
+<<<<<<< HEAD
   m_Title: Console
+=======
+  m_Title: Game
+>>>>>>> feature/musicnew3
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 875, y: 492}
+  m_MinSize: {x: 875, y: 350}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -44,8 +48,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1280
-    height: 629.3333
+    width: 1536
+    height: 772.8
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
@@ -69,7 +73,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1280
+    width: 1536
     height: 30
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
@@ -90,8 +94,8 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 609.3333
-    width: 1280
+    y: 752.8
+    width: 1536
     height: 20
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
@@ -116,12 +120,16 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 30
-    width: 1280
-    height: 579.3333
+    width: 1536
+    height: 722.8
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
+<<<<<<< HEAD
   controlID: 15836
+=======
+  controlID: 567
+>>>>>>> feature/musicnew3
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -141,12 +149,21 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
+<<<<<<< HEAD
     width: 494.66666
     height: 579.3333
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
   controlID: 15841
+=======
+    width: 516
+    height: 722.8
+  m_MinSize: {x: 100, y: 200}
+  m_MaxSize: {x: 8096, y: 16192}
+  vertical: 1
+  controlID: 572
+>>>>>>> feature/musicnew3
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -164,8 +181,13 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
+<<<<<<< HEAD
     width: 494.66666
     height: 296.66666
+=======
+    width: 516
+    height: 344.8
+>>>>>>> feature/musicnew3
   m_MinSize: {x: 201, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 13}
@@ -189,10 +211,17 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
+<<<<<<< HEAD
     y: 296.66666
     width: 494.66666
     height: 282.66666
   m_MinSize: {x: 101, y: 121}
+=======
+    y: 344.8
+    width: 516
+    height: 378
+  m_MinSize: {x: 201, y: 221}
+>>>>>>> feature/musicnew3
   m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 14}
   m_Panes:
@@ -215,10 +244,17 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
+<<<<<<< HEAD
     x: 494.66666
     y: 0
     width: 198.66666
     height: 579.3333
+=======
+    x: 516
+    y: 0
+    width: 276.8
+    height: 722.8
+>>>>>>> feature/musicnew3
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 15}
@@ -241,10 +277,17 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
+<<<<<<< HEAD
     x: 693.3333
     y: 0
     width: 326
     height: 579.3333
+=======
+    x: 792.8
+    y: 0
+    width: 430.39996
+    height: 722.8
+>>>>>>> feature/musicnew3
   m_MinSize: {x: 232, y: 271}
   m_MaxSize: {x: 10002, y: 10021}
   m_ActualView: {fileID: 16}
@@ -267,10 +310,10 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 1019.3333
+    x: 1223.2
     y: 0
-    width: 260.6667
-    height: 579.3333
+    width: 312.80005
+    height: 722.8
   m_MinSize: {x: 276, y: 71}
   m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 17}
@@ -299,9 +342,15 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
+<<<<<<< HEAD
     y: 315.66666
     width: 493.66666
     height: 261.66666
+=======
+    y: 418.4
+    width: 515
+    height: 357
+>>>>>>> feature/musicnew3
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -327,10 +376,10 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -640
-    m_HBaseRangeMax: 640
-    m_VBaseRangeMin: -360
-    m_VBaseRangeMax: 360
+    m_HBaseRangeMin: -768
+    m_HBaseRangeMax: 768
+    m_VBaseRangeMin: -432
+    m_VBaseRangeMax: 432
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -348,16 +397,24 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
+<<<<<<< HEAD
       width: 1280
       height: 539.3333
     m_Scale: {x: 0.74907404, y: 0.74907404}
     m_Translation: {x: 640, y: 269.66666}
+=======
+      width: 515
+      height: 336
+    m_Scale: {x: 0.33528647, y: 0.33528647}
+    m_Translation: {x: 257.5, y: 168}
+>>>>>>> feature/musicnew3
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
+<<<<<<< HEAD
       x: -854.3882
       y: -360
       width: 1708.7764
@@ -365,6 +422,15 @@ MonoBehaviour:
     m_MinimalGUI: 1
   m_defaultScale: 0.74907404
   m_LastWindowPixelSize: {x: 1920, y: 840.5}
+=======
+      x: -768
+      y: -501.06406
+      width: 1536
+      height: 1002.1281
+    m_MinimalGUI: 1
+  m_defaultScale: 0.33528647
+  m_LastWindowPixelSize: {x: 643.75, y: 446.25}
+>>>>>>> feature/musicnew3
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 00000000000000000000
@@ -391,9 +457,15 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
+<<<<<<< HEAD
     y: 72.66667
     width: 493.66666
     height: 275.66666
+=======
+    y: 73.6
+    width: 515
+    height: 323.8
+>>>>>>> feature/musicnew3
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -404,7 +476,11 @@ MonoBehaviour:
       collapsed: 0
       displayed: 1
       snapOffset: {x: 0, y: 0}
+<<<<<<< HEAD
       snapOffsetDelta: {x: -98.66666, y: -26}
+=======
+      snapOffsetDelta: {x: -100, y: -25.600006}
+>>>>>>> feature/musicnew3
       snapCorner: 3
       id: Tool Settings
       index: 0
@@ -469,7 +545,11 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
+<<<<<<< HEAD
       snapOffset: {x: 0, y: 25.333334}
+=======
+      snapOffset: {x: 0, y: 0}
+>>>>>>> feature/musicnew3
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: unity-transform-toolbar
@@ -617,9 +697,15 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
+<<<<<<< HEAD
     m_Target: {x: -410.10434, y: 50.47514, z: -3.4335108}
     speed: 2
     m_Value: {x: -410.10434, y: 50.47514, z: -3.4335108}
+=======
+    m_Target: {x: 1373.6561, y: 183.9856, z: -27.000666}
+    speed: 2
+    m_Value: {x: 1373.6561, y: 183.9856, z: -27.000666}
+>>>>>>> feature/musicnew3
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -670,9 +756,15 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
+<<<<<<< HEAD
     m_Target: 350.6425
     speed: 2
     m_Value: 350.6425
+=======
+    m_Target: 272.74966
+    speed: 2
+    m_Value: 272.74966
+>>>>>>> feature/musicnew3
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -718,9 +810,15 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
+<<<<<<< HEAD
     y: 369.33334
     width: 493.66666
     height: 261.66666
+=======
+    y: 418.4
+    width: 515
+    height: 357
+>>>>>>> feature/musicnew3
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -745,10 +843,17 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
+<<<<<<< HEAD
     x: 494.6667
     y: 72.66667
     width: 196.66666
     height: 558.3333
+=======
+    x: 516
+    y: 73.6
+    width: 274.8
+    height: 701.8
+>>>>>>> feature/musicnew3
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -756,9 +861,15 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
+<<<<<<< HEAD
       m_SelectedIDs: b81c0000
       m_LastClickedID: 0
       m_ExpandedIDs: 8acdfeff2e61fffff66afffffe6afffff274fffffa74ffff4481ffff4c81ffff189affff0aa6ffff5aacffffceb2ffffe4caffff2accffff28e9ffff08eeffff8af8ffffd0f9ffff26fbfffff4ffffffa6680000ccb40000ded80000bae70000e0f100004ef90000be000100ac580100
+=======
+      m_SelectedIDs: 78670000
+      m_LastClickedID: 26488
+      m_ExpandedIDs: 8cf9ffff14fbffff4867000078670000
+>>>>>>> feature/musicnew3
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -774,7 +885,11 @@ MonoBehaviour:
         m_IsRenaming: 0
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
+<<<<<<< HEAD
         m_ClientGUIView: {fileID: 7}
+=======
+        m_ClientGUIView: {fileID: 9}
+>>>>>>> feature/musicnew3
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
@@ -802,10 +917,17 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
+<<<<<<< HEAD
     x: 693.3334
     y: 72.66667
     width: 324
     height: 558.3333
+=======
+    x: 792.8
+    y: 73.6
+    width: 428.39996
+    height: 701.8
+>>>>>>> feature/musicnew3
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -823,22 +945,38 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
+<<<<<<< HEAD
     - Assets/HUD/Sprites
+=======
+    - Assets/Music
+>>>>>>> feature/musicnew3
     m_Globs: []
     m_OriginalText: tutorial
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
+<<<<<<< HEAD
   - Assets/HUD/Sprites
+=======
+  - Assets/Music
+>>>>>>> feature/musicnew3
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\aless\Desktop\FeedMeQuack
+  m_LastProjectPath: C:\Users\verga\OneDrive\Desktop\Magistral\VIDEOGAME DESIGN AND
+    PROGRAMMING\FeedMeQuackTrue
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
+<<<<<<< HEAD
     scrollPos: {x: 0, y: 741.6667}
     m_SelectedIDs: a0700000
     m_LastClickedID: 28832
     m_ExpandedIDs: 00000000be660000c0660000c2660000c4660000c6660000c8660000ca660000cc660000ce660000d0660000d2660000d4660000d6660000d8660000da660000dc660000de660000e0660000e26600005667000000ca9a3b
+=======
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: 18670000
+    m_LastClickedID: 26392
+    m_ExpandedIDs: 00000000b4650000b6650000b8650000ba650000bc650000be650000c0650000c265000000ca9a3b
+>>>>>>> feature/musicnew3
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -866,7 +1004,11 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
+<<<<<<< HEAD
     m_ExpandedIDs: 00000000be660000c0660000c2660000c4660000c6660000c8660000ca660000cc660000ce660000d0660000d2660000d4660000d6660000d8660000da660000dc660000de660000e0660000e266000000ca9a3b
+=======
+    m_ExpandedIDs: 00000000b4650000b6650000b8650000ba650000bc650000be650000c0650000c265000000ca9a3b
+>>>>>>> feature/musicnew3
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -942,10 +1084,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1019.3334
-    y: 72.66667
-    width: 259.6667
-    height: 558.3333
+    x: 1223.2001
+    y: 73.6
+    width: 311.80005
+    height: 701.8
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
