@@ -531,6 +531,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 542188381023590099, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 557
+      objectReference: {fileID: 0}
+    - target: {fileID: 542188381023590099, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -515
+      objectReference: {fileID: 0}
     - target: {fileID: 1610439595422162419, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -581,15 +589,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1610439595648129440, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1610439595648129440, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1610439595648129440, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1610439595648129440, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
       propertyPath: m_AnchorMin.y
@@ -625,15 +633,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1610439596180092431, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1610439596180092431, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1610439596180092431, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1610439596180092431, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
       propertyPath: m_AnchorMin.y
@@ -863,6 +871,34 @@ PrefabInstance:
       propertyPath: MainMenuButtons
       value: 
       objectReference: {fileID: 1565841983}
+    - target: {fileID: 3736732855206177379, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7919254494958878379, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 904
+      objectReference: {fileID: 0}
+    - target: {fileID: 8152745441879222769, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
+      propertyPath: m_text
+      value: Updated version available on <link=https://polimi-game-collective.itch.io/feed-me-quack>site</link>
+      objectReference: {fileID: 0}
+    - target: {fileID: 8152745441879222769, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
+      propertyPath: m_characterSpacing
+      value: -9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8742950834238787537, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 2512eff8b027c354a92ea3c524b65be5, type: 2}
+    - target: {fileID: 8742950834238787537, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 7534405097686390839, guid: 2512eff8b027c354a92ea3c524b65be5, type: 2}
+    - target: {fileID: 8742950834238787537, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
+      propertyPath: m_characterSpacing
+      value: -9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 020651ed8ff13494d84bc046c754ef80, type: 3}
 --- !u!1001 &2895127496855174810

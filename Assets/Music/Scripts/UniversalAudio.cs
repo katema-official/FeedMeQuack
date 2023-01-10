@@ -30,9 +30,9 @@ namespace Music // To change correctly
         // _startFadeOutVolume and _finalFadeInVolume are essentially the max volume of the AudioListener (1 is 100% of the
         // AudioListener volume intensity). So, in the options these values will be set as the component value of the Slider 
 
-        private static float _soundValue = MusicManagerComponent.GetSoundVolume();
+        private static float _soundValue = PlayerPrefs.GetFloat("SoundVolume", MusicManagerComponent.GetDefaultSoundVolume());
 
-        private static float _finalFadeInVolume = MusicManagerComponent.GetAudioSourceVolume();
+        private static float _finalFadeInVolume = PlayerPrefs.GetFloat("MusicVolume", MusicManagerComponent.GetDefaultAudioSourceVolume());
 
         private static float _startFadeOutVolume = _finalFadeInVolume;
 
@@ -41,10 +41,10 @@ namespace Music // To change correctly
         private static AudioSource _audioSource1, _audioSource2;
 
         private const string
-            PathFromSourcesForMusic = "Songs/"; // Inside folder "Resources", if there is a relative path, write it here
+            _pathFromSourcesForMusic = "Songs/"; // Inside folder "Resources", if there is a relative path, write it here
 
         private const string
-            PathFromSourcesForSound = "SFX/"; // Inside folder "Resources", if there is a relative path, write it here
+            _pathFromSourcesForSound = "SFX/"; // Inside folder "Resources", if there is a relative path, write it here
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -168,7 +168,7 @@ namespace Music // To change correctly
                 if (_audioSource1.isPlaying) // If the first AudioSource is playing something...
                 {
                     // It's the same of (AudioClip)Resources.Load(pathFromSourcesForMusic + clipName, typeof(AudioClip));
-                    _audioSource2.clip = Resources.Load<AudioClip>(PathFromSourcesForMusic + clipName);
+                    _audioSource2.clip = Resources.Load<AudioClip>(_pathFromSourcesForMusic + clipName);
 
                     if (_audioSource1.clip.Equals(_audioSource2.clip))
                     {
@@ -202,7 +202,7 @@ namespace Music // To change correctly
                 {
                     // If it's the second AudioSource that's playing, do as above but swapped
                     {
-                        _audioSource1.clip = Resources.Load<AudioClip>(PathFromSourcesForMusic + clipName);
+                        _audioSource1.clip = Resources.Load<AudioClip>(_pathFromSourcesForMusic + clipName);
 
                         if (_audioSource1.clip.Equals(_audioSource2.clip))
                         {
@@ -229,7 +229,7 @@ namespace Music // To change correctly
                 }
                 else
                 {
-                    _audioSource1.clip = Resources.Load<AudioClip>(PathFromSourcesForMusic + clipName);
+                    _audioSource1.clip = Resources.Load<AudioClip>(_pathFromSourcesForMusic + clipName);
                     _audioSource1.time = _audioClipTimerDictionary[clipName];
                     _audioSource1.Play();
                     while (timeElapsed < _timeOfFading)
@@ -268,7 +268,7 @@ namespace Music // To change correctly
             }
 
             // Create a temporary AudioSource that will die at the end of the sound 
-            UniversalPlayClipAtPoint(Resources.Load<AudioClip>(PathFromSourcesForSound + clipName),
+            UniversalPlayClipAtPoint(Resources.Load<AudioClip>(_pathFromSourcesForSound + clipName),
                 thisTransform.position);
         }
 

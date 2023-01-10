@@ -83,12 +83,11 @@ public class TutorialComponent : MonoBehaviour
 
         {_tutorialUI2, 
             "Check the status of your skills in the " + ColorString("lower left corner panel.", "D7C36A")+"\n"+
-            "The skills are listed in this order from the top: Dash - Steal - Catch/Spit.\n"+
             "Press Tab or the View Button to open the Statistics View."},
 
           {_tutorialUI3,
             "Use the minimap in the " + ColorString("upper right corner", "D7C36A") + " to orient yourself.\n"+
-            "The " + ColorString("yellow square", "FFFF00") + " is the lake you are currently in.\n"+
+            "The " + ColorString("small duck", "FFFF00") + " tells you in which lake you are currently.\n"+
             "The " + ColorString("green square", "00FF00") + " is the lake containing a passage to the shop: just follow the " + ColorString("End Brown Sign", "A18534") + " on its shore..."
             },
 
@@ -104,7 +103,8 @@ public class TutorialComponent : MonoBehaviour
 
           {_tutorialShop2,
                  "Press the E key or the A button to buy a power up.\n"+
-                 "Check carefully its description and, most of all, its cost."
+                 "Check carefully its description and, most of all, its cost.\n"+
+                 "Open the Statistics View with Tab or View button to see how your skills and statistics change when you buy a power-up."
                 },
 
          {_tutorialShop3,
