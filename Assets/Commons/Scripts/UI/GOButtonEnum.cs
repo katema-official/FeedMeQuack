@@ -16,6 +16,7 @@ public enum FMQButtonType
     PauseBackToMainMenu,
     PauseDefaultValues,
     PauseBackToPauseMenu,
-    EnableTutorial
+    EnableTutorial,
+    SiteButton
 }
 

@@ -13,6 +13,7 @@ public class MainMenuButtonManager : GOButtonManager
     public GameObject MainMenuButtons;
     public GameObject FeedbackMenu;
     public GameObject AboutMenu;
+    //public GameObject SiteButtonGO;
 
     private bool ok = false;
     private IEnumerator Wait()
@@ -62,6 +63,10 @@ public class MainMenuButtonManager : GOButtonManager
         {
             Quit();
         }
+        /*else if (type == FMQButtonType.SiteButton)
+        {
+            SiteButton.SendToSite();
+        }*/
     }
     
     private void Quit()
