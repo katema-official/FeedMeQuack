@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0808f2d5-72ad-4799-babc-2a377af7996b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuackTrue/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuackTrue/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Commons/Scripts/UI/GOButtonEnum.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Commons/Scripts/UI/GOButtonEnum.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/MainMenu/Scripts/MainMenuButtonManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MainMenu/Scripts/MainMenuButtonManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/MainMenu/Scripts/UpdateAvailableController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MainMenu/Scripts/UpdateAvailableController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/MainMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Prefabs/MainMenuCanvas.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Prefabs/MainMenuCanvas.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
