@@ -507,9 +507,9 @@ namespace LevelStageNamespace {
         //I NEED to solve this bug, and I will do whatever it takes
         private IEnumerator BruteForceOpenRivers()
         {
-            int breadID = 0;
-            GameObject chosenBreadToInvestigate = null;
-            int breadPoints = 0;
+            List<int> breadIDs = new List<int>();
+            List<GameObject> chosenBreadsToInvestigate = new List<GameObject>();
+            List<int> breadPoints = new List<int>();
 
             while(_levelStageManager.IsCurrentLakeCleared() == false)
             {
@@ -523,48 +523,58 @@ namespace LevelStageNamespace {
                     playerState == PlayerState.Stealing ||
                     playerState == PlayerState.GettingRobbed)
                 {
-                    breadID = 0;
+                    breadIDs.Clear();
+                    chosenBreadsToInvestigate.Clear();
+                    breadPoints.Clear();
                     yield return null;
                 }
                 else
                 {
                     //we only have breadInMouth. If there is any, let's take one of them.
                     GameObject[] breadsInMouth = GameObject.FindGameObjectsWithTag("FoodInMouth");
+                    breadsInMouth.OrderBy(x => x.GetInstanceID());
                     if (breadsInMouth.Length > 0)
                     {
 
-                        if (breadID == 0)
+                        if (breadIDs.Count == 0)
                         {
-                            chosenBreadToInvestigate = breadsInMouth[0];
-                            breadID = chosenBreadToInvestigate.GetInstanceID();
-                            breadPoints = chosenBreadToInvestigate.GetComponent<BreadNamespace.BreadInMouthComponent>().GetBreadPoints();
+                            chosenBreadsToInvestigate = new List<GameObject>(breadsInMouth);
+                            for(int i = 0; i < chosenBreadsToInvestigate.Count; i++) { 
+                                breadIDs.Add(chosenBreadsToInvestigate[i].GetInstanceID());
+                                breadPoints.Add(chosenBreadsToInvestigate[i].GetComponent<BreadNamespace.BreadInMouthComponent>().GetBreadPoints());
+                            }
                         }
                         else
                         {
-                            bool found = false;
-                            for (int i = 0; i < breadsInMouth.Length; i++)
+                            bool asBefore = true;
+                            if(breadsInMouth.Length == chosenBreadsToInvestigate.Count)
                             {
-                                if (breadsInMouth[i].GetInstanceID() == breadID)
+                                for (int i = 0; i < breadsInMouth.Length; i++)
                                 {
-                                    found = true;
-                                    if (breadsInMouth[i].GetComponent<BreadNamespace.BreadInMouthComponent>().GetBreadPoints() == breadPoints)
+                                    if (!(breadsInMouth[i].GetInstanceID() == breadIDs[i] && breadsInMouth[i].GetComponent<BreadNamespace.BreadInMouthComponent>().GetBreadPoints() == breadPoints[i]))
                                     {
-                                        //there is a piece of bread (in mouth) that in three seconds wasn't eaten by a bit. Right now, this cannot happen.
-                                        //So, open the rivers
-                                        CompleteLake();
-                                        Debug.Log("Emergence: EMERGENCE PROCEDURE ACTIVATED 1");
+                                        asBefore = false;
                                     }
                                 }
                             }
-                            if (!found && breadsInMouth.Length > 0)
-                            {
-                                chosenBreadToInvestigate = breadsInMouth[0];
-                                breadID = chosenBreadToInvestigate.GetInstanceID();
-                                breadPoints = chosenBreadToInvestigate.GetComponent<BreadNamespace.BreadInMouthComponent>().GetBreadPoints();
-                            }
                             else
                             {
-                                breadID = 0;
+                                asBefore = false;
+                            }
+
+                            if (asBefore)
+                            {
+                                CompleteLake();
+                                //Debug.Log("Emergence: EMERGENCE PROCEDURE ACTIVATED 1");
+                            }
+                            else 
+                            {
+                                chosenBreadsToInvestigate = new List<GameObject>(breadsInMouth);
+                                for (int i = 0; i < chosenBreadsToInvestigate.Count; i++)
+                                {
+                                    breadIDs.Add(chosenBreadsToInvestigate[i].GetInstanceID());
+                                    breadPoints.Add(chosenBreadsToInvestigate[i].GetComponent<BreadNamespace.BreadInMouthComponent>().GetBreadPoints());
+                                }
                             }
 
                         }
@@ -577,7 +587,7 @@ namespace LevelStageNamespace {
                         if (breadsInMouth.Length == 0)
                         {
                             CompleteLake();
-                            Debug.Log("Emergence: EMERGENCE PROCEDURE ACTIVATED 2");
+                            //Debug.Log("Emergence: EMERGENCE PROCEDURE ACTIVATED 2");
                         }
                     }
                 }
