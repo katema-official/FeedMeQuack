@@ -513,8 +513,8 @@ namespace LevelStageNamespace {
 
             while(_levelStageManager.IsCurrentLakeCleared() == false)
             {
-                //Debug.Log("Emergence: START WAITING 3 SECONDS");
-                yield return new WaitForSeconds(2.5f);
+                //Debug.Log("Emergence: START WAITING 2.0 SECONDS");
+                yield return new WaitForSeconds(2.0f);
                 PlayerState playerState = _playerObject.GetComponent<PlayerController>().GetState();
 
                 if (GameObject.FindGameObjectsWithTag("FoodThrown").Length > 0 ||
@@ -523,6 +523,7 @@ namespace LevelStageNamespace {
                     playerState == PlayerState.Stealing ||
                     playerState == PlayerState.GettingRobbed)
                 {
+                    breadID = 0;
                     yield return null;
                 }
                 else
@@ -551,7 +552,7 @@ namespace LevelStageNamespace {
                                         //there is a piece of bread (in mouth) that in three seconds wasn't eaten by a bit. Right now, this cannot happen.
                                         //So, open the rivers
                                         CompleteLake();
-                                        //Debug.Log("Emergence: EMERGENCE PROCEDURE ACTIVATED 1");
+                                        Debug.Log("Emergence: EMERGENCE PROCEDURE ACTIVATED 1");
                                     }
                                 }
                             }
@@ -576,7 +577,7 @@ namespace LevelStageNamespace {
                         if (breadsInMouth.Length == 0)
                         {
                             CompleteLake();
-                            //Debug.Log("Emergence: EMERGENCE PROCEDURE ACTIVATED 2");
+                            Debug.Log("Emergence: EMERGENCE PROCEDURE ACTIVATED 2");
                         }
                     }
                 }
@@ -1044,8 +1045,18 @@ namespace LevelStageNamespace {
         //function called from the QTEManagerComponent (after its gameobject has been created by PlayerStartStealFromEnemy) to collect the result
         //of the stealing action initiated by the player and notify him of the result
         public void PlayerEndStealFromEnemy(int correct, int total) {
-            int disputedBreadBP = _disputedBread.GetComponent<BreadNamespace.BreadInMouthComponent>().GetBreadPoints();
-            bool disputedBreadIsLastPiece = _disputedBread.GetComponent<BreadNamespace.BreadInMouthComponent>().GetIsLastPiece();
+            int disputedBreadBP;
+            bool disputedBreadIsLastPiece;
+            if (_disputedBread == null)
+            {
+                disputedBreadBP = 0;
+                disputedBreadIsLastPiece = true;
+            }
+            else
+            {
+                disputedBreadBP = _disputedBread.GetComponent<BreadNamespace.BreadInMouthComponent>().GetBreadPoints();
+                disputedBreadIsLastPiece = _disputedBread.GetComponent<BreadNamespace.BreadInMouthComponent>().GetIsLastPiece();
+            }
 
             float fraction = (float)(correct) / (float)(total);
 
@@ -1096,7 +1107,7 @@ namespace LevelStageNamespace {
             }
 
 
-            Destroy(_disputedBread);
+            if(_disputedBread) Destroy(_disputedBread);
             _disputedBread = null;
 
 
