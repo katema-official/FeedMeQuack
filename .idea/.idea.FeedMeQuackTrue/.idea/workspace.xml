@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0808f2d5-72ad-4799-babc-2a377af7996b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuackTrue/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuackTrue/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Dungeon/Scripts/Lakes/EnterPlayerInLakeComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dungeon/Scripts/Lakes/EnterPlayerInLakeComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/Songs/Combat1.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/Songs/Combat2.wav" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Resources/Songs/Combat2.wav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Music/Resources/Songs/Combat3.wav" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Music/Resources/Songs/Combat3.wav" afterDir="false" />
-    </list>
+    <list default="true" id="0808f2d5-72ad-4799-babc-2a377af7996b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -121,6 +115,7 @@
       <workItem from="1673647022462" duration="657000" />
       <workItem from="1673650818720" duration="381000" />
       <workItem from="1673698439174" duration="165000" />
+      <workItem from="1673699603345" duration="267000" />
     </task>
     <servers />
   </component>
