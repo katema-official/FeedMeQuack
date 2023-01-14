@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0808f2d5-72ad-4799-babc-2a377af7996b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
-    </list>
+    <list default="true" id="0808f2d5-72ad-4799-babc-2a377af7996b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -114,6 +112,10 @@
       <workItem from="1673097878698" duration="297000" />
       <workItem from="1673294303745" duration="10907000" />
       <workItem from="1673336368434" duration="3074000" />
+      <workItem from="1673647022462" duration="657000" />
+      <workItem from="1673650818720" duration="381000" />
+      <workItem from="1673698439174" duration="165000" />
+      <workItem from="1673699603345" duration="267000" />
     </task>
     <servers />
   </component>
