@@ -33,9 +33,9 @@ namespace HUDNamespace
          * return initCol, finCol, initRow, finRow
          */
         private Tuple<int,int,int,int>  GetBorders(){
-            int initCol=32, initRow=32, finCol=0, finRow=0;
-            for (int row = 0; row < 31; row++){
-                for (int col = 0; col < 31; col++){
+            int initCol=15, initRow=15, finCol=0, finRow=0;
+            for (int row = 0; row < 15; row++){
+                for (int col = 0; col < 15; col++){
                     int val = _wholeMap[col, row];
                     if (val != 0){
                         if (col < initCol) initCol = col;
@@ -46,7 +46,7 @@ namespace HUDNamespace
                 }
             }
             if ( _isNewLevel)
-                BuildNewMap(13, 17, 13, 17);
+                BuildNewMap(6, 8, 6, 8);
             else if (finCol - initCol >= dimSize || finRow - initRow >= dimSize)
                 BuildNewMap(initCol, finCol, initRow, finRow);
             return Tuple.Create(initCol, finCol, initRow, finRow);
@@ -63,12 +63,16 @@ namespace HUDNamespace
                 if(tileGO) Destroy(tileGO);
             for (int row = 0; row <= diffRow; row++){
                 for (int col = 0; col <= diffCol; col++){
-                    float xPos = (row - 0.5f) * cellSize + minimapX;
-                    float yPos = (diffCol-col-1 - 0.5f) * cellSize + minimapY;
+                    float xPos = (row) * cellSize + minimapX;
+                    float yPos = (diffCol-col-1) * cellSize + minimapY;
                     Vector2 pos = new Vector2(xPos, yPos);
                     GameObject tile=Instantiate(squarePrefab, pos, Quaternion.identity);
                     tile.name = $"Tile {row},{col}";
                     tile.transform.parent = gameObject.transform;
+                    Renderer outer = tile.GetComponentsInChildren<Renderer>()[0];
+                    Renderer inner = tile.GetComponentsInChildren<Renderer>()[1];
+                    outer.material.color= Color.clear;
+                    inner.material.color= Color.clear;
                     //tile.transform.position = tile.transform.parent.position+ (Vector3)pos;
                     mapTiles[row,col] = tile;
                 }
@@ -85,17 +89,21 @@ namespace HUDNamespace
 
         public void DisplayBigMap(){
             _wholeMap = FindObjectOfType<MapManager>().GetWholeMap();
+            PrintMap(_wholeMap);
+            
             Tuple<int,int,int,int> tuple = GetBorders();
             int initCol=tuple.Item1, finCol=tuple.Item2, initRow=tuple.Item3, finRow=tuple.Item4;
             int diffCol = finCol - initCol, diffRow = finRow - initRow;
             cellSize = TileSizeFromDimensions(initCol, finCol, initRow, finRow);
+            Debug.Log("Diff col/row: "+ diffCol+" "+ diffRow);
             for (int row = 0; row <= diffRow; row++){
                 for (int col = 0; col <= diffCol; col++){
                     GameObject tile = mapTiles[row, col];
                     Renderer outer = tile.GetComponentsInChildren<Renderer>()[0];
                     Renderer inner = tile.GetComponentsInChildren<Renderer>()[1];
                     outer.material.color= Color.black;
-                    int value = _wholeMap[row+initRow, col+initCol];
+                    int value = _wholeMap[col+initCol,row+initRow];
+                    Debug.Log(tile.name+" value: "+value);
                     if (value == 0){
                         outer.material.color= Color.clear;
                         inner.material.color= Color.clear;
@@ -105,6 +113,7 @@ namespace HUDNamespace
                     }
                     else if (value == 2){
                         inner.material.color= Color.white;
+                        Debug.Log("R: "+row+" C: "+col);
                     }
                     else if (value == 3){
                         inner.material.color= Color.green;
@@ -114,6 +123,20 @@ namespace HUDNamespace
                     }
                 }
             }
+        }
+
+        private void PrintMap(int[,] wholeMap){
+            String str = "";
+            for (int r = 0; r < wholeMap.GetLength(0); r++){
+                for (int c = 0; c < wholeMap.GetLength(1); c++){
+                    str += " " + wholeMap[r, c];
+                    if(wholeMap[r,c]!=0) Debug.Log("DIVERSO DA 0!!!");
+                }
+                Debug.Log(str);
+                str = "";
+            }
+
+            Debug.Log("/////////////////////////////////////////////////");
         }
     }
 }

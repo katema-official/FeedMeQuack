@@ -60,7 +60,7 @@ namespace HUDNamespace
         private void Start(){
             _shiftCol = 0; 
             _shiftRow = 0;
-            int wholeMapSize = 31;
+            int wholeMapSize = 15;
             var position = gameObject.transform.position;
             minimapX = position.x;
             minimapY = position.y;
@@ -145,6 +145,7 @@ namespace HUDNamespace
                 if(tileGO) Destroy(tileGO);
             }
             Start();
+            FindObjectOfType<BigMapManager>().StartNewLevel();
         }
 
         public int[,] GetWholeMap(){
