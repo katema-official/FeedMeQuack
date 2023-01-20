@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="099dc64e-a604-4b85-85cc-6be12a6baf46" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/BigMapManagerV2.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/BigMapManagerV2.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/HUD/prefabs/SquareForBigMinimap.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/HUD/prefabs/SquareForBigMinimap.prefab.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Dungeon/Scenes/StartRunLoading.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dungeon/Scenes/StartRunLoading.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Dungeon/Scripts/Shop/ShopDescriptionComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dungeon/Scripts/Shop/ShopDescriptionComponent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/BigMapManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/BigMapManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/MapManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/MapManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/HUD/prefabs/Square.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/prefabs/Square.prefab" afterDir="false" />
@@ -57,10 +62,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="15764">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="5916">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="15764" />
+      <option name="pid" value="5916" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -108,7 +113,8 @@
       <workItem from="1674209941934" duration="3096000" />
       <workItem from="1674227182340" duration="8155000" />
       <workItem from="1674236378794" duration="565000" />
-      <workItem from="1674236968326" duration="1133000" />
+      <workItem from="1674236968326" duration="1468000" />
+      <workItem from="1674242458778" duration="8969000" />
     </task>
     <servers />
   </component>

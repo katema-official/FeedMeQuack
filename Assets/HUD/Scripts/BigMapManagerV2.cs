@@ -5,20 +5,19 @@ using UnityEngine.UI;
 
 namespace HUDNamespace
 {
-    public class MapManager: MonoBehaviour
+    public class BigMapManagerV2: MonoBehaviour
     {
         //metodo che di volta in volta ottiene le stanze adiacenti a quella attuale, e con queste nuove informazioni arricchisco di volta in volta la minimappa
         //che vedo il giocatore
-        private int dimSize = 5;
+        private int dimSize = 9;
         private int currX, currY, xDelta, yDelta;
         private int _shiftRow, _shiftCol;
         private float minimapX, minimapY;
-        [SerializeField] private int cellSize;
+        [SerializeField] private float cellSize;
         private int [,] _map;
         [SerializeField] private int[,] _wholeMap;
         [SerializeField] private GameObject squarePrefab;
         public GameObject[,] mapTiles;
-        private BigMapManagerV2 _bigMapManagerV2;
         
         /*
          * 0 se non compare, 1 grigia, 2 bianca, 3 se è la exit
@@ -59,7 +58,6 @@ namespace HUDNamespace
         }
 
         private void Start(){
-            if (_bigMapManagerV2 == null) _bigMapManagerV2 = FindObjectOfType<BigMapManagerV2>();
             _shiftCol = 0; 
             _shiftRow = 0;
             int wholeMapSize = 15;
@@ -96,7 +94,7 @@ namespace HUDNamespace
         //1: the room exists but hasn't been visited yet
         //2: the room exists and has been cleared
         //3: the room is the exit
-        public void UpdateMinimapAfterRiver(CardinalDirection dir, int nord, int sud, int est, int ovest){
+        public void UpdateMinimapAfterRiver(MapManager.CardinalDirection dir, int nord, int sud, int est, int ovest){
             ChangePos(dir);
             int x = xDelta + currX;
             int y = yDelta + currY;
@@ -106,47 +104,37 @@ namespace HUDNamespace
             _wholeMap[y,x+1]=est;
             _wholeMap[y,x-1]=ovest;
             ChangeVisualization();
-            _bigMapManagerV2.UpdateMinimapAfterRiver(dir, nord, sud, est, ovest);
         }
 
-        private void ChangePos(CardinalDirection dir){
+        private void ChangePos(MapManager.CardinalDirection dir){
             switch (dir){
-                case CardinalDirection.nord:
+                case MapManager.CardinalDirection.nord:
                     currY--;
                     _shiftRow--;
                     break;
-                case CardinalDirection.sud:
+                case MapManager.CardinalDirection.sud:
                     currY++;
                     _shiftRow++;
                     break;
-                case CardinalDirection.est:
+                case MapManager.CardinalDirection.est:
                     currX++;
                     _shiftCol++;
                     break;
-                case CardinalDirection.ovest:
+                case MapManager.CardinalDirection.ovest:
                     currX--;
                     _shiftCol--;
                     break;
-                case CardinalDirection.none:
+                case MapManager.CardinalDirection.none:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(dir), dir, null);
             }
         }
 
-        public enum CardinalDirection{
-            nord,
-            sud,
-            est,
-            ovest,
-            none
-        }
-
         public void StartNewLevel(){
             foreach(GameObject tileGO in mapTiles)
                 if(tileGO) Destroy(tileGO);
             Start();
-            _bigMapManagerV2.StartNewLevel();
             //FindObjectOfType<BigMapManager>().StartNewLevel();
         }
 

@@ -40,7 +40,7 @@ namespace LevelStageNamespace
             switch (_levelStageManager.GetCurrentLevelIndex())
             {
                 case 1:
-                    Music.UniversalAudio.PlayMusic("Shop1", false);
+                    //Music.UniversalAudio.PlayMusic("Shop1", false);
                     break;
                 case 2:
                     Music.UniversalAudio.PlayMusic("Shop2", false);

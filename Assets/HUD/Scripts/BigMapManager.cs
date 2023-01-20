@@ -13,7 +13,7 @@ namespace HUDNamespace
         private int currX, currY, xDelta, yDelta;
         private int _shiftRow, _shiftCol;
         private bool _isNewLevel=true;
-        [SerializeField] private int cellSize;
+        [SerializeField] private float cellSize;
         [SerializeField] private int[,] _wholeMap;
         [SerializeField] private GameObject squarePrefab;
         public GameObject[,] mapTiles;
@@ -28,6 +28,8 @@ namespace HUDNamespace
             {
                 if(tileGO) Destroy(tileGO);
             }
+
+            cellSize = 15;
         }
         /**
          * return initCol, finCol, initRow, finRow
@@ -45,10 +47,20 @@ namespace HUDNamespace
                     }
                 }
             }
+
+            int diffCol = finCol - initCol, diffRow = finRow - initRow; 
             if ( _isNewLevel)
                 BuildNewMap(6, 8, 6, 8);
-            else if (finCol - initCol >= dimSize || finRow - initRow >= dimSize)
+            else if (diffCol < 0 || diffRow < 0){
+                //covers market instance
+                Debug.Log("Market case");
+                return Tuple.Create(0, 0, 0, 0);
+            }
+            else if (diffCol >= dimSize || diffRow >= dimSize){
+                Debug.Log("Dovrebbe ingrandirsi la minimappa");
                 BuildNewMap(initCol, finCol, initRow, finRow);
+            }
+
             return Tuple.Create(initCol, finCol, initRow, finRow);
         }
 
@@ -73,6 +85,9 @@ namespace HUDNamespace
                     Renderer inner = tile.GetComponentsInChildren<Renderer>()[1];
                     outer.material.color= Color.clear;
                     inner.material.color= Color.clear;
+                    float tileScale = TileSizeFromDimensions(initCol, finCol, initRow, finRow);
+                    Vector3 scale = new Vector3(tileScale, tileScale);
+                    tile.transform.localScale=(scale*2);
                     //tile.transform.position = tile.transform.parent.position+ (Vector3)pos;
                     mapTiles[row,col] = tile;
                 }
@@ -80,22 +95,22 @@ namespace HUDNamespace
 
             _isNewLevel = false;
         }
-
-        private int TileSizeFromDimensions(int initCol,int finCol,int initRow,int finRow){
+        
+        private float TileSizeFromDimensions(int initCol,int finCol,int initRow,int finRow){
             int div = Math.Max(finCol - initCol,finRow-initRow);
-            squarePrefab.transform.localScale = new Vector3((float)15*dimSize / div, (float) 15*dimSize / div, 1);
-            return 15*dimSize / div;
+            if (div == 0) return 1;
+            //squarePrefab.transform.localScale = new Vector3((float)15*dimSize / div, (float) 15*dimSize / div, 1);
+            return 15*(float) dimSize / div;
         }
 
         public void DisplayBigMap(){
             _wholeMap = FindObjectOfType<MapManager>().GetWholeMap();
-            PrintMap(_wholeMap);
+            //PrintMap(_wholeMap);
             
             Tuple<int,int,int,int> tuple = GetBorders();
             int initCol=tuple.Item1, finCol=tuple.Item2, initRow=tuple.Item3, finRow=tuple.Item4;
             int diffCol = finCol - initCol, diffRow = finRow - initRow;
             cellSize = TileSizeFromDimensions(initCol, finCol, initRow, finRow);
-            Debug.Log("Diff col/row: "+ diffCol+" "+ diffRow);
             for (int row = 0; row <= diffRow; row++){
                 for (int col = 0; col <= diffCol; col++){
                     GameObject tile = mapTiles[row, col];
@@ -103,7 +118,6 @@ namespace HUDNamespace
                     Renderer inner = tile.GetComponentsInChildren<Renderer>()[1];
                     outer.material.color= Color.black;
                     int value = _wholeMap[col+initCol,row+initRow];
-                    Debug.Log(tile.name+" value: "+value);
                     if (value == 0){
                         outer.material.color= Color.clear;
                         inner.material.color= Color.clear;
@@ -113,7 +127,6 @@ namespace HUDNamespace
                     }
                     else if (value == 2){
                         inner.material.color= Color.white;
-                        Debug.Log("R: "+row+" C: "+col);
                     }
                     else if (value == 3){
                         inner.material.color= Color.green;
@@ -130,7 +143,6 @@ namespace HUDNamespace
             for (int r = 0; r < wholeMap.GetLength(0); r++){
                 for (int c = 0; c < wholeMap.GetLength(1); c++){
                     str += " " + wholeMap[r, c];
-                    if(wholeMap[r,c]!=0) Debug.Log("DIVERSO DA 0!!!");
                 }
                 Debug.Log(str);
                 str = "";

@@ -1196,7 +1196,7 @@ GameObject:
   - component: {fileID: 2056781637}
   - component: {fileID: 2056781636}
   - component: {fileID: 2056781635}
-  - component: {fileID: 2056781634}
+  - component: {fileID: 2056781638}
   m_Layer: 5
   m_Name: BigMinimap
   m_TagString: Untagged
@@ -1204,20 +1204,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2056781634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2056781633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bd626fccddc4a29b7dcebf66a17d52e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSize: 15
-  squarePrefab: {fileID: 7064466828822472568, guid: 8abcac768ea1ec5409fc9c0e8751b9ae, type: 3}
 --- !u!114 &2056781635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1266,6 +1252,20 @@ RectTransform:
   m_AnchoredPosition: {x: 1731, y: 29}
   m_SizeDelta: {x: 317.96997, y: 172.0989}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2056781638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056781633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e15982a79944239e9a883e3bd197d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSize: 8.33
+  squarePrefab: {fileID: 7064466828822472568, guid: a807e2690993d2f4785f542a8a2d89fe, type: 3}
 --- !u!1 &2106549842
 GameObject:
   m_ObjectHideFlags: 0
