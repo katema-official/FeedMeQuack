@@ -18,12 +18,9 @@ namespace HUDNamespace
         [SerializeField] private int[,] _wholeMap;
         [SerializeField] private GameObject squarePrefab;
         public GameObject[,] mapTiles;
-
-        [SerializeField] private GameObject _miniDuckPrefab;
-        private GameObject _miniDuckGO;
-
+        
         /*
-         * 0 se non compare, 1 grigia, 2 bianca, 3 se è la exit, 4 se è la exit E ci sono dentro
+         * 0 se non compare, 1 grigia, 2 bianca, 3 se è la exit
          */
 
         private void ChangeVisualization(){
@@ -53,20 +50,11 @@ namespace HUDNamespace
                     }
                     else if (value == -1){
                         outer.material.color= Color.black;
-                        inner.material.color= Color.white;      //yellow
-                        _miniDuckGO.transform.parent = outer.transform;
-                        _miniDuckGO.transform.position = outer.transform.position;
-                    }else if(value == 4)
-                    {
-                        outer.material.color = Color.black;
-                        inner.material.color = Color.green;
-                        _miniDuckGO.transform.parent = outer.transform;
-                        _miniDuckGO.transform.position = outer.transform.position;
+                        inner.material.color= Color.yellow;
                     }
-
-
                 }
             }
+            FindObjectOfType<BigMapManager>().DisplayBigMap();
         }
 
         private void Start(){
@@ -99,10 +87,6 @@ namespace HUDNamespace
             for (int row = 0; row < wholeMapSize; row++)
             for (int col = 0; col < wholeMapSize; col++)
                 _wholeMap[row, col] = 0;
-
-            _miniDuckGO = _miniDuckGO == null ? _miniDuckGO = Instantiate(_miniDuckPrefab) : _miniDuckGO;
-            _miniDuckGO.transform.position = new Vector3(5000, 5000, 0);
-
             ChangeVisualization();
         }
 
@@ -110,19 +94,11 @@ namespace HUDNamespace
         //1: the room exists but hasn't been visited yet
         //2: the room exists and has been cleared
         //3: the room is the exit
-        //4: the room is the exit AND i'm there
         public void UpdateMinimapAfterRiver(CardinalDirection dir, int nord, int sud, int est, int ovest){
             changePos(dir);
             int x = xDelta + currX;
             int y = yDelta + currY;
-            if (_wholeMap[y, x] == 3)
-            {
-                _wholeMap[y, x] = 4;
-            }
-            else
-            {
-                _wholeMap[y, x] = -1;
-            }
+            _wholeMap[y,x]=-1;
             _wholeMap[y+1,x]=sud;
             _wholeMap[y-1,x]=nord;
             _wholeMap[y,x+1]=est;
@@ -164,12 +140,15 @@ namespace HUDNamespace
         }
 
         public void StartNewLevel(){
-            foreach (GameObject tileGO in mapTiles)
+            foreach(GameObject tileGO in mapTiles)
             {
                 if(tileGO) Destroy(tileGO);
             }
-            _miniDuckGO = null;
             Start();
+        }
+
+        public int[,] GetWholeMap(){
+            return _wholeMap;
         }
     }
 }

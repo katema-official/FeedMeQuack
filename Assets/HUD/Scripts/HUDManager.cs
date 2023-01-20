@@ -20,7 +20,7 @@ namespace HUDNamespace
         public List<GameObject> breadsInWater, breadsOutsideScreen;
         private int goal=0, currentPoints=0;
         public Camera camera;
-        [SerializeField] private GameObject ToggableHUD;
+        [SerializeField] private GameObject ToggableHUD, CompactMinimap;
         [SerializeField]
         private TMP_Text speedValueText, eatingSpeedValueText, mouthSizeValueText, chewingRate,
             dashCDValueText, stealCDValueText, spitCDValueText, dashCDValueTextCopy, stealCDValueTextCopy, spitCDValueTextCopy;
@@ -164,10 +164,12 @@ namespace HUDNamespace
             if (isTabPressed){
                 ToggableHUD.SetActive(true);
                 PressTabText.gameObject.SetActive(false);
+                CompactMinimap.SetActive(false);
             }
             else{
                 ToggableHUD.SetActive(false);
                 PressTabText.gameObject.SetActive(true);
+                CompactMinimap.SetActive(true);
             }
 
 //            if (breadsInWater.Count > 0)
