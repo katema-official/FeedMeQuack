@@ -85,11 +85,11 @@ namespace HUDNamespace
             float size = Math.Max(cameraSizeX, cameraSizeY);
 
             if (diffCol >= 0 && diffRow >= 0){
-                _camera.transform.localPosition = new Vector3(cameraPosX, cameraPosY);
+                _camera.transform.localPosition = new Vector3(cameraPosX, cameraPosY, -1);
                 //_camera.transform.position = new Vector3(cameraPosX, cameraPosY);
 
             }
-            else _camera.transform.localPosition = Vector3.zero;
+            else _camera.transform.localPosition = new Vector3(0,0,-1);
             _camera.orthographicSize = size;
         }
 
