@@ -9,7 +9,7 @@ namespace HUDNamespace
     {
         //metodo che di volta in volta ottiene le stanze adiacenti a quella attuale, e con queste nuove informazioni arricchisco di volta in volta la minimappa
         //che vedo il giocatore
-        private int dimSize = 11;
+        private int dimSize = 15;
         private int currX, currY, xDelta, yDelta;
         private int _shiftRow, _shiftCol;
         private float minimapX, minimapY;
@@ -66,19 +66,26 @@ namespace HUDNamespace
             int initCol=tuple.Item1, finCol=tuple.Item2, initRow=tuple.Item3, finRow=tuple.Item4;
             int diffCol = finCol - initCol, diffRow = finRow - initRow;
 
-            float cameraPosX = (float) (initCol + (float) (diffCol+1) / 2)* cellSize;
-            float cameraPosY = (float) (initRow + (float) (diffRow+1) / 2)* cellSize;
+            var containerSize = gameObject.GetComponent<RectTransform>().rect;
 
-            Vector2 containerLeftBottomCornerPos = transform.position;
+            float cameraPosX = (float) ((initCol+finCol)/2f-dimSize/2f)* cellSize + containerSize.width/2;
+            float cameraPosY = (float) ((initRow+finRow)/2f-dimSize/2f)* cellSize + containerSize.height/2;
 
-            Vector3 newCameraPos = containerLeftBottomCornerPos + new Vector2(cameraPosX, cameraPosY);
+            //Vector2 containerLeftBottomCornerPos = transform.position;
+
+            //Vector3 newCameraPos = containerLeftBottomCornerPos + new Vector2(cameraPosX, cameraPosY);
 
             float cameraSizeX = (diffCol + 1) * cellSize;
             float cameraSizeY = (diffRow + 1) * cellSize;
 
             float size = Math.Max(cameraSizeX, cameraSizeY);
 
-            _camera.transform.position = newCameraPos;
+            if (diffCol >= 0 && diffRow >= 0){
+                _camera.transform.localPosition = new Vector3(cameraPosX, cameraPosY);
+                //_camera.transform.position = new Vector3(cameraPosX, cameraPosY);
+
+            }
+            else _camera.transform.localPosition = Vector3.zero;
             _camera.orthographicSize = size;
         }
 
@@ -122,8 +129,8 @@ namespace HUDNamespace
 
             Vector3 size = gameObject.GetComponent<RectTransform>().rect.size;
 
-            float fatherW = size.x/11;
-            float fatherH = size.y/11;
+            float fatherW = size.x/dimSize;
+            float fatherH = size.y/dimSize;
 
             cellSize = Math.Min(fatherH, fatherW);
         }

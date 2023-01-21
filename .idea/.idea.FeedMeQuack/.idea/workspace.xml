@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="099dc64e-a604-4b85-85cc-6be12a6baf46" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Dungeon/Scenes/StartRunLoading.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dungeon/Scenes/StartRunLoading.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/BigMapManagerV2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/BigMapManagerV2.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/prefabs/SquareForBigMinimap.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/prefabs/SquareForBigMinimap.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,10 +54,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="5348">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="16612">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="5348" />
+      <option name="pid" value="16612" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -109,7 +107,9 @@
       <workItem from="1674236378794" duration="565000" />
       <workItem from="1674236968326" duration="1468000" />
       <workItem from="1674242458778" duration="9671000" />
-      <workItem from="1674295273730" duration="4325000" />
+      <workItem from="1674295273730" duration="5605000" />
+      <workItem from="1674300967545" duration="606000" />
+      <workItem from="1674306400927" duration="3088000" />
     </task>
     <servers />
   </component>
@@ -139,16 +139,16 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/HUD/Scripts/BigMapManagerV2.cs</url>
-          <line>103</line>
-          <properties documentPath="C:\Users\mvv12\Desktop\FeedMeQuack\Assets\HUD\Scripts\BigMapManagerV2.cs" initialLine="103" containingFunctionPresentation="method 'Start'">
+          <line>70</line>
+          <properties documentPath="C:\Users\mvv12\Desktop\FeedMeQuack\Assets\HUD\Scripts\BigMapManagerV2.cs" initialLine="70" containingFunctionPresentation="method 'AdjustCamera'">
             <startOffsets>
-              <option value="4274" />
+              <option value="2872" />
             </startOffsets>
             <endOffsets>
-              <option value="4330" />
+              <option value="2966" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="3" />
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
