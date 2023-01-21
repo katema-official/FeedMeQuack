@@ -9,11 +9,13 @@ namespace HUDNamespace
     {
         //metodo che di volta in volta ottiene le stanze adiacenti a quella attuale, e con queste nuove informazioni arricchisco di volta in volta la minimappa
         //che vedo il giocatore
-        private int dimSize = 9;
+        private int dimSize = 11;
         private int currX, currY, xDelta, yDelta;
         private int _shiftRow, _shiftCol;
         private float minimapX, minimapY;
         [SerializeField] private float cellSize;
+
+        [SerializeField] private Camera _camera;
         private int [,] _map;
         [SerializeField] private int[,] _wholeMap;
         [SerializeField] private GameObject squarePrefab;
@@ -54,10 +56,34 @@ namespace HUDNamespace
                     }
                 }
             }
+
+            AdjustCamera();
             //FindObjectOfType<BigMapManager>().DisplayBigMap();
         }
 
+        private void AdjustCamera(){
+            Tuple<int, int, int, int> tuple = GetBorders();
+            int initCol=tuple.Item1, finCol=tuple.Item2, initRow=tuple.Item3, finRow=tuple.Item4;
+            int diffCol = finCol - initCol, diffRow = finRow - initRow;
+
+            float cameraPosX = (float) (initCol + (float) (diffCol+1) / 2)* cellSize;
+            float cameraPosY = (float) (initRow + (float) (diffRow+1) / 2)* cellSize;
+
+            Vector2 containerLeftBottomCornerPos = transform.position;
+
+            Vector3 newCameraPos = containerLeftBottomCornerPos + new Vector2(cameraPosX, cameraPosY);
+
+            float cameraSizeX = (diffCol + 1) * cellSize;
+            float cameraSizeY = (diffRow + 1) * cellSize;
+
+            float size = Math.Max(cameraSizeX, cameraSizeY);
+
+            _camera.transform.position = newCameraPos;
+            _camera.orthographicSize = size;
+        }
+
         private void Start(){
+            SetCellSize();
             _shiftCol = 0; 
             _shiftRow = 0;
             int wholeMapSize = 15;
@@ -74,12 +100,14 @@ namespace HUDNamespace
             mapTiles = new GameObject[dimSize, dimSize];
             for (int row = 0; row < dimSize; row++){
                 for (int col = 0; col < dimSize; col++){
-                    float xPos = minimapX + (row - 0.5f) * cellSize;
-                    float yPos = minimapY + (dimSize-col-1 - 0.5f) * cellSize;
+                    float xPos = minimapX + (row+0.5f) * cellSize;
+                    float yPos = minimapY + (dimSize-col-1+0.5f) * cellSize;
                     Vector2 pos = new Vector2(xPos, yPos);
                     GameObject tile=Instantiate(squarePrefab, pos, Quaternion.identity);
                     tile.name = $"Tile {row},{col}";
                     tile.transform.parent = gameObject.transform;
+                    tile.transform.localPosition = new Vector3(cellSize * (row+0.5f), (dimSize - col- 0.5f) * cellSize);
+                    tile.transform.localScale = new Vector3(cellSize, cellSize);
                     mapTiles[row,col] = tile;
                     _map[row, col] = 0;
                 }
@@ -88,6 +116,16 @@ namespace HUDNamespace
             for (int col = 0; col < wholeMapSize; col++)
                 _wholeMap[row, col] = 0;
             ChangeVisualization();
+        }
+
+        private void SetCellSize(){
+
+            Vector3 size = gameObject.GetComponent<RectTransform>().rect.size;
+
+            float fatherW = size.x/11;
+            float fatherH = size.y/11;
+
+            cellSize = Math.Min(fatherH, fatherW);
         }
 
         //0: no room exists there
@@ -140,6 +178,28 @@ namespace HUDNamespace
 
         public int[,] GetWholeMap(){
             return _wholeMap;
+        }
+
+        private void OnEnable(){
+            
+        }
+        
+        private Tuple<int,int,int,int>  GetBorders(){
+            int initCol=15, initRow=15, finCol=0, finRow=0;
+            for (int row = 0; row < 15; row++){
+                for (int col = 0; col < 15; col++){
+                    int val = _wholeMap[col, row];
+                    if (val != 0){
+                        if (col < initCol) initCol = col;
+                        if (col > finCol) finCol = col;
+                        if (row < initRow) initRow = row;
+                        if (row > finRow) finRow = row;
+                    }
+                }
+            }
+            int diffCol = finCol - initCol, diffRow = finRow - initRow;
+
+            return Tuple.Create(initCol, finCol, initRow, finRow);
         }
     }
 }

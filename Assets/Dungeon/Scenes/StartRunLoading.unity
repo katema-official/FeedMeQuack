@@ -1250,7 +1250,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 1731, y: 29}
-  m_SizeDelta: {x: 317.96997, y: 172.0989}
+  m_SizeDelta: {x: 220, y: 220}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &2056781638
 MonoBehaviour:
@@ -1264,7 +1264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e15982a79944239e9a883e3bd197d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellSize: 8.33
+  cellSize: 1
+  _camera: {fileID: 1746838626}
   squarePrefab: {fileID: 7064466828822472568, guid: a807e2690993d2f4785f542a8a2d89fe, type: 3}
 --- !u!1 &2106549842
 GameObject:
