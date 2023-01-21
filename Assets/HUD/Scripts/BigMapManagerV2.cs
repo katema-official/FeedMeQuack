@@ -90,7 +90,7 @@ namespace HUDNamespace
 
             }
             else _camera.transform.localPosition = new Vector3(0,0,-1);
-            _camera.orthographicSize = size;
+            _camera.orthographicSize = size/3.90f;
         }
 
         private void Start(){
