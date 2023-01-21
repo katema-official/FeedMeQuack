@@ -20,6 +20,9 @@ namespace HUDNamespace
         public GameObject[,] mapTiles;
         private BigMapManagerV2 _bigMapManagerV2;
         
+        [SerializeField] private GameObject _miniDuckPrefab;
+        private GameObject _miniDuckGO;
+        
         /*
          * 0 se non compare, 1 grigia, 2 bianca, 3 se è la exit
          */
@@ -51,11 +54,20 @@ namespace HUDNamespace
                     }
                     else if (value == -1){
                         outer.material.color= Color.black;
-                        inner.material.color= Color.yellow;
+                        inner.material.color= Color.white;      //yellow
+                        _miniDuckGO.transform.parent = outer.transform;
+                        _miniDuckGO.transform.position = outer.transform.position;
+                    }else if(value == 4)
+                    {
+                        outer.material.color = Color.black;
+                        inner.material.color = Color.green;
+                        _miniDuckGO.transform.parent = outer.transform;
+                        _miniDuckGO.transform.position = outer.transform.position;
                     }
+
+
                 }
             }
-            //FindObjectOfType<BigMapManager>().DisplayBigMap();
         }
 
         private void Start(){
@@ -87,8 +99,12 @@ namespace HUDNamespace
                 }
             }
             for (int row = 0; row < wholeMapSize; row++)
-            for (int col = 0; col < wholeMapSize; col++)
-                _wholeMap[row, col] = 0;
+                for (int col = 0; col < wholeMapSize; col++)
+                    _wholeMap[row, col] = 0;
+            
+            _miniDuckGO = _miniDuckGO == null ? _miniDuckGO = Instantiate(_miniDuckPrefab) : _miniDuckGO;
+            _miniDuckGO.transform.position = new Vector3(5000, 5000, 0);
+            
             ChangeVisualization();
         }
 
@@ -145,6 +161,9 @@ namespace HUDNamespace
         public void StartNewLevel(){
             foreach(GameObject tileGO in mapTiles)
                 if(tileGO) Destroy(tileGO);
+            
+            _miniDuckGO = null;
+            
             Start();
             _bigMapManagerV2.StartNewLevel();
             //FindObjectOfType<BigMapManager>().StartNewLevel();

@@ -527,6 +527,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellSize: 15
   squarePrefab: {fileID: 7064466828822472568, guid: 8abcac768ea1ec5409fc9c0e8751b9ae, type: 3}
+  _miniDuckPrefab: {fileID: 1253946078215300976, guid: 602ba459d8810ae45be0cc84c023edef, type: 3}
 --- !u!114 &345128691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1194,7 +1195,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2056781637}
-  - component: {fileID: 2056781636}
   - component: {fileID: 2056781635}
   - component: {fileID: 2056781638}
   m_Layer: 5
@@ -1216,20 +1216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89dcda98b0ed4564ea4b181a097d06a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2056781636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2056781633}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b5e6870c5cc4e2e8818336797fb882e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSize: 15
-  squarePrefab: {fileID: 7064466828822472568, guid: 8abcac768ea1ec5409fc9c0e8751b9ae, type: 3}
 --- !u!224 &2056781637
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1267,6 +1253,7 @@ MonoBehaviour:
   cellSize: 1
   _camera: {fileID: 1746838626}
   squarePrefab: {fileID: 7064466828822472568, guid: a807e2690993d2f4785f542a8a2d89fe, type: 3}
+  _miniDuckPrefab: {fileID: 1253946078215300976, guid: 602ba459d8810ae45be0cc84c023edef, type: 3}
 --- !u!1 &2106549842
 GameObject:
   m_ObjectHideFlags: 0

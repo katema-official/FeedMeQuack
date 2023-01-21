@@ -22,6 +22,9 @@ namespace HUDNamespace
         [SerializeField] private GameObject squarePrefab;
         public GameObject[,] mapTiles;
         
+        [SerializeField] private GameObject _miniDuckPrefab;
+        private GameObject _miniDuckGO;
+        
         /*
          * 0 se non compare, 1 grigia, 2 bianca, 3 se è la exit
          */
@@ -34,7 +37,6 @@ namespace HUDNamespace
                     GameObject tile = mapTiles[row, col];
                     Renderer outer = tile.GetComponentsInChildren<Renderer>()[0];
                     Renderer inner = tile.GetComponentsInChildren<Renderer>()[1];
-                    Debug.Log("index r/c: "+row+" "+col);
                     //int value = _wholeMap[relativeX+_shiftRow, relativeY+_shiftCol];
                     int value = _wholeMap[relativeX, relativeY];
                     if (value == 0){
@@ -55,7 +57,15 @@ namespace HUDNamespace
                     }
                     else if (value == -1){
                         outer.material.color= Color.black;
-                        inner.material.color= Color.yellow;
+                        inner.material.color= Color.white;      //yellow
+                        _miniDuckGO.transform.parent = outer.transform;
+                        _miniDuckGO.transform.position = outer.transform.position;
+                    }else if(value == 4)
+                    {
+                        outer.material.color = Color.black;
+                        inner.material.color = Color.green;
+                        _miniDuckGO.transform.parent = outer.transform;
+                        _miniDuckGO.transform.position = outer.transform.position;
                     }
                 }
             }
@@ -126,6 +136,10 @@ namespace HUDNamespace
             for (int row = 0; row < wholeMapSize; row++)
                 for (int col = 0; col < wholeMapSize; col++)
                     _wholeMap[row, col] = 0;
+            
+            _miniDuckGO = _miniDuckGO == null ? _miniDuckGO = Instantiate(_miniDuckPrefab) : _miniDuckGO;
+            _miniDuckGO.transform.position = new Vector3(5000, 5000, 0);
+            
             ChangeVisualization();
         }
 
@@ -183,8 +197,10 @@ namespace HUDNamespace
         public void StartNewLevel(){
             foreach(GameObject tileGO in mapTiles)
                 if(tileGO) Destroy(tileGO);
-            Start();
             //FindObjectOfType<BigMapManager>().StartNewLevel();
+            _miniDuckGO = null;
+            
+            Start();
         }
 
         public int[,] GetWholeMap(){

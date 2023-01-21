@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="099dc64e-a604-4b85-85cc-6be12a6baf46" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Dungeon/Scenes/StartRunLoading.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dungeon/Scenes/StartRunLoading.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/BigMapManagerV2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/BigMapManagerV2.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/MapManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/MapManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +110,7 @@
       <workItem from="1674242458778" duration="9671000" />
       <workItem from="1674295273730" duration="5605000" />
       <workItem from="1674300967545" duration="606000" />
-      <workItem from="1674306400927" duration="7388000" />
+      <workItem from="1674306400927" duration="8243000" />
     </task>
     <servers />
   </component>
