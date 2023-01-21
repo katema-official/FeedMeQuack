@@ -9,7 +9,8 @@ namespace HUDNamespace
     {
         //metodo che di volta in volta ottiene le stanze adiacenti a quella attuale, e con queste nuove informazioni arricchisco di volta in volta la minimappa
         //che vedo il giocatore
-        private int dimSize = 15;
+        private int tilesMatrixSize = 15;
+        private int _wholeMapSize = 31;
         private int currX, currY, xDelta, yDelta;
         private int _shiftRow, _shiftCol;
         private float minimapX, minimapY;
@@ -26,14 +27,16 @@ namespace HUDNamespace
          */
 
         private void ChangeVisualization(){
-            for (int row = 0; row < dimSize; row++){
-                for (int col = 0; col < dimSize; col++){
+            for (int row = 0; row < tilesMatrixSize; row++){
+                for (int col = 0; col < tilesMatrixSize; col++){
                     int relativeX = xDelta + col;
                     int relativeY = yDelta + row;
                     GameObject tile = mapTiles[row, col];
                     Renderer outer = tile.GetComponentsInChildren<Renderer>()[0];
                     Renderer inner = tile.GetComponentsInChildren<Renderer>()[1];
-                    int value = _wholeMap[relativeX+_shiftRow, relativeY+_shiftCol];
+                    Debug.Log("index r/c: "+row+" "+col);
+                    //int value = _wholeMap[relativeX+_shiftRow, relativeY+_shiftCol];
+                    int value = _wholeMap[relativeX, relativeY];
                     if (value == 0){
                         outer.material.color= Color.clear;
                         inner.material.color= Color.clear;
@@ -62,14 +65,15 @@ namespace HUDNamespace
         }
 
         private void AdjustCamera(){
+            int centerIndex = _wholeMapSize/2;
             Tuple<int, int, int, int> tuple = GetBorders();
             int initCol=tuple.Item1, finCol=tuple.Item2, initRow=tuple.Item3, finRow=tuple.Item4;
             int diffCol = finCol - initCol, diffRow = finRow - initRow;
 
             var containerSize = gameObject.GetComponent<RectTransform>().rect;
 
-            float cameraPosX = (float) ((initCol+finCol)/2f-dimSize/2f)* cellSize + containerSize.width/2;
-            float cameraPosY = (float) ((initRow+finRow)/2f-dimSize/2f)* cellSize + containerSize.height/2;
+            float cameraPosX = containerSize.height/2 + ((initRow+finRow)/2f-centerIndex)* cellSize;
+            float cameraPosY = containerSize.width/2 - ((initCol+finCol)/2f-centerIndex)* cellSize;
 
             //Vector2 containerLeftBottomCornerPos = transform.position;
 
@@ -93,35 +97,35 @@ namespace HUDNamespace
             SetCellSize();
             _shiftCol = 0; 
             _shiftRow = 0;
-            int wholeMapSize = 15;
+            int wholeMapSize = 31;
             var position = gameObject.transform.position;
             minimapX = position.x;
             minimapY = position.y;
-            currX = dimSize / 2;
+            currX = tilesMatrixSize / 2;
             currY = currX;
             xDelta = wholeMapSize / 2 - currX;
             yDelta = xDelta;
-            _map = new int[dimSize,dimSize];
+            _map = new int[tilesMatrixSize,tilesMatrixSize];
             _wholeMap = new int[wholeMapSize, wholeMapSize];
             squarePrefab.transform.localScale = new Vector3(cellSize, cellSize, 1);
-            mapTiles = new GameObject[dimSize, dimSize];
-            for (int row = 0; row < dimSize; row++){
-                for (int col = 0; col < dimSize; col++){
+            mapTiles = new GameObject[tilesMatrixSize, tilesMatrixSize];
+            for (int row = 0; row < tilesMatrixSize; row++){
+                for (int col = 0; col < tilesMatrixSize; col++){
                     float xPos = minimapX + (row+0.5f) * cellSize;
-                    float yPos = minimapY + (dimSize-col-1+0.5f) * cellSize;
+                    float yPos = minimapY + (tilesMatrixSize-col-1+0.5f) * cellSize;
                     Vector2 pos = new Vector2(xPos, yPos);
                     GameObject tile=Instantiate(squarePrefab, pos, Quaternion.identity);
                     tile.name = $"Tile {row},{col}";
                     tile.transform.parent = gameObject.transform;
-                    tile.transform.localPosition = new Vector3(cellSize * (row+0.5f), (dimSize - col- 0.5f) * cellSize);
+                    tile.transform.localPosition = new Vector3(cellSize * (row+0.5f), (tilesMatrixSize - col- 0.5f) * cellSize);
                     tile.transform.localScale = new Vector3(cellSize, cellSize);
                     mapTiles[row,col] = tile;
                     _map[row, col] = 0;
                 }
             }
             for (int row = 0; row < wholeMapSize; row++)
-            for (int col = 0; col < wholeMapSize; col++)
-                _wholeMap[row, col] = 0;
+                for (int col = 0; col < wholeMapSize; col++)
+                    _wholeMap[row, col] = 0;
             ChangeVisualization();
         }
 
@@ -129,8 +133,8 @@ namespace HUDNamespace
 
             Vector3 size = gameObject.GetComponent<RectTransform>().rect.size;
 
-            float fatherW = size.x/dimSize;
-            float fatherH = size.y/dimSize;
+            float fatherW = size.x/tilesMatrixSize;
+            float fatherH = size.y/tilesMatrixSize;
 
             cellSize = Math.Min(fatherH, fatherW);
         }
@@ -192,9 +196,9 @@ namespace HUDNamespace
         }
         
         private Tuple<int,int,int,int>  GetBorders(){
-            int initCol=15, initRow=15, finCol=0, finRow=0;
-            for (int row = 0; row < 15; row++){
-                for (int col = 0; col < 15; col++){
+            int initCol=_wholeMapSize, initRow=_wholeMapSize, finCol=0, finRow=0;
+            for (int row = 0; row < _wholeMapSize; row++){
+                for (int col = 0; col < _wholeMapSize; col++){
                     int val = _wholeMap[col, row];
                     if (val != 0){
                         if (col < initCol) initCol = col;

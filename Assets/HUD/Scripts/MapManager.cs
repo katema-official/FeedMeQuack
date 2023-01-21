@@ -62,7 +62,7 @@ namespace HUDNamespace
             if (_bigMapManagerV2 == null) _bigMapManagerV2 = FindObjectOfType<BigMapManagerV2>();
             _shiftCol = 0; 
             _shiftRow = 0;
-            int wholeMapSize = 15;
+            int wholeMapSize = 31;
             var position = gameObject.transform.position;
             minimapX = position.x;
             minimapY = position.y;

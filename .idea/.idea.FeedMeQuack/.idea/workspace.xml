@@ -4,7 +4,7 @@
     <list default="true" id="099dc64e-a604-4b85-85cc-6be12a6baf46" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/BigMapManagerV2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/BigMapManagerV2.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/MapManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/MapManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +109,7 @@
       <workItem from="1674242458778" duration="9671000" />
       <workItem from="1674295273730" duration="5605000" />
       <workItem from="1674300967545" duration="606000" />
-      <workItem from="1674306400927" duration="3088000" />
+      <workItem from="1674306400927" duration="6145000" />
     </task>
     <servers />
   </component>
@@ -133,24 +133,5 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/HUD/Scripts/BigMapManagerV2.cs</url>
-          <line>70</line>
-          <properties documentPath="C:\Users\mvv12\Desktop\FeedMeQuack\Assets\HUD\Scripts\BigMapManagerV2.cs" initialLine="70" containingFunctionPresentation="method 'AdjustCamera'">
-            <startOffsets>
-              <option value="2872" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2966" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
