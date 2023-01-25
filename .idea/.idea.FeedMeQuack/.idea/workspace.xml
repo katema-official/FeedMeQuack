@@ -2,42 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="099dc64e-a604-4b85-85cc-6be12a6baf46" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/chewing rate_fdmq_color5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/chewing rate_fdmq_color5.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/dash_fdmq_v1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/dash_fdmq_v1.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/dash_fdmq_v2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/dash_fdmq_v2.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/eating speed_v2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/eating speed_v2.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/mouth size_fdmq_color3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/mouth size_fdmq_color3.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/speed_fdmq_v2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/speed_fdmq_v2.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/spit_fdmq_v1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/spit_fdmq_v1.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/spit_fdmq_v4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/spit_fdmq_v4.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/steal_fdmq_v1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/steal_fdmq_v1.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/steal_fdmq_v2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/HUD/Sprites/steal_fdmq_v2.png.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FeedMeQuack/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/HUDManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/HUDManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/Sprites/chewing-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/Sprites/chewing-icon.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/Sprites/dash-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/Sprites/dash-icon.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/Sprites/eating-speed-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/Sprites/eating-speed-icon.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/Sprites/mouth-size-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/Sprites/mouth-size-icon.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/Sprites/speed-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/Sprites/speed-icon.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/Sprites/spit-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/Sprites/spit-icon.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/Sprites/steal-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD/Sprites/steal-icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Dungeon/Scenes/StartRunLoading.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dungeon/Scenes/StartRunLoading.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Dungeon/Scripts/Shop/ShopDescriptionComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dungeon/Scripts/Shop/ShopDescriptionComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/BigMapManagerV2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/BigMapManagerV2.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HUD/Scripts/MapManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD/Scripts/MapManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,6 +16,8 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/UIBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/17ac956cc60548a99265250fb859f9813a00/d5/0d641126/NativeInputSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/88d854ea2c91426ebc464f01cd71aa85157a00/3b/77397c23/Vector2.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/88d854ea2c91426ebc464f01cd71aa85157a00/c3/fff5bab4/SceneManager.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -133,6 +105,16 @@
       <workItem from="1672832834176" duration="16000" />
       <workItem from="1672914471962" duration="4147000" />
       <workItem from="1672948704222" duration="292000" />
+      <workItem from="1674206261946" duration="3628000" />
+      <workItem from="1674209941934" duration="3096000" />
+      <workItem from="1674227182340" duration="8155000" />
+      <workItem from="1674236378794" duration="565000" />
+      <workItem from="1674236968326" duration="1468000" />
+      <workItem from="1674242458778" duration="9671000" />
+      <workItem from="1674295273730" duration="5605000" />
+      <workItem from="1674300967545" duration="606000" />
+      <workItem from="1674306400927" duration="9309000" />
+      <workItem from="1674635537479" duration="1100000" />
     </task>
     <servers />
   </component>
