@@ -8,7 +8,7 @@ namespace Music
     public class DisclaimerController : MonoBehaviour
     {
         private const float _timeForMainMenu = 15f;
-        private const string _version = "1.0.5";
+        private const string _version = "1.0.6";
 
         public static string GetGameVersion()
         {
