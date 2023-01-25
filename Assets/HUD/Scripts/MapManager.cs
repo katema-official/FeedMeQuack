@@ -116,7 +116,14 @@ namespace HUDNamespace
             ChangePos(dir);
             int x = xDelta + currX;
             int y = yDelta + currY;
-            _wholeMap[y,x]=-1;
+            if (_wholeMap[y, x] == 3)
+            {
+                _wholeMap[y, x] = 4;
+            }
+            else
+            {
+                _wholeMap[y, x] = -1;
+            }
             _wholeMap[y+1,x]=sud;
             _wholeMap[y-1,x]=nord;
             _wholeMap[y,x+1]=est;
