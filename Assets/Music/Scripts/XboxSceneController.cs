@@ -17,7 +17,7 @@ namespace Music
             if (_time >= _timeForMainMenu || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape) || 
                 Input.GetKeyDown(KeyCode.Insert))
             {
-                SceneManager.LoadScene("PolimiLogo");
+                SceneManager.LoadScene("TeamScreen");
             }
 
             
@@ -27,7 +27,7 @@ namespace Music
             {
                 if (gamepad.startButton.wasPressedThisFrame || gamepad.aButton.wasPressedThisFrame)
                 {
-                    SceneManager.LoadScene("PolimiLogo");
+                    SceneManager.LoadScene("TeamScreen");
                 }
                     
             }
