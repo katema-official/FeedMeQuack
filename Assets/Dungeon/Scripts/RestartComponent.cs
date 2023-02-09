@@ -15,6 +15,7 @@ public class RestartComponent : MonoBehaviour
         Destroy(GameObject.Find("DuckTypeManager"));
         Destroy(GameObject.Find("HUD"));
         Destroy(GameObject.Find("Minimap"));
+        Destroy(GameObject.Find("BigMinimap"));
         Destroy(GameObject.Find("LevelIntroUI"));
         if (GameObject.Find("Tutorial")) Destroy(GameObject.Find("Tutorial"));
 
