@@ -45,11 +45,11 @@ public class TutorialComponent : MonoBehaviour
       
         
         //eating tutorial
-        {_tutorialEat1, "Bite the thrown " + ColorString("bread", "CD6E3B") + " with the " + ColorString("E key", "494D42") + "/" + ColorString("Left Mouse Button", "494D42") + " or the " + ColorString("A", "00FD10") + " button when close enough."},
+        {_tutorialEat1, "Bite the thrown " + ColorString("bread", "CD6E3B") + " with the " + ColorString("E key", "FFFF00") + "/" + ColorString("Left Mouse Button", "FFFF00") + " or the " + ColorString("A", "00FD10") + " button when close enough."},
         
         
         {_tutorialEat2,
-            "Each piece of bread has a certain amount of Bread Points (BP).\n"+
+            "Each piece of " + ColorString("bread", "CD6E3B") + " has a certain amount of " + ColorString("Bread Points (BP)", "CD6E3B") + ".\n"+
             "When you start to eat a piece of bread, its BPs are shown at the top of your duck, with a fork/knife icon on its left.\n" +
             "Since you eat BPs, you'll see the number placed above your duck shrink more and more.\n"},
         {_tutorialEat3,
@@ -57,13 +57,13 @@ public class TutorialComponent : MonoBehaviour
             "So, you will " + ColorString("just bite a piece", "FF0000") + " of it.\n"+
             "The rest of the bread will stay on the lake surface to be eaten at a later time."},
 
-          {_tutorialEat4, 
-            "Distant pieces of breads, outside your view, will be highlighted through directional arrows.\n" +
+          {_tutorialEat4,
+            "Distant pieces of breads, outside your view, will be highlighted through " + ColorString("directional arrows", "CD6E3B") + ".\n" +
             "This useful markers will help you to locate and catch the various pieces of breads before the other ducks!\n"},
 
 
           {_tutorialEat5,
-            "Your goal is to eat enough pieces of breads (and so their Bread Points) to win the run!\n"},
+            "Your goal is to " + ColorString("eat enough", "CD6E3B") + " pieces of breads (and so their Bread Points) " + ColorString("to win", "CD6E3B") + " the run!\n"},
 
 
 
@@ -77,18 +77,18 @@ public class TutorialComponent : MonoBehaviour
         
         {_tutorialUI1,
             "Check your statistics through the User Interface!\n"+
-            "The eaten " + ColorString("BPs", "CD6E3B") +" are shown in the " + ColorString("upper left corner panel.", "D7C36A") +"\n"+
+            "The eaten " + ColorString("BPs", "CD6E3B") +" are shown in the " + ColorString("upper-left corner panel.", "D7C36A") +"\n"+
             "Beside the eaten BPs, you can find the goal of the current stage in terms of BPs, colored in orange.\n"},
 
 
         {_tutorialUI2, 
-            "Check the status of your skills in the " + ColorString("lower left corner panel.", "D7C36A")+"\n"+
+            "Check the status of your skills in the " + ColorString("lower-left corner panel.", "D7C36A")+"\n"+
             "Press Tab or the View Button to open the Statistics View."},
 
           {_tutorialUI3,
-            "Use the minimap in the " + ColorString("upper right corner", "D7C36A") + " to orient yourself.\n"+
+            "Use the minimap in the " + ColorString("upper-right corner", "D7C36A") + " to orient yourself.\n"+
             "The " + ColorString("small duck", "FFFF00") + " tells you in which lake you are currently.\n"+
-            "The " + ColorString("green square", "00FF00") + " is the lake containing a passage to the shop: just follow the " + ColorString("End Brown Sign", "A18534") + " on its shore..."
+            "The " + ColorString("green square", "00FF00") + " is the final lake of the stage containing a passage to the shop: just follow the " + ColorString("End Brown Sign", "A18534") + " on its shore..."
             },
 
 
@@ -102,9 +102,9 @@ public class TutorialComponent : MonoBehaviour
                 },
 
           {_tutorialShop2,
-                 "Press the E key or the A button to buy a power up.\n"+
-                 "Check carefully its description and, most of all, its cost.\n"+
-                 "Open the Statistics View with Tab or View button to see how your skills and statistics change when you buy a power-up."
+                 "Press the " + ColorString("E key", "FFFF00") + " or the " + ColorString("A button", "00FF00") + " to buy a power up.\n"+
+                 "" + ColorString("Check", "CD6E3B") + " carefully its description and, most of all, its cost.\n"+
+                 "" + ColorString("Open the Statistics View", "CD6E3B") + " with Tab or View button to see how your skills and statistics change when you buy a power-up."
                 },
 
          {_tutorialShop3,
@@ -113,9 +113,20 @@ public class TutorialComponent : MonoBehaviour
                 },
 
 
-        {_tutorialCommands1, "Eating is not your only skill.\nUse " + ColorString("Shift", "494D42") + "/" + ColorString("Mouse Wheel Button", "494D42") + " or the " + ColorString("B", "F80000") + " button to dash.\nPress again to stop.\n"},
-        {_tutorialCommands2,"Use " + ColorString("Space", "494D42") + " or the " + ColorString("Y", "F87700") + " button to steal bread from an enemy.\nYour victim won't let it go that easily thought...\n" },
-        {_tutorialCommands3,"Use " + ColorString("Q", "494D42") + "/" + ColorString("Right Mouse Button", "494D42") + " or " + ColorString("X", "0068FF") + " to grab a piece of bread.\nThen, keep it pressed to charge and spit it!\n"},
+        {_tutorialCommands1, 
+            "Eating is not your only skill.\n"+
+            "Use " + ColorString("Shift", "FFFF00") + "/" + ColorString("Mouse Wheel Button", "FFFF00") + " or the " + ColorString("B", "F80000") + " button to dash.\n"+
+            "When you dash, you have the ability to fly over the terrain.\n"+
+            "Press the dash button again to stop.\n"},
+       
+        
+        
+        
+        
+        
+        
+        {_tutorialCommands2,"Use " + ColorString("Space", "FFFF00") + " or the " + ColorString("Y", "F87700") + " button to steal bread from an enemy.\nYour victim won't let it go that easily thought...\n" },
+        {_tutorialCommands3,"Use " + ColorString("Q", "FFFF00") + "/" + ColorString("Right Mouse Button", "FFFF00") + " or " + ColorString("X", "0068FF") + " to grab a piece of bread.\nThen, keep it pressed to charge and spit it!\n"},
         {_tutorialCommands4,
             "All your skills have a cooldown.\n"+
             "Check them on the Statistics View (the one in the lower left corner).\n" +

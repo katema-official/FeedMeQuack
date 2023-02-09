@@ -86,6 +86,7 @@ namespace Music
             Destroy(GameObject.Find("DuckTypeManager"));
             Destroy(GameObject.Find("HUD"));
             Destroy(GameObject.Find("Minimap"));
+            Destroy(GameObject.Find("BigMinimap"));
             if (GameObject.Find("Tutorial")) Destroy(GameObject.Find("Tutorial"));
             SceneManager.LoadScene("Music/MainMenu");
          
