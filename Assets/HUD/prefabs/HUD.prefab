@@ -628,7 +628,7 @@ GameObject:
   - component: {fileID: 8917086017403037954}
   - component: {fileID: 9179290925978419272}
   m_Layer: 5
-  m_Name: Background
+  m_Name: MinimapRenderTexture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -641,17 +641,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3801966892483506986}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7691356722625150537}
-  m_RootOrder: 0
+  m_Children:
+  - {fileID: 7691356722625150537}
+  m_Father: {fileID: 7691356721995292393}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 820.87, y: 402.88}
   m_SizeDelta: {x: 240, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8917086017403037954
@@ -3203,7 +3204,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4639951875832052237}
-  - {fileID: 7691356722625150537}
+  - {fileID: 2946687302693800664}
   - {fileID: 7691356722120658709}
   - {fileID: 7691356721864430770}
   - {fileID: 7691356721664014002}
@@ -5122,7 +5123,7 @@ GameObject:
   - component: {fileID: 7691356722625150539}
   - component: {fileID: 7691356722625150538}
   m_Layer: 5
-  m_Name: MinimapRenderTexture
+  m_Name: MinMapTexture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5135,18 +5136,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7691356722625150536}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2946687302693800664}
-  m_Father: {fileID: 7691356721995292393}
-  m_RootOrder: 1
+  m_Children: []
+  m_Father: {fileID: 2946687302693800664}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -139.13, y: -137.12}
+  m_AnchoredPosition: {x: -120, y: -120}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7691356722625150539
@@ -6737,7 +6737,7 @@ MonoBehaviour:
   breadsOutsideScreen: []
   camera: {fileID: 0}
   ToggableHUD: {fileID: 7691356722120658708}
-  CompactMinimap: {fileID: 0}
+  CompactMinimap: {fileID: 3801966892483506986}
   speedValueText: {fileID: 7691356722574785326}
   eatingSpeedValueText: {fileID: 7691356722955427046}
   mouthSizeValueText: {fileID: 7691356721867253568}
